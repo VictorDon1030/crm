@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!--组件扫描器-->
+	<context:component-scan base-package="cn.wolfcode.crm"/>
+	<!--自动DI解析器-->
+	<context:annotation-config/>
+
+	<context:property-placeholder location="classpath:db.properties" system-properties-mode="NEVER"/>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis.xml"/>
+		<property name="mapperLocations" value="classpath:cn/wolfcode/crm/mapper/*.xml"/>
+		<property name="typeAliasesPackage" value="cn.wolfcode.crm.domain"/>
+	</bean>
+	<bean id="logUtil" class="cn.wolfcode.crm.util.SystemLogUtil"/>
+
+	<bean id="tx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+ 	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="tx">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+			<tx:method name="list*" read-only="true" propagation="SUPPORTS"/>
+			<tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
+			<tx:method name="select*" read-only="true" propagation="SUPPORTS"/>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* cn.wolfcode.crm.service.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+		<aop:aspect ref="logUtil">
+			<aop:after method="writeLog" pointcut-ref="pc"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.wolfcode.crm.mapper"/>
+	</bean>
+
+	<aop:config proxy-target-class="true"/>
+	<!-- 开启shiro注解支持 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+</beans>

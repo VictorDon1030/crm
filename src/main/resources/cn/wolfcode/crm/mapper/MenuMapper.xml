@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Menu">
+    <id column="id" property="id" />
+    <result column="text" property="text" />
+    <result column="url" property="url" />
+    <result column="iconCls" property="iconCls" />
+
+    <association property="permission" javaType="Permission" column="permission_id" fetchType="eager"
+                 select="cn.wolfcode.crm.mapper.PermissionMapper.selectByPrimaryKey"/>
+
+    <association property="parent" javaType="Menu" columnPrefix="p_">
+      <id property="id" column="id"/>
+      <result column="text" property="text"/>
+    </association>
+    <collection property="children" ofType="Menu" column="id" select="getChildrenMenu" fetchType="eager"/>
+  </resultMap>
+
+  <select id="getRootMenu" resultMap="BaseResultMap">
+    SELECT * from menu where parent_id is null;
+  </select>
+
+  <select id="getChildrenMenu" resultMap="BaseResultMap">
+    SELECT * from menu where parent_id = #{id}
+  </select>
+
+  <delete id="deleteByParentId">
+    DELETE from menu where parent_id = #{id};
+  </delete>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey">
+    delete from menu
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into menu (text, url, parent_id, iconCls)
+    values (#{text}, #{url}, #{parent.id}, #{iconCls})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update menu
+    set text = #{text},
+      url = #{url},
+      parent_id = #{parent.id},
+      iconCls = #{iconCls}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, text, url, parent_id, iconCls
+    from menu
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, text, url, parent_id, iconCls
+    from menu
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="parentId >0">
+        and child.parent_id = #{parentId}
+      </if>
+      <if test="parentId &lt; 0">
+        and child.parent_id is null
+      </if>
+    </where>
+  </sql>
+  <select id="selectMenus" resultMap="BaseResultMap">
+    select child.id,child.text,child.url,child.parent_id,child.iconCls,
+      parent.id p_id,parent.text p_text
+    from menu child left join menu parent
+        on child.parent_id = parent.id
+    <include refid="base_where"/>
+  </select>
+</mapper>
