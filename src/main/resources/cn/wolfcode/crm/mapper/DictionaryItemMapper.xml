@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.DictionaryItemMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.DictionaryItem">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="intro" property="intro"/>
+        <!--关联字典查询-->
+        <association property="dictionary" javaType="Dictionary" columnPrefix="d_">
+            <id column="id" property="id"/>
+            <result column="sn" property="sn"/>
+            <result column="name" property="name"/>
+            <result column="intro" property="intro"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM dictionaryitem
+        WHERE id = #{id}
+    </delete>
+    <!--打破关系的操作-->
+    <delete id="deleteRelation">
+        delete from dictionaryitem where dictionary_id=#{dictionaryId}
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO dictionaryitem (name, intro, dictionary_id)
+        VALUES (#{name}, #{intro}, #{dictionary.id})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE dictionaryitem
+        SET name          = #{name},
+            intro         = #{intro},
+            dictionary_id = #{dictionary.id}
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+            id,
+            name,
+            intro,
+            dictionary_id
+        FROM dictionaryitem
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table" />
+    </select>
+    <select id="query4Count" resultType="int">
+        SELECT count(item.id)
+        <include refid="base_table" />
+    </select>
+    <select id="query4List" resultMap="BaseResultMap">
+       <include refid="base_column"/>
+        <include refid="base_table" />
+        <include refid="base_choose" />
+        LIMIT #{start}, #{rows}
+    </select>
+    <!--点击字典的时候,查询明细-->
+    <select id="selectItemByDictionaryId" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table" />
+        WHERE item.dictionary_id = #{dictionaryId}
+    </select>
+
+
+    <!--使用sql分开行和列-->
+    <sql id="base_column">
+        SELECT
+            item.id,
+            item.name,
+            item.intro,
+            d.id   d_id,
+            d.name d_name,
+            d.sn d_sn,
+            d.intro d_intro
+    </sql>
+    <sql id="base_table">
+        FROM dictionaryitem item LEFT JOIN dictionary d ON item.dictionary_id = d.id
+    </sql>
+<sql id="base_choose">
+    <where>
+            item.dictionary_id = #{dictionaryId}
+    </where>
+</sql>
+
+</mapper>
