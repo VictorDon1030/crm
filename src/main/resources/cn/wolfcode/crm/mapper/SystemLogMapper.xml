@@ -7,19 +7,19 @@
     <result column="opIp" property="opIp" />
     <result column="function" property="function" />
     <result column="params" property="params" />
-    <result column="opUser" property="opUser.username" />
+    <result column="opUser_id" property="opUser.id" />
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from systemlog
     where id = #{id}
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into systemlog (opUser, opTime, opIp, function, params)
-    values (#{opUser.username}, #{opTime}, #{opIp}, #{function}, #{params})
+    insert into systemlog (opUser_id, opTime, opIp, function, params)
+    values (#{opUser.id}, #{opTime}, #{opIp}, #{function}, #{params})
   </insert>
   <update id="updateByPrimaryKey">
     update systemlog
-    set opUser = #{opUser.username},
+    set opUser_id = #{opUser.id},
       opTime = #{opTime},
       opIp = #{opIp},
       function = #{function},
@@ -27,12 +27,12 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, opUser, opTime, opIp, function, params
+    select id, opUser_id, opTime, opIp, function, params
     from systemlog
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, opUser, opTime, opIp, function, params
+    select id, opUser_id, opTime, opIp, function, params
     from systemlog
   </select>
 </mapper>
