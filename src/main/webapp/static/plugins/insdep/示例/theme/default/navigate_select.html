@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<link rel="shortcut icon" href="../../../favicon.ico" />
+<title>演示 - Baidu主题 - jQuery EasyUI 1.5.x Of Insdep theme examples 2.0.0</title>
+
+<!--顶部进度加载库-->
+<script src='../../../insdep/plugin/nprogress-0.2.0/nprogress.js'></script>
+<link rel='stylesheet' href='../../../insdep/plugin/nprogress-0.2.0/nprogress.css'/>
+<!--顶部进度加载库 end-->
+
+<!--CSS Reset-->
+<!--说明：根据使用要求，此处可选 reset.min.css 或 normalize.min.css-->
+<link href="../../../insdep/reset.min.css" rel="stylesheet" type="text/css">
+<!--CSS Reset end-->
+
+<!-- CSS Easyui Of insdep theme-->
+<link href="../../../insdep/easyui_full.css" rel="stylesheet" type="text/css">
+<!-- CSS Easyui Of insdep theme end-->
+
+
+<!-- CSS 动画样式-->
+<link href="../../../insdep/plugin/animate-3.5.2/animate-3.5.2.css" rel="stylesheet" type="text/css">
+<!-- CSS 动画样式 end-->
+
+<!-- CSS 主题样式-->
+<link href="../../../insdep/theme.default/master.css" rel="stylesheet" type="text/css">
+<!-- CSS 主题样式 end-->
+
+<!-- CSS Alibaba iconfont字体图标库-->
+<link href="../../../insdep/iconfont/iconfont.css" rel="stylesheet" type="text/css">
+<!-- CSS Alibaba iconfont字体图标库 end-->
+
+<!-- Jquery-->
+<script type="text/javascript" src="../../../jquery-1.11.3.min.js"></script>
+<!-- Jquery end-->
+
+<!-- Jquery Easyui-->
+<script type="text/javascript" src="../../../jquery.easyui-1.5.2.min.js"></script>
+<!-- Jquery Easyui end-->
+
+<!-- JavaScript Easyui Of insdep theme 初始化扩展-->
+<script type="text/javascript" src="../../../insdep/insdep-extend.min.js"></script>
+<!-- JavaScript Easyui Of insdep theme 初始化扩展 end-->
+
+
+<!-- JavaScript 主题脚本-->
+<script type="text/javascript" src="../../../insdep/theme.default/master.js"></script>
+<!-- JavaScript 主题脚本 end-->
+
+</head>
+
+<body>
+    <!--启动顶部加载进度条-->
+    <script>NProgress.start();</script>
+    <!--显示遮罩层-->
+    <div class="initial-mask" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#fff;z-index:9999999;"></div>
+
+
+
+
+
+    <!--主题整体布局-->
+
+    <div class="easyui-layout theme-layout" data-options="fit:true">
+
+        <!--north 顶部布局-->
+        <div class="theme-header-layout" data-options="region:'north'">
+
+            <!--顶部导航布局-->
+            <div class="theme-header-navigate">
+
+                <!--顶部导航左侧布局-->
+                <div class="left">
+                    <a href="#" class="easyui-linkbutton"><span class="iconfont theme-left-menu-switch">&#xe640;</span></a>
+                    <!--用户信息-->
+                    <a href="#" class="easyui-menubutton theme-header-navigate-user-button" data-options="menu:'.theme-header-navigate-user-panel'">匿名</a>
+                    <div class="theme-header-navigate-user-panel">
+                       <dl>
+                            <dd>
+                                <img src="../../../insdep/theme.default/images/portrait_250x250.png" width="86" height="86">
+                                <b>匿名<i class="badge color-red">10</i></b>
+                                <span class="font-grayish">examples@insdep.com</span>
+                                <p>安全等级：<i class="font-green">高</i></p>
+                            </dd>
+                            <dt>
+                                <a class="theme-navigate-user-modify">修改资料</a>
+                                <a class="theme-navigate-user-logout">注销</a>
+                            </dt>
+                       </dl>
+                    </div>
+
+                    <!--导航-->
+
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单1</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单2<span class="badge color-red">15</span></a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',selected:true">菜单3</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单4</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单5</a>
+
+                    <div class="theme-header-navigate-sep"></div>
+
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2',selected:true">选项1<span class="badge-tip color-red"></span></a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2'">选项2</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g2'">选项3</a>
+
+                </div>
+                <!--顶部导航左侧布局 end-->
+
+                <!--顶部导航右侧布局-->
+                <div class="right">  
+
+                <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3',selected:true"><span class="iconfont">&#xea6d;<span class="badge-tip color-red"></span></span></a>
+                <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3'"><span class="iconfont">&#xe65e;<span class="badge-tip color-red"></span></span></a>
+                <div class="theme-header-navigate-sep"></div>
+                <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3'"><span class="iconfont">&#xe690;</span></a>
+                <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g3'"><span class="iconfont">&#xe684;</span></a>
+
+                    
+                </div>
+                <!--顶部导航右侧布局 end-->
+            </div>
+            <!--顶部导航布局 end-->
+
+        </div>
+        <!--north 顶部布局 end-->
+
+        <!--West 左侧布局-->
+        <div class="theme-left-layout" data-options="region:'west'">
+
+
+        </div>
+        <!--West 左侧布局 end-->
+
+
+        <!--Center 中心布局-->
+        <div class="theme-center-layout" data-options="region:'center'">
+
+
+
+
+        </div>
+        <!--Center 中心布局 end-->
+
+    </div>
+
+    <!--主题整体布局 end-->
+
+
+
+
+
+
+    <script>
+    /* 页面加载完成后 */
+    // JavaScript #1
+    $(document).ready(function(){ 
+
+        
+
+        /*结束顶部加载进度条*/
+        NProgress.done();
+        /*移除遮罩层*/
+    　　$(".initial-mask").remove();
+
+    }); 
+    // JavaScript #1
+    /* 页面加载完成后 end*/
+
+
+    </script>
+
+    <!--百度统计脚本(可删除)-->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?2b3f4e046085001a80d501ac63aded48";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <!--百度统计脚本(可删除) end-->
+
+</body>
+</html>
