@@ -18,9 +18,9 @@ public interface DepartmentMapper {
     int updateByPrimaryKey(Department entity);
 
 
+    void changeState(Long id);
+
     int queryCount(QueryObject qo);
 
     List<Department> queryForList(QueryObject qo);
-
-    void changeState(Long id);
 }
