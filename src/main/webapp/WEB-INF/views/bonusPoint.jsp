@@ -29,7 +29,7 @@
                         </div>
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
-                                <h3 style="margin-left: 80px">会员姓名 <span class="badge color-green">已认证</span></h3>
+                                <h3 id="memberName"  style="margin-left: 110px">会员姓名</h3>
                                 &emsp;
                                 <ul>
                                     <li><span style="font-size: medium">会员卡号：</span><span
@@ -60,16 +60,25 @@
                         </div>
                     </div>
                 </td>
-                <td>&emsp; &emsp;&emsp;&emsp;</td>
+                <td>&emsp; </td>
                 <td style="margin-top: 10px">
-                    <div id="" class="easyui-datagrid"
-                         style="width:450px;height:400px;padding:10px;"
-                         data-options="border:true,toolbar:'#tt'">
+                    <table id="memberSimpleInfo" class="easyui-datagrid"
+                         style="width:100%;height:400px;padding:10px;"
+                         data-options="singleSelect:true,border:false,url:'static/json/test.json',method:'get',striped:true,fitColumns:true,toolbar:'#tt'">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'a',width:120,align:'center'">会员卡号</th>
+                            <th data-options="field:'b',width:110,align:'center'">会员姓名</th>
+                            <th data-options="field:'c',width:87,align:'center'">会员等级</th>
+                            <th data-options="field:'d',width:200,align:'center'">电话</th>
+                            <th data-options="field:'e',width:100,align:'center'">余额</th>
+                        </tr>
+                        </thead>
 
-                    </div>
+                    </table>
                     <div id="tt">
-                        <input class="easyui-textbox" data-options="prompt:'Please Input Value',height:38"
-                               style="width:80%"/>
+                        <input class="easyui-textbox" data-options="prompt:'请输入会员卡号或电话进行查询',height:38"
+                               style="width:85%"/>
                         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
                            style="width:80px">搜索</a>
                     </div>
@@ -80,16 +89,18 @@
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
                                 <ul>
+                                <form action="#" method="post">
+                                    <input id="hiddenMemberId" type="hidden" name="id" />
                                     <li><span style="font-size: medium">选择类型：</span>
-                                        &emsp; <input type="checkbox" name="type" style="font-size: medium;">充值</input>
-                                        &emsp; &emsp;&emsp;&emsp; <input type="checkbox" name="type"
-                                                                         style="font-size: medium">扣除</input>
+                                        &emsp; <input type="radio" name="type" value="1" style="font-size: medium;" checked>充值</input>
+                                        &emsp; &emsp;&emsp;<input type="radio" value="0" name="type" style="font-size: medium">扣除</input>
                                     </li>
                                     &emsp;
                                     <li><span style="font-size: medium;">变动金额：</span>
                                         <input class="easyui-textbox" name="amount" style="font-size: medium;"
-                                               data-options="prompt:'请输入要改变的积分金额'"></input>
+                                               data-options="prompt:'请输入要改变的积分金额'"/>
                                     </li>
+                                </form>
                                     &emsp;
                                     <li>
                                         <a href="#" class="easyui-linkbutton" data-options=""
@@ -111,16 +122,18 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    <table class="easyui-datagrid" title="Basic DataGrid" style="width: 100%"
-                           data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'post',fitColumns:true">
+                    <table class="easyui-datagrid"  style="width: 100%"
+                           data-options="singleSelect:true,border:false,url:'',method:'post',fitColumns:true,pagination:true,striped:true">
                         <thead>
                         <tr>
-                            <th data-options="field:'itemid',width:80">Item ID</th>
-                            <th data-options="field:'productid',width:100">Product</th>
-                            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
-                            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
-                            <th data-options="field:'attr1',width:250">Attribute</th>
-                            <th data-options="field:'status',width:60,align:'center'">Status</th>
+                            <th data-options="field:'itemid',width:80,align:'center'">会员卡号</th>
+                            <th data-options="field:'productid',width:100,align:'center'">会员姓名</th>
+                            <th data-options="field:'listprice',width:80,align:'center'">会员等级</th>
+                            <th data-options="field:'unitcost',width:80,align:'center'">操作人员</th>
+                            <th data-options="field:'attr1',width:250,align:'center'">操作类型</th>
+                            <th data-options="field:'status',width:60,align:'center'">变动数额</th>
+                            <th data-options="field:'status',width:60,align:'center'">操作时间</th>
+                            <th data-options="field:'status',width:60,align:'center'">备注</th>
                         </tr>
                         </thead>
                     </table>
