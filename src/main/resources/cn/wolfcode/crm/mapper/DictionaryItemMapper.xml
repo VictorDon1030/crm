@@ -5,12 +5,14 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="intro" property="intro"/>
+        <result column="state" property="state"/>
         <!--关联字典查询-->
         <association property="dictionary" javaType="Dictionary" columnPrefix="d_">
             <id column="id" property="id"/>
             <result column="sn" property="sn"/>
             <result column="name" property="name"/>
             <result column="intro" property="intro"/>
+            <result column="state" property="state"/>
         </association>
     </resultMap>
     <delete id="deleteByPrimaryKey">
@@ -19,11 +21,12 @@
     </delete>
     <!--打破关系的操作-->
     <delete id="deleteRelation">
-        delete from dictionaryitem where dictionary_id=#{dictionaryId}
+        DELETE FROM dictionaryitem
+        WHERE dictionary_id = #{dictionaryId}
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO dictionaryitem (name, intro, dictionary_id)
-        VALUES (#{name}, #{intro}, #{dictionary.id})
+        INSERT INTO dictionaryitem (name, intro, dictionary_id, state)
+        VALUES (#{name}, #{intro}, #{dictionary.id}, #{state})
     </insert>
     <update id="updateByPrimaryKey">
         UPDATE dictionaryitem
@@ -37,50 +40,64 @@
             id,
             name,
             intro,
+            state,
             dictionary_id
         FROM dictionaryitem
         WHERE id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         <include refid="base_column"/>
-        <include refid="base_table" />
+        <include refid="base_table"/>
     </select>
     <select id="query4Count" resultType="int">
         SELECT count(item.id)
-        <include refid="base_table" />
+        <include refid="base_table"/>
     </select>
     <select id="query4List" resultMap="BaseResultMap">
-       <include refid="base_column"/>
-        <include refid="base_table" />
-        <include refid="base_choose" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        <include refid="base_choose"/>
         LIMIT #{start}, #{rows}
     </select>
     <!--点击字典的时候,查询明细-->
     <select id="selectItemByDictionaryId" resultMap="BaseResultMap">
         <include refid="base_column"/>
-        <include refid="base_table" />
+        <include refid="base_table"/>
         WHERE item.dictionary_id = #{dictionaryId}
     </select>
 
-
+    <!--使用到数据字典的操作,根据字典的sn进行查询-->
+    <select id="dictionaryItemService" resultType="dictionaryItem">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        where d.sn = #{dictionarySn}
+    </select>
+    <!--设置状态-->
+    <update id="changeState">
+        UPDATE dictionaryitem
+        SET state = state ^ 1
+        WHERE id = #{id}
+    </update>
     <!--使用sql分开行和列-->
     <sql id="base_column">
         SELECT
             item.id,
             item.name,
             item.intro,
-            d.id   d_id,
-            d.name d_name,
-            d.sn d_sn,
-            d.intro d_intro
+            item.state,
+            d.id    d_id,
+            d.name  d_name,
+            d.sn    d_sn,
+            d.intro d_intro,
+            d.state d_state
     </sql>
     <sql id="base_table">
         FROM dictionaryitem item LEFT JOIN dictionary d ON item.dictionary_id = d.id
     </sql>
-<sql id="base_choose">
-    <where>
+    <sql id="base_choose">
+        <where>
             item.dictionary_id = #{dictionaryId}
-    </where>
-</sql>
+        </where>
+    </sql>
 
 </mapper>

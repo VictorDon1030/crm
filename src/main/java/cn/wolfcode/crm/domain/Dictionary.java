@@ -23,4 +23,7 @@ public class Dictionary extends BaseDomain {
     private String intro;
     //字典明细,一对多
     private List<DictionaryItem> items;
+
+    //字典状态
+    private boolean state = true;
 }

@@ -44,6 +44,9 @@ public class DictionaryController {
 
         return dictionaryService.selectAll();
     }
+
+
+
     /*添加部门*/
     @RequestMapping("saveOrUpdate")
     @ResponseBody
@@ -74,5 +77,15 @@ public class DictionaryController {
     }
 
 
-
+    @RequestMapping("changeState")
+    @ResponseBody
+    public Object changeState(Long id){
+        JsonResult result = new JsonResult();
+        try {
+            dictionaryService.changeState(id);
+        } catch (Exception e){
+            result.mark("设置失败");
+        }
+        return result;
+    }
 }

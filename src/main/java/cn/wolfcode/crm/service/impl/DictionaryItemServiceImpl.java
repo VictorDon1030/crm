@@ -72,5 +72,16 @@ public class DictionaryItemServiceImpl implements IDictionaryItemService {
         return dictionaryItemMapper.selectItemByDictionaryId(DictionaryId);
     }
 
+    @Override
+    public List<DictionaryItem> selectItemByDictionarySn(String dictionarySn) {
+        return dictionaryItemMapper.dictionaryItemService(dictionarySn);
+    }
+
+    @Override
+    public void changeState(Long id) {
+        dictionaryItemMapper.changeState(id);
+    }
+
+
 
 }

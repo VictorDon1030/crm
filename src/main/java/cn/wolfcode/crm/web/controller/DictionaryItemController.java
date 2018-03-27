@@ -29,9 +29,15 @@ public class DictionaryItemController {
     }
 
 
+    /*根据sn查询对应的数据字典*/
+    @RequestMapping("selectItemByDictionarySn")
+    @ResponseBody
+    public Object selectItemByDictionarySn(String dictionarySn) {
 
+        return dictionaryItemService.selectItemByDictionarySn(dictionarySn);
+    }
 
-/*返回查询的数据,显示在部门的页面*/
+/*返回查询的数据,显示在明细的页面*/
     @RequestMapping("list")
     @ResponseBody
     public Object list(QueryObject qo) {
@@ -60,7 +66,7 @@ public class DictionaryItemController {
         }
         return jsonUtil;
     }
-    /*添加部门*/
+    /*删除*/
     @RequestMapping("delete")
     @ResponseBody
     public Object delete(Long id) {
@@ -74,7 +80,7 @@ public class DictionaryItemController {
         }
         return jsonUtil;
     }
-    /*添加明细*/
+    /*根据字典id查询明细*/
     @RequestMapping("selectItemByDictionaryId")
     @ResponseBody
     public Object selectItemByDictionaryId(DictionaryItemQueryObject qo) {
@@ -84,7 +90,17 @@ public class DictionaryItemController {
     }
 
 
-
+    @RequestMapping("changeState")
+    @ResponseBody
+    public Object changeState(Long id){
+        JsonResult result = new JsonResult();
+        try {
+            dictionaryItemService.changeState(id);
+        } catch (Exception e){
+            result.mark("设置失败");
+        }
+        return result;
+    }
 
 
 }

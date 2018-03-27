@@ -24,4 +24,8 @@ public interface IDictionaryItemService {
 
 
     List<DictionaryItem> selectItemByDictionaryId(Long DictionaryId);
+
+    List<DictionaryItem> selectItemByDictionarySn(String dictionarySn);
+
+    void changeState(Long id);
 }

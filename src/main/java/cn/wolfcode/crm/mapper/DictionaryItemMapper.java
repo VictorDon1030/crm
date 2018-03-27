@@ -23,4 +23,8 @@ public interface DictionaryItemMapper {
     List<DictionaryItem> selectItemByDictionaryId(Long dictionaryId);
 
     void deleteRelation(Long dictionaryId);
+
+    List<DictionaryItem> dictionaryItemService(String dictionarySn);
+
+    void changeState(Long id);
 }
