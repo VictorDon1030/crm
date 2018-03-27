@@ -27,4 +27,6 @@ public interface DictionaryItemMapper {
     List<DictionaryItem> dictionaryItemService(String dictionarySn);
 
     void changeState(Long id);
+
+    String selectById(Long id);
 }

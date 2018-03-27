@@ -7,12 +7,15 @@
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>
         <result column="password" property="password"/>
-        <result column="grade_id" property="gradeId"/>
-        <result column="payment_id" property="paymentId"/>
         <result column="points" property="points"/>
         <result column="balance" property="balance"/>
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
+        <result column="birthday" property="birthday"/>
+        <association property="grade" javaType="DictionaryItem" columnPrefix="grade_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
     </resultMap>
     <delete id="deleteByPrimaryKey">
         DELETE FROM member
@@ -20,9 +23,9 @@
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
-                            points, balance, usefullife, onUser_id,state)
-        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{gradeId}, #{paymentId},
-                #{points}, #{balance}, #{usefullife}, #{onUser.id},#{state})
+                            points, balance, usefullife, onUser_id, state,birthday)
+        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
+                              #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state},#{birthday})
     </insert>
     <update id="updateByPrimaryKey">
         UPDATE member
@@ -30,8 +33,9 @@
             name       = #{name},
             phone      = #{phone},
             password   = #{password},
-            grade_id      = #{gradeId},
-            payment_id    = #{paymentId},
+            grade_id   = #{grade.id},
+            payment_id = #{payment.id},
+            birthday = #{birthday},
             points     = #{points},
             balance    = #{balance},
             usefullife = #{usefullife},
@@ -39,60 +43,52 @@
         WHERE id = #{id}
     </update>
 
-<!--设置会员是否挂失-->
+    <!--设置会员是否挂失-->
     <update id="changeState">
-        update member set state = state^1 where id = #{id}
+        UPDATE member
+        SET state = state ^ 1
+        WHERE id = #{id}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        SELECT
-            id,
-            memberNum,
-            name,
-            phone,
-            password,
-            grade_id,
-            payment_id,
-            points,
-            balance,
-            usefullife,
-            onUser_id,
-            state
-        FROM member
+        <include refid="base_column" />
+        <include refid="base_table" />
         WHERE id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
-        SELECT
-            id,
-            memberNum,
-            name,
-            phone,
-            password,
-            grade_id,
-            payment_id,
-            points,
-            balance,
-            usefullife,
-            onUser_id,
-            state
-        FROM member
+        <include refid="base_column" />
+        <include refid="base_table" />
     </select>
     <select id="queryCount" resultType="int" parameterType="cn.wolfcode.crm.query.QueryObject">
-    select count(id) from member
+        SELECT count(id)
+        FROM member
     </select>
     <select id="queryForList" resultMap="BaseResultMap">
-        select  id,
-            memberNum,
-            name,
-            phone,
-            password,
-            grade_id,
-            payment_id,
-            points,
-            balance,
-            usefullife,
-            onUser_id,
-            state
-        FROM member
-        limit #{start},#{rows}
+       <include refid="base_column" />
+        <include refid="base_table" />
+        LIMIT #{start}, #{rows}
     </select>
+
+    <sql id="base_column">
+        SELECT
+            m.id,
+            m.memberNum,
+            m.name,
+            m.phone,
+            m.password,
+            m.grade_id,
+            m.payment_id,
+            m.points,
+            m.balance,
+            m.birthday,
+            m.usefullife,
+            m.onUser_id,
+            m.state,
+            grade.id grade_id,
+            grade.name grade_name
+
+    </sql>
+    <sql id="base_table">
+        FROM member m left join dictionaryitem grade on m.grade_id=grade.id
+    </sql>
+
 </mapper>
