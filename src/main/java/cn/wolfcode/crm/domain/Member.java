@@ -19,11 +19,11 @@ public class Member extends BaseDomain {
     private String phone;
     //会员密码
     private String password;
-    //会员等级
-    private Long gradeId;
-    //支付方式
-    private Long paymentId;
-    //积分
+//会员等级,使用明细对象
+    private  DictionaryItem grade;
+//支付方式 ,使用明细对象
+    private DictionaryItem payment;
+//积分
     private BigDecimal points;
     //余额
     private BigDecimal balance;
@@ -35,6 +35,11 @@ public class Member extends BaseDomain {
     private Employee onUser;
     //会员状态
     private boolean state = true;
+    //会员生日
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GTM+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+
 
 
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.BonusPointRecordMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.BonusPointRecord">
+    <id column="id" property="id" />
+    <result column="optUser_id" property="optUser_id" />
+    <result column="type" property="type" />
+    <result column="amount" property="amount" />
+    <result column="optDate" property="optDate" />
+    <result column="remark" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from bonuspointrecord
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into bonuspointrecord (optUser_id, type, amount, optDate, remark)
+    values (#{optUser_id}, #{type}, #{amount}, #{optDate}, #{remark})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update bonuspointrecord
+    set optUser_id = #{optUser_id},
+      type = #{type},
+      amount = #{amount},
+      optDate = #{optDate},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, optUser_id, type, amount, optDate, remark
+    from bonuspointrecord
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, optUser_id, type, amount, optDate, remark
+    from bonuspointrecord
+  </select>
+</mapper>

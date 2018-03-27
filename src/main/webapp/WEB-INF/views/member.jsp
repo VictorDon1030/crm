@@ -12,7 +12,8 @@
     <shiro:hasRole name="大队长"> </shiro:hasRole>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-btn="addData">新增</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
-    <a id="changeState" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="changeState">设置离职</a>
+    <a id="changeState" class="easyui-linkbutton"
+       data-options="iconCls:'icon-remove',plain:true" data-btn="changeState">挂失</a>
 
     <a id="changePassword" class="easyui-linkbutton" data-options="iconCls:'icon-bqt',plain:true" data-btn="changePassword">重置密码</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reloadData">刷新</a>
@@ -128,11 +129,21 @@
             <tr>
                 <td>
 
+                    <font size="3">会员生日:</font>
+
+                </td>
+                <td>
+                    <input name="birthday" class="easyui-datebox"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
                     <font size="3">会员等级:</font>
 
                 </td>
                 <td>
-                    <input name="gradeId" class="easyui-combobox"
+                    <input name="grade.id" class="easyui-combobox"
                            data-options="valueField:'id',panelHeight:'auto',textField:'name',url:'/dictionaryItem/selectItemByDictionarySn.do?dictionarySn=grade'"/>
                 </td>
             </tr>
@@ -143,7 +154,7 @@
 
                 </td>
                 <td>
-                    <input name="paymentId"  class="easyui-combobox"
+                    <input name="payment.id"  class="easyui-combobox"
                                data-options="valueField:'id',textField:'name',url:'/dictionaryItem/selectItemByDictionarySn.do?dictionarySn=payment',panelHeight:'auto'"/>
                 </td>
             </tr>

@@ -14,6 +14,7 @@
             <result column="intro" property="intro"/>
             <result column="state" property="state"/>
         </association>
+        <!--<association property=""-->
     </resultMap>
     <delete id="deleteByPrimaryKey">
         DELETE FROM dictionaryitem
@@ -67,11 +68,16 @@
     </select>
 
     <!--使用到数据字典的操作,根据字典的sn进行查询-->
-    <select id="dictionaryItemService" resultType="dictionaryItem">
+    <select id="dictionaryItemService" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
         where d.sn = #{dictionarySn}
     </select>
+    <select id="selectById" resultType="string">
+        select name from dictionaryitem
+        where id=#{id}
+    </select>
+
     <!--设置状态-->
     <update id="changeState">
         UPDATE dictionaryitem

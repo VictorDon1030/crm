@@ -124,9 +124,10 @@ $(function () {
             {field: 'memberNum', title: '会员编号', width: 50},
             {field: 'name', title: '会员名称', width: 50},
             {field: 'phone', title: '电话', width: 50},
-            {field: 'gradeId', title: '等级', width: 50, formatter: function (value, row, index) {
+            {field: 'grade.id', title: '会员等级', width: 50, formatter: function (value, row, index) {
+                    console.log(row,value);
+                    return row.grade? row.grade.name:"" ;
 
-                    return value ? "正常使用" : "<font color='red'>挂失状态</font>";
                 }},
             {field: 'points', title: '积分', width: 50},
             {field: 'balance', title: '余额', width: 50},
@@ -134,6 +135,7 @@ $(function () {
             {field: 'come', title: '注来源', width: 50},
             {
                 field: 'state', title: '状态', width: 50, formatter: function (value, row, index) {
+
                     return value ? "正常使用" : "<font color='red'>挂失状态</font>";
                 }
             }
@@ -158,7 +160,7 @@ $(function () {
         width: 560,
         height: 360,
         buttons: '#member_button',
-       // closed: true,
+        closed: true,
         onClose: function () {
             $("#member_form").form("clear");
         }

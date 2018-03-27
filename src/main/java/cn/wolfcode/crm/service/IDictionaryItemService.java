@@ -28,4 +28,6 @@ public interface IDictionaryItemService {
     List<DictionaryItem> selectItemByDictionarySn(String dictionarySn);
 
     void changeState(Long id);
+
+    String selectById(Long id);
 }

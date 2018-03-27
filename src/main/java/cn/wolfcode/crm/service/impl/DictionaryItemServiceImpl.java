@@ -65,6 +65,7 @@ public class DictionaryItemServiceImpl implements IDictionaryItemService {
         return result;
     }
 
+    /*根据字典id查询明细*/
     @Override
     public List<DictionaryItem> selectItemByDictionaryId(Long DictionaryId) {
 
@@ -82,6 +83,10 @@ public class DictionaryItemServiceImpl implements IDictionaryItemService {
         dictionaryItemMapper.changeState(id);
     }
 
+    @Override
+    public String selectById(Long id) {
+        return dictionaryItemMapper.selectById(id);
+    }
 
 
 }

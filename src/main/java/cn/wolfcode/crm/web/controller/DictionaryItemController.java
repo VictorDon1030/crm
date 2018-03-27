@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("dictionaryItem")
 public class DictionaryItemController {
@@ -37,7 +40,18 @@ public class DictionaryItemController {
         return dictionaryItemService.selectItemByDictionarySn(dictionarySn);
     }
 
-    /*返回查询的数据,显示在明细的页面*/
+    /*根据id查询对应的数据字典明细*/
+    @RequestMapping("selectById")
+    @ResponseBody
+    public Object selectById(Long id) {
+        String itemName = dictionaryItemService.selectById(id);
+        System.out.println(itemName);
+        Map<String, String> map = new HashMap<>();
+        map.put("itemName",itemName);
+        return map;
+    }
+
+/*返回查询的数据,显示在明细的页面*/
     @RequestMapping("list")
     @ResponseBody
     public Object list(QueryObject qo) {
