@@ -33,14 +33,14 @@
                                 &emsp;
                                 <ul>
                                     <li><span style="font-size: medium">会员卡号：</span><span
-                                            style="font-size: medium">examples</span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员等级：</span><span
-                                                style="font-size: medium">examples</span></li>
+                                            style="font-size: medium" id="memberNum"></span>
+                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium" >会员等级：</span><span
+                                                style="font-size: medium" id="grade"></span></li>
                                     &emsp;
-                                    <li><span style="font-size: medium;">当前积分：</span><span
-                                            style="font-size: medium;">examples</span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员余额：</span><span
-                                                style="font-size: medium" class="font-red">examples</span></li>
+                                    <li><span style="font-size: medium;" >当前积分：</span><span
+                                            style="font-size: medium;" id="points"></span>
+                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium" >会员余额：</span><span
+                                                style="font-size: medium" class="font-red" id="balance"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><span
                                             style="font-size: medium">examples</span>
@@ -52,8 +52,8 @@
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
                                                 style="font-size: medium" class="font-red">examples</span></li>
                                     &emsp;
-                                    <li><span style="font-size: medium">会员生日：</span><span
-                                            style="font-size: medium">examples</span>
+                                    <%--<li><span style="font-size: medium">会员生日：</span><span
+                                            style="font-size: medium">examples</span>--%>
                                 </ul>
                             </div>
 
@@ -62,19 +62,9 @@
                 </td>
                 <td>&emsp; </td>
                 <td style="margin-top: 10px">
-                    <table id="memberSimpleInfo" class="easyui-datagrid"
+                    <table id="memberSimpleInfo"
                          style="width:100%;height:400px;padding:10px;"
-                         data-options="singleSelect:true,border:false,url:'static/json/test.json',method:'get',striped:true,fitColumns:true,toolbar:'#tt'">
-                        <thead>
-                        <tr>
-                            <th data-options="field:'a',width:120,align:'center'">会员卡号</th>
-                            <th data-options="field:'b',width:110,align:'center'">会员姓名</th>
-                            <th data-options="field:'c',width:87,align:'center'">会员等级</th>
-                            <th data-options="field:'d',width:200,align:'center'">电话</th>
-                            <th data-options="field:'e',width:100,align:'center'">余额</th>
-                        </tr>
-                        </thead>
-
+                         data-options="singleSelect:true,border:false,striped:true,fitColumns:true,toolbar:'#tt'">
                     </table>
                     <div id="tt">
                         <input class="easyui-textbox" data-options="prompt:'请输入会员卡号或电话进行查询',height:38"
@@ -122,7 +112,7 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    <table class="easyui-datagrid"  style="width: 100%"
+                    <table id="memberInfo" class="easyui-datagrid"  style="width: 100%"
                            data-options="singleSelect:true,border:false,url:'',method:'post',fitColumns:true,pagination:true,striped:true">
                         <thead>
                         <tr>
