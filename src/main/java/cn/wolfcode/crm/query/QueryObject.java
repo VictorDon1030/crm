@@ -2,6 +2,7 @@ package cn.wolfcode.crm.query;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 /**
  * Demo class
@@ -17,5 +18,9 @@ public class QueryObject {
 
     public int getStart(){
         return (page - 1)*rows;
+    }
+
+    protected String empty2Null(String s){
+        return StringUtils.hasLength(s) ? s : null;
     }
 }
