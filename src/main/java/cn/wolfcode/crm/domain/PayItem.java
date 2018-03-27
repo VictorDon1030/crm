@@ -1,0 +1,25 @@
+package cn.wolfcode.crm.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+/**支出明细*/
+@Getter@Setter
+public class PayItem extends BaseDomain{
+
+    private String type;
+
+    private Long amount;
+
+    private Date date;
+
+    private Long employee_id;
+
+    private String remark;
+
+    //支出人
+    private Employee payUser;
+    //维护与支出的关系:一对一，支出明细表需要支出表的数据
+    private Pay pay;
+}
