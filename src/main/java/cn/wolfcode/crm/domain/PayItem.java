@@ -1,5 +1,6 @@
 package cn.wolfcode.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ public class PayItem extends BaseDomain{
     private String type;
 
     private Long amount;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date date;
 
     private Long employee_id;

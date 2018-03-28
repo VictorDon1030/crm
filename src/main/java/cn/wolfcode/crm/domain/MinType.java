@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter@Getter
 public class MinType extends  BaseDomain{
     private String name;
-
+    private Long maxtype_id;
 }
