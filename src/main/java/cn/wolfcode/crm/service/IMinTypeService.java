@@ -14,4 +14,11 @@ public interface IMinTypeService {
     List<MinType> selectAll();
 
     void update(MinType entity);
+
+    /**
+     * 根据支出大分类的id查出其所有的支出小分类
+     * @param maxTypeId
+     * @return
+     */
+    List<MinType> selectByMaxTypeId(Long maxTypeId);
 }

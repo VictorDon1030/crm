@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.MaxType">
     <id column="id" property="id" />
     <result column="name" property="name" />
-    <collection property="minTypes" column="id" ofType="MaxType"
+    <!--查出对应的小分类-->
+    <collection property="minTypes" column="id" ofType="MaxType" fetchType="eager"
         select="cn.wolfcode.crm.mapper.MinTypeMapper.selectByMaxTypeId"/>
   </resultMap>
   <delete id="deleteByPrimaryKey">
