@@ -174,18 +174,24 @@ $(function () {
         //按照今日查询
         today:function () {
             maxType_datagrid.datagrid("load",{"today":1});
+            //也要让饼状图的值发生变化
+            $.get("/pay/view.do",{"today":1});
         },
         //按照本周查询
         week:function () {
             maxType_datagrid.datagrid("load",{"week":7});
+            $.get("/pay/view.do",{"week":7});
+
         },
         //按照本月查询
         month:function () {
             maxType_datagrid.datagrid("load",{"month":30});
+            $.get("/pay/view.do",{"month":30});
         },
         //按照今年查询
         year:function () {
             maxType_datagrid.datagrid("load",{"year":365});
+            $.get("/pay/view.do",{"year":365});
         }
     };
 
@@ -277,4 +283,5 @@ $(function () {
     });
     //一加载完，就要按照今日来查，因为今日按钮也是一加载完就选中
     maxType_datagrid.datagrid("load",{"today":1});
+
 });

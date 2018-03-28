@@ -25,6 +25,8 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/static/**=anon
+				/home-face/**=anon
+				/js/**=anon
 				/login.jsp=anon
 				/logout.do=logout
 				/**=authc

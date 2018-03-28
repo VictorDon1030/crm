@@ -3,13 +3,14 @@
 <html>
 <head>
     <%@ include file="/static/common/common.jsp"%>
+    <script type="text/javascript" src="/static/plugins/echart/echarts.min.js"></script>
     <script type="text/javascript" src="/static/js/pay.js"></script>
     <title>日常支出</title>
 </head>
 <body>
 
     <div class="easyui-layout" data-options="fit:true" style="width:700px;height:350px;">
-        <div data-options="region:'north'" style="height:60px">
+        <div data-options="region:'north'" style="height:50px">
             <!--选项卡：用2个a标签-->
             <div style="margin-top: 10px;margin-bottom: 30px;">
                 <a href="javascript:window.location.href='/pay/view.do'"><font style="font-size: 18px;">支出录入</font></a>
@@ -20,11 +21,30 @@
         <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px">
             <div class="easyui-layout" data-options="fit:true">
                 <!--东布局-->
-                <div data-options="region:'east',split:true,collapsible:false" style="width:450px"></div>
+                <div data-options="region:'east',collapsible:false" style="width:400px">
+                    <!--时间轴-->
+                        <div class="timeline">
+                            <dl>
+                                <dt>
+                                    <b>Coffey</b>
+                                    <p>2017年07月01日 10:00</p>
+                                </dt>
+                                <dd>贾跃亭“净身出户”，乐视网开打股价保卫战？</dd>
+                            </dl>
+                            <dl class="timeline-node-green">
+                                <dt>
+                                    <b>John</b>
+                                    <p>2018年07月01日 12:00</p>
+                                </dt>
+                                <dd>明年起所有的iPhone都要用OLED屏幕 三星成大赢家</dd>
+                            </dl>
+                        </div>
+
+                </div>
                 <!--西布局-->
-                <div data-options="region:'west',split:true,collapsible:false"  style="width:380px">
+                <div data-options="region:'west',collapsible:false"  style="width:380px">
                     <form action="/pay/save.do" method="post" id="pay_form">
-                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:200px;">
+                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:180px;">
                             <tr>
                                 <td>
                                     <select class="easyui-combobox" name="name" id="maxType">
@@ -65,11 +85,55 @@
                     </div>
 
                     <!--圆饼插件-->
+                    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="pie" style="width: 250px;height:200px;margin-left: 20px;"></div>
+                    <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('pie'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            title : {
+                                text: '支出报表',
+                                x:'center'
+                            },
+                            tooltip : {//工具提示
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {//比例的转向
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ${types}//饼上的数据，相当于横轴：分组类型（maxType）
+                            },
+                            series : [
+                                {//配置鼠标放在每一块饼上显示的内容
+                                    name: '支出总额',//
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    //每一块饼都必须是value:销售总额，name:分组类型，将这样的2对键值对数据封装到一个map里，有多个map，就放在list中
+                                    data:${totalAmounts},
+
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
 
                     <!--按照支出大分类maxType分组查询的数据表格-->
-                    <table id="maxType_datagrid" style="width: 400px;height: 300px;">
+                    <table id="maxType_datagrid" style="width: 350px;height: 250px;margin-top: 20px;">
 
                     </table>
+
                 </div>
             </div>
         </div>

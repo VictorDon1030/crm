@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.SubBranchMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.SubBranch">
+    <id column="id" property="id" />
+    <result column="shopName" property="shopName" />
+    <result column="intro" property="intro" />
+    <result column="linkman" property="linkman" />
+    <result column="tel" property="tel" />
+    <result column="state" property="state" />
+    <result column="addr" property="addr" />
+    <result column="joinDate" property="joinDate" />
+    <result column="mallState" property="mallState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from subbranch
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into subbranch (shopName, intro, linkman, tel, state, addr, joinDate, 
+      mallState)
+    values (#{shopName}, #{intro}, #{linkman}, #{tel}, #{state}, #{addr}, #{joinDate}, 
+      #{mallState})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update subbranch
+    set shopName = #{shopName},
+      intro = #{intro},
+      linkman = #{linkman},
+      tel = #{tel},
+      addr = #{addr},
+      joinDate = #{joinDate}
+    where id = #{id}
+  </update>
+
+  <update id="changeState">
+    update subbranch set state = state^1 where id = #{id}
+  </update>
+
+  <update id="changeMallState">
+    update subbranch set mallState = state^1 where id = #{id}
+  </update>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, shopName, intro, linkman, tel, state, addr, joinDate, mallState
+    from subbranch
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, shopName, intro, linkman, tel, state, addr, joinDate, mallState
+    from subbranch
+  </select>
+
+  <select id="queryCount" resultType="int">
+    SELECT count(id) from subbranch
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, shopName, intro, linkman, tel, state, addr, joinDate, mallState
+    from subbranch
+    limit #{start},#{rows}
+  </select>
+</mapper>
