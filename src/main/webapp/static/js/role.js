@@ -10,7 +10,7 @@ $(function () {
         addData: function () {
             $("#password").show();
             role_dialog.dialog("setTitle", "新增");
-            role_dialog.dialog("open");
+            role_dialog.dialog("open").dialog("center");
         },
 
         //保存按钮
@@ -132,6 +132,7 @@ $(function () {
         width: 500,
         height: 400,
         buttons: '#role_button',
+        align : 'center',
         closed: true,
         onClose: function () {
             $("#role_form").form("clear");

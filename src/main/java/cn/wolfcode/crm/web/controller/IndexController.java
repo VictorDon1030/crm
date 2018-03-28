@@ -43,4 +43,11 @@ public class IndexController {
 
         return "myshop";
     }
+
+    //跳转管理主页面
+    @RequestMapping("management")
+    public String management(){
+
+        return "management";
+    }
 }
