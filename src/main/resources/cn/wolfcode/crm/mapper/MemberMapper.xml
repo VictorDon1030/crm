@@ -16,6 +16,8 @@
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+        <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
+                     select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
     </resultMap>
     <delete id="deleteByPrimaryKey">
         DELETE FROM member
@@ -23,9 +25,9 @@
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
-                            points, balance, usefullife, onUser_id, state,birthday)
+                            points, balance, usefullife, onUser_id, state, birthday)
         VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
-                              #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state},#{birthday})
+                              #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
     <update id="updateByPrimaryKey">
         UPDATE member
@@ -35,7 +37,7 @@
             password   = #{password},
             grade_id   = #{grade.id},
             payment_id = #{payment.id},
-            birthday = #{birthday},
+            birthday   = #{birthday},
             points     = #{points},
             balance    = #{balance},
             usefullife = #{usefullife},
@@ -49,23 +51,38 @@
         SET state = state ^ 1
         WHERE id = #{id}
     </update>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        <include refid="base_column" />
-        <include refid="base_table" />
+    <update id="changePoint">
+        UPDATE member
+        SET points = points + #{amount}
         WHERE id = #{id}
+    </update>
+    <update id="clearPoints">
+        UPDATE member
+        SET points = 0
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        WHERE m.id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
-        <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int" parameterType="cn.wolfcode.crm.query.QueryObject">
+    <select id="queryCount" resultType="int" >
         SELECT count(id)
         FROM member
     </select>
     <select id="queryForList" resultMap="BaseResultMap">
-       <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
         LIMIT #{start}, #{rows}
+    </select>
+    <select id="queryByKeyword" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        <include refid="bonusPoint_where"/>
     </select>
 
     <sql id="base_column">
@@ -83,12 +100,18 @@
             m.usefullife,
             m.onUser_id,
             m.state,
-            grade.id grade_id,
+            grade.id   grade_id,
             grade.name grade_name
 
     </sql>
     <sql id="base_table">
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id
     </sql>
-
+    <sql id="bonusPoint_where">
+        <where>
+            <if test="keyword != null">
+                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
+            </if>
+        </where>
+    </sql>
 </mapper>

@@ -30,7 +30,6 @@
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
                                 <h3 id="memberName"  style="margin-left: 110px">会员姓名</h3>
-                                &emsp;
                                 <ul>
                                     <li><span style="font-size: medium">会员卡号：</span><span
                                             style="font-size: medium" id="memberNum"></span>
@@ -43,18 +42,19 @@
                                                 style="font-size: medium" class="font-red" id="balance"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><span
-                                            style="font-size: medium">examples</span>
+                                            style="font-size: medium" id="sumPoints" >0</span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员欠款：</span><span
-                                                style="font-size: medium" class="font-red">examples</span></li>
+                                                style="font-size: medium" class="font-red">0</span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><span
-                                            style="font-size: medium">examples</span>
+                                            style="font-size: medium" id="comsumPoints">0</span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
-                                                style="font-size: medium" class="font-red">examples</span></li>
+                                                style="font-size: medium" class="font-red">0</span></li>
                                     &emsp;
-                                    <%--<li><span style="font-size: medium">会员生日：</span><span
-                                            style="font-size: medium">examples</span>--%>
+                                    <li><span style="font-size: medium">会员生日：</span><span
+                                            style="font-size: medium" id="birthday"></span>
                                 </ul>
+
                             </div>
 
                         </div>
@@ -63,13 +63,13 @@
                 <td>&emsp; </td>
                 <td style="margin-top: 10px">
                     <table id="memberSimpleInfo"
-                         style="width:100%;height:400px;padding:10px;"
+                         style="width:90%;height:400px;padding:10px;"
                          data-options="singleSelect:true,border:false,striped:true,fitColumns:true,toolbar:'#tt'">
                     </table>
                     <div id="tt">
-                        <input class="easyui-textbox" data-options="prompt:'请输入会员卡号或电话进行查询',height:38"
+                        <input id="keyword" class="easyui-textbox" data-options="prompt:'请输入会员卡号或电话进行查询',height:38"
                                style="width:85%"/>
-                        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                        <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="advancedSearch"
                            style="width:80px">搜索</a>
                     </div>
 
@@ -79,24 +79,32 @@
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
                                 <ul>
-                                <form action="#" method="post">
-                                    <input id="hiddenMemberId" type="hidden" name="id" />
+                                <form  method="post">
+                                    <input id="hiddenMemberId" type="hidden" name="member.id" />
                                     <li><span style="font-size: medium">选择类型：</span>
-                                        &emsp; <input type="radio" name="type" value="1" style="font-size: medium;" checked>充值</input>
+                                        &emsp; <input type="radio" name="type" value="1" style="font-size: medium;"checked >充值</input>
                                         &emsp; &emsp;&emsp;<input type="radio" value="0" name="type" style="font-size: medium">扣除</input>
                                     </li>
                                     &emsp;
                                     <li><span style="font-size: medium;">变动金额：</span>
-                                        <input class="easyui-textbox" name="amount" style="font-size: medium;"
+                                        <input  class="easyui-numberbox" name="amount" style="font-size: medium;"
                                                data-options="prompt:'请输入要改变的积分金额'"/>
+                                    </li>
+                                    &emsp;
+                                    <li><span style="font-size: medium;">备&emsp;&emsp;注：</span>
+                                        <select id="remark" class="easyui-combobox" name="remark" style="font-size: medium;width: 180px"
+                                               data-options="editable:false,panelHeight:'auto'">
+                                            <option value="订单消费">订单消费</option>
+                                            <option value="订单退款">订单退款</option>
+                                        </select>
                                     </li>
                                 </form>
                                     &emsp;
                                     <li>
-                                        <a href="#" class="easyui-linkbutton" data-options=""
+                                        <a href="#" class="easyui-linkbutton" data-cmd="clearPoints"
                                            style="width:80px;background-color: red">积分清零</a>
                                         &emsp; &emsp; &emsp; &emsp;
-                                        <a href="#" class="easyui-linkbutton" data-options=""
+                                        <a  class="easyui-linkbutton"  data-cmd="changePoint"
                                            style="width:80px;background-color: green">确定</a>
                                     </li>
                                 </ul>
@@ -112,20 +120,8 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    <table id="memberInfo" class="easyui-datagrid"  style="width: 100%"
-                           data-options="singleSelect:true,border:false,url:'',method:'post',fitColumns:true,pagination:true,striped:true">
-                        <thead>
-                        <tr>
-                            <th data-options="field:'itemid',width:80,align:'center'">会员卡号</th>
-                            <th data-options="field:'productid',width:100,align:'center'">会员姓名</th>
-                            <th data-options="field:'listprice',width:80,align:'center'">会员等级</th>
-                            <th data-options="field:'unitcost',width:80,align:'center'">操作人员</th>
-                            <th data-options="field:'attr1',width:250,align:'center'">操作类型</th>
-                            <th data-options="field:'status',width:60,align:'center'">变动数额</th>
-                            <th data-options="field:'status',width:60,align:'center'">操作时间</th>
-                            <th data-options="field:'status',width:60,align:'center'">备注</th>
-                        </tr>
-                        </thead>
+                    <table id="memberInfo"   style="width: 100%"
+                           data-options="singleSelect:true,border:false,fitColumns:true,pagination:true,striped:true">
                     </table>
 
                 </td>
@@ -151,7 +147,7 @@
             <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
             <a id="btn_changeState" class="easyui-linkbutton" data-cmd="deleteRow"
             data-options="plain:true,iconCls:'icon-remove'">删除</a>
-            <input class="easyui-textbox" id="keyword" prompt="请输入用户名或电话"/>
+            <input class="easyui-textbox" id="" prompt="请输入用户名或电话"/>
             <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs"></a>
         </div>
     </div>

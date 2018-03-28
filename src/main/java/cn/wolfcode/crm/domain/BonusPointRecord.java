@@ -22,5 +22,7 @@ public class BonusPointRecord extends BaseDomain {
     private Date optDate;
     //备注
     private String remark;
+    //与会员的多对一关系
+    private Member member;
 
 }

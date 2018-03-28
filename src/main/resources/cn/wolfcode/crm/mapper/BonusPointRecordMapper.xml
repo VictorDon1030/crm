@@ -3,36 +3,61 @@
 <mapper namespace="cn.wolfcode.crm.mapper.BonusPointRecordMapper">
   <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.BonusPointRecord">
     <id column="id" property="id" />
-    <result column="optUser_id" property="optUser_id" />
     <result column="type" property="type" />
     <result column="amount" property="amount" />
     <result column="optDate" property="optDate" />
     <result column="remark" property="remark" />
+    <association property="optUser" fetchType="eager" javaType="employee" column="optUser_id"
+                 select="cn.wolfcode.crm.mapper.EmployeeMapper.selectByPrimaryKey"/>
+    <association property="member" fetchType="eager" javaType="member" column="member_id"
+                 select="cn.wolfcode.crm.mapper.MemberMapper.selectByPrimaryKey"/>
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from bonuspointrecord
     where id = #{id}
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into bonuspointrecord (optUser_id, type, amount, optDate, remark)
-    values (#{optUser_id}, #{type}, #{amount}, #{optDate}, #{remark})
+    insert into bonuspointrecord (optUser_id, type, amount, optDate, remark, member_id)
+    values (#{optUser.id}, #{type}, #{amount}, #{optDate}, #{remark}, #{member.id})
   </insert>
   <update id="updateByPrimaryKey">
     update bonuspointrecord
-    set optUser_id = #{optUser_id},
+    set optUser_id = #{optUser.id},
       type = #{type},
       amount = #{amount},
       optDate = #{optDate},
-      remark = #{remark}
+      remark = #{remark},
+      member_id = #{member.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, optUser_id, type, amount, optDate, remark
+    select id, optUser_id, type, amount, optDate, remark, member_id
     from bonuspointrecord
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, optUser_id, type, amount, optDate, remark
+    select id, optUser_id, type, amount, optDate, remark, member_id
     from bonuspointrecord
   </select>
+    <select id="selectByMemberId" resultMap="BaseResultMap">
+        select id, optUser_id, type, amount, optDate, remark, member_id
+        from bonuspointrecord
+        where member_id = #{memberId}
+    </select>
+    <select id="selectRecordByMemberId" resultType="BonusPointRecord">
+        select id, optUser_id, type, amount, optDate, remark, member_id
+        from bonuspointrecord
+        where member_id = #{memberId}
+    </select>
+    <!--<select id="queryByKeyword" resultMap="BaseResultMap">
+        select id, optUser_id, type, amount, optDate, remark, member_id
+        from bonuspointrecord
+    </select>
+    <sql id="queryByKeyword_where">
+        <where>
+            <if test="keyword != null">
+                and (  )
+            </if>
+        </where>
+    </sql>-->
 </mapper>

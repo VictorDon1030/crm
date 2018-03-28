@@ -40,16 +40,6 @@ public class DictionaryItemController {
         return dictionaryItemService.selectItemByDictionarySn(dictionarySn);
     }
 
-    /*根据id查询对应的数据字典明细*/
-    @RequestMapping("selectById")
-    @ResponseBody
-    public Object selectById(Long id) {
-        String itemName = dictionaryItemService.selectById(id);
-        System.out.println(itemName);
-        Map<String, String> map = new HashMap<>();
-        map.put("itemName",itemName);
-        return map;
-    }
 
 /*返回查询的数据,显示在明细的页面*/
     @RequestMapping("list")
@@ -119,11 +109,18 @@ public class DictionaryItemController {
         return result;
     }
 
+    /**
+     * 根据数据字典明细id查询数据字典内容
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    /*
     @RequestMapping("select")
     @ResponseBody
     public Object select(Long id) throws Exception {
         return dictionaryItemService.selectByPrimaryKey(id);
-    }
+    }*/
 
 
 }
