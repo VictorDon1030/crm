@@ -1,6 +1,9 @@
 package cn.wolfcode.crm.mapper;
 
+import cn.wolfcode.crm.domain.Employee;
 import cn.wolfcode.crm.domain.PayItem;
+import cn.wolfcode.crm.query.QueryObject;
+
 import java.util.List;
 
 public interface PayItemMapper {
@@ -13,4 +16,11 @@ public interface PayItemMapper {
     List<PayItem> selectAll();
 
     int updateByPrimaryKey(PayItem entity);
+
+    /***
+     * 高级查询
+     */
+    int queryCount(QueryObject qo);
+
+    List<PayItem> queryForList(QueryObject qo);
 }
