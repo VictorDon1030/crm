@@ -9,6 +9,7 @@ import java.util.Date;
 /**支出*/
 @Getter@Setter
 public class Pay extends BaseDomain{
+    private String maxType;//支出类型：大分类
     private String type;//支出类型：大类型-小类型
     private Long amount;//支出金额
 
@@ -16,5 +17,7 @@ public class Pay extends BaseDomain{
     private Date date;//支出日期
 
     private String remark;//备注
+
+
 
 }

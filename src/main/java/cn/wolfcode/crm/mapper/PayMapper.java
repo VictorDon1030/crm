@@ -1,7 +1,11 @@
 package cn.wolfcode.crm.mapper;
 
 import cn.wolfcode.crm.domain.Pay;
+import cn.wolfcode.crm.domain.PayItem;
+import cn.wolfcode.crm.query.QueryObject;
+
 import java.util.List;
+import java.util.Map;
 
 public interface PayMapper {
     int deleteByPrimaryKey(Long id);
@@ -13,4 +17,9 @@ public interface PayMapper {
     List<Pay> selectAll();
 
     int updateByPrimaryKey(Pay entity);
+
+    /***
+     * 高级查询
+     */
+    List<Map<String,Object>> query(QueryObject qo);
 }

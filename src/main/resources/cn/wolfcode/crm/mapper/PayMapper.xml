@@ -7,30 +7,60 @@
     <result column="date" property="date" />
     <result column="remark" property="remark" />
     <result column="type" property="type" />
+    <result column="maxType" property="maxType" />
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from pay
     where id = #{id}
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into pay (amount, date, remark,type)
-    values (#{amount}, #{date}, #{remark},#{type})
+    insert into pay (amount, date, remark,type,maxType)
+    values (#{amount}, #{date}, #{remark},#{type},#{maxType})
   </insert>
   <update id="updateByPrimaryKey">
     update pay
     set amount = #{amount},
       date = #{date},
       remark = #{remark},
-      type=#{type}
+      type=#{type},
+      maxType=#{maxType}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, amount, date, remark,type
+    select id, amount, date, remark,type,maxType
     from pay
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, amount, date, remark,type
+    select id, amount, date, remark,type,maxType
     from pay
   </select>
+
+  <!--高级查询-->
+
+
+  <select id="query" resultType="map">
+    select maxType,SUM(amount) amount
+    from pay
+    <include refid="base_where"/>
+    GROUP BY maxType
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="today!=null">
+        and DateDiff(date,now())=0
+      </if>
+      <if test="week!=null">
+        and YEARWEEK(date_format(date,'%Y-%m-%d')) = YEARWEEK(now())
+
+      </if>
+      <if test="month!=null">
+        and DATE_FORMAT(date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+      </if>
+      <if test="year!=null">
+        and YEAR(date)=YEAR(NOW())
+      </if>
+    </where>
+  </sql>
 </mapper>

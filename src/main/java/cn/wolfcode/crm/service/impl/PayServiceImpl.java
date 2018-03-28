@@ -5,13 +5,18 @@ import cn.wolfcode.crm.domain.Pay;
 import cn.wolfcode.crm.domain.PayItem;
 import cn.wolfcode.crm.mapper.PayItemMapper;
 import cn.wolfcode.crm.mapper.PayMapper;
+import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IPayService;
+import cn.wolfcode.crm.util.PageResult;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class PayServiceImpl implements IPayService {
     @Autowired
@@ -54,5 +59,10 @@ public class PayServiceImpl implements IPayService {
     @Override
     public void update(Pay entity) {
         payMapper.updateByPrimaryKey(entity);
+    }
+
+    @Override
+    public List<Map<String,Object>> query(QueryObject qo){
+        return payMapper.query(qo);
     }
 }

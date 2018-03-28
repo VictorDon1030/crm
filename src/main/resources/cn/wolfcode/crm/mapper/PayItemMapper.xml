@@ -71,21 +71,25 @@
   </select>
 
   <sql id="base_where">
-    <if test="today!=null">
-      and DateDiff(pi.date,now())=0
-    </if>
-    <if test="week!=null">
-      and YEARWEEK(date_format(pi.date,'%Y-%m-%d')) = YEARWEEK(now())
+    <where>
+      <if test="today!=null">
+        and DateDiff(pi.date,now())=0
+      </if>
+      <if test="week!=null">
+        and YEARWEEK(date_format(pi.date,'%Y-%m-%d')) = YEARWEEK(now())
 
-    </if>
-    <if test="month!=null">
-      and DATE_FORMAT(pi.date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
-    </if>
-    <if test="beginDate!=null">
-      and pi.date >=#{beginDate}
-    </if>
-    <if test="endDate!=null">
-      and pi.date &lt;=#{endDate}
-    </if>
+      </if>
+      <if test="month!=null">
+        and DATE_FORMAT(pi.date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+      </if>
+      <if test="beginDate!=null">
+        and pi.date >=#{beginDate}
+      </if>
+      <if test="endDate!=null">
+        and pi.date &lt;=#{endDate}
+      </if>
+    </where>
+
+
   </sql>
 </mapper>

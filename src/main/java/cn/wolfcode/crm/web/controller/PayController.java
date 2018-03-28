@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Pay;
+import cn.wolfcode.crm.query.PayQueryObject;
 import cn.wolfcode.crm.service.IPayService;
 import cn.wolfcode.crm.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,14 @@ public class PayController {
             result.mark(e.getMessage());
         }
         return  result;
+    }
+
+    /**
+     * 根据日期查询
+     */
+    @RequestMapping("selectByDate")
+    @ResponseBody
+    public Object selectByDate(PayQueryObject qo){
+        return payService.query(qo);
     }
 }

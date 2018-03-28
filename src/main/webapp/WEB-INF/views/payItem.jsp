@@ -34,10 +34,13 @@
     <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="week">本周</a>
     <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="month">本月</a>
     <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="other">其他</a>
-    <input class="easyui-datebox" data-options="prompt:'开始时间'" name="startDate" id="startDate">&nbsp;
-    &nbsp;至&nbsp;&nbsp;
-    <input class="easyui-datebox" data-options="prompt:'结束时间'" name="endDate" id="endDate">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="searchs">搜索</a>
+    <nobr id="show_Other" style="display: none;">
+        <input class="easyui-datetimebox" data-options="prompt:'开始时间'" name="startDate" id="startDate">&nbsp;
+        &nbsp;至&nbsp;&nbsp;
+        <input class="easyui-datetimebox" data-options="prompt:'结束时间'" name="endDate" id="endDate">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs">搜索</a>
+    </nobr>
+
 </div>
 
 </body>
