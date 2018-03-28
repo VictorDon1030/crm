@@ -4,23 +4,38 @@ $(function () {
     var methodObj = {
         //按照今日查询
         today:function () {
+            $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             payItem_datagrid.datagrid("load",{"today":1});
         },
         //按照本周查询
         week:function () {
+            $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             payItem_datagrid.datagrid("load",{"week":7});
         },
         //按照本月查询
         month:function () {
+            $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             payItem_datagrid.datagrid("load",{"month":30});
         },
         //点击“其他”按钮，控制开始日期输入框、结束日期输入框、search按钮的显示与隐藏
         other:function () {
+            if($("#show_Other").css("display")=='none'){//如果show是隐藏的
 
+                $("#show_Other").css("display","block");//show的display属性设置为block（显示）
+
+            }else{//如果show是显示的
+
+                $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
+
+            }
         },
         //点击搜索按钮，按照输入的日期查询
         searchs:function () {
-
+            //获取2个输入框的内容，让payItem_datagrid重新加载
+            var startDate=$("#startDate").val();
+            var endDate=$("#endDate").val();
+            payItem_datagrid.datagrid("load",
+                {"beginDate":startDate,"endDate":endDate});
         }
     };
     //给所有具有data-btn属性的A标签统一绑定点击事件

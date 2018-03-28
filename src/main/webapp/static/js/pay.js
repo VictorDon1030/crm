@@ -13,8 +13,12 @@ $(function () {
     var setMinType = $("#setMinType");
     var addMaxType_form = $("#addMaxType_form");
     var addMinType_form = $("#addMinType_form");
+    var maxType_datagrid = $("#maxType_datagrid");
     //设置日期输入框的值
     //$('#showDate').datetimebox('setValue', new Date());
+    //页面一加载完，就要将今日按钮选中，表单是按照今日来查
+    $("#today").linkbutton("select");
+
 
     var methodObj = {
         //弹出设置分类的对话框
@@ -44,6 +48,7 @@ $(function () {
                     var minTypeName=pay_datagrid.datagrid("getSelected").name;
                     var type=maxType.combobox("getText")+"-"+minTypeName;
                     param.type=type;
+                    param.maxType=maxType.combobox("getText");
                 },
                 //提交成功后的回调函数
                 success:function (data) {
@@ -54,6 +59,8 @@ $(function () {
                         $.messager.alert("温馨提示",'保存成功','info',function () {
                             //刷新页面
                             window.location.reload();
+                            //中间的表格要重新查一次今日
+                            maxType_datagrid.datagrid("load",{"today":1});
                         });
                     }else {
                         $.messager.alert("温馨提示",data.msg,'warning');
@@ -163,8 +170,25 @@ $(function () {
             //要先设置大分类的名称
             $("#showMaxType").html(setMaxType.datagrid("getSelected").name);
             addMinType_dialog.dialog("open");
+        },
+        //按照今日查询
+        today:function () {
+            maxType_datagrid.datagrid("load",{"today":1});
+        },
+        //按照本周查询
+        week:function () {
+            maxType_datagrid.datagrid("load",{"week":7});
+        },
+        //按照本月查询
+        month:function () {
+            maxType_datagrid.datagrid("load",{"month":30});
+        },
+        //按照今年查询
+        year:function () {
+            maxType_datagrid.datagrid("load",{"year":365});
         }
     };
+
     //给所有具有data-btn属性的A标签统一绑定点击事件
     $("a[data-btn]").click(function () {
         var btn = $(this).data("btn");
@@ -239,4 +263,18 @@ $(function () {
             {field: 'name',width: 50,align:'center'}
         ]]
     });
+
+    //按照支出大分类maxType分组查询的数据表格
+    maxType_datagrid.datagrid({
+        url:'/pay/selectByDate.do',
+        fit:true,
+        fitColumns:true,
+        striped:true,
+        columns:[[
+            {field: 'maxType',width: 50,align:'center'},
+            {field: 'amount',width: 50,align:'center'}
+        ]]
+    });
+    //一加载完，就要按照今日来查，因为今日按钮也是一加载完就选中
+    maxType_datagrid.datagrid("load",{"today":1});
 });

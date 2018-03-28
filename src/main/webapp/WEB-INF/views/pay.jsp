@@ -55,7 +55,22 @@
                     </form>
                 </div>
                 <!--中布局-->
-                <div data-options="region:'center',collapsible:false"  ></div>
+                <div data-options="region:'center',collapsible:false"  >
+                    <!--4个按钮-->
+                    <div style="margin-top: 20px;margin-left:20px;">
+                        <a id="today" href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="today">今日</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="week">本周</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="month">本月</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="year">今年</a>
+                    </div>
+
+                    <!--圆饼插件-->
+
+                    <!--按照支出大分类maxType分组查询的数据表格-->
+                    <table id="maxType_datagrid" style="width: 400px;height: 300px;">
+
+                    </table>
+                </div>
             </div>
         </div>
     </div>
