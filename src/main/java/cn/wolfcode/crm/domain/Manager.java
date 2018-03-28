@@ -11,10 +11,10 @@ import java.util.Date;
 @Getter
 public class Manager extends BaseDomain {
 
-    //管理员名称
+    //名称
     private String name;
 
-    //管理员职位
+    //职位
     private Role role;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GTM+8")
