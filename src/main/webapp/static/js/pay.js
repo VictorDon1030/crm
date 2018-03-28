@@ -1,189 +1,242 @@
 $(function () {
 
-    var emp_datagrid = $("#emp_datagrid");
-    var emp_dialog = $("#emp_dialog");
-    var rPassword = $("#rPassword");
+    var pay_datagrid = $("#pay_datagrid");
+    var maxType = $("#maxType");
+    var pay_form = $("#pay_form");
+    var setType_form = $("#setType_form");
+    var minType_form = $("#minType_form");
+    var minType_dialog = $("#minType_dialog");
+    var setType_dialog = $("#setType_dialog");
+    var addMaxType_dialog = $("#addMaxType_dialog");
+    var addMinType_dialog = $("#addMinType_dialog");
+    var setMaxType = $("#setMaxType");
+    var setMinType = $("#setMinType");
+    var addMaxType_form = $("#addMaxType_form");
+    var addMinType_form = $("#addMinType_form");
+    //设置日期输入框的值
+    //$('#showDate').datetimebox('setValue', new Date());
 
     var methodObj = {
-        //新增按钮
-        addData: function () {
-            $("#password").show();
-            emp_dialog.dialog("setTitle", "新增");
-            emp_dialog.dialog("open");
+        //弹出设置分类的对话框
+        setType: function () {
+            //打开前，将大分类的列表的第一行选中
+            setMaxType.datagrid("selectRow",0);
+            //将小分类的列表显示第一行大分类对应的小分类
+            var row=setMaxType.datagrid("getSelected");
+            setMinType.datagrid("load",{"maxTypeId":row.id});
+            setType_dialog.dialog("open");
         },
 
-        //保存按钮
-        save: function () {
-            $("#emp_form").form("submit", {
-                url: '/employee/saveOrUpdate.do',
-                onSubmit:function (param) {
-                  var roles = $("#roles_combobox").combobox('getValues');
-                    param.ids = roles;
+        //点击时，弹出对话框：添加当前大分类的小分类
+        input: function () {
+            minType_form.form("clear");
+            minType_dialog.dialog("setTitle","添加小分类");
+            $("#showType").html(maxType.combobox("getText"));
+            minType_dialog.dialog("open");
+        },
+        //提交录入支出表单
+        submit:function () {
+            //获取表单里的数据，提交到后台，插入到支出录入、支出明细
+            pay_form.form("submit",{
+                url:'/pay/save.do',
+                onSubmit: function(param){
+                    //获取大分类的名称，小分类的名称，然后拼成type，额外提交到后台，封装到pay上
+                    var minTypeName=pay_datagrid.datagrid("getSelected").name;
+                    var type=maxType.combobox("getText")+"-"+minTypeName;
+                    param.type=type;
                 },
-                success: function (data) {
-                    data = $.parseJSON(data);
-                    if (data.success) {
-                        $.messager.alert("温馨提示", "操作成功", "info", function () {
-                            emp_datagrid.datagrid("reload");
-                            methodObj.cancel();
-                        })
-                    } else {
-                        $.messager.alert("温馨提示", data.msg, "info");
-                        methodObj.cancel();
+                //提交成功后的回调函数
+                success:function (data) {
+                    //一旦点击提交按钮，就关闭对话框
+                    minType_dialog.dialog("close");
+                    data=$.parseJSON(data);
+                    if(data.success){
+                        $.messager.alert("温馨提示",'保存成功','info',function () {
+                            //刷新页面
+                            window.location.reload();
+                        });
+                    }else {
+                        $.messager.alert("温馨提示",data.msg,'warning');
                     }
                 }
-            })
-        },
-
-        //编辑按钮
-        editData: function () {
-            $("#password").hide();
-            var val = emp_datagrid.datagrid("getSelected");
-            if (!val) {
-                $.messager.alert("温馨提示", "请选择一条数据", "info");
-                return;
-            }
-            if (val.dept) {
-                val["dept.id"] = val.dept.id;
-            }
-            $.get("/employee/selectRoleByEmpId.do",{id:val.id},function (data) {
-                $("#roles_combobox").combobox('setValues',data);
             });
-
-            $("#emp_form").form("load", val);
-            emp_dialog.dialog("setTitle", "编辑");
-            emp_dialog.dialog("open");
         },
-
-        //设置离职
-        changeState: function () {
-            var val = emp_datagrid.datagrid("getSelected");
-            var status = "";
-            if (!val) {
-                $.messager.alert("温馨提示", "请选择一条数据", "info");
-                return;
-            }
-            if (val.state) {
-                status = "确定设置离职吗?";
-            } else {
-                status = "确定设置复职吗?";
-            }
-            $.messager.confirm("温馨提示", status, function (ret) {
-                if (ret) {
-                    $.get("/employee/changeState.do", {id: val.id}, function (data) {
-                        if (data.success) {
-                            $.messager.alert("温馨提示", "操作成功", "info");
-                            emp_datagrid.datagrid("reload");
-                        }
-                    });
+        //点击确认，提交minType_dialog对话框
+        minType_dialog_ok:function () {
+            //在对应大分类里，插入小分类:name,大分类的id
+            minType_form.form("submit",{
+                url:'/minType/insertMinType.do',
+                onSubmit: function(param){
+                    param["maxtype_id"]=maxType.combobox("getValue");
+                },
+                success:function (data) {
+                    //一旦点击提交按钮，就关闭对话框
+                    minType_dialog.dialog("close");
+                    data=$.parseJSON(data);
+                    if(data.success){
+                        $.messager.alert("温馨提示",'保存成功','info',function () {
+                            //更新小分类列表里的数据
+                            pay_datagrid.datagrid("load",{"maxTypeId":maxType.combobox("getValue")});
+                        });
+                    }else {
+                        $.messager.alert("温馨提示",data.msg,'warning');
+                    }
                 }
-            })
-        },
-
-        //取消按钮
-        cancel: function () {
-            emp_dialog.dialog("close");
-            rPassword.dialog('close');
-        },
-        //刷新按钮
-        reloadData: function () {
-            emp_datagrid.datagrid("load");
-        },
-        //高级查询
-        searchs: function () {
-            var keyword = $("#keyword").textbox("getValue");
-            var deptId = $("#deptId").textbox("getValue");
-            var beginDate = $("#beginDate").textbox("getValue");
-            var endDate = $("#endDate").textbox("getValue");
-            emp_datagrid.datagrid("load", {
-                keyword: keyword,
-                deptId:deptId,
-                beginDate:beginDate,
-                endDate:endDate
             });
-        }/*,
-        changePassword:function () {
-            var val = emp_datagrid.datagrid("getSelected");
-            if (!val) {
-                $.messager.alert("温馨提示", "请选择一条数据", "info");
-                return;
-            }
-            rPassword.dialog("open");
-        }*/
-    };
+        },
+        //点击关闭对话框minType_dialog
+        minType_dialog_cancel:function () {
+            minType_dialog.dialog("close");
+        },
+        //点击确认，提交setType_dialog对话框
+        setType_dialog_ok:function () {
+            setType_dialog.dialog("close");
+        },
+        //点击关闭对话框setType_dialog
+        setType_dialog_cancel:function () {
+            setType_dialog.dialog("close");
+        },
+        //点击提交对话框addMaxType_dialog
+        addMaxType_dialog_ok:function () {
+            addMaxType_form.form("submit",{
+                url:'/maxType/insertMaxType.do',
+                success:function (data) {
+                    //一旦点击提交按钮，就关闭对话框
+                    addMaxType_dialog.dialog("close");
+                    data=$.parseJSON(data);
+                    if(data.success){
+                        $.messager.alert("温馨提示",'保存成功','info',function () {
+                            //更新大分类列表里的数据
+                            setMaxType.datagrid("load");
+                        });
+                    }else {
+                        $.messager.alert("温馨提示",data.msg,'warning');
+                    }
+                }
+            });
+        },
+        //点击关闭对话框addMaxType_dialog
+        addMaxType_dialog_cancel:function () {
+            addMaxType_dialog.dialog("close");
+        },
+        //点击提交对话框addMinType_dialog
+        addMinType_dialog_ok:function () {
+            addMinType_form.form("submit",{
+                //1.将此小分类插入到数据库，需要：name,maxType_id
+                url:'/minType/insertMinType.do',
+                onSubmit: function(param){
+                    //获取大分类的名称，小分类的名称，然后拼成type，额外提交到后台，封装到pay上
+                    param["maxtype_id"]=setMaxType.datagrid("getSelected").id;
+                },
+                //提交成功后的回调函数
+                success:function (data) {
+                    //一旦点击提交按钮，就关闭对话框
+                    addMinType_dialog.dialog("close");
+                    data=$.parseJSON(data);
+                    if(data.success){
+                        $.messager.alert("温馨提示",'保存成功','info',function () {
+                            //2.更新小分类列表的内容
+                            setMinType.datagrid("load");
+                            //3.更新pay_datagrid的内容
+                            pay_datagrid.datagrid("load");
+                        });
+                    }else {
+                        $.messager.alert("温馨提示",data.msg,'warning');
+                    }
+                }
 
+            });
+        },
+
+        //点击关闭对话框addMinType_dialog
+        addMinType_dialog_cancel:function () {
+            addMinType_dialog.dialog("close");
+        },
+        //打开添加大分类的对话框
+        openAddMaxType:function () {
+            addMaxType_dialog.dialog("open");
+        },
+        //打开添加小分类的对话框
+        openAddMinType:function () {
+            //将form表单内容清空
+            addMinType_form.form("clear");
+            //要先设置大分类的名称
+            $("#showMaxType").html(setMaxType.datagrid("getSelected").name);
+            addMinType_dialog.dialog("open");
+        }
+    };
+    //给所有具有data-btn属性的A标签统一绑定点击事件
     $("a[data-btn]").click(function () {
         var btn = $(this).data("btn");
         methodObj[btn]();
     });
 
-
-    emp_datagrid.datagrid({
+    //pay_datagrid上的数据表格
+    pay_datagrid.datagrid({
         fit: true,
         fitColumns: true,
         striped: true,
-        url: '/employee/list.do',
-        toolbar: '#emp_toolbar',
-        pagination: true,
-        rownumbers: true,
+        url: '/minType/selectByMaxTypeId.do',
+        toolbar: '#pay_toolbar',
         singleSelect: true,
         columns: [[
-            {field: 'id', title: '编号', width: 50},
-            {field: 'username', title: '用户名', width: 50},
-            {field: 'realname', title: '真实姓名', width: 50},
-            {field: 'tel', title: '电话', width: 50},
-            {field: 'email', title: '邮箱', width: 50},
-            {field: 'hireDate', title: '入职时间', width: 50},
-            {
-                field: 'state', title: '状态', width: 50, formatter: function (value, row, index) {
-                    return value ? "在职" : "<font color='red'>离职</font>";
-                }
-            },
-            {
-                field: 'dept.id', title: '部门', width: 50, formatter: function (value, row, index) {
-                    if (row.dept) {
-                        return row ? row.dept.name : "";
-                    }
-                }
-            },
-            {
-                field: 'admin', title: '管理员', width: 50, formatter: function (value, row, index) {
-                    return value ? "是" : "否";
-                }
+            {field: 'name', title: '支出类型', width: 50}
+        ]]
+    });
+
+    //支出大分类的下拉框
+    maxType.combobox({
+        url:'/maxType/selectAll.do',
+        prompt:'支出大分类',
+        width:220,
+        panelHeight:'auto',
+        valueField:'id',
+        textField:'name',
+        onSelect: function(rec){ //联动，当选中某个选项时，让pay_datagrid去查数据并渲染
+            pay_datagrid.datagrid("load",{"maxTypeId":rec.id});
+        },
+        onLoadSuccess:function(){ //默认选中第一条数据
+            var data= $(this).combobox("getData");
+            if (data.length > 0) {
+                maxType.combobox('select', data[0].id);
             }
+        }
+    });
+
+
+    //大分类的列表
+    setMaxType.datagrid({
+
+        url:'/maxType/selectAll.do',
+        fitColumns:true,
+        singleSelect:true,
+        striped:true,
+        width:210,
+        height:380,
+        columns:[[
+            {field:'ck',width:100,checkbox:true,align:'center'},
+            {field:'name',width:100,align:'center'}
         ]],
-        onClickRow: function (index, row) {
-            if (row.state) {
-                $("#changeState").linkbutton({
-                    text: "设置离职"
-                });
-            } else {
-                $("#changeState").linkbutton({
-                    text: "设置复职"
-                });
-            }
+        //一加载完数据，就要选中第一行，并在右边显示小分类
+        onLoadSuccess:function () {
+            setMaxType.datagrid("selectRow",0);
+        },
+        onClickRow:function (index,row) {
+            //点击一行时，触发此事件，index是当前行的索引，row是点击的行
+            //小分类的datagrid显示
+            setMinType.datagrid("load",{"maxTypeId":row.id});
         }
     });
-
-
-
-
-    emp_dialog.dialog({
-        width: 320,
-        height: 360,
-        buttons: '#emp_button',
-        closed: true,
-        onClose: function () {
-            $("#emp_form").form("clear");
-        }
+    //小分类的列表
+    setMinType.datagrid({
+        fitColumns: true,
+        striped: true,
+        url: '/minType/selectByMaxTypeId.do',
+        singleSelect: true,
+        width:210,
+        height:380,
+        columns: [[
+            {field: 'name',width: 50,align:'center'}
+        ]]
     });
-
-   /* rPassword.dialog({
-        title:'重置密码',
-        width: 320,
-        height: 300,
-        buttons: '#emp_button',
-        closed: true
-    });*/
-
 });

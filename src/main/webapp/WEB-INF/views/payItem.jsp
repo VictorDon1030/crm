@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@ include file="/static/common/common.jsp"%>
-    <script type="text/javascript" src="/static/js/employee.js"></script>
+    <script type="text/javascript" src="/static/js/payItem.js"></script>
     <title>日常支出</title>
 </head>
 <body>
@@ -16,13 +16,29 @@
         </div>
     </div>
 
-    <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px">
-        <div class="easyui-layout" data-options="fit:true">
-            <div data-options="region:'east',split:true,collapsible:false" style="width:450px"></div>
-            <div data-options="region:'west',split:true,collapsible:false"  style="width:380px"></div>
-            <div data-options="region:'center',collapsible:false"  ></div>
-        </div>
+    <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px;margin-top: 0px;">
+        <table style="margin-top: 0px;margin-left:20px;" >
+            <!--payItem数据表格-->
+            <tr>
+                <table id="payItem_datagrid" style="margin-top: 10px;" ></table>
+            </tr>
+
+        </table>
     </div>
 </div>
+
+<!--payItem数据表格的toolbar-->
+<div id="pay_toolbar">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="window.open('/payItem/exportXls.do')">导出报表</a>
+    <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="today">今日</a>
+    <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="week">本周</a>
+    <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="month">本月</a>
+    <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="other">其他</a>
+    <input class="easyui-datebox" data-options="prompt:'开始时间'" name="startDate" id="startDate">&nbsp;
+    &nbsp;至&nbsp;&nbsp;
+    <input class="easyui-datebox" data-options="prompt:'结束时间'" name="endDate" id="endDate">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="searchs">搜索</a>
+</div>
+
 </body>
 </html>
