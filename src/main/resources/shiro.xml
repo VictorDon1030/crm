@@ -27,7 +27,7 @@
 				/static/**=anon
 				/login.jsp=anon
 				/logout.do=logout
-				/**=authc
+				<!--/**=authc-->
 			</value>
 		</property>
 		<property name="filters">
