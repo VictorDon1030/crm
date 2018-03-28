@@ -37,4 +37,13 @@ public class MinTypeServiceImpl implements IMinTypeService {
     public void update(MinType entity) {
         minTypeMapper.updateByPrimaryKey(entity);
     }
+
+    /**
+     * 根据支出大分类的id查出其所有的支出小分类
+     * @param maxTypeId
+     * @return
+     */
+    public List<MinType> selectByMaxTypeId(Long maxTypeId){
+        return minTypeMapper.selectByMaxTypeId(maxTypeId);
+    }
 }
