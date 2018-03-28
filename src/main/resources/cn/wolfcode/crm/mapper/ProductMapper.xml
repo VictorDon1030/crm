@@ -104,4 +104,27 @@
       </if>
     </where>
   </sql>
+
+  <select id="selectBySecondaryId" resultMap="BaseResultMap">
+    select *  from product p join secondary s on p.id = s.product_id
+    where s.product_id = #{id}
+  </select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

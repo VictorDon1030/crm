@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Product;
+import cn.wolfcode.crm.mapper.ProductMapper;
 import cn.wolfcode.crm.query.ProductQueryObject;
 import cn.wolfcode.crm.service.IProductService;
 import cn.wolfcode.crm.util.JsonResult;
@@ -29,6 +30,8 @@ public class ProductController {
 
     @Autowired
     private IProductService productService;
+    @Autowired
+    private ProductMapper productMapper;
 
     @RequestMapping("view")
     public String view(){
@@ -41,6 +44,14 @@ public class ProductController {
     public PageResult list(ProductQueryObject qo){
 
         return productService.query(qo);
+    }
+
+    //查询所有列
+    @RequestMapping("countId")
+    @ResponseBody
+    public Object countId(ProductQueryObject qo){
+
+        return productService.listAll();
     }
 
     @RequestMapping("saveOrUpdate")
@@ -101,7 +112,7 @@ public class ProductController {
             row.createCell(4).setCellValue(product.getGoodsMark());
             row.createCell(5).setCellValue(product.getPurchasingPrice().toString());
             row.createCell(6).setCellValue(product.getUnitpPrice().toString());
-            row.createCell(7).setCellValue(product.getMemberPrice());
+            row.createCell(7).setCellValue(product.getMemberPrice().toString());
             row.createCell(8).setCellValue(product.getMinDiscount().toString());
             row.createCell(9).setCellValue(product.getMinPrice().toString());
             row.createCell(10).setCellValue(product.getInitialInventory());
