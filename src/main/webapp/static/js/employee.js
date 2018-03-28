@@ -9,7 +9,7 @@ $(function () {
         addData: function () {
             $("#password").show();
             emp_dialog.dialog("setTitle", "新增");
-            emp_dialog.dialog("open");
+            emp_dialog.dialog("open").dialog('center');
         },
 
         //保存按钮

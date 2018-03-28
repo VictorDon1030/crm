@@ -36,11 +36,11 @@
 						<form action="#" name="f" method="post">
 							<div class="input_outer">
 								<span class="u_user"></span>
-								<input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+								<input name="username" class="text" style="color: #FFFFFF !important" type="text" value="admin" placeholder="请输入账户">
 							</div>
 							<div class="input_outer">
 								<span class="us_uer"></span>
-								<input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+								<input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="1" type="password"  placeholder="请输入密码">
 							</div>
 							<div class="mb2"><a class="act-but submit" href="javascript:login();" style="color: #FFFFFF">登录</a></div>
 						</form>

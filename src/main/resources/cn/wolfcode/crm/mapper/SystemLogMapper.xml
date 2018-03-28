@@ -7,6 +7,7 @@
     <result column="opIp" property="opIp" />
     <result column="function" property="function" />
     <result column="params" property="params" />
+    <result column="opUser_id" property="opUser.id" />
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from systemlog
@@ -19,10 +20,10 @@
   <update id="updateByPrimaryKey">
     update systemlog
     set opUser_id = #{opUser.id},
-    opTime = #{opTime},
-    opIp = #{opIp},
-    function = #{function},
-    params = #{params}
+      opTime = #{opTime},
+      opIp = #{opIp},
+      function = #{function},
+      params = #{params}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
