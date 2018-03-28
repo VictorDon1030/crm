@@ -10,7 +10,7 @@
     <!--查询支出人：关联查询-->
     <association property="payUser" javaType="Employee" columnPrefix="e_">
       <id property="id" column="id"/>
-      <result property="name" column="name"/>
+      <result property="username" column="username"/>
     </association>
     <!--查询支出：关联查询-->
     <association property="pay" javaType="Pay" columnPrefix="p_">
@@ -44,15 +44,48 @@
   <select id="selectAll" resultMap="BaseResultMap">
     <include refid="base_select"/>
     <include refid="base_from"/>
-    from payitem
   </select>
 
 
   <sql id="base_select">
     select pi.id,pi.type,pi.amount, pi.date, pi.payUser_id,pi.remark,pi.pay_id,
-      p.id p_id,p.name p_name,e.id e_id,e.name e_name
+      p.id p_id,p.type p_type,e.id e_id,e.username e_username
   </sql>
   <sql id="base_from">
     from payitem pi LEFT JOIN pay p on pi.pay_id=p.id LEFT JOIN employee e on pi.payUser_id=e.id
+  </sql>
+
+
+  <!--高级查询-->
+  <select id="queryCount" resultType="int">
+    select count(pi.id)
+    <include refid="base_from"/>
+    <include refid="base_where"/>
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    <include refid="base_select"/>
+    <include refid="base_from"/>
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+  <sql id="base_where">
+    <if test="today!=null">
+      and DateDiff(pi.date,now())=0
+    </if>
+    <if test="week!=null">
+      and YEARWEEK(date_format(pi.date,'%Y-%m-%d')) = YEARWEEK(now())
+
+    </if>
+    <if test="month!=null">
+      and DATE_FORMAT(pi.date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </if>
+    <if test="beginDate!=null">
+      and pi.date >=#{beginDate}
+    </if>
+    <if test="endDate!=null">
+      and pi.date &lt;=#{endDate}
+    </if>
   </sql>
 </mapper>

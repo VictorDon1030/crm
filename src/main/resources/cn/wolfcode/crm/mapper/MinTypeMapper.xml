@@ -4,32 +4,33 @@
   <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.MinType">
     <id column="id" property="id" />
     <result column="name" property="name" />
+    <result column="maxtype_id" property="maxtype_id"/>
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from mintype
     where id = #{id}
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into mintype (name)
-    values (#{name})
+    insert into mintype (name,maxtype_id)
+    values (#{name},#{maxtype_id})
   </insert>
   <update id="updateByPrimaryKey">
     update mintype
-    set name = #{name}
+    set name = #{name},maxtype_id=#{maxtype_id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, name
+    select id, name,maxtype_id
     from mintype
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, name
+    select id, name,maxtype_id
     from mintype
   </select>
 
   <!--通过大分类的id来查询对应的所有小分类-->
   <select id="selectByMaxTypeId" resultMap="BaseResultMap">
-    select name from mintype where maxtype_id=#{id}
+    select * from mintype where maxtype_id=#{id}
   </select>
 </mapper>
