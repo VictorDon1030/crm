@@ -62,6 +62,7 @@
         </javaClientGenerator>
 
         <table tableName="Secondary" domainObjectName="Secondary">
+
             <property name="useActualColumnNames" value="true" />
             <!-- 参考 javaModelGenerator 的 constructorBased属性 -->
             <property name="constructorBased" value="false"/>

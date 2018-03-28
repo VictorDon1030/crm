@@ -1,0 +1,528 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<link rel="shortcut icon" href="../../../favicon.ico" />
+<title>演示 - Baidu主题 - jQuery EasyUI 1.5.x Of Insdep theme examples 2.0.0</title>
+
+<!--顶部进度加载库-->
+<script src='../../../insdep/plugin/nprogress-0.2.0/nprogress.js'></script>
+<link rel='stylesheet' href='../../../insdep/plugin/nprogress-0.2.0/nprogress.css'/>
+<!--顶部进度加载库 end-->
+
+<!--CSS Reset-->
+<!--说明：根据使用要求，此处可选 reset.min.css 或 normalize.min.css-->
+<link href="../../../insdep/reset.min.css" rel="stylesheet" type="text/css">
+<!--CSS Reset end-->
+
+<!-- CSS Easyui Of insdep theme-->
+<link href="../../../insdep/easyui_full.css" rel="stylesheet" type="text/css">
+<!-- CSS Easyui Of insdep theme end-->
+
+
+<!-- CSS 动画样式-->
+<link href="../../../insdep/plugin/animate-3.5.2/animate-3.5.2.css" rel="stylesheet" type="text/css">
+<!-- CSS 动画样式 end-->
+
+<!-- CSS 主题样式-->
+<link href="../../../insdep/theme.default/master.css" rel="stylesheet" type="text/css">
+<!-- CSS 主题样式 end-->
+
+<!-- CSS Alibaba iconfont字体图标库-->
+<link href="../../../insdep/iconfont/iconfont.css" rel="stylesheet" type="text/css">
+<!-- CSS Alibaba iconfont字体图标库 end-->
+
+<!-- Jquery-->
+<script type="text/javascript" src="../../../jquery-1.11.3.min.js"></script>
+<!-- Jquery end-->
+
+<!-- Jquery Easyui-->
+<script type="text/javascript" src="../../../jquery.easyui-1.5.2.min.js"></script>
+<!-- Jquery Easyui end-->
+
+<!-- JavaScript Easyui Of insdep theme 初始化扩展-->
+<script type="text/javascript" src="../../../insdep/insdep-extend.min.js"></script>
+<!-- JavaScript Easyui Of insdep theme 初始化扩展 end-->
+
+
+<!-- JavaScript 主题脚本-->
+<script type="text/javascript" src="../../../insdep/theme.default/master.js"></script>
+<!-- JavaScript 主题脚本 end-->
+
+</head>
+
+<body>
+    <!--启动顶部加载进度条-->
+    <script>NProgress.start();</script>
+    <!--显示遮罩层-->
+    <div class="initial-mask" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#fff;z-index:9999999;"></div>
+
+
+
+
+
+    <!--主题整体布局-->
+
+    <div class="easyui-layout theme-layout" data-options="fit:true">
+
+        <!--north 顶部布局-->
+        <div class="theme-header-layout" data-options="region:'north'">
+
+            <!--顶部导航布局-->
+            <div class="theme-header-navigate">
+
+                <!--顶部导航左侧布局-->
+                <div class="left">
+                    <a href="#" class="easyui-linkbutton"><span class="iconfont theme-left-menu-switch">&#xe640;</span></a>
+                    <!--用户信息-->
+                    <a href="#" class="easyui-menubutton theme-header-navigate-user-button" data-options="menu:'.theme-header-navigate-user-panel'">匿名</a>
+                    <div class="theme-header-navigate-user-panel">
+                       <dl>
+                            <dd>
+                                <img src="../../../insdep/theme.default/images/portrait_250x250.png" width="86" height="86">
+                                <b>匿名<i class="badge color-red">10</i></b>
+                                <span class="font-grayish">examples@insdep.com</span>
+                                <p>安全等级：<i class="font-green">高</i></p>
+                            </dd>
+                            <dt>
+                                <a class="theme-navigate-user-modify">修改资料</a>
+                                <a class="theme-navigate-user-logout">注销</a>
+                            </dt>
+                       </dl>
+                    </div>
+
+                    <!--导航-->
+                    <a href="#" class="easyui-linkbutton">新建</a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1',hasDownArrow:false">文件</a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm2',hasDownArrow:false">编辑</a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm3',hasDownArrow:false">消息<span class="badge color-red">15</span></a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm4',hasDownArrow:true">高级<span class="badge-tip color-red"></span></a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm5',hasDownArrow:true">演示</a>
+                    <div class="theme-header-navigate-sep"></div>
+
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单1</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1'">菜单2</a>
+                    <a href="#" class="easyui-linkbutton" data-options="toggle:true,group:'g1',selected:true">菜单3</a>
+                    
+                    <div class="theme-header-navigate-sep"></div>
+
+                    <select class="easyui-combobox theme-header-navigate-combobox" data-options="editable:false" style="width:120px;">   
+                        <option>选择样式</option>   
+                        <option>Insdep</option>   
+                        <option>Bootstrap</option> 
+                        <option>Gray</option> 
+                        <option>Metro</option> 
+                        <option>Material</option> 
+                    </select>
+
+                    <div id="mm1" class="theme-header-navigate-menu-panel" data-options="noline:true">
+                        <div>新建</div>
+                        <div>打开</div>
+                        <div>
+                            <span>打开最近文件</span>
+                            <div>
+                                <div>1 index.html</div>
+                                <div>2 calendar-custom.html</div>
+                                <div>3 combo-animation.html</div>
+                                <div>4 datebox-restrict.html</div>
+                                <div>5 datetimespinner-icon.html</div>
+                                <div>6 filebox-button-align.html</div>
+                                <div>7 menubutton-alignment.html</div>
+                                <div>8 messager-interactive.html</div>
+                                <div>9 propertygrid-group-format.html</div>
+                                <div class="menu-sep"></div>
+                                <div>启动时重新打开文件</div>
+                            </div>
+                        </div>
+                        <div>关闭</div>
+                        <div>全部关闭</div>
+                        <div class="menu-sep"></div>
+                        <div data-options="disabled:true,iconCls:'icon-save'">保存</div>
+                        <div>另存为</div>
+                        <div data-options="disabled:true">保存为全部</div>
+                        <div class="menu-sep"></div>
+                        <div>
+                            <span>导入</span>
+                            <div>
+                                <div>XML 到模板</div>
+                                <div>表格式数据</div>
+                                <div data-options="disabled:true">Word 文档</div>
+                                <div data-options="disabled:true">Excel 文档</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span>导出</span>
+                            <div>
+                                <div>表格</div>
+                            </div>
+                        </div>
+                        <div class="menu-sep"></div>
+                        <div>退出</div>
+                    </div>
+                    
+                    <div id="mm2" class="theme-header-navigate-menu-panel" data-options="noline:true">
+                        <div>撤销</div>
+                        <div data-options="disabled:true">重做</div>
+                        <div class="menu-sep"></div>
+                        <div>剪切</div>
+                        <div>复制</div>
+                        <div data-options="disabled:true">粘贴</div>
+                        <div data-options="disabled:true">选择性粘贴</div>
+                        <div data-options="disabled:true">清除</div>
+                        <div class="menu-sep"></div>
+                        <div>全选</div>
+                        <div>选择父标签</div>
+                        <div>选择子标签</div>
+                        <div class="menu-sep"></div>
+                        <div>查找和替换</div>
+                        <div>查找所选</div>
+                        <div>查找下一个</div>
+                        <div class="menu-sep"></div>
+                        <div>快捷键</div>
+                        <div>首选项</div>
+                    </div>
+                    
+                    <div id="mm3" class="theme-header-navigate-menu-panel" data-options="noline:true">
+                        <div>产品消息 <span class="badge color-green">5</span></div>
+                        <div>安全消息 <span class="badge color-orange">10</span></div>
+                        <div>服务消息</div>
+                        <div class="menu-sep"></div>
+                        <div>查看历史消息</div>
+                        <div class="menu-sep"></div>
+                        <div>清除消息提示</div>
+                    </div>
+
+                    <div id="mm4" class="theme-header-navigate-menu-panel"  data-options="noline:true" style="width:300px;">
+                        <div data-options="disabled:true">撤销<i>副标题</i><em>快捷键</em></div>
+                        <div class="menu-sep"></div>
+                        <div>设置<i>设置说明</i><em>Ctrl+Shift+E</em></div>
+                        <div>
+                            <span>配置文件<i>文件说明</i><em>Ctrl+Shift+X</em></span>
+                            <div>
+                                <div>导出</div>
+                                <div>导入</div>
+                            </div>
+                        </div>
+                        <div>设置<i>设置说明</i><em>Ctrl+Shift+E</em></div>
+                    </div>
+
+                    <div id="mm5" class="theme-header-navigate-menu-panel"  data-options="noline:true">
+                        <div>统计</div>
+                        <div class="menu-sep"></div>
+                        <div>标签页</div>
+                        
+                    </div>
+                    
+                </div>
+                <!--顶部导航左侧布局 end-->
+
+                <!--顶部导航右侧布局-->
+                <div class="right">
+                    
+                    <a href="#" class="easyui-menubutton" data-options="menu:'.theme-header-navigate-update',hasDownArrow:false"><span class="iconfont">&#xe612;</span><span class="badge-tip color-green"></span></a>
+                    <div class="theme-header-navigate-update">
+
+                        <!--上传框架-->
+                        <!--导入上传框架-->
+                        <link href="../../../insdep/plus/upload/style.css" rel="stylesheet" type="text/css">
+                        <!--导入上传框架 end-->
+                        <article class="batch-upload batch-upload-simple">
+                                 <article class="upload-list">
+                                     <article class="upload-scroll">
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:16,text:''" data-percent="16"></article></dd>
+                                         </dl>
+                                         <dl class="upload-files-success file-icon-excel">
+                                             <dt>2017-06-20预报名表.xlsx <span>2.65MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:100,text:''" data-percent="100"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-excel">
+                                             <dt>综合选修教师.xlsx <span>1.68MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:31,text:''" data-percent="31"></article></dd>
+                                         </dl>
+                                         <dl class="upload-files-error file-icon-word">
+                                             <dt>短信签名委托书.docx <span>1.66MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:0,text:''" data-percent="0"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:100,text:''" data-percent="100"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:30,text:''" data-percent="30"></article></dd>
+                                         </dl>
+                                        
+                                     </article>
+                                 </article>
+                                 <article class="upload-operate">
+                                     <article class="upload-dragged">
+                                         <b>拖入图片上传</b>
+                                     </article>
+                                     <article class="upload-button"><input type="file" name="">选择图片</article>
+                                 </article>
+
+                        </article>
+                        <!--上传框架 end-->
+                    </div>
+
+                    <a href="#" class="easyui-menubutton" data-options="menu:'.theme-header-navigate-message',hasDownArrow:false"><span class="iconfont">&#xe7fd;</span><span class="badge-tip color-green"></span></a>
+                    <div class="theme-header-navigate-message">
+                        
+                        <!--消息框架-->
+                        <!--导入消息框架-->
+                        <link href="../../../insdep/plus/panel/message_standard_panel/style.css" rel="stylesheet" type="text/css">
+                        <!--导入消息框架 end-->
+                        <article class="message_standard_panel">
+                                <article class="message_standard_content">
+
+                                        <article class="message_standard_panel_preset_userlist">
+                                                <ul>
+                                                        <li>
+                                                            <img src="../../../insdep/plus/panel/message_standard_panel/images/examples_user_02.jpg">
+                                                            <b>John</b>
+                                                            <span>市政府的项目方案请在下午2点前..</span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="../../../insdep/plus/panel/message_standard_panel/images/examples_user_03.jpg">
+                                                            <b>Michelle</b>
+                                                            <span>晚上去吃什么?</span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="../../../insdep/plus/panel/message_standard_panel/images/portrait_250x250.png">
+                                                            <b>Jessica</b>
+                                                            <span>文件资料已经帮你放桌上了.</span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="../../../insdep/plus/panel/message_standard_panel/images/examples_user_04.jpg">
+                                                            <b>Lily</b>
+                                                            <span>好的,明天早上见!</span>
+                                                        </li>
+                                                </ul>
+                                        </article>
+
+                                </article>
+                        </article>
+                        <!--消息框架 end-->
+
+                    </div>
+
+                    <a href="#" class="easyui-menubutton" data-options="menu:'.theme-header-navigate-download',hasDownArrow:false"><span class="iconfont">&#xea6d;</span><span class="badge-tip color-orange"></span></a>
+                    <div class="theme-header-navigate-download">
+                        <!--上传框架-->
+                        <!--导入上传框架-->
+                        <link href="../../../insdep/plus/upload/style.css" rel="stylesheet" type="text/css">
+                        <!--导入上传框架 end-->
+                        <article class="batch-upload batch-upload-simple">
+                                 <article class="upload-list">
+                                     <article class="upload-scroll">
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:16,text:''" data-percent="16"></article></dd>
+                                         </dl>
+                                         <dl class="upload-files-success file-icon-excel">
+                                             <dt>2017-06-20预报名表.xlsx <span>2.65MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:100,text:''" data-percent="100"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-excel">
+                                             <dt>综合选修教师.xlsx <span>1.68MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:31,text:''" data-percent="31"></article></dd>
+                                         </dl>
+                                         <dl class="upload-files-error file-icon-word">
+                                             <dt>短信签名委托书.docx <span>1.66MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:0,text:''" data-percent="0"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:100,text:''" data-percent="100"></article></dd>
+                                         </dl>
+                                         <dl class="file-icon-word">
+                                             <dt>高一新生入学基本信息登记表.doc <span>1.20MB</span><b class="upload-cancel"></b></dt>
+                                             <dd><article class="easyui-progressbar progressbar-animation progressbar-auto-color" data-options="value:30,text:''" data-percent="30"></article></dd>
+                                         </dl>
+                                        
+                                     </article>
+                                 </article>
+
+                        </article>
+                        <!--上传框架 end-->
+                    </div>
+
+
+                    <select class="easyui-combobox theme-header-navigate-combobox" data-options="editable:false" style="width:150px;">  
+                        <option>Choose a language</option>   
+                        <option>Chinese</option>   
+                        <option>English</option>   
+                        <option>Korean</option>   
+                        <option>Japanese</option>   
+                        <option>Arabic</option>   
+                    </select>
+
+                    <input class="easyui-searchbox theme-header-navigate-search" data-options="prompt:'输入搜索的关键词..',menu:'#navigate_search_select'" style="width:250px"></input> 
+                    <div id="navigate_search_select" class="theme-header-navigate-search-panel" data-options="noline:true">
+                        <div data-options="name:'all'">全部内容</div>
+                        <div data-options="name:'sports'">标题</div>
+                        <div data-options="name:'sports'">作者</div>
+                        <div data-options="name:'sports'">内容</div>
+                    </div>
+                    
+                    <div class="theme-header-navigate-sep"></div>
+
+                    <a href="#" class="easyui-menubutton" data-options="menu:'.theme-header-navigate-weather',hasDownArrow:false">宁波： <span class="iconfont">&#xe637;</span> 10℃ <font class="font-green">良</font> 60</a>
+                    <div class="theme-header-navigate-weather">
+                        <img src="../../../insdep/plus/panel/weather_standard_panel/examples.png">
+                    </div>
+
+                    <div class="theme-header-navigate-sep"></div>
+
+
+                    <a href="#" class="easyui-linkbutton"><span class="iconfont">&#xe690;</span></a>
+
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#navigate_more',hasDownArrow:false"><span class="iconfont">&#xe7f2;</span></a>
+                    <div id="navigate_more" class="theme-header-navigate-menu-panel" data-options="noline:true">
+                        <div>联系我们</div>
+                        <div>参与改进计划</div>
+                        <div>检测更新</div>
+                        <div>关于</div>
+                    </div>
+                    
+                </div>
+                <!--顶部导航右侧布局 end-->
+            </div>
+            <!--顶部导航布局 end-->
+
+        </div>
+        <!--north 顶部布局 end-->
+
+        <!--West 左侧布局-->
+        <div class="theme-left-layout" data-options="region:'west'">
+
+            <!--用户面板-->
+            <div class="theme-left-user-panel">
+
+                <img src="../../../insdep/theme.default/images/portrait_250x250.png" width="86" height="86">
+                <dl>
+                    <dt>匿名 <span class="badge color-red">10</span></dt>
+                    <dd><span class="font-grayish">examples</span></dd>
+                    <dd>安全等级：<span class="font-green">高</span></dd>
+                </dl>
+                
+            </div>
+
+            <!--用户面板 end-->
+
+
+            <!--左侧菜单-->
+            <div class="theme-left-menu">
+                <div class="theme-left-menu-caption"><span class="right iconfont theme-left-menu-switch">&#xe640;</span>系统菜单</div>
+                <dl>
+                    <dt><span class="left iconfont">&#xe669;</span><span class="right iconfont">&#xe68a;</span>常用报告</dt>
+                </dl>
+                <dl>
+                    <dt><span class="iconfont">&#xe801;</span>网站概况</dt>
+                </dl>
+                <dl>
+                    <dt><span class="iconfont">&#xe7f5;</span>流量分析</dt>
+                    <dd>
+                        <ul>
+                            <li><a>实时访客</a></li>
+                            <li><a>趋势分析</a> 今 昨</li> 
+                            <li><a>跨屏分析</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><span class="iconfont">&#xe7f1;</span>来源分析</dt>
+                    <dd class="theme-left-menu-node-show">
+                        <ul>
+                            <li><a>全部来源</a></li> 
+                            <li><a>搜索引擎</a></li> 
+                            <li><a>搜索词</a></li>
+                            <li><a>外部链接</a></li>
+                            <li><a>指定广告跟踪</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!--左侧菜单 end-->
+
+        </div>
+        <!--West 左侧布局 end-->
+
+
+        <!--Center 中心布局-->
+        <div class="theme-center-layout" data-options="region:'center'">
+
+
+            <!--多页布局-->
+            <div class="easyui-tabs theme-tabs-layout" data-options="fit:true">
+                <div title="About" style="padding:10px">
+                    <p style="font-size:14px">
+                        jQuery EasyUI framework helps you build your web pages easily.
+                    </p>
+                    <ul>
+                        <li>easyui is a collection of user-interface plugin based on jQuery.</li>
+                        <li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
+                        <li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
+                        <li>complete framework for HTML5 web page.</li>
+                        <li>easyui save your time and scales while developing your products.</li>
+                        <li>easyui is very easy but powerful.</li>
+                    </ul>
+                </div>
+                <div title="My Documents" style="padding:10px">
+                    
+                </div>
+                <div title="Help" data-options="closable:true" style="padding:10px">
+                        This is the help content.
+                </div>
+            </div>
+            <!--多页布局 end-->
+
+
+        </div>
+        <!--Center 中心布局 end-->
+
+    </div>
+
+    <!--主题整体布局 end-->
+
+
+
+
+
+
+    <script>
+    /* 页面加载完成后 */
+    // JavaScript #1
+    $(document).ready(function(){ 
+
+        
+
+        /*结束顶部加载进度条*/
+        NProgress.done();
+        /*移除遮罩层*/
+    　　$(".initial-mask").remove();
+
+    }); 
+    // JavaScript #1
+    /* 页面加载完成后 end*/
+
+
+    </script>
+
+    <!--百度统计脚本(可删除)-->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?2b3f4e046085001a80d501ac63aded48";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <!--百度统计脚本(可删除) end-->
+
+</body>
+</html>
