@@ -2,6 +2,7 @@ package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Employee;
 import cn.wolfcode.crm.domain.Member;
+import cn.wolfcode.crm.query.MemberQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IMemberService;
 import cn.wolfcode.crm.util.JsonResult;
@@ -40,9 +41,16 @@ public class MmberController {
         return "member";
     }
 
+    //会员充值的页面
+    @RequestMapping("topUpView")
+    @RequiresPermissions(value={"member:memberTopUp","会员充值列表"},logical = Logical.OR)
+    public String topUpView(){
+        return "memberTopUp";
+    }
+
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(MemberQueryObject qo){
         return memberService.query(qo);
     }
 
@@ -88,4 +96,25 @@ public class MmberController {
         }
         return result;
     }
+    /*修改密码*/
+    @RequestMapping("updatePasswordById")
+    @ResponseBody
+    public Object updatePasswordById(Member meber){
+        JsonResult result = new JsonResult();
+        try {
+            memberService.updatePasswordById(meber);
+        } catch (Exception e){
+            result.mark("设置失败");
+        }
+        return result;
+    }
+    //public Object updatePasswordById();{
+    //    JsonResult result = new JsonResult();
+    //    try {
+    //        memberService.updatePasswordById(member);
+    //    } catch (Exception e){
+    //        result.mark("设置失败");
+    //    }
+    //    return result;
+    //}
 }

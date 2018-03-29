@@ -26,6 +26,15 @@ public interface IMemberService {
 
     PageResult query(QueryObject qo);
 
+    /**
+     * 修改会员挂失的状态
+     * @param id
+     */
     void changeState(Long id);
 
+    /**
+     *  修改会员密码的操作
+     * @param member
+     */
+    void updatePasswordById(Member member);
 }

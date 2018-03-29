@@ -12,7 +12,13 @@
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
         <result column="birthday" property="birthday"/>
+        <!--会员会员等级-->
         <association property="grade" javaType="DictionaryItem" columnPrefix="grade_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+        <!--回显支付方式-->
+        <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
@@ -23,9 +29,9 @@
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
-                            points, balance, usefullife, onUser_id, state,birthday)
+                            points, balance, usefullife, onUser_id, state, birthday)
         VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
-                              #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state},#{birthday})
+                              #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
     <update id="updateByPrimaryKey">
         UPDATE member
@@ -35,7 +41,7 @@
             password   = #{password},
             grade_id   = #{grade.id},
             payment_id = #{payment.id},
-            birthday = #{birthday},
+            birthday   = #{birthday},
             points     = #{points},
             balance    = #{balance},
             usefullife = #{usefullife},
@@ -49,22 +55,30 @@
         SET state = state ^ 1
         WHERE id = #{id}
     </update>
+    <!--修改密码的操作-->
+    <update id="updatePasswordById">
+        UPDATE member
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
         WHERE id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
-        <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int" parameterType="cn.wolfcode.crm.query.QueryObject">
-        SELECT count(id)
-        FROM member
+    <select id="queryCount" resultType="int" >
+        SELECT count(m.id)
+        <include refid="base_table"/>
+        <include refid="base_where"/>
     </select>
     <select id="queryForList" resultMap="BaseResultMap">
-       <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        <include refid="base_where"/>
         LIMIT #{start}, #{rows}
     </select>
 
@@ -83,12 +97,45 @@
             m.usefullife,
             m.onUser_id,
             m.state,
-            grade.id grade_id,
-            grade.name grade_name
+            grade.id     grade_id,
+            grade.name   grade_name,
+            payment.id   payment_id,
+            payment.name payment_name
 
     </sql>
     <sql id="base_table">
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id
+        left join dictionaryitem payment on m.payment_id=payment.id
     </sql>
 
+    <sql id="base_where">
+        <where>
+            <if test="keyword!= null">
+             and ( m.memberNum like concat('%',#{keyword},'%') or m.name like concat('%',#{keyword},'%')
+                or  m.phone like concat('%', #{keyword},'%'))
+            </if>
+            <if test="gradeId >-1 and  gradeId != null">
+                and m.grade_id= #{gradeId}
+            </if>
+            <if test="beginDate != null">
+                and    m.usefullife &gt;= #{beginDate}
+            </if>
+            <if test="endDate != null">
+                and   m.usefullife &lt;= #{endDate}
+            </if>
+            <if test="birthdayBeginDate != null">
+                and  m.birthday &gt;= #{birthdayBeginDate}
+            </if>
+            <if test="birthdayEndDate != null">
+                and   m.birthday &lt;= #{birthdayEndDate}
+            </if>
+        </where>
+    </sql>
+    <!--beginDate;
+    //结束时间
+    private Date endDate;
+    //生日开始时间
+    private Date birthdayBeginDate;
+    //生日结束时间
+    private Date birthdayEndDate;-->
 </mapper>

@@ -22,4 +22,6 @@ public interface MemberMapper {
     List<Member> queryForList(QueryObject qo);
 
     void changeState(Long id);
+
+    void updatePasswordById(Member member);
 }
