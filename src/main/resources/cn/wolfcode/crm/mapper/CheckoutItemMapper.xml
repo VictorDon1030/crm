@@ -6,7 +6,6 @@
     <result column="unitpPrice" property="unitpPrice" />
     <result column="number" property="number" />
     <result column="amount" property="amount" />
-    <result column="product_id" property="product_id" />
     <result column="status" property="status" />
     <result column="bill_id" property="bill_id" />
     <result column="member_id" property="member_id" />
@@ -18,18 +17,18 @@
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
     insert into checkoutitem (unitpPrice, number, amount, product_id, status, bill_id, 
       member_id)
-    values (#{unitpPrice}, #{number}, #{amount}, #{product_id}, #{status}, #{bill_id}, 
-      #{member_id})
+    values (#{unitpPrice}, #{number}, #{amount}, #{product.id}, #{status}, #{bill.id}, 
+      #{member.id})
   </insert>
   <update id="updateByPrimaryKey">
     update checkoutitem
     set unitpPrice = #{unitpPrice},
       number = #{number},
       amount = #{amount},
-      product_id = #{product_id},
+      product_id = #{product.id},
       status = #{status},
-      bill_id = #{bill_id},
-      member_id = #{member_id}
+      bill_id = #{bill.id},
+      member_id = #{member.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
