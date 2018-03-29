@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
 @Setter
 @Getter
-public class CheckoutItem {
+public class CheckoutComeBillItem {
     private Long id;
 
     private BigDecimal unitpPrice;
@@ -17,10 +18,7 @@ public class CheckoutItem {
 
     private Product product;
 
-    private Boolean status;
+    private Long billId;
 
-    private Long bill_id;
-
-    private Long member_id;
-
+    private Member member;
 }

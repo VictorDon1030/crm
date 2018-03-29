@@ -3,7 +3,9 @@ package cn.wolfcode.crm.mapper;
 import cn.wolfcode.crm.domain.Department;
 import cn.wolfcode.crm.domain.Member;
 import cn.wolfcode.crm.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface MemberMapper {
@@ -24,4 +26,6 @@ public interface MemberMapper {
     void changeState(Long id);
 
     void updatePasswordById(Member member);
+
+    void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
 }

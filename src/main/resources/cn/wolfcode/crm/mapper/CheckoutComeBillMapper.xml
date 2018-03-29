@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.CheckoutComeBillMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.CheckoutComeBill">
+    <id column="id" property="id" />
+    <result column="sn" property="sn" />
+    <result column="vdate" property="vdate" />
+    <result column="status" property="status" />
+    <result column="totalAmount" property="totalAmount" />
+    <result column="totalNumber" property="totalNumber" />
+    <result column="depot_id" property="depotId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from checkoutcomebill
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into checkoutcomebill (sn, vdate, status, totalAmount, totalNumber, saleas_id, 
+      depot_id, member_id)
+    values (#{sn}, #{vdate}, #{status}, #{totalAmount}, #{totalNumber}, #{salesman.id},
+      #{depotId}, #{member.id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update checkoutcomebill
+    set sn = #{sn},
+      vdate = #{vdate},
+      status = #{status},
+      totalAmount = #{totalAmount},
+      totalNumber = #{totalNumber},
+      saleas_id = #{salesman.id},
+      depot_id = #{depotId},
+      member_id = #{member.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, sn, vdate, status, totalAmount, totalNumber, saleas_id, depot_id, member_id
+    from checkoutcomebill
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, sn, vdate, status, totalAmount, totalNumber, saleas_id, depot_id, member_id
+    from checkoutcomebill
+  </select>
+</mapper>

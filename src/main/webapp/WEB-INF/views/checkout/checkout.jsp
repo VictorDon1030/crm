@@ -28,9 +28,10 @@
                 <div id="pd" class="pd" class="easyui-layout" data-options="region:'west'"
                      style="width:230px;height:150px;">
                     <div style="margin-top: 50px">
-                    <p>会员编号:<input nam="id" class="easyui-textbox" data-options="" style="width:150px"></p>
-                    <p>会员姓名:<input name="name" class="easyui-textbox" data-options="" style="width:150px"></p>
-                    <p>卡内余额:<input name="" class="easyui-textbox" data-options="" style="width:150px"></p>
+                        <input name="member.id" type="hidden">
+                    <p>会员卡号:<input name="member.memberNum" class="easyui-textbox" data-options="" style="width:150px"></p>
+                    <p>会员姓名:<input name="member.name" class="easyui-textbox" data-options="" style="width:150px"></p>
+                    <p>卡内余额:<input name="member.balance" class="easyui-textbox" data-options="" style="width:150px"></p>
                     </div>
                 </div>
 
@@ -48,28 +49,28 @@
                         <tbody id="cashier_item">
                         <tr align="center">
                             <td>
-                                <input id="productSn" name="product.goodsMark" readonly="readonly" type="text"
+                                <input id="productSn"  readonly="readonly" type="text"
                                        style="width:75px"
                                        tag="goodsMark"/>
-                                <input id="productId" name="product.id" type="hidden" style="width:75px" tag="id"/>
+                                <input id="productId" type="hidden" style="width:75px" tag="id"/>
                                 <%--<input id="depot" name="depot.id" type="hidden" style="width:75px"/>--%>
                             </td>
                             <td>
 
-                                <input id="productName" name="product.name" readonly="readonly" type="text"
+                                <input id="productName" readonly="readonly" type="text"
                                        style="width:75px"
                                        tag="name">
                             </td>
                             <td>
-                                <input id="salePrice" name="product.unitpPrice" readonly="readonly" type="text"
+                                <input id="salePrice" readonly="readonly" type="text"
                                        style="width:75px"
                                        tag="unitpPrice">
                             </td>
                             <td>
-                                <input id="number" name="number" type="text" style="width:75px" tag="number">
+                                <input id="number" type="text" style="width:75px" tag="number">
                             </td>
                             <td>
-                                <input id="amount" name="amount" type="text" readonly="readonly" style="width:75px"
+                                <input id="amount" type="text" readonly="readonly" style="width:75px"
                                        tag="amount"
                                        class="input" oninput="count();">
                             </td>

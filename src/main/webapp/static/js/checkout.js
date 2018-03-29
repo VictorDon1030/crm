@@ -23,10 +23,13 @@ $(function () {
         }
     });
 
-    $('#product').datagrid({
+    $('#product').datagrid(
+        {
             //引用视图
+
             view: cardview,
             onClickRow: function (index, row) {
+
                 //获取jquery对象
                 var arr = $($("#cashier_item").find("[tag=id]"));
                 /*console.log(arr);*/
@@ -34,6 +37,7 @@ $(function () {
                 var newArr = $.map(arr, function (input) {
                     return $(input).val();
                 });
+
                 //数据显示到订单明细中
                 $("#cashier_item").find("tr").last("tr").find("[tag=goodsMark]").val(row.goodsMark);
                 $("#cashier_item").find("tr").last("tr").find("[tag=id]").val(row.id);
@@ -50,6 +54,7 @@ $(function () {
                 $(clone).find("[tag=number]").val("");
                 $(clone).find("[tag=amount]").val("");
                 $(clone).appendTo("#cashier_item");
+
                 //判断商品明细中是否有该商品
                 $.each(newArr, function (index, val) {
                     if (row.id == val) {
@@ -117,13 +122,30 @@ $(function () {
     $("#selectmember").click(function () {
         $("#dd").dialog("open");
     })
-    //
-    /*$("#dd").datagrid({
+    //点击会员弹窗
+    $("#member").datagrid({
         onClickRow:function (index,row) {
+            row["member.id"]=row.id;
+            row["member.memberNum"]=row.memberNum;
+            row["member.name"]=row.name;
+            row["member.balance"]=row.balance;
             $("#itemforms").form("load",row);
-            $("#dd").dialog("closed");
+            $("#dd").dialog("close");
         }
-    });*/
+    });
+    //付款
+    $("#payment").click(function () {
+        $.each($("#cashier_item tr"),function (index,ele) {
+            $(ele).find("[tag=goodsMark]").prop("name","items["+index+"].product.goodsMark");
+            $(ele).find("[tag=id]").prop("name","items["+index+"].product.id");
+            $(ele).find("[tag=name]").prop("name","items["+index+"].name");
+            $(ele).find("[tag=unitpPrice]").prop("name","items["+index+"].unitpPrice");
+            $(ele).find("[tag=number]").prop("name","items["+index+"].number");
+        })
+        $("#itemforms").form("submit",{
+            url:"/checkoutComeBill/saveOrUpdate.do"
+        })
+    });
 })
 
 //计算总价

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.CheckoutComeBillItemMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.CheckoutComeBillItem">
+    <id column="id" property="id" />
+    <result column="unitpPrice" property="unitpPrice" />
+    <result column="number" property="number" />
+    <result column="amount" property="amount" />
+    <result column="bill_id" property="billId" />
+    <association property="product" javaType="product" columnPrefix="p_">
+      <id property="id" column="id"/>
+      <result property="name" column="name"/>
+      <result property="brand" column="brand"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from checkoutcomebillitem
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into checkoutcomebillitem (unitpPrice, number, amount, product_id, bill_id, member_id
+      )
+    values (#{unitpPrice}, #{number}, #{amount}, #{product.id}, #{billId}, #{member.id}
+      )
+  </insert>
+  <update id="updateByPrimaryKey">
+    update checkoutcomebillitem
+    set unitpPrice = #{unitpPrice},
+      number = #{number},
+      amount = #{amount},
+      product_id = #{product_id},
+      bill_id = #{billId},
+      member_id = #{member_id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, unitpPrice, number, amount, product_id, bill_id, member_id
+    from checkoutcomebillitem
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, unitpPrice, number, amount, product_id, bill_id, member_id
+    from checkoutcomebillitem
+  </select>
+  <delete id="deleteByOrderId">
+    delete from checkoutcomebillitem where bill_id=#{billId}
+  </delete>
+  <select id="selectByOrderId" resultMap="BaseResultMap">
+    select ord.*,p.id p_id,p.name p_name,p.brandName p_brandName
+    from stockoutcomebillItem ord left join product p on ord.product_id=p.id
+    where bill_id = #{billId}
+  </select>
+</mapper>
