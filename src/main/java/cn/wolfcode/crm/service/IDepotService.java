@@ -1,7 +1,3 @@
-// Decompiled by Jad v1.5.8e2. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://kpdus.tripod.com/jad.html
-// Decompiler options: packimports(3) fieldsfirst ansi space 
-// Source File Name:   IDepotService.java
 
 package cn.wolfcode.crm.service;
 
@@ -18,7 +14,7 @@ public interface IDepotService {
 
 	 Depot selectByPrimaryKey(Long id);
 
-	 List selectAll();
+	 List<Depot> selectAll();
 
 	PageResult query(QueryObject qo);
 

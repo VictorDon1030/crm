@@ -7,7 +7,7 @@ $(function () {
         //striped:true,
         pagination:true,
         singleSelect:true,
-        resizeHandle:"both",
+        onClickRow:onClickRow,
         columns:[[
             {field: 'name', title: '仓库名称', width: 50},
             {field: 'sn', title: '仓库编码', width: 50},
@@ -22,23 +22,19 @@ $(function () {
             {field: 'state', title: '仓库状态', width: 50,
                 formatter:function(value, row, index){
                 if (value){
-                    var state = '<a name="sta1" class="easyui-switchbutton" onClick=changeState2false('+index+') />';
+                    var state = '<a name="sta1" class="easyui-switchbutton sta" data-options="onChange:onChange" />';
                     return state;
                 }else{
-                    state = '<a name="sta2" class="easyui-switchbutton"  onClick=changeState2true('+index+') />';
+                    state = '<a name="sta2" class="easyui-switchbutton sta" data-options="onChange:onChange" />';
                     return state;
                 }
             }},
             {field: 'str1', title: '操作', width: 50 ,
                 formatter:function(value, row, index){
                     var str1 = '<a href="#" name="str1" onclick="deleted()" class="easyui-linkbutton button-red" ></a>';
-                return str1;}
-            },
-            {field: 'str2', width: 50 ,
-                formatter:function(value, row, index){
                     var str2 = '<a href="#" name="str2" class="easyui-linkbutton button-olive" ></a>';
-                    return str2;}
-            },
+                return str1+str2;}
+            }
 
         ]],
         onLoadSuccess:function(data){
@@ -46,7 +42,7 @@ $(function () {
             $("a[name='str2']").linkbutton({text:'查看库存',plain:true});
             $("a[name='sta1']").switchbutton({onText:'正常',offText:'停用',width:100,checked:true});
             $("a[name='sta2']").switchbutton({onText:'正常',offText:'停用',width:100,checked:false});
-
+            $("#depot_datagrid")
         }
 });
     $("#depot_dialog").dialog({
@@ -60,6 +56,12 @@ $(function () {
     });
 
 })
+
+//更改状态
+function onClickRow(index, row) {
+    $("#depot_datagrid").
+
+}
 //删除仓库
 function deleted(){
     var row = $('#depot_datagrid').datagrid('getSelected');

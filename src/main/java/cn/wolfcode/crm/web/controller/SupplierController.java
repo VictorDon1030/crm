@@ -44,6 +44,11 @@ public class SupplierController {
         return this.supplierService.query(qo);
     }
 
+    @RequestMapping("selectAll")
+    @ResponseBody
+    public Object selectAll(){
+        return supplierService.selectAll();
+    }
     @RequestMapping({"saveOrUpdate"})
     @ResponseBody
     @RequiresPermissions(

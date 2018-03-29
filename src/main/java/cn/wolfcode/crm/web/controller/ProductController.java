@@ -42,6 +42,14 @@ public class ProductController {
 
         return productService.query(qo);
     }
+    @RequestMapping("get")
+    @ResponseBody
+    public Product get(Long id){
+
+        return productService.get(id);
+    }
+
+
 
     @RequestMapping("saveOrUpdate")
     @ResponseBody

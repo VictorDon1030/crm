@@ -52,7 +52,7 @@
                     <td>仓库状态:</td>
                     <td>
                         <%--<input class="easyui-switchbutton" checked >--%>
-                        <input name="state" class="easyui-switchbutton"
+                        <input  name="state" class="easyui-switchbutton"
                                data-options="checked:true,onText:'正常',offText:'停用',width:100,">
                     </td>
                 </tr>

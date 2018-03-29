@@ -50,6 +50,11 @@ public class DepotController {
         return this.depotService.query(qo);
     }
 
+    @RequestMapping("selectAll")
+    @ResponseBody
+    public Object selectAll(){
+        return depotService.selectAll();
+    }
     @RequestMapping({"saveOrUpdate"})
     @ResponseBody
     @RequiresPermissions(
