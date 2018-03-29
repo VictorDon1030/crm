@@ -9,6 +9,8 @@ $(function () {
     var id_hidden = $("#id_hidden");
     var ff = $("#ff");
     var btn = $("#btn");
+    var addway = $("#addway");
+    var state = $("#state");
 
     member_load_datagrid.datagrid({
         width: 400,
@@ -40,7 +42,26 @@ $(function () {
             id_hidden.val(row.id);
         }
     });
-    member_loadData_form.form()
-
+    btn.click(function () {
+        ff.form("submit", {
+            url: '/memberTopUp/saveOrUpdate.do',
+            onSubmit:function (param) {
+                addway.children("checked").data()
+            },
+            success: function (data) {
+                data = $.parseJSON(data);
+                if (data.success) {
+                    $.messager.alert("温馨提示", "操作成功", "info", function () {
+                        emp_datagrid.datagrid("reload");
+                        methodObj.cancel();
+                    })
+                } else {
+                    $.messager.alert("温馨提示", data.msg, "info");
+                    methodObj.cancel();
+                }
+            }
+        })
+    })
+    })
 
 })

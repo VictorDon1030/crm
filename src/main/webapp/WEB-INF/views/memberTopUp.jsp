@@ -104,32 +104,32 @@
     <div data-options="region:'center',border:false" style="padding:5px;background:#eee;">
         <form id="ff" method="post">
             <p> &nbsp; </p>
-            <input type="hidden" name="id" id="id_hidden">
-            <div>
+            <input type="hidden" name="member.id" id="id_hidden">
+            <div id="state">
                 <span>操作类型:</span>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充值'" data-btn="addTotal"></a>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充次'" data-btn="addCount"></a>
+                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充值'" data-btn="1"></a>
+                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充次'" data-btn="0"></a>
             </div>
             <span>
             <p> &nbsp; </p>
             </span>
-            <div>
+            <div id="addway">
                 <span>选择类型:</span>
                 <input id="select_topup" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="" type="radio">
-                <span>充值</span>
+                       value="充值" type="radio">
+                <span></span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <input id="select_fee" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="" type="radio">
-                <span>扣费</span>
+                       value="扣费" type="radio">
+                <span></span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <input id="select_refund" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="" type="radio">
-                <span>退还</span>
+                       value="退还" type="radio">
+                <span></span>
             </div>
             <span>
             <p> &nbsp; </p>
