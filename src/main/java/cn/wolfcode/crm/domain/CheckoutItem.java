@@ -15,7 +15,7 @@ public class CheckoutItem {
 
     private BigDecimal amount;
 
-    private Product product_id;
+    private Product product;
 
     private Boolean status;
 
