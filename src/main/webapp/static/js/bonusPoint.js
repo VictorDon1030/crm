@@ -1,6 +1,35 @@
 $(function () {
-    var memberSimpleInfo = $("#memberSimpleInfo");
-    var memberInfo = $("#memberInfo");
+    var memberSimpleInfo = $("#memberSimpleInfo,#memberSimpleInfo_gift");
+    var memberInfo = $("#memberInfo,#memberInfo_gift");
+    var giftList = $("#giftList");
+    var giftEdit = $("#giftEdit");
+    var giftDialog = $("#gift_dialog");
+    var giftEditForm = $("#gift_edit_form");
+    var exchangeRecord = $("#exchange_record");
+    giftEdit.dialog({
+        width: 330,
+        height: 400,
+        closed: true,
+        modal: true,
+        buttons: '#gift_edit_buttons',
+        onClose: function () {
+
+            giftEditForm.form("clear");//清空表单数据
+        }
+
+    });
+    giftDialog.dialog({
+        width: 600,
+        height: 400,
+        closed: true,
+        modal: true,
+        buttons: '#choose_buttons',
+        onClose: function () {
+
+            $("#giftList4choose").datagrid("clearChecked");//清空原来的选择
+        }
+
+    });
     memberSimpleInfo.datagrid({
         url: '/member/listByKeyword.do',
         columns: [[
@@ -18,27 +47,26 @@ $(function () {
             memberSimpleInfo.datagrid("selectRow", 0)
         },
         onSelect: function (index, row) {
-            $("#memberName").html(row.name);
-            $("#memberNum").html(row.memberNum);
-            $("#grade").html(row.grade.name);
-            $("#points").html(row.points);
-            $("#balance").html(row.balance);
-            $("#birthday").html(row.birthday);
-            $("#hiddenMemberId").val(row.id);
+            $("#memberName,#memberName_gift").html(row.name);
+            $("#memberNum,#memberNum_gift").html(row.memberNum);
+            $("#grade,#grade_gift").html(row.grade.name);
+            $("#points,#points_gift").html(row.points);
+            $("#balance,#balance_gift").html(row.balance);
+            $("#birthday,#birthday_gift").html(row.birthday);
+            $("#hiddenMemberId,#hiddenMemberId_gift").val(row.id);
             var sumPoints = 0;
-            var comsumPoints = 0;
+            // var comsumPoints = 0;
             $.each(row.bonusPointRecord, function (index, item) {
                 if (item.amount >= 0) {
                     sumPoints = sumPoints + item.amount;
-                } else {
-                    comsumPoints = comsumPoints + (item.amount - item.amount * 2)
                 }
+                /*else {
+                                   comsumPoints = comsumPoints + (item.amount - item.amount * 2)
+                               }*/
 
             });
-            $("#sumPoints").html(sumPoints);
-            $("#comsumPoints").html(comsumPoints);
-
-
+            $("#sumPoints,#sumPoints_gift").html(sumPoints);
+            // $("#comsumPoints").html(comsumPoints);
 
 
             memberInfo.datagrid({
@@ -69,7 +97,7 @@ $(function () {
                     },
                     {
                         field: 'optUser', width: 200, align: 'center', title: '操作人员', formatter: function (optUser) {
-                        return optUser ? optUser.realname : optUser;
+                        return optUser ? optUser.username : optUser;
                     }
                     },
                     {
@@ -93,6 +121,43 @@ $(function () {
         }
     });
 
+    exchangeRecord.datagrid({
+        url: '/exchangeRecord/list.do',
+        columns: [[
+            {
+                field: 'members', width: 80, align: 'center', title: '会员卡号', formatter: function (value, row) {
+                return value[0] ? value[0].memberNum : value[0];
+            }
+            },
+            {
+                field: 'memberName', width: 100, align: 'center', title: '会员名称', formatter: function (value, row) {
+                return row.members[0] ? row.members[0].name : row.members[0];
+            }
+            },
+            {
+                field: 'gift', width: 80, align: 'center', title: '礼品名称', formatter: function (value) {
+                return value ? value.name : value;
+            }
+            },
+            {
+                field: 'number', width: 80, align: 'center', title: '兑换数量'
+            },
+            {field: 'costPoints', width: 250, align: 'center', title: '消费积分'},
+            {field: 'consumeStore', width: 60, align: 'center', title: '消费店铺'},
+            {
+                field: 'optUser', width: 60, align: 'center', title: '操作人员', formatter: function (value) {
+                return value ? value.username : value;
+            }
+            },
+            {
+                field: 'exchangeDate', width: 60, align: 'center', title: '兑换日期', formatter: function (value) {
+                return value ? timestampToTime(value) : value;
+            }
+            }
+        ]]
+
+    });
+
     //将时间戳转换为日期格式
     function timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -106,6 +171,20 @@ $(function () {
         advancedSearch: function () {
             var keyword = $("#keyword").textbox("getValue");
             memberSimpleInfo.datagrid("load", {keyword: keyword});
+        },
+        advancedSearch_gift: function () {
+            var keywordGift = $("#keyword_gift").textbox("getValue");
+            memberSimpleInfo.datagrid("load", {keyword: keywordGift});
+        },
+        searchExchangeRecord: function () {
+            var exchangekeyword = $("#exchange_keyword").textbox("getValue");
+            var beginDate = $("#beginDate").textbox("getValue");
+            var endDate = $("#endDate").textbox("getValue");
+            exchangeRecord.datagrid("load", {keyword: exchangekeyword,beginDate:beginDate,endDate:endDate});
+        },
+        searchGifts: function () {
+            var giftKeyword = $("#giftKeyword").textbox("getValue");
+            giftList.datagrid("load", {keyword: giftKeyword});
         },
         changePoint: function () {
             var memberId = $("#hiddenMemberId").val();
@@ -158,6 +237,90 @@ $(function () {
             } else {
                 $.messager.alert("温馨提示", "请先选择要操作的会员", "info");
             }
+        },
+        removeData: function () {
+            //判断用户是否选择数据
+            var row = giftList.datagrid("getSelected");
+            if (row) {
+                $.messager.confirm("温馨提示", "您确定将当前礼品" + row.name + "删除吗", function (r) {
+                    if (r) {
+                        $.get("/gift/delete.do", {id: row.id}, function (data) {
+                            if (data.success) {
+                                $.messager.alert("温馨提示", "操作成功", "info");
+                                giftList.datagrid("reload");
+                            } else {
+                                $.messager.alert("温馨提示", data.msg, "info");
+                            }
+                        }, "json")
+                    }
+                })
+            } else {
+                $.messager.alert("温馨提示", "请先选择您要操作的数据", 'info');
+            }
+        },
+        addData: function () {
+            //设置标题
+            giftEdit.dialog("setTitle", "新增礼品");
+            giftEdit.dialog('open');
+        },
+        editData: function () {
+            //判断用户是否选择数据
+            var row = giftList.datagrid("getSelected");
+            if (row) {
+                //设置标题
+                giftEdit.dialog("setTitle", "修改礼品");
+                //数据回显
+                giftEditForm.form("load", row);
+                giftEdit.dialog('open');
+            } else {
+                $.messager.alert("温馨提示", "请先选择您要操作的数据", 'info');
+            }
+
+        },
+        chooseGift: function () {
+            //判断当前用户的积分是否为0
+            var points = $("#points_gift").html();
+            if (points == 0) {
+                $.messager.alert("温馨提示", "当前用户积分为0", "info");
+                return;
+            }
+            giftDialog.dialog("setTitle", "选择礼品");
+            giftDialog.dialog('open');
+        },
+        cancelDialog: function () {
+
+            giftEdit.dialog('close');
+        },
+        cancelChoose: function () {
+
+            giftDialog.dialog('close');
+        },
+        submitChoose: function () {
+            var rows = $("#giftList4choose").datagrid("getSelections");
+            $.each(rows, function (index, item) {
+                console.log(item);
+            });
+
+        },
+        submitData: function () {
+            var url = '/gift/saveOrUpdate.do';
+            giftEditForm.form("submit", {
+                url: url,
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    if (data.success) {
+                        $.messager.alert("温馨提示", "操作成功", 'info', function () {
+
+                            //刷新datagrid列表
+                            giftList.datagrid("reload");
+                            //关闭当前的dialog窗口
+                            methodObj.cancelDialog();
+                        });
+                    } else {
+                        $.messager.alert("温馨提示", data.msg, 'info');
+                    }
+                }
+            })
         }
     }
     $("a[data-cmd]").click(function () {

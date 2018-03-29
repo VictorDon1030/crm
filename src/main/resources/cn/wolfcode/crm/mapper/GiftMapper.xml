@@ -24,7 +24,8 @@
             sn             = #{sn},
             points         = #{points},
             total_quantity = #{totalQuantity},
-            unit           = #{unit}
+            inventory      = #{inventory},
+        unit           = #{unit}
         WHERE id = #{id}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">

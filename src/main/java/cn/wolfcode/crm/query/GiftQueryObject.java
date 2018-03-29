@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberBonusPointQueryObject {
+public class GiftQueryObject extends QueryObject {
     private String keyword;
 
     public String getKeyword() {

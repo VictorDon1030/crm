@@ -1,63 +1,22 @@
 package cn.wolfcode.crm.domain;
 
-public class Gift {
-    private Long id;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Gift extends BaseDomain {
 
     private String name;
-
+    //礼品编码
     private String sn;
-
+    //礼品单位
+    private String unit;
+    //兑换礼品所需积分
     private Integer points;
-
-    private Integer totalquantity;
-
+    //总数量
+    private Integer totalQuantity;
+    //剩余数量
     private Integer inventory;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
-
-    public Integer getTotalquantity() {
-        return totalquantity;
-    }
-
-    public void setTotalquantity(Integer totalquantity) {
-        this.totalquantity = totalquantity;
-    }
-
-    public Integer getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Integer inventory) {
-        this.inventory = inventory;
-    }
 }
