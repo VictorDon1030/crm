@@ -2,18 +2,8 @@
 <html>
 <head>
     <%@ include file="/static/common/common.jsp"%>
+    <script type="text/javascript" src="/static/js/dataManage.js"></script>
     <title>数据管理</title>
-    <script type="text/javascript">
-        $(function () {
-            $('#btn-clean').click(function () {
-            var checks = $('input[type=checkbox]');
-            //sssssssssssssssssssssssssssssssssssssssssssssssssssss
-            for (var i in checks){
-
-            }
-            });
-        });
-    </script>
     <style type="text/css">
         .bg{
             font-weight: bolder;
@@ -39,15 +29,15 @@
             <p style="margin-top: 10px;margin-left: 20%"><span><font size="4">选择初始化内容</font></span></p>
             <div style="background-color: whitesmoke;width: 60%;margin-left: 25%">
                 <p style="margin-top: 10px">
-                <input type="checkbox" data-id="1"/>
+                <input id="1" type="checkbox" data-id="1"/>
                     清除员工信息 | 删除全部员工信息、员工储值、积分、优惠券等所有记录
                 </p>
                 <p style="margin-top: 10px">
-                <input type="checkbox" data-id="2"/>
+                <input id="2" type="checkbox" data-id="2"/>
                     清除商品信息 | 删除全部商品信息（保留商品分类）、信息
                 </p>
                 <p style="margin-top: 10px">
-                <input type="checkbox" data-id="3"/>
+                <input id="3" type="checkbox" data-id="3"/>
                     清除商品出入库信息 删除所有商品出入库信息
                 </p>
             </div>
