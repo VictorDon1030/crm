@@ -1,12 +1,19 @@
-package cn.wolfcode.crm.mapper;
+package cn.wolfcode.crm.service;
 
-import cn.wolfcode.crm.domain.Department;
 import cn.wolfcode.crm.domain.SaleasCount;
 import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.util.PageResult;
 
 import java.util.List;
 
-public interface SaleasCountMapper {
+/**
+ * Demo class
+ *
+ * @author user
+ * @date yyyy/MM/dd
+ */
+public interface ISaleasCountService {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(SaleasCount entity);
@@ -17,7 +24,6 @@ public interface SaleasCountMapper {
 
     int updateByPrimaryKey(SaleasCount entity);
 
-    int queryCount(QueryObject qo);
+    PageResult query(QueryObject qo);
 
-    List<SaleasCount> queryForList(QueryObject qo);
 }

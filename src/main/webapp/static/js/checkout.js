@@ -113,7 +113,17 @@ $(function () {
 
     });
 
-
+    //选择会员按钮
+    $("#selectmember").click(function () {
+        $("#dd").dialog("open");
+    })
+    //
+    /*$("#dd").datagrid({
+        onClickRow:function (index,row) {
+            $("#itemforms").form("load",row);
+            $("#dd").dialog("closed");
+        }
+    });*/
 })
 
 //计算总价
@@ -125,4 +135,10 @@ function setTotal() {
     })
     $(".allprice").html(allprice.toFixed(2));
     $(".allnum").html(allnum);
+}
+//显示等级
+function state(grade) {
+    if(grade){
+        return grade.name;
+    }
 }

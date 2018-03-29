@@ -9,9 +9,6 @@
     <result column="costAmount" property="costAmount" />
     <result column="salePrice" property="salePrice" />
     <result column="saleAmount" property="saleAmount" />
-    <result column="product_id" property="product_id" />
-    <result column="saleman_id" property="saleman_id" />
-    <result column="member_id" property="member_id" />
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from saleascount
@@ -21,7 +18,7 @@
     insert into saleascount (vdate, number, costPrice, costAmount, salePrice, saleAmount, 
       product_id, saleman_id, member_id)
     values (#{vdate}, #{number}, #{costPrice}, #{costAmount}, #{salePrice}, #{saleAmount}, 
-      #{product_id}, #{saleman_id}, #{member_id})
+      #{product.id}, #{saleman.id}, #{member.id})
   </insert>
   <update id="updateByPrimaryKey">
     update saleascount
@@ -31,9 +28,9 @@
       costAmount = #{costAmount},
       salePrice = #{salePrice},
       saleAmount = #{saleAmount},
-      product_id = #{product_id},
-      saleman_id = #{saleman_id},
-      member_id = #{member_id}
+      product_id = #{product.id},
+      saleman_id = #{saleman.id},
+      member_id = #{member.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
@@ -46,5 +43,15 @@
     select id, vdate, number, costPrice, costAmount, salePrice, saleAmount, product_id, 
     saleman_id, member_id
     from saleascount
+  </select>
+  <select id="queryCount" resultType="int">
+    select count(id) from saleascount
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, vdate, number, costPrice, costAmount, salePrice, saleAmount, product_id,
+    saleman_id, member_id
+    from saleascount
+    limit #{start},#{rows}
   </select>
 </mapper>
