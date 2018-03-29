@@ -63,11 +63,18 @@
                 </tbody>
             </table>
             </div>
-            <div id="p" class="p"style="width:100px;height:150px;" align="canter">
+            <div class="easyui-layout" style="height: 150px;width: 600px">
+            <div id="p" class="p"style="width:100px;height:150px;" align="canter"
+                 data-options="region:'west'">
                 <p><span class="hfont"><font size="4">应付款: ¥</font></span></p>
                 <p><span id="totalNum" class="hfont"></span></p>
                 <p><span class="hfont"></span></p>
-
+            </div>
+                <div id="pd" class="pd" style="width:250px;height:150px;">
+                    <p>会员编号:<input id="clientNum" class="easyui-textbox" data-options="" style="width:150px"></p>
+                    <p>会员姓名:<input id="clientName" class="easyui-textbox" data-options="" style="width:150px"></p>
+                    <p>卡内余额:<input id="balance" class="easyui-textbox" data-options="" style="width:150px"></p>
+                </div>
             </div>
             <a class="easyui-linkbutton" data-options="iconCls:'icon-guadan',width:140" data-cmd="entryOrders">挂单</a>
             <a class="easyui-linkbutton" data-options="iconCls:'icon-qudan',width:140" data-cmd="selectOrders">取单</a>
