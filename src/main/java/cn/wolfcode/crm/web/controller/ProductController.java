@@ -74,6 +74,18 @@ public class ProductController {
         }
         return jsonResult;
     }
+    @RequestMapping("save")
+    @ResponseBody
+    public Object save(Product entity){
+        JsonResult jsonResult = new JsonResult();
+        try {
+            productService.save(entity);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonResult.mark("操作失败");
+        }
+        return jsonResult;
+    }
 
     @RequestMapping("delete")
     @ResponseBody

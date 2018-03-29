@@ -38,10 +38,10 @@
         &emsp;<input type="file" name="file"/>
         <input type="submit" value="上传"/>
 
-        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-add', plain:true " data-cmd="putaway"><span style="font-size: 20px;" >商品上架</span></a>
-        &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-remove', plain:true " data-cmd="remove"><span style="font-size: 20px;">商品下架</span></a>
-        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="add"><span style="font-size: 18px;" >查看已上架商品</span></a>
-        &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="add"><span style="font-size: 18px;" >查看已下架商品</span></a>
+        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-remove', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
+        &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-add', plain:true " data-cmd="putaway"><span style="font-size: 20px;">商品上架</span></a>
+        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
+        &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examineSoldOut"><span style="font-size: 18px;" >查看已下架商品</span></a>
         </form>
         </p>
         <form id="min_form" method="post">

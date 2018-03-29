@@ -27,6 +27,11 @@ public class ProductServiceImpl implements IProductService {
             productMapper.updateByPrimaryKey(entity);
         }
     }
+    @Override
+    public void save(Product entity) {
+
+            productMapper.insert(entity);
+    }
 
     @Override
     public int delete(Long id) {

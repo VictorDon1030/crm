@@ -1,7 +1,9 @@
 package cn.wolfcode.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -39,6 +41,8 @@ public class ProductOne extends BaseDomain {
 
     private Long integral;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")//后台传前台
+    @DateTimeFormat(pattern = "yyyy-MM-dd")//前台传后台
     private Date pastDueTime;
 
     private String imagePath;
