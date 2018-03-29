@@ -54,6 +54,14 @@ public class ProductController {
         return productService.listAll();
     }
 
+    //查询所有列
+    @RequestMapping("query")
+    @ResponseBody
+    public Object query(Long id){
+
+        return productService.get(id);
+    }
+
     @RequestMapping("saveOrUpdate")
     @ResponseBody
     public Object saveOrUpdate(Product entity){

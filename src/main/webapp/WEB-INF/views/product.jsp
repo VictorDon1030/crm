@@ -24,19 +24,26 @@
 
 <div id="toolbar">
     <%--表示我需要有这个权限才可以使用 也可以自定义为角色--%>
-        &emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-add', plain:true " data-cmd="add">新增</a>
-        &emsp; <a class="easyui-linkbutton" name="edit" data-options="iconCls:'icon-edit', plain:true " data-cmd="edit">编辑</a>
-        &emsp;<a id="btn_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-remove', plain:true " data-cmd="remove">删除</a>
-        &emsp;<a class="easyui-linkbutton" name="reload" data-options="iconCls:'icon-reload', plain:true " data-cmd="reload">刷新</a>
-        &emsp; <input id="keyword" class="easyui-textbox" prompt="商品名称/品牌/销售单价" style="width:180px">
-        &emsp; <input id="beginDate" class="easyui-datebox" prompt="过期的开始时间">至
-        <input id="endDate" class="easyui-datebox" prompt="过期的结束时间">
-        <a class="easyui-linkbutton"  data-options="iconCls:'icon-search', plain:true " data-cmd="searchs">关键字查询</a>
-        &emsp;&emsp;<a class="easyui-linkbutton" data-options="iconCls:'icon-undo', plain:true " onclick="window.open('/product/exportXls.do')">导出</a>
-   <%-- <form action="/product/importXls.do" method="post" enctype="multipart/form-data">
-        <input type="file" name="file"/>
+        &emsp;<p style="color: #CC2222">&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-add', plain:true " data-cmd="add"><span style="font-size: 20px;" >新增</span></a>
+        &emsp; <a class="easyui-linkbutton" name="edit" data-options="iconCls:'icon-edit', plain:true " data-cmd="edit"><span style="font-size: 20px;">编辑</span></a>
+        &emsp;<a id="btn_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-remove', plain:true " data-cmd="remove"><span style="font-size: 20px;">删除</span></a>
+        &emsp;<a class="easyui-linkbutton" name="reload" data-options="iconCls:'icon-reload', plain:true " data-cmd="reload"><span style="font-size: 20px;">刷新</span></a>
+        &emsp; <input id="keyword" class="easyui-textbox" prompt="商品名称/品牌/销售单价" style="width:190px; height:32px;">
+        &emsp; <input id="beginDate" class="easyui-datebox" prompt="开始时间" style="width:100px; height:32px;"><span style="font-size: 16px;">至</span>
+        <input id="endDate" class="easyui-datebox" prompt="结束时间" style="width:100px; height:32px;">
+        <a class="easyui-linkbutton"  data-options="iconCls:'icon-search', plain:true " data-cmd="searchs"><span style="font-size: 18px;">关键字查询</span></a>
+        &emsp;&emsp;<a class="easyui-linkbutton" data-options="iconCls:'icon-undo', plain:true " onclick="window.open('/product/exportXls.do')"><span style="font-size: 20px;">导出</span></a></p>
+        <p>
+        <form action="/product/importXls.do" method="post" enctype="multipart/form-data">
+        &emsp;<input type="file" name="file"/>
         <input type="submit" value="上传"/>
-    </form>--%>
+
+        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-add', plain:true " data-cmd="putaway"><span style="font-size: 20px;" >商品上架</span></a>
+        &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-remove', plain:true " data-cmd="remove"><span style="font-size: 20px;">商品下架</span></a>
+        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="add"><span style="font-size: 18px;" >查看已上架商品</span></a>
+        &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="add"><span style="font-size: 18px;" >查看已下架商品</span></a>
+        </form>
+        </p>
         <form id="min_form" method="post">
             <table>
                 <tr>

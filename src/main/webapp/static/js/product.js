@@ -223,6 +223,48 @@ $(function () {
             //设置动态标题
             product_dialog.dialog('setTitle', '编辑商品')
         },
+        //商品上架按钮
+        putaway: function () {
+            //获取选中的数据
+            var row = product_datagrid.datagrid("getSelected");
+            //判断是否选中
+            if (!row) {
+                $.messager.alert("温馨提示", "亲,请选择需要下架的商品", "info");
+                return;
+            }
+            $.get("/product/query.do", {id: row.id}, function (data) {
+                $.messager.confirm("温馨提示", "您确定需要下架此商品吗?", function (r) {
+                    //data = $.parseJSON(data); //转成json对象
+                    if (r) {
+                        $.post("/productone/saveOrUpdate.do", data, function (data) {
+                            console.log(data);
+                            if (data.success) {
+                                $.messager.alert("温馨提示", "操作成功", "info", function () {
+                                    // emp_datagrid.datagrid("reload");
+                                    product_datagrid.datagrid("reload");
+                                });
+                            } else {
+                                $.messager.alert("温馨提示", data.msg);
+                            }
+                            $.get("/product/delete.do", {id: row.id}, function (data) {
+
+                            })
+                        });
+
+                    }
+
+                })
+            });
+
+
+
+
+
+
+
+
+
+        },
 
         //删除按钮
         remove: function () {
