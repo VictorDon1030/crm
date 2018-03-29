@@ -29,7 +29,7 @@
 				/js/**=anon
 				/login.jsp=anon
 				/logout.do=logout
-				/**=authc
+				/**=anon
 			</value>
 		</property>
 		<property name="filters">
