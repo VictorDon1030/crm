@@ -6,3 +6,7 @@ function myshop(){
 function subbranch(){
     $('#import').attr('src','/subBranch/view.do');
 }
+//管理信息
+function manage(){
+    $('#import').attr('src','/management.do');
+}

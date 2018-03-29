@@ -37,6 +37,13 @@ public class EmployeeController {
         return "employee";
     }
 
+    @RequestMapping("selectAll")
+    @ResponseBody
+    public Object selectAll(){
+        return employeeService.selectAll();
+    }
+
+
     @RequestMapping("list")
     @ResponseBody
     public PageResult list(EmployeeQuery qo){
