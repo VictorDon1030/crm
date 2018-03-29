@@ -1,44 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.wolfcode.crm.mapper.DictionaryMapper">
-  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Dictionary">
-    <id column="id" property="id" />
-    <result column="sn" property="sn" />
-    <result column="name" property="name" />
-    <result column="intro" property="intro" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey">
-    delete from dictionary
-    where id = #{id}
-  </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into dictionary (sn, name, intro)
-    values (#{sn}, #{name}, #{intro})
-  </insert>
-  <update id="updateByPrimaryKey">
-    update dictionary
-    set sn = #{sn},
-      name = #{name},
-      intro = #{intro}
-    where id = #{id}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, sn, name, intro
-    from dictionary
-    where id = #{id}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, sn, name, intro
-    from dictionary
-  </select>
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Dictionary">
+        <id column="id" property="id"/>
+        <result column="sn" property="sn"/>
+        <result column="name" property="name"/>
+        <result column="intro" property="intro"/>
+        <result column="state" property="state"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM dictionary
+        WHERE id = #{id}
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO dictionary (sn, name, intro,state)
+        VALUES (#{sn}, #{name}, #{intro},#{state})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE dictionary
+        SET sn    = #{sn},
+            name  = #{name},
+            intro = #{intro}
+        WHERE id = #{id}
+    </update>
+<!--设置状态-->
+    <update id="changeState">
+        update dictionary set state = state^1 where id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+            id,
+            sn,
+            name,
+            state,
+            intro
+        FROM dictionary
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+    </select>
 
-  <select id="query4Count" resultType="int">
-    select count(d.id)
-    from dictionary d
-  </select>
-  <select id="query4List" resultMap="BaseResultMap">
-    select id, sn, name, intro
-    from dictionary
-    limit #{start},#{rows}
-  </select>
+    <select id="query4Count" resultType="int">
+        SELECT count(d.id)
+        FROM dictionary d
+    </select>
+    <select id="query4List" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+
+        limit #{start},#{rows}
+    </select>
+
+    <sql id="base_column">
+        SELECT
+            id,
+            sn,
+            name,
+            state,
+            intro
+    </sql>
+    <sql id="base_table">
+        from dictionary
+    </sql>
 </mapper>

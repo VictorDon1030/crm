@@ -14,5 +14,6 @@ public class DictionaryItem extends BaseDomain {
     private String intro;
 //数据字典Id;
     private Dictionary dictionary;
-
+    //字典明细状态
+    private boolean state = true;
 }
