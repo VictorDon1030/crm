@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.SecondaryMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Secondary">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <collection property="product" ofType="cn.wolfcode.crm.mapper.ProductMapper" fetchType="eager"
+                 column="id" select="cn.wolfcode.crm.mapper.ProductMapper.selectBySecondaryId">
+    </collection>
+    <!--<result column="stair_id" property="stair_id" />-->
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from secondary
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into secondary (name, product_id, stair_id)
+    values (#{name}, #{product.id}, #{stair.id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update secondary
+    set name = #{name},
+      product_id = #{product.id},
+      stair_id = #{stair.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, name, product_id, stair_id
+    from secondary
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, product_id, stair_id
+    from secondary
+  </select>
+
+  <select id="selectByStairId" resultMap="BaseResultMap">
+    select id, name, product_id, stair_id
+    from secondary
+    where stair_id = #{id}
+  </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
