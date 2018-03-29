@@ -6,6 +6,7 @@ $(function () {
     var giftDialog = $("#gift_dialog");
     var giftEditForm = $("#gift_edit_form");
     var exchangeRecord = $("#exchange_record");
+    var giftList4choose = $("#giftList4choose");
     giftEdit.dialog({
         width: 330,
         height: 400,
@@ -157,7 +158,22 @@ $(function () {
         ]]
 
     });
-
+    giftList4choose.datagrid({
+        onDblClickRow:function (index,row) {
+            var row = $("#giftList4choose").datagrid("getSelected");
+            $("#giftName").html(row.name);
+            $("#needed_point").html(row.points);
+            $("#quantity_remain").html(row.inventory);
+            $("#ss").css('border','1px solid #e5e5e5');
+            $("#ss").val(1);
+            $("#conform_exchange").css('backgroundColor','green');
+            $("#conform_exchange").linkbutton('enable');
+            $("#neededPoints_text").html("所需积分:");
+            $("#neededPoints_num").html(row.points);
+            $("#operate").html("删除");
+            giftDialog.dialog('close');
+        }
+    });
     //将时间戳转换为日期格式
     function timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -296,11 +312,27 @@ $(function () {
             giftDialog.dialog('close');
         },
         submitChoose: function () {
-            var rows = $("#giftList4choose").datagrid("getSelections");
-            $.each(rows, function (index, item) {
-                console.log(item);
-            });
-
+            var row = $("#giftList4choose").datagrid("getSelected");
+            $("#giftName").html(row.name);
+            $("#needed_point").html(row.points);
+            $("#quantity_remain").html(row.inventory);
+            $("#ss").css('border','1px solid #e5e5e5');
+            $("#ss").val(1);
+            $("#conform_exchange").css('backgroundColor','green');
+            $("#conform_exchange").linkbutton('enable');
+            $("#neededPoints_text").html("所需积分:");
+            $("#neededPoints_num").html(row.points);
+            $("#operate").html("删除");
+            giftDialog.dialog('close');
+        },
+        deleteChoose:function () {
+            $("#giftName").html("");
+            $("#needed_point").html("");
+            $("#quantity_remain").html("");
+            $("#ss").css('border','0px solid #e5e5e5');
+            $("#ss").val("");
+            $("#conform_exchange").css('border','0px solid #e5e5e5');
+            $("#operate").html("");
         },
         submitData: function () {
             var url = '/gift/saveOrUpdate.do';
@@ -327,5 +359,10 @@ $(function () {
         var methodName = $(this).data("cmd");
         methodObj[methodName]();
     });
-
+    $("#ss").change(function () {
+        var point = $("#needed_point").html();
+        var num = $("#ss").val();
+        var total = num * point ;
+        $("#neededPoints_num").html(total);
+    });
 });

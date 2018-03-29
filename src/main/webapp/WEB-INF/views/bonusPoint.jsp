@@ -252,22 +252,36 @@
                                 <th>&emsp;数&emsp;&emsp;量&emsp;</th>
                                 <th>&emsp;操&emsp;&emsp;作&emsp;</th>
                             </tr>
+                            <tr id="detail" align="center">
+                                <td>&emsp;<span id="giftName"></span>&emsp;</td>
+                                <td>&emsp;<span id="needed_point"></span>&emsp;</td>
+                                <td>&emsp;<span id="quantity_remain"></span>&emsp;</td>
+                                <td>&emsp;<span id="quantity"><input id="ss" align="center" type="number"
+                                                                     style="width:60px;border: 0px" min="1"
+                                                                     data-options="editable:false">
+                                    </span>&emsp;</td>
+                                <td>&emsp;<span><a id="operate"
+                                                   data-cmd="deleteChoose"></a></span>&emsp;</td>
+                            </tr>
                             </thead>
                             <tbody id="gift_4_exchange">
 
                             </tbody>
                         </table>
-                        <div style="margin:120px;margin-left: 20px">
-                            <a class="easyui-linkbutton " style="width:80px;background-color: green"
+                        <div id="exchange_btn" style="margin:120px;margin-left: 20px">
+                            <a class="easyui-linkbutton " style="width:80px;height:40px;background-color: green"
                                data-cmd="chooseGift">选择礼品</a>
+                            &emsp;&emsp;
+                            <a id="conform_exchange"  class="easyui-linkbutton " style="width:80px;height:40px; "
+                               disabled="true"
+                               data-cmd="conformExchange">确定兑换</a>
+                            &emsp;&emsp;<span id="neededPoints_text"></span>&emsp;<span style="color: red" id="neededPoints_num"></span>
                         </div>
                         <div id="gift_dialog" >
-                            <form id="choose_gift_form" method="post">
                             <table id="giftList4choose" class="easyui-datagrid" style="width: 100%"
-                                   data-options="singleSelect:false,pagination:false,url:'/gift/list.do',method:'post',fitColumns:true">
+                                   data-options="singleSelect:true,pagination:false,url:'/gift/list.do',method:'post',fitColumns:true">
                                 <thead>
                                 <tr>
-                                    <th data-options="field:'ck',checkbox:true">
                                     <th data-options="field:'name',width:80, align: 'center'">礼品名称</th>
                                     <th data-options="field:'sn',width:100, align: 'center'">礼品编码</th>
                                     <th data-options="field:'points',width:80, align: 'center'">所需积分</th>
@@ -276,7 +290,6 @@
                                 </tr>
                                 </thead>
                             </table>
-                            </form>
                         </div>
                             <div id="choose_buttons">
                                 <a class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" data-cmd="submitChoose">确定</a>
