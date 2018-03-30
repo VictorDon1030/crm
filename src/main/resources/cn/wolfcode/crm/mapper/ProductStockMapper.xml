@@ -147,4 +147,8 @@
             JOIN depot depot ON ps.depot_id = depot.id
        <include refid="sql_where"/>
     </select>
+
+    <select id="selectByProductId" resultType="ProductStock">
+
+    </select>
 </mapper>
