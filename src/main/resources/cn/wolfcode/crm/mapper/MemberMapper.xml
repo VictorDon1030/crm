@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.wolfcode.crm.mapper.MemberMapper">
+
     <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Member">
+
         <id column="id" property="id"/>
         <result column="memberNum" property="memberNum"/>
         <result column="name" property="name"/>
@@ -12,19 +14,20 @@
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
         <result column="birthday" property="birthday"/>
-        <!--会员会员等级-->
         <association property="grade" javaType="DictionaryItem" columnPrefix="grade_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
-        <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
-                     select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
-        <!--回显支付方式-->
+
         <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+        <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
+                    select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
+
     </resultMap>
+
     <delete id="deleteByPrimaryKey">
         DELETE FROM member
         WHERE id = #{id}
@@ -35,6 +38,7 @@
         VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
                               #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
+
     <update id="updateByPrimaryKey">
         UPDATE member
         SET memberNum  = #{memberNum},
@@ -56,16 +60,34 @@
         SET state = state ^ 1
         WHERE id = #{id}
     </update>
+    <!--修改密码的操作-->
+    <update id="updatePasswordById">
+        UPDATE member
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <update id="changePoint">
+        UPDATE member
+        SET points = points + #{amount}
+        WHERE id = #{id}
+    </update>
+    <update id="clearPoints">
+        UPDATE member
+        SET points = 0
+        WHERE id = #{id}
+    </update>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
         WHERE m.id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
-        <include refid="base_column" />
-        <include refid="base_table" />
+        <include refid="base_column"/>
+        <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int" >
+    <select id="queryCount" resultType="int">
         SELECT count(m.id)
         <include refid="base_table"/>
         <include refid="base_where"/>
@@ -75,6 +97,11 @@
         <include refid="base_table"/>
         <include refid="base_where"/>
         LIMIT #{start}, #{rows}
+    </select>
+    <select id="queryByKeyword" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        <include refid="bonusPoint_where"/>
     </select>
 
     <sql id="base_column">
@@ -106,33 +133,41 @@
     <sql id="base_where">
         <where>
             <if test="keyword!= null">
-             and ( m.memberNum like concat('%',#{keyword},'%') or m.name like concat('%',#{keyword},'%')
-                or  m.phone like concat('%', #{keyword},'%'))
+                and ( m.memberNum like concat('%',#{keyword},'%') or m.name like concat('%',#{keyword},'%')
+                or m.phone like concat('%', #{keyword},'%'))
             </if>
             <if test="gradeId >-1 and  gradeId != null">
                 and m.grade_id= #{gradeId}
             </if>
             <if test="beginDate != null">
-                and    m.usefullife &gt;= #{beginDate}
+                and m.usefullife &gt;= #{beginDate}
             </if>
             <if test="endDate != null">
-                and   m.usefullife &lt;= #{endDate}
+                and m.usefullife &lt;= #{endDate}
             </if>
             <if test="birthdayBeginDate != null">
-                and  m.birthday &gt;= #{birthdayBeginDate}
+                and m.birthday &gt;= #{birthdayBeginDate}
             </if>
             <if test="birthdayEndDate != null">
-                and   m.birthday &lt;= #{birthdayEndDate}
+                and m.birthday &lt;= #{birthdayEndDate}
             </if>
         </where>
     </sql>
     <sql id="base_update">
         <trim prefix="set" suffixOverrides=",">
-          <if test="password != null">
-              password=#{password}
-          </if>
+            <if test="password != null">
+                password=#{password}
+            </if>
         </trim>
     </sql>
+    <sql id="bonusPoint_where">
+        <where>
+            <if test="keyword != null">
+                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
+            </if>
+        </where>
+    </sql>
+
     <!--beginDate;
     //结束时间
     private Date endDate;
