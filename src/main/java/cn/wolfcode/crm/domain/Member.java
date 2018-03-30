@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,5 +43,5 @@ public class Member extends BaseDomain {
     private Date birthday;
 
 
-
+    private List<MemberTopUp> memberTopUps = new ArrayList<>();
 }

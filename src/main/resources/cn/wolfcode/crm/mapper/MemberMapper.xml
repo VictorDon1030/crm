@@ -38,7 +38,6 @@
         SET memberNum  = #{memberNum},
             name       = #{name},
             phone      = #{phone},
-            password   = #{password},
             grade_id   = #{grade.id},
             payment_id = #{payment.id},
             birthday   = #{birthday},
@@ -64,7 +63,7 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
-        WHERE id = #{id}
+        WHERE m.id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         <include refid="base_column"/>
@@ -88,7 +87,6 @@
             m.memberNum,
             m.name,
             m.phone,
-            m.password,
             m.grade_id,
             m.payment_id,
             m.points,
@@ -130,6 +128,13 @@
                 and   m.birthday &lt;= #{birthdayEndDate}
             </if>
         </where>
+    </sql>
+    <sql id="base_update">
+        <trim prefix="set" suffixOverrides=",">
+          <if test="password != null">
+              password=#{password}
+          </if>
+        </trim>
     </sql>
     <!--beginDate;
     //结束时间

@@ -24,4 +24,5 @@ public interface MemberMapper {
     void changeState(Long id);
 
     void updatePasswordById(Member member);
+
 }

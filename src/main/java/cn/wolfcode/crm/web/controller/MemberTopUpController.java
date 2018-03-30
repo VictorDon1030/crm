@@ -43,6 +43,13 @@ public class MemberTopUpController {
         return memberTopUpService.query(qo);
     }
 
+    //根据会员的id传充值的明细
+    @RequestMapping("selecToptItemByMemberId")
+    @ResponseBody
+    public Object selecToptItemByMemberId(Long id){
+        return memberTopUpService.selecToptItemByMemberId(id);
+    }
+
     @RequestMapping("delete")
     @ResponseBody
     public Object delete(Long id){
@@ -68,6 +75,7 @@ public class MemberTopUpController {
             }
         } catch (Exception e){
             result.mark("亲,保存失败");
+            e.printStackTrace();
         }
         return result;
     }
