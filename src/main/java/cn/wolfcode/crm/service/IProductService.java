@@ -22,4 +22,7 @@ public interface IProductService {
     List<Product> listAll();
 
     PageResult query(QueryObject qo);
+
+    List<Product> selectByUnitId(Long id);
+
 }

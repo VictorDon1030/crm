@@ -38,9 +38,9 @@
         &emsp;<input type="file" name="file"/>
         <input type="submit" value="上传"/>
 
-        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-remove', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
-        &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-add', plain:true " data-cmd="putaway"><span style="font-size: 20px;">商品上架</span></a>
-        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
+        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-cancel', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
+        &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-ok', plain:true " data-cmd="putaway"><span style="font-size: 20px;">商品上架</span></a>
+        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-tip', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
         &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examineSoldOut"><span style="font-size: 18px;" >查看已下架商品</span></a>
         </form>
         </p>
@@ -171,7 +171,7 @@
             <tr>
                 <td id="" style="display:none;">&emsp;
                     <span style="font-size: 18px;">会员折扣</span><i class="colorff"></i>&emsp;
-                    <select class="easyui-combobox" name="minDiscount" prompt="" style="width:200px; height:30px;"></select>
+                    <input type="number" class="easyui-textbox" name="minDiscount" value="" prompt="输入会员折扣" prompt="" style="width:200px; height:30px;"/>
                 </td>
                 <td>&emsp;
                     <span style="font-size: 18px;">&emsp;&emsp;&emsp;最低售价</span>&emsp;
@@ -213,7 +213,7 @@
                 </td>
                 <td>&emsp;
                     <span style="font-size: 18px;">&emsp;&emsp;&emsp;过期时间</span>&emsp;
-                    <input  class="easyui-datebox" name="pastDueTime"  prompt="输入过期时间"style="width:200px; height:30px;"/>
+                    <input  class="easyui-datebox" name="pastDueTime" data-options="required:true" prompt="输入过期时间"style="width:200px; height:30px;"/>
                 </td>
             </tr></br>
 
@@ -272,8 +272,8 @@
             </div>
 
         <p>&emsp;
-            &emsp;<span style="font-size: 18px;">类别名称</span>&emsp;
-            <input type="text" class="easyui-textbox" maxlength="50" name="name"  prompt="输入名称"style="width:200px; height:30px;"/>
+            &emsp;<span style="font-size: 18px;">类别名称 &nbsp;:</span>&emsp;
+            <input type="text" class="easyui-textbox" maxlength="50" data-options="required:true"  name="name"  prompt="输入名称"style="width:180px; height:30px;"/>
         </p>
     </form>
 </div>

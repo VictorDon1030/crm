@@ -58,4 +58,10 @@ public class ProductServiceImpl implements IProductService {
         return new PageResult(total, data);
     }
 
+    @Override
+    public List<Product> selectByUnitId(Long id) {
+
+        return productMapper.selectByUnitId(id);
+    }
+
 }
