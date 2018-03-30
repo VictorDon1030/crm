@@ -65,4 +65,9 @@ public class PayServiceImpl implements IPayService {
     public List<Map<String,Object>> query(QueryObject qo){
         return payMapper.query(qo);
     }
+
+    @Override
+    public List<Map<String, Object>> selectBeforeFiveByDate() {
+        return payMapper.selectBeforeFiveByDate();
+    }
 }

@@ -22,4 +22,9 @@ public interface IPayService {
      * 高级查询
      */
     List<Map<String,Object>> query(QueryObject qo);
+
+    /***
+     * 按照日期降序查询，取出前5笔支出
+     */
+    List<Map<String,Object>> selectBeforeFiveByDate();
 }

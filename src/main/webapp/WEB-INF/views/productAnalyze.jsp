@@ -43,7 +43,7 @@
                 <!--中布局-->
                 <div data-options="region:'center',collapsible:false" >
                     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                    <div id="main" style="width: 800px;height:200px;"></div>
+                    <div id="main" style="width: 900px;height:250px;"></div>
                     <script type="text/javascript">
                         // 基于准备好的dom，初始化echarts实例
                         var myChart = echarts.init(document.getElementById('main'));

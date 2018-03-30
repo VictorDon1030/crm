@@ -36,6 +36,22 @@ public class MinTypeController {
 
             minTypeService.insert(minType);
         }catch (Exception e){
+            result.mark("添加失败，当前大分类已含有此小分类！");
+        }
+        return  result;
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("delete")
+    @ResponseBody
+    public Object delete(Long minTypeId){
+        JsonResult result=new JsonResult();
+        try{
+
+            minTypeService.delete(minTypeId);
+        }catch (Exception e){
             result.mark(e.getMessage());
         }
         return  result;

@@ -1,15 +1,43 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <%@ include file="/static/common/common.jsp"%>
+    <link rel="stylesheet" type="text/css" href="/static/plugins/timeline/main.css" />
     <script type="text/javascript" src="/static/plugins/echart/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/plugins/timeline/jquery.timelinr-0.9.53.js"></script>
     <script type="text/javascript" src="/static/js/pay.js"></script>
     <title>日常支出</title>
+    <style type="text/css">
+        #timeline {width: 760px;height: 440px;overflow: hidden;margin: 40px auto;position: relative;background: url('/static/plugins/timeline/dot.gif') 110px top repeat-y;}
+        #dates {width: 115px;height: 440px;overflow: hidden;float: left;}
+        #dates li {list-style: none;width: 100px;height: 100px;line-height: 100px;font-size: 18px; padding-right:20px; text-align:right; background: url('/static/plugins/timeline/biggerdot.png') 108px center no-repeat;}
+        #dates a {line-height: 38px;padding-bottom: 10px;}
+        #issues {width: 630px;height: 440px;overflow: hidden;float: right;}
+        #issues li {width: 630px;height: 440px;list-style: none;}
+        #issues li h1 {color: #ffcc00;font-size: 30px; height:52px; line-height:52px; text-shadow: #000 1px 1px 2px;}
+        #issues li p {font-size: 14px;margin: 10px;line-height: 26px;}
+    </style>
+
 </head>
+
+<script type="text/javascript">
+    $(function(){
+        $().timelinr({
+            orientation: 	'vertical',
+            issuesSpeed: 	200,
+            datesSpeed: 	100,
+            arrowKeys: 		'true',
+            startAt:		3
+        });
+    });
+</script>
+
 <body>
 
     <div class="easyui-layout" data-options="fit:true" style="width:700px;height:350px;">
+        <!--外北-->
         <div data-options="region:'north'" style="height:50px">
             <!--选项卡：用2个a标签-->
             <div style="margin-top: 10px;margin-bottom: 30px;">
@@ -17,47 +45,51 @@
                 <a href="javascript:window.location.href='/payItem/view.do'"><font style="font-size: 18px;">支出明细</font></a>
             </div>
         </div>
-
+        <!--外中-->
         <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px">
             <div class="easyui-layout" data-options="fit:true">
-                <!--东布局-->
+
+
+                <!--里东布局-->
                 <div data-options="region:'east',collapsible:false" style="width:400px">
                     <!--时间轴-->
-                        <div class="timeline">
-                            <dl>
-                                <dt>
-                                    <b>Coffey</b>
-                                    <p>2017年07月01日 10:00</p>
-                                </dt>
-                                <dd>贾跃亭“净身出户”，乐视网开打股价保卫战？</dd>
-                            </dl>
-                            <dl class="timeline-node-green">
-                                <dt>
-                                    <b>John</b>
-                                    <p>2018年07月01日 12:00</p>
-                                </dt>
-                                <dd>明年起所有的iPhone都要用OLED屏幕 三星成大赢家</dd>
-                            </dl>
-                        </div>
+                    <div style="margin-top: 20px;margin-left: 10px;">支出记录（近期5笔）</div>
+                    <div style="margin-top: 20px;margin-left: 10px;">小分类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大分类</div>
 
+                    <div id="timeline">
+                        <ul id="dates">
+                            <!--存放消费小分类-->
+                            <c:forEach items="${times}" var="map">
+                                <li><a href='"#"+${map.id}'>${map.type}</a></li>
+                            </c:forEach>
+                        </ul>
+                        <ul id="issues">
+                            <!--点击每个分类，展开的文字：所属大类、消费时间、消费金额-->
+                            <c:forEach items="${times}" var="map">
+                                <li id='${map.id}'>
+                                    <h1>${map.pType}</h1>
+                                    <p>￥${map.amount}</p>
+                                    <p>${map.date}</p>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
+
+
                 <!--西布局-->
                 <div data-options="region:'west',collapsible:false"  style="width:380px">
-                    <form action="/pay/save.do" method="post" id="pay_form">
-                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:180px;">
-                            <tr>
-                                <td>
-                                    <select class="easyui-combobox" name="name" id="maxType">
-                                    </select>
-                                </td>
-                                <td>
-                                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-btn="setType">分类设置</a>
-                                </td>
-                            </tr>
-                            <!--数据表格-->
-                            <tr>
-                                <table id="pay_datagrid" style="margin-top: 10px;" ></table>
-                            </tr>
+                    <div style="margin-left: 15px;margin-top: 30px;">
+                        <select class="easyui-combobox" name="name" id="maxType">
+                        </select>
+
+                        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-btn="setType">分类设置</a>
+                    </div>
+                    <form action="/pay/save.do" method="post" id="pay_form" style="margin-top: 20px;">
+                        <!--数据表格-->
+                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:130px;"id="pay_datagrid">
+
                         </table>
                         <div style="margin-left: 20px;margin-top: 20px;" >
                             <input class="easyui-textbox" data-options="label:'总支出',width:300,prompt:'输入金额 RMB'" name="amount">
@@ -142,6 +174,8 @@
 <!--数据表格上的toolbar:用来新增对应大类型里的小类型-->
     <div id="pay_toolbar">
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-btn="input">添加支出小分类</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="delete_minType">删除</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reload_minType">刷新</a>
     </div>
 
 <!--新增支出小类型的对话框-->

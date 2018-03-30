@@ -5,6 +5,7 @@ import cn.wolfcode.crm.domain.PayItem;
 import cn.wolfcode.crm.query.QueryObject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PayItemMapper {
     int deleteByPrimaryKey(Long id);
@@ -23,4 +24,6 @@ public interface PayItemMapper {
     int queryCount(QueryObject qo);
 
     List<PayItem> queryForList(QueryObject qo);
+
+
 }

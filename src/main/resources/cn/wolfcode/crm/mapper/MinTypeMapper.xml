@@ -33,4 +33,9 @@
   <select id="selectByMaxTypeId" resultMap="BaseResultMap">
     select * from mintype where maxtype_id=#{id}
   </select>
+
+  <!--通过小分类名称来查询小分类-->
+  <select id="selectByName" resultMap="BaseResultMap">
+    SELECT * from mintype where name=#{minTypeName}
+  </select>
 </mapper>

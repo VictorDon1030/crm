@@ -20,4 +20,6 @@ public interface MinTypeMapper {
      * @return
      */
     List<MinType> selectByMaxTypeId(Long maxTypeId);
+
+    MinType selectByName(String minTypeName);
 }

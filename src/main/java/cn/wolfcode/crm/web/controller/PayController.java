@@ -42,6 +42,10 @@ public class PayController {
         model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
         model.addAttribute("totalAmounts", JSON.toJSONString(totalAmounts));
 
+        //时间轴
+        List<Map<String,Object>> times=payService.selectBeforeFiveByDate();
+        System.out.print("------------"+times.size()+"------------");
+        model.addAttribute("times",times);
         return "pay";
     }
 

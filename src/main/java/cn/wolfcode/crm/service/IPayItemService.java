@@ -5,6 +5,7 @@ import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IPayItemService {
     void delete(Long id);
@@ -21,4 +22,6 @@ public interface IPayItemService {
      * 高级查询
      */
     PageResult query(QueryObject qo);
+
+
 }

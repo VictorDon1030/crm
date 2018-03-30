@@ -57,10 +57,13 @@ $(function () {
                     data=$.parseJSON(data);
                     if(data.success){
                         $.messager.alert("温馨提示",'保存成功','info',function () {
-                            //刷新页面
-                            window.location.reload();
+                            //清空表单
+                            pay_form.form("clear");
+                            //将生活选中
+                            //datagrid要重查一次，生活下面的小分类
                             //中间的表格要重新查一次今日
                             maxType_datagrid.datagrid("load",{"today":1});
+
                         });
                     }else {
                         $.messager.alert("温馨提示",data.msg,'warning');
@@ -192,6 +195,29 @@ $(function () {
         year:function () {
             maxType_datagrid.datagrid("load",{"year":365});
             $.get("/pay/view.do",{"year":365});
+        },
+        //删除左边的小分类
+        delete_minType:function () {
+            var row=pay_datagrid.datagrid("getSelected");
+            if(!row){
+                $.messager.alert("温馨提示","亲，请选择要删除的行","warning");
+                return;
+            }
+            $.messager.confirm("温馨提示","亲，您确认删除吗？",function () {
+                $.get("/minType/delete.do",{"minTypeId":row.id},function (data) {
+                    if(data.success){
+                        $.messager.alert("温馨提示","删除成功","info",function () {
+                            //刷新数据表格
+                            pay_datagrid.datagrid("load");
+                        })
+                    }
+                },"json");
+            });
+
+        },
+        //刷新左边的小分类
+        reload_minType:function () {
+            pay_datagrid.datagrid("load");
         }
     };
 

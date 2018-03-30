@@ -20,6 +20,10 @@ public class MinTypeServiceImpl implements IMinTypeService {
 
     @Override
     public void insert(MinType entity) {
+        MinType oldMinType=minTypeMapper.selectByName(entity.getName());
+        if(oldMinType!=null){
+            throw new RuntimeException();
+        }
         minTypeMapper.insert(entity);
     }
 
