@@ -44,5 +44,5 @@ public class Member extends BaseDomain {
     //维护与会员积分变化的关系
     private  List<BonusPointRecord> bonusPointRecord = new ArrayList<>(5);
 
-
+    private List<MemberTopUp> memberTopUps = new ArrayList<>();
 }
