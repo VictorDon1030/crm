@@ -132,4 +132,9 @@ public class OrderBillServiceImpl implements IOrderBillService {
 
         }
     }
+
+    @Override
+    public List<OrderBill> selectAll() {
+        return orderBillMapper.selectAll();
+    }
 }

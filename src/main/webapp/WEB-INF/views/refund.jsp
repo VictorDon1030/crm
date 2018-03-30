@@ -11,13 +11,13 @@
     <script type="text/javascript" src="../../static/plugins/insdep/jquery.easyui-1.5.1.min.js"></script>
     <script type="text/javascript" src="../../static/plugins/insdep/datagrid-cellediting.js"></script>
     <script type="text/javascript" src="/static/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/static/js/orderBill.js"></script>
+    <script type="text/javascript" src="/static/js/refund.js"></script>
 </head>
 <body>
-<!--订单列表-->
-<table id="orderBill_datagrid" class="easyui-datagrid"
-       data-options="url: '/orderBill/list.do',
-        toolbar: '#orderBill_toolbar',
+<!--退货单列表-->
+<table id="refund_datagrid" class="easyui-datagrid"
+       data-options="url: '/refund/list.do',
+        toolbar: '#refund_toolbar',
         fit: true,
         fitColumns: true,
         pagination: true,
@@ -31,12 +31,12 @@
             <th data-options="field: 'depot', title: '仓库名称', width: 50,formatter:depotFormatter"></th>
             <th data-options="field: 'totalNumber', title: '数量', width: 50"></th>
             <th data-options="field: 'totalAmount', title: '合计', width: 50"></th>
-            <th data-options="field: 'status', title: '入库状态', width: 50,formatter:statusFormatter"></th>
+            <th data-options="field: 'status', title: '退货状态', width: 50,formatter:statusFormatter"></th>
         </tr>
     </thead>
 </table>
 
-<%--选择商品弹出框--%>
+<%--选择采购单弹出框--%>
 <div id="product_dialog">
     <%--商品列表--%>
     <table id="product_datagrid">
@@ -44,20 +44,20 @@
     </table>
 </div>
 
-<%--添加采购订单弹出框--%>
-<div id="orderBill_dialog" >
-    <form id="orderBill_form" method="post" class="easyui-">
+<%--添加退货订单弹出框--%>
+<div id="refund_dialog" >
+    <form id="refund_form" method="post" class="easyui-">
         <table align="center">
             <tbody>
                 <tr>
-                    <td><a class="easyui-linkbutton button-line-green" data-cmd="productOpen">选择商品</a></td>
+                    <td><a  class="easyui-linkbutton button-line-green " data-cmd="productOpen">选择采购单</a></td>
                    <td>
-                       <input name="supplier.id" class="easyui-combobox"
+                       <input name="supplier.id" class="easyui-combobox "
                                data-options="prompt:'供应商选择',panelHeight:'auto',valueField:'id',textField:'realname',
-                                   url:'/supplier/selectAll.do'">
-                       <input name="depot.id" class="easyui-combobox"
+                                   url:'/supplier/selectAll.do',limitToList:true">
+                       <input  name="depot.id" class="easyui-combobox"
                                data-options="prompt:'仓库选择',panelHeight:'auto',valueField:'id',textField:'name',
-                                   url:'/depot/selectAll.do'">
+                                   url:'/depot/selectAll.do',limitToList:true">
                        业务时间: <input  id="dd" name="vdate" type= "text" class= "easyui-datebox" required ="required"></input>
                        <input type="hidden" name="id">
                    </td>
@@ -65,7 +65,7 @@
             </tbody>
         </table>
         <%--明细列表--%>
-        <table id="orderBillItem_datagrid"  >
+        <table id="refundItem_datagrid"  >
             <thead>
             <tr>
                 <th width="100">商品</th>
@@ -96,7 +96,7 @@
                     <input tag="costPrice"  type="number" style="width: 60px;border: 0px">
                 </span>
             </th>
-            <th><input tag="number"  type="number" style="width: 60px"></th>
+            <th><input  tag="number"  type="number" style="width: 60px"></th>
             <th ><span tag="amount" width="150"></span></th>
             <th ><input tag="remark" style="width: 60px"></th>
             <th>
@@ -107,28 +107,27 @@
 </table>
 
 <!--订单列表顶部按钮-->
-<div id="orderBill_toolbar">
-    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" id="add_btn" data-cmd="add">新增进货</a>
-    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-print'" onclick="window.open('/orderBill/exportXls.do');">导出报表</a>
-    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-lock'" id="changeAudit_btn" data-cmd="changeAudit">入库</a>
+<div id="refund_toolbar">
+    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" id="add_btn" data-cmd="add">新增退货</a>
+    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-lock'" id="changeAudit_btn" data-cmd="changeAudit">退货</a>
     <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-redo'" id="edit_btn" data-cmd="edit">编辑</a>
     <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" id="deleted_btn" data-cmd="deleted">删除</a>
     <input id="status" name="status" class="easyui-switchbutton"
-           data-options="onText:'已入库',offText:'未入库',width:100,">
-    进货时间段:<input id="beginDate" class="easyui-datetimebox" name="beginDate"
+           data-options="onText:'已退货',offText:'未退货',width:100,">
+    时间段查询:<input id="beginDate" class="easyui-datetimebox" name="beginDate"
            data-options="showSeconds:false,prompt:'begin'"  style="width:150px">~
     <input id="endDate" class="easyui-datetimebox" name="endDate"
            data-options="showSeconds:false,prompt:'end'"  style="width:150px">
     <a class="easyui-linkbutton button-line-green" data-options="iconCls:'icon-search',plain:true" onclick="searchs()"></a>
 </div>
-<%--采购弹框底部按钮--%>
-<div id="orderBillItem_button">
-    <a class="easyui-linkbutton button-line-green ser" data-cmd="save">保存</a>
+<%--退货弹框底部按钮--%>
+<div id="refundItem_button">
+    <a class="easyui-linkbutton button-line-green ser"  data-cmd="save">保存</a>
     <a class="easyui-linkbutton button-line-grayish" data-cmd="cancel">取消</a>
 </div>
 
 
-<%--选择商品弹框底部按钮--%>
+<%--选择采购单弹框底部按钮--%>
 <div id="product_button">
     <a class="easyui-linkbutton button-line-green" data-cmd="inputValue">确定</a>
     <a class="easyui-linkbutton button-line-grayish" data-cmd="cancelProduct">取消</a>

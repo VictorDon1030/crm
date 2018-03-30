@@ -7,7 +7,7 @@ function depotFormatter(value, row, index) {
 };
 
 function statusFormatter(value, row, index) {
-    return value == 1 ? "<font color='green'>已入库</font>" : "<font color='red'>未入库</font>";
+    return value == 1 ? "<font color='green'>已退货</font>" : "<font color='red'>退货中</font>";
 };
 
 
@@ -16,21 +16,21 @@ $(function () {
         //新增打开窗口
         add: function () {
             $("#edit_tbody").html("");
-            $("#orderBill_form").form('clear');
-            $("#orderBill_dialog").dialog('open');
-            $("#orderBill_dialog").dialog('setTitle', '新增订单');
+            $("#refund_form").form('clear');
+            $("#refund_dialog").dialog('open');
+            $("#refund_dialog").dialog('setTitle', '新增退货');
 
         },
         //删除
         deleted: function () {
-            var row = $('#orderBill_datagrid').datagrid('getSelected');
+            var row = $('#refund_datagrid').datagrid('getSelected');
             if (row) {
-                $.messager.confirm('确认', '确定删除该订单吗?', function (r) {
+                $.messager.confirm('确认', '确定删除该退货单吗?', function (r) {
                     if (r) {
-                        $.get('/orderBill/delete.do', {id: row.id}, function (data) {
+                        $.get('/refund/delete.do', {id: row.id}, function (data) {
                             if (data.success) {
                                 $.messager.alert('温馨提示', '操作成功', 'info', function () {
-                                    $("#orderBill_datagrid").datagrid('reload');
+                                    $("#refund_datagrid").datagrid('reload');
 
                                 });
                             } else {
@@ -41,10 +41,11 @@ $(function () {
                 });
             }
         },
-        //新增商品
+        //新增采购
         productOpen: function () {
+            $("#edit_tbody").html("");
             $("#product_dialog").dialog('open');
-            $("#product_dialog").dialog('setTitle', '选择商品');
+            $("#product_dialog").dialog('setTitle', '选择采购单');
 
         },
         //保存
@@ -56,14 +57,14 @@ $(function () {
                 $(item).find("[tag=number]").prop("name", "items[" + index + "].number");
                 $(item).find("[tag=remark]").prop("name", "items[" + index + "].remark");
             });
-            $("#orderBill_form").form('submit', {
-                url: '/orderBill/saveOrUpdate.do',
+            $("#refund_form").form('submit', {
+                url: '/refund/saveOrUpdate.do',
                 success: function (data) {
                     data = $.parseJSON(data);
                     if (data.success) {
                         $.messager.alert('温馨提示', '保存成功', 'info', function () {
-                            $("#orderBill_dialog").dialog("close");
-                            $("#orderBill_datagrid").datagrid('reload');
+                            $("#refund_dialog").dialog("close");
+                            $("#refund_datagrid").datagrid('reload');
                         })
                     }
                 }
@@ -72,7 +73,7 @@ $(function () {
         //入库
         changeAudit: function () {
             //判断是否有选中数据
-            var row = $('#orderBill_datagrid').datagrid('getSelected');
+            var row = $('#refund_datagrid').datagrid('getSelected');
             if (!row) {
                 $.messager.alert('温馨提示', '请选中一条数据!');
                 return;
@@ -80,10 +81,10 @@ $(function () {
             //弹出确认框
             $.messager.confirm('温馨提示', '您想要执行该操作吗?', function (y) {
                 if (y) {
-                    $.get("/orderBill/audit.do", {id: row.id}, function (data) {
+                    $.get("/refund/audit.do", {id: row.id}, function (data) {
                         if (data.success) {
                             $.messager.alert('温馨提示', '操作成功', 'info', function () {
-                                $("#orderBill_datagrid").datagrid("reload");
+                                $("#refund_datagrid").datagrid("reload");
                             });
                         } else {
                             $.messager.alert('温馨提示', data.msg, 'error');
@@ -94,7 +95,7 @@ $(function () {
         },
         //取消
         cancel: function () {
-            $("#orderBill_dialog").dialog("close");
+            $("#refund_dialog").dialog("close");
         },
 
         //取消选择商品
@@ -105,13 +106,13 @@ $(function () {
 
         //编辑
         edit: function () {
-            var row = $('#orderBill_datagrid').datagrid('getSelected');
+            var row = $('#refund_datagrid').datagrid('getSelected');
             if (!row) {
                 $.messager.alert('温馨提示', '请选中一条数据!');
                 return;
             }
             //清空表单数据
-            $("#orderBill_form").form("clear");
+            $("#refund_form").form("clear");
             $("#edit_tbody").html("");
 
             if (row.supplier) {
@@ -121,7 +122,7 @@ $(function () {
                 row["depot.id"] = row.depot.id;
             }
             //回显数据
-            $("#orderBill_form").form("load", row);
+            $("#refund_form").form("load", row);
             $.each(row.items, function (index, item) {
                 var copy = $("#itemTr tr:first").clone(true);
                 copy.appendTo("#edit_tbody");
@@ -132,29 +133,29 @@ $(function () {
                 copy.find("[tag=amount]").html(item.amount);
                 copy.find("[tag=remark]").val(item.remark);
                 copy.find("[tag=number]").val(item.number);
-                if (row.status) {
+                if (row.status==1) {
                     $(":input").prop('readonly',true);
                     $(".ser").hide();
-                    $("#orderBill_dialog").dialog("setTitle", "查看明细");
+                    $("#refund_dialog").dialog("setTitle", "查看明细");
                 } else {
                     $(":input").prop("readonly", false);
                     $(".ser").show();
-                    $("#orderBill_dialog").dialog("setTitle", "编辑订单");
+                    $("#refund_dialog").dialog("setTitle", "编辑退货订单");
                 }
                 $("#product_dialog").dialog("close");
             })
             //打开弹窗
-            $("#orderBill_dialog").dialog("open");
+            $("#refund_dialog").dialog("open");
         }
 
 
     };
-    $("#orderBill_datagrid").datagrid({
+    $("#refund_datagrid").datagrid({
         onClickRow: function (index, row) {
             if (!row.status) {
                 $("#edit_btn").linkbutton("enable");
                 $("#changeAudit_btn").linkbutton({
-                    text: '审核订单'
+                    text: '审核退货'
                 });
                 $("#changeAudit_btn").linkbutton("enable");
             } else {
@@ -167,47 +168,56 @@ $(function () {
         }
     });
 
-    //商品列表
+    //采购订单列表
     $("#product_datagrid").datagrid({
-        url: '/product/list.do',
+        url: '/orderBill/selectAll.do',
         fit: true,
         singleSelect: true,
         fitColumns: true,
         pagination: true,
         columns: [[
             {field: 'ck', checkbox: true},
-            {field: 'goodsMark', title: '商品编码', width: 50},
-            {field: 'name', title: '商品名称', width: 50},
-            {field: 'purchasingPrice', title: '参考进价', width: 50},
-            {field: 'unit', title: '单位', width: 50}
+            {field: 'sn', title: '订单编号', width: 50},
+            {field: 'supplierName', title: '订单来源', width: 50,
+                formatter: function (value, row, index) {
+                    return row.supplier ? row.supplier.realname : "";
+            }},
+            {field: 'totalAmount', title: '已付金额', width: 50},
+            {field: 'status', title: '入库状态', width: 50,
+                formatter: function (value, row, index) {
+                    return value ? "<font color='green'>已入库</font>" : "<font color='red'>未入库</font>"
+                }},
+            {field: 'inputTime', title: '录入时间', width: 50}
         ]],
         onClickRow: function (index, row) {
-            var copy = $("#itemTr tr:first").clone(true);
-            copy.appendTo("#edit_tbody");
-            copy.find("[tag=sn]").html(row.goodsMark);
-            copy.find("[tag=pid]").val(row.id);
-            copy.find("[tag=name]").html(row.name);
-            copy.find("[tag=number]").val(1);
-            copy.find("[tag=costPrice]").val(row.purchasingPrice);
-            copy.find("[tag=amount]").html(row.purchasingPrice);
-            $("#product_dialog").dialog("close");
+            $.each(row.items,function (index,item) {
+                var copy = $("#itemTr tr:first").clone(true);
+                copy.appendTo("#edit_tbody");
+                copy.find("[tag=sn]").html(item.product.goodsMark);
+                copy.find("[tag=pid]").val(item.product.id);
+                copy.find("[tag=name]").html(item.product.name);
+                copy.find("[tag=number]").val(item.number);
+                copy.find("[tag=costPrice]").val(item.product.purchasingPrice);
+                copy.find("[tag=amount]").html(item.amount);
+            })
+                $("#product_dialog").dialog("close");
         }
     });
     //采购新增弹框
-    $("#orderBill_dialog").dialog({
+    $("#refund_dialog").dialog({
         width: 750,
         height: 400,
-        buttons: '#orderBillItem_button',
-        toolbar: '#orderBillItem_toolbar',
+        buttons: '#refundItem_button',
+        toolbar: '#refundItem_toolbar',
         closed: true,
         onClose: function () {
-            $("#orderBill_form").form('clear');
+            $("#refund_form").form('clear');
         }
     });
     //商品弹框
     $("#product_dialog").dialog({
         closed: true,
-        width: 600,
+        width: 800,
         height: 400,
     });
     $("#edit_tbody").on("change", "[tag=costPrice],[tag=number]", function () {
@@ -226,11 +236,11 @@ $(function () {
     });
     $("#status").switchbutton({onChange:function (checked) {
         if (checked){
-            $("#orderBill_datagrid").datagrid("load", {
+            $("#refund_datagrid").datagrid("load", {
                 status: 1,
             });
         }else{
-            $("#orderBill_datagrid").datagrid("load", {
+            $("#refund_datagrid").datagrid("load", {
                 status: 0,
             });
         }
@@ -240,7 +250,7 @@ $(function () {
 function searchs() {
     var beginDate = $("#beginDate").textbox("getValue");
     var endDate = $("#endDate").textbox("getValue");
-    $("#orderBill_datagrid").datagrid("load", {
+    $("#refund_datagrid").datagrid("load", {
         beginDate:beginDate,
         endDate:endDate
     });
