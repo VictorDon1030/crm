@@ -205,7 +205,8 @@
             <p> &nbsp; </p>
             </span>
             <span>
-                     <input class="easyui-textbox" name="addbalance" data-options="width:280,label:'选择商品:'"/>
+                     <input class="easyui-combobox" name="addbalance" data-options="width:280,label:'选择商品:',valueField:'id',textField:'name',
+                     url:'/product/selectAll.do'"/>
                           </span>
             <span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
