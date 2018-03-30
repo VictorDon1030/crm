@@ -50,70 +50,70 @@
                         <dd><a href="javascript:;" data-url="#" data-id="1">新增会员</a></dd>
                         <dd><a href="javascript:;" data-url="datalist.html" data-id="2">会员列表</a></dd>
                         <dd><a href="javascript:;" data-url="datalist.html" data-id="3">会员充值</a></dd>
-                        <dd><a href="javascript:;">会员充次</a></dd>
+                        <dd><a href="javascript:;" data-id="5">会员充次</a></dd>
                         <dd><a href="javascript:;" data-url="datalist.html" data-id="4">积分管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-product-hunt" style="color: #00bbee"></i>商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">新增商品</a></dd>
-                        <dd><a href="javascript:;">商品列表</a></dd>
-                        <dd><a href="javascript:;">商品分类</a></dd>
+                        <dd><a href="javascript:;" data-id="1">新增商品</a></dd>
+                        <dd><a href="javascript:;" data-id="2">商品列表</a></dd>
+                        <dd><a href="javascript:;" data-id="3">商品分类</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-cubes" style="color: #00ee00"></i>库存管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">进货管理</a></dd>
-                        <dd><a href="javascript:;">采购退货</a></dd>
-                        <dd><a href="javascript:;">产品盘点</a></dd>
+                        <dd><a href="javascript:;" data-id="1">进货管理</a></dd>
+                        <dd><a href="javascript:;" data-id="2">采购退货</a></dd>
+                        <dd><a href="javascript:;" data-id="3">产品盘点</a></dd>
                         <dd><a href="javascript:;" data-url="datalist.html" data-id="5">库存调拨</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-money" style="color: #f4e039"></i>日常支出</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">支出录入</a></dd>
-                        <dd><a href="javascript:;">支出明细</a></dd>
+                        <dd><a href="javascript:;" data-id="1">支出录入</a></dd>
+                        <dd><a href="javascript:;" data-id="2">支出明细</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-bar-chart-o" style="color: #0000FF"></i>智能分析</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">销售分析</a></dd>
-                        <dd><a href="javascript:;">会员分析</a></dd>
-                        <dd><a href="javascript:;">产品分析</a></dd>
+                        <dd><a href="javascript:;" data-id="1">销售分析</a></dd>
+                        <dd><a href="javascript:;" data-id="2">会员分析</a></dd>
+                        <dd><a href="javascript:;" data-id="3">产品分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-handshake-o" style="color: #1acbfc"></i>营销平台</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">营销短信</a></dd>
-                        <dd><a href="javascript:;">微信会员</a></dd>
-                        <dd><a href="javascript:;">微信商城</a></dd>
-                        <dd><a href="javascript:;">营销活动</a></dd>
-                        <dd><a href="javascript:;">优惠券</a></dd>
+                        <dd><a href="javascript:;" data-id="1">营销短信</a></dd>
+                        <dd><a href="javascript:;" data-id="2">微信会员</a></dd>
+                        <dd><a href="javascript:;" data-id="3">微信商城</a></dd>
+                        <dd><a href="javascript:;" data-id="4">营销活动</a></dd>
+                        <dd><a href="javascript:;" data-id="5">优惠券</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-file-text-o" style="color: #00ee00"></i>营销订单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">线上订单</a></dd>
-                        <dd><a href="javascript:;">线下订单</a></dd>
+                        <dd><a href="javascript:;" data-id="1">线上订单</a></dd>
+                        <dd><a href="javascript:;" data-id="2">线下订单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-group " style="color: #f4e039"></i>咨询客服</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#">渣渣辉</a></dd>
-                        <dd><a href="javascript:;">古扎乐</a></dd>
+                        <dd><a href="javascript:;" data-url="#" data-id="1">渣渣辉</a></dd>
+                        <dd><a href="javascript:;" data-id="2">古扎乐</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-gear" style="color: #9b2979"></i>系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/syshome.do">店铺管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/syshome.do" data-id="1">店铺管理</a></dd>
                     </dl>
                 </li>
             </ul>
