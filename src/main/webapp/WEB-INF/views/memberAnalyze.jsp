@@ -32,7 +32,7 @@
         <div data-options="region:'center',iconCls:'icon-ok'">
             <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
             <div id="main" style="width: 1000px;height:400px;"></div>
-            <script type="text/javascript">
+            <%--<script type="text/javascript">
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('main'));
 
@@ -60,7 +60,7 @@
 
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
-            </script>
+            </script>--%>
         </div>
 
         <!--南布局-->

@@ -14,14 +14,11 @@ $(function () {
     var addMaxType_form = $("#addMaxType_form");
     var addMinType_form = $("#addMinType_form");
     var maxType_datagrid = $("#maxType_datagrid");
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('pie'));
-    var option;
     //设置日期输入框的值
     //$('#showDate').datetimebox('setValue', new Date());
     //页面一加载完，就要将今日按钮选中，表单是按照今日来查
     $("#today").linkbutton("select");
-
+    ajaxData({"today":1});
 
     var methodObj = {
         //弹出设置分类的对话框
@@ -66,7 +63,7 @@ $(function () {
                             //datagrid要重查一次，生活下面的小分类
                             //中间的表格要重新查一次今日
                             maxType_datagrid.datagrid("load",{"today":1});
-
+                            ajaxData({"today":1});
                         });
                     }else {
                         $.messager.alert("温馨提示",data.msg,'warning');
@@ -181,24 +178,25 @@ $(function () {
         today:function () {
             maxType_datagrid.datagrid("load",{"today":1});
             //也要让饼状图的值发生变化
-            //$.get("/pay/view.do",{"today":1});
-            myChart.setOption(option);
+            ajaxData({"today":1});
         },
         //按照本周查询
         week:function () {
             maxType_datagrid.datagrid("load",{"week":7});
             $.get("/pay/view.do",{"week":7});
-
+            ajaxData({"week":7});
         },
         //按照本月查询
         month:function () {
             maxType_datagrid.datagrid("load",{"month":30});
             $.get("/pay/view.do",{"month":30});
+            ajaxData({"month":30});
         },
         //按照今年查询
         year:function () {
             maxType_datagrid.datagrid("load",{"year":365});
             $.get("/pay/view.do",{"year":365});
+            ajaxData({"year":365});
         },
         //删除左边的小分类
         delete_minType:function () {
@@ -307,11 +305,80 @@ $(function () {
         fitColumns:true,
         striped:true,
         columns:[[
-            {field: 'maxType',width: 50,align:'center'},
-            {field: 'amount',width: 50,align:'center'}
+            {field: 'maxType',width: 50,align:'center',title:'支出大分类'},
+            {field: 'amount',width: 50,align:'center',title:'支出总金额'}
         ]]
     });
     //一加载完，就要按照今日来查，因为今日按钮也是一加载完就选中
     maxType_datagrid.datagrid("load",{"today":1});
 
 });
+
+function ajaxData(param) {
+    $.ajax({
+        type : 'post',
+        async : false, //同步执行
+        url :'/pay/queryForPie.do', //web.xml中注册的Servlet的url-pattern
+        data :param,
+        dataType : 'json', //返回数据形式为json
+        success : function(result) {
+            if (result) {
+                //把result(即Json数据)以参数形式放入Echarts代码中
+                bind(result);
+            }
+        },
+        error : function(errorMsg) {
+            alert("加载数据失败");
+        }
+    }); //ajax
+}
+
+
+//JS成功后的代码
+function bind(result){
+    // 基于准备好的dom，初始化echarts图表
+    var TypeSalesChart = echarts.init(document.getElementById('pie'));
+    var option = {
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:(function(){
+                var res = [];
+                var len = result.length;
+                for(var i=0,size=len;i<size;i++) {
+                    res.push({
+                        name: result[i].typeName,
+                    });
+                }
+                return res;
+            })()
+
+        },
+        series : [
+            {
+                name:'支出总金额',
+                type:'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:(function(){
+                    var res = [];
+                    var len = result.length;
+                    for(var i=0,size=len;i<size;i++) {
+                        res.push({
+                            //通过把result进行遍历循环来获取数据并放入Echarts中
+                            name: result[i].typeName,
+                            value: result[i].totalAmount
+                        });
+                    }
+                    return res;
+                })()
+            }
+        ]
+    };
+    // 为echarts对象加载数据
+    TypeSalesChart.setOption(option);
+}

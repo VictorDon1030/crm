@@ -44,35 +44,7 @@
                 <div data-options="region:'center',collapsible:false" >
                     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                     <div id="main" style="width: 900px;height:250px;"></div>
-                    <script type="text/javascript">
-                        // 基于准备好的dom，初始化echarts实例
-                        var myChart = echarts.init(document.getElementById('main'));
 
-                        // 指定图表的配置项和数据
-                        var option = {
-                            /*title: {
-                                text: '销售数量',//标题
-                                x:'center'//设置位置
-                            },*/
-                            tooltip: {},
-                            legend: {
-                                data:['销售数量'],//说明
-                                x:'left'//设置位置
-                            },
-                            xAxis: {//横轴
-                                data: ${types}//横轴显示的数据，已在后台转换成json格式的字符串：商品名
-                            },
-                            yAxis: {},//纵轴
-                            series: [{//鼠标放在每一个柱上，显示的内容
-                                name: '销售总额',//
-                                type: 'bar',//柱状
-                                data: ${totalNumber}//销售数量
-                            }]
-                        };
-
-                        // 使用刚指定的配置项和数据显示图表。
-                        myChart.setOption(option);
-                    </script>
                 </div>
 
                 <!--南布局-->

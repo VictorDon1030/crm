@@ -34,21 +34,6 @@ public class ClassAnalysisController {
     @RequestMapping("view")
     public String view(Model model, ClassAnalysisObject qo){
          maps=classAnalysisService.selectAll();
-        //饼状图，注意饼块里的数据拼接
-        //1.根据条件查出数据
-        List<Map<String,Object>> result=classAnalysisService.queryByDate(qo);
-        //2.拿到所有的分组类型
-        List<String> types=new ArrayList<>();//用来存储所有的分组类型:maxType
-        List<Map<String,Object>> totalAmounts=new ArrayList<>();//
-        for (Map<String, Object> item : result) {
-            types.add(item.get("name").toString());
-            Map<String,Object> map=new HashMap<>();
-            map.put("value",item.get("totalAmount"));
-            map.put("name",item.get("name"));
-            totalAmounts.add(map);
-        }
-        model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
-        model.addAttribute("totalAmounts", JSON.toJSONString(totalAmounts));
 
         return "classAnalysis";
     }
@@ -115,4 +100,24 @@ public class ClassAnalysisController {
         //写入数据，输出到浏览器
         wb.write(response.getOutputStream());
     }
+
+    /***
+     * 饼状图的数据
+     */
+    @RequestMapping("queryForPie")
+    @ResponseBody
+    public Object queryForPie(ClassAnalysisObject qo){
+        //1.根据条件查出数据
+        List<Map<String,Object>> result=classAnalysisService.queryByDate(qo);
+        //2.要将分组类型及对应的amount
+        List<Map<String,Object>> list=new ArrayList<>();//
+        for (Map<String, Object> item : result) {
+            Map<String,Object> map=new HashMap<>();
+            map.put("typeName",item.get("name"));
+            map.put("totalAmount",item.get("totalAmount"));
+            list.add(map);
+        }
+        return list;
+    }
+
 }

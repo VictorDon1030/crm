@@ -1,5 +1,6 @@
 package cn.wolfcode.crm.service;
 
+import cn.wolfcode.crm.query.ProductAnalyzeObject;
 import cn.wolfcode.crm.query.QueryObject;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface IProductAnalyzeService {
     /**
      * 高级查询并排序：柱状图用
      */
-    List<Map<String,Object>> selectAndOrder();
+    List<Map<String,Object>> selectAndOrder(ProductAnalyzeObject qo);
 }

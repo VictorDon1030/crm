@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.service.impl;
 
 import cn.wolfcode.crm.mapper.ProductAnalyzeMapper;
+import cn.wolfcode.crm.query.ProductAnalyzeObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IProductAnalyzeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProductAnalyzeServiceImpl implements IProductAnalyzeService {
     /**
      * 高级查询并排序：柱状图用
      */
-    public  List<Map<String,Object>> selectAndOrder(){
-        return productAnalyzeMapper.selectAndOrder();
+    public  List<Map<String,Object>> selectAndOrder(ProductAnalyzeObject qo){
+        return productAnalyzeMapper.selectAndOrder(qo);
     }
 }

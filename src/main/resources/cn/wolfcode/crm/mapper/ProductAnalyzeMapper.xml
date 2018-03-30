@@ -58,6 +58,6 @@
     <include refid="from"/>
     <include refid="where"/>
     group by p.name
-    order by totalNumber desc
+    order by totalAmount desc
   </select>
 </mapper>

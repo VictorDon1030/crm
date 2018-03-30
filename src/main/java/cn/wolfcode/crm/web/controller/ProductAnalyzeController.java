@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.PayItem;
+import cn.wolfcode.crm.query.ClassAnalysisObject;
 import cn.wolfcode.crm.query.ProductAnalyzeObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IProductAnalyzeService;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,19 +38,6 @@ public class ProductAnalyzeController {
     @RequestMapping("view")
     public String view(Model model){
        maps=productAnalyzeService.selectAll();
-        //柱状图需要：所有的分组类型，及对应分组类型的销售总额
-        //1.根据多条件所有的数据:排序
-
-        List<Map<String,Object>> result=productAnalyzeService.selectAndOrder();
-        List<String> types=new ArrayList<>();//存储所有的分组类型
-        List<String> totalNumber=new ArrayList<>();//存储所有的销售总额
-        for (Map<String, Object> item : result) {
-            //根据每一个map里的分组类型（列名），取出对应的分组类型（页面上的）,销售总额也是这样
-            types.add(item.get("name").toString());//拿到当前map的分组类型,添加到集合中
-            totalNumber.add(item.get("totalNumber").toString());//拿到当前map的销售总额，添加到集合中
-        }
-        model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
-        model.addAttribute("totalNumber", JSON.toJSONString(totalNumber));
         return "productAnalyze";
     }
 
@@ -101,5 +90,24 @@ public class ProductAnalyzeController {
         }
         //写入数据，输出到浏览器
         wb.write(response.getOutputStream());
+    }
+
+    /***
+     * 柱状图的数据
+     */
+    @RequestMapping("queryForBar")
+    @ResponseBody
+    public Object queryForBar(ProductAnalyzeObject qo){
+        //1.根据条件查出数据
+        List<Map<String,Object>> result=productAnalyzeService.selectAndOrder(qo);
+        //2.要将分组类型及对应的amount
+        List<Map<String,Object>> list=new ArrayList<>();//
+        for (Map<String, Object> item : result) {
+            Map<String,Object> map=new HashMap<>();
+            map.put("typeName",item.get("name"));
+            map.put("totalAmount",item.get("totalAmount"));
+            list.add(map);
+        }
+        return list;
     }
 }

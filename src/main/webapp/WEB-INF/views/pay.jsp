@@ -119,47 +119,6 @@
                     <!--圆饼插件-->
                     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                     <div id="pie" style="width: 250px;height:200px;margin-left: 20px;"></div>
-                    <script type="text/javascript">
-                        // 基于准备好的dom，初始化echarts实例
-                        var myChart = echarts.init(document.getElementById('pie'));
-
-                        // 指定图表的配置项和数据
-                        var option = {
-                            title : {
-                                text: '支出报表',
-                                x:'center'
-                            },
-                            tooltip : {//工具提示
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            legend: {//比例的转向
-                                orient: 'vertical',
-                                left: 'left',
-                                data: ${types}//饼上的数据，相当于横轴：分组类型（maxType）
-                            },
-                            series : [
-                                {//配置鼠标放在每一块饼上显示的内容
-                                    name: '支出总额',//
-                                    type: 'pie',
-                                    radius : '55%',
-                                    center: ['50%', '60%'],
-                                    //每一块饼都必须是value:销售总额，name:分组类型，将这样的2对键值对数据封装到一个map里，有多个map，就放在list中
-                                    data:${totalAmounts},
-
-                                    itemStyle: {
-                                        emphasis: {
-                                            shadowBlur: 10,
-                                            shadowOffsetX: 0,
-                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                        }
-                                    }
-                                }
-                            ]
-                        };
-                        // 使用刚指定的配置项和数据显示图表。
-                        myChart.setOption(option);
-                    </script>
 
                     <!--按照支出大分类maxType分组查询的数据表格-->
                     <table id="maxType_datagrid" style="width: 350px;height: 250px;margin-top: 20px;">

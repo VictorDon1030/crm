@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.query.MemberAnalyzeObject;
+import cn.wolfcode.crm.query.ProductAnalyzeObject;
 import cn.wolfcode.crm.service.IMemberAnalyzeService;
 import com.alibaba.fastjson.JSON;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class MemberAnalyzeController {
     @RequestMapping("view")
     public String view(Model model){
         maps=memberAnalyzeService.selectAll();
-        //柱状图需要：所有的分组类型，及对应分组类型的销售总额
+       /* //柱状图需要：所有的分组类型，及对应分组类型的销售总额
         //1.根据多条件所有的数据:排序
         List<Map<String,Object>> result=memberAnalyzeService.selectAndOrder();
         List<String> types=new ArrayList<>();//存储所有的分组类型
@@ -40,7 +42,7 @@ public class MemberAnalyzeController {
             totalNumber.add(item.get("totalNumber").toString());//拿到当前map的销售总额，添加到集合中
         }
         model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
-        model.addAttribute("totalNumber", JSON.toJSONString(totalNumber));
+        model.addAttribute("totalNumber", JSON.toJSONString(totalNumber));*/
         return "memberAnalyze";
     }
 
@@ -93,5 +95,25 @@ public class MemberAnalyzeController {
         }
         //写入数据，输出到浏览器
         wb.write(response.getOutputStream());
+    }
+
+
+    /***
+     * 柱状图的数据
+     */
+    @RequestMapping("queryForBar")
+    @ResponseBody
+    public Object queryForBar(MemberAnalyzeObject qo){
+        //1.根据条件查出数据
+        List<Map<String,Object>> result=memberAnalyzeService.queryByDate(qo);
+        //2.要将分组类型及对应的amount
+        List<Map<String,Object>> list=new ArrayList<>();//
+        for (Map<String, Object> item : result) {
+            Map<String,Object> map=new HashMap<>();
+            map.put("typeName",item.get("name"));
+            map.put("totalAmount",item.get("totalAmount"));
+            list.add(map);
+        }
+        return list;
     }
 }
