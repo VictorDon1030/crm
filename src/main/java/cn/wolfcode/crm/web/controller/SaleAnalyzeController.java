@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +26,11 @@ public class SaleAnalyzeController {
 
     @Autowired
     private ISaleAnalyzeService saleAnalyzeService;
-
+    private List<Map<String,Object>> maps;
 
     @RequestMapping("view")
     public String view(Model model){
+        maps=saleAnalyzeService.selectAll();
         /*//柱状图需要：所有的分组类型，及对应分组类型的销售总额
         //1.根据多条件所有的数据:排序
         List<Map<String,Object>> result=saleAnalyzeService.selectAndOrder();
@@ -52,7 +54,8 @@ public class SaleAnalyzeController {
     @RequestMapping("queryByDate")
     @ResponseBody
     public Object queryByDate(SaleAnalyzeObject qo){
-        return saleAnalyzeService.queryByDate(qo);
+        maps=saleAnalyzeService.queryByDate(qo);
+        return maps;
     }
 
     /***
@@ -64,33 +67,50 @@ public class SaleAnalyzeController {
     @RequestMapping("exportXls")
     public void exportXls(HttpServletResponse response, SaleAnalyzeObject qo) throws IOException {
         //设置文件下载响应头
-        response.setHeader("Content-Disposition","attachment;filename=payItem.xls");
+        response.setHeader("Content-Disposition","attachment;filename=saleAnalyze.xls");
         //创建excel文件
         Workbook wb=new HSSFWorkbook();
         //创建工作簿
         Sheet sheet=wb.createSheet("day01");
         //设置标题:索引从0开始
         Row row=sheet.createRow(0);
-        row.createCell(0).setCellValue("商品条码");
-        row.createCell(1).setCellValue("商品名称");
-        row.createCell(2).setCellValue("销售数量");
-        row.createCell(3).setCellValue("销售金额");
-        row.createCell(4).setCellValue("销售毛利");
-        row.createCell(5).setCellValue("毛利率");
-        //查出所有的产品分析
-        List<Map<String,Object>> maps=saleAnalyzeService.queryByDate(qo);
+        row.createCell(0).setCellValue("商品名稱");
+        row.createCell(1).setCellValue("单号");
+        row.createCell(2).setCellValue("消费对象");
+        row.createCell(3).setCellValue("商品单价");
+        row.createCell(4).setCellValue("折扣类型");
+        row.createCell(5).setCellValue("数量");
+        row.createCell(5).setCellValue("销售金额");
+        row.createCell(5).setCellValue("支付方式");
+        row.createCell(5).setCellValue("消费店铺");
+        row.createCell(5).setCellValue("消费时间");
         for(int i=0;i<maps.size();i++){
             //拿到每一个map：一条数据
             Map<String,Object> map=maps.get(i);
             //创建行
             row=sheet.createRow(i+1);
             //设置单元格内容
-            row.createCell(0).setCellValue((String)map.get("goodsMark"));
-            row.createCell(1).setCellValue((String)map.get("name"));
-            row.createCell(1).setCellValue((String)map.get("totalNumber"));
-            row.createCell(1).setCellValue((String)map.get("totalAmount"));
-            row.createCell(1).setCellValue((String)map.get("totalProfit"));
-            row.createCell(1).setCellValue((String)map.get("grossProfit"));
+            row.createCell(0).setCellValue((String)map.get("name"));
+            if(map.get("sn")==null){
+                row.createCell(1).setCellValue("");
+            }else{
+
+                row.createCell(1).setCellValue((String)map.get("sn"));
+            }
+            if(map.get("member")==null){
+                row.createCell(2).setCellValue("散客");
+            }else{
+
+                row.createCell(2).setCellValue("会员");
+            }
+            row.createCell(3).setCellValue((map.get("salePrice")).toString());
+            row.createCell(4).setCellValue("无折扣");
+            row.createCell(5).setCellValue((map.get("number")).toString());
+            row.createCell(6).setCellValue((map.get("saleAmount")).toString());
+            row.createCell(7).setCellValue("现金");
+            row.createCell(8).setCellValue("德客便利店");
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+            row.createCell(9).setCellValue(format.format(map.get("vdate")));
         }
         //写入数据，输出到浏览器
         wb.write(response.getOutputStream());

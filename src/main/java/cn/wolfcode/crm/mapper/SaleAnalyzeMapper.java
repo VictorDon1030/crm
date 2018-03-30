@@ -9,6 +9,13 @@ import java.util.Map;
  * 销售分析
  */
 public interface SaleAnalyzeMapper {
+
+    /**
+     * 查出所有
+     * @return
+     */
+    List<Map<String,Object>> selectAll();
+
     /**
      * 根据销售日期来查询产品及其销售信息
      * @param qo

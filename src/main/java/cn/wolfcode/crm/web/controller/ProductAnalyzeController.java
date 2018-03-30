@@ -30,13 +30,15 @@ public class ProductAnalyzeController {
     @Autowired
     private IProductAnalyzeService productAnalyzeService;
     //导出报表：默认是导出所有
-    List<Map<String,Object>> maps=productAnalyzeService.selectAll();
+    private  List<Map<String,Object>> maps;
 
 
     @RequestMapping("view")
     public String view(Model model){
+       maps=productAnalyzeService.selectAll();
         //柱状图需要：所有的分组类型，及对应分组类型的销售总额
         //1.根据多条件所有的数据:排序
+
         List<Map<String,Object>> result=productAnalyzeService.selectAndOrder();
         List<String> types=new ArrayList<>();//存储所有的分组类型
         List<String> totalNumber=new ArrayList<>();//存储所有的销售总额
@@ -58,6 +60,7 @@ public class ProductAnalyzeController {
     @RequestMapping("queryByDate")
     @ResponseBody
     public Object queryByDate(ProductAnalyzeObject qo){
+
         maps=productAnalyzeService.queryByDate(qo);
         return maps;
     }

@@ -14,6 +14,12 @@ public class SaleAnalyzeServiceImpl implements ISaleAnalyzeService {
 
     @Autowired
     private SaleAnalyzeMapper saleAnalyzeMapper;
+
+    @Override
+    public List<Map<String, Object>> selectAll() {
+        return saleAnalyzeMapper.selectAll();
+    }
+
     /**
      * 根据日期查询产品及其销售信息
      * @param qo

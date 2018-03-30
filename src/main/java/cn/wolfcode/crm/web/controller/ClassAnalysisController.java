@@ -29,11 +29,11 @@ public class ClassAnalysisController {
 
     @Autowired
     private IClassAnalysisService classAnalysisService;
-
-    private List<Map<String,Object>> maps=classAnalysisService.selectAll();
+    private  List<Map<String,Object>> maps;
 
     @RequestMapping("view")
     public String view(Model model, ClassAnalysisObject qo){
+         maps=classAnalysisService.selectAll();
         //饼状图，注意饼块里的数据拼接
         //1.根据条件查出数据
         List<Map<String,Object>> result=classAnalysisService.queryByDate(qo);
@@ -64,6 +64,8 @@ public class ClassAnalysisController {
         maps=classAnalysisService.queryByDate(qo);
         return maps;
     }
+
+
 
     /***
      * 导出报表：不同的查询条件，导出不同的报表：怎么拿到这个查询条件呢？

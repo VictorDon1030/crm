@@ -15,6 +15,11 @@
     on s.member_id=m.id
   </sql>
 
+  <!--查詢所有-->
+  <select id="selectAll" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+  </select>
 
   <!--高级查询-->
   <select id="queryByDate" resultType="map">

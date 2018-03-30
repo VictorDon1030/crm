@@ -25,10 +25,10 @@ public class MemberAnalyzeController {
 
     @Autowired
     private IMemberAnalyzeService memberAnalyzeService;
-    private List<Map<String,Object>> maps=memberAnalyzeService.selectAll();
-
+    private List<Map<String,Object>> maps;
     @RequestMapping("view")
     public String view(Model model){
+        maps=memberAnalyzeService.selectAll();
         //柱状图需要：所有的分组类型，及对应分组类型的销售总额
         //1.根据多条件所有的数据:排序
         List<Map<String,Object>> result=memberAnalyzeService.selectAndOrder();

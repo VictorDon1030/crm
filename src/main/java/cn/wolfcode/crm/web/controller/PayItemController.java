@@ -26,10 +26,10 @@ public class PayItemController {
     @Autowired
     private IPayItemService payItemService;
     //导出报表：默认是导出所有
-    private List<PayItem> payItemList=payItemService.selectAll();
-
+    private List<PayItem> payItemList;
     @RequestMapping("view")
     public String view(){
+        payItemList=payItemService.selectAll();
         return "payItem";
     }
     /**
@@ -39,7 +39,7 @@ public class PayItemController {
     @RequestMapping("selectAll")
     @ResponseBody
     public Object selectAll(){
-        return payItemService.selectAll();
+        return payItemList;
     }
 
     /**
@@ -48,6 +48,7 @@ public class PayItemController {
     @RequestMapping("list")
     @ResponseBody
     public Object list(PayItemQueryObject qo){
+
         //作用：不同的查询条件，导出不同的报表
         payItemList= (List<PayItem>) payItemService.query(qo).getRows();
         return payItemService.query(qo);
