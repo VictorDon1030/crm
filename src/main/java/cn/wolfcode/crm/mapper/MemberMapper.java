@@ -2,8 +2,11 @@ package cn.wolfcode.crm.mapper;
 
 import cn.wolfcode.crm.domain.Department;
 import cn.wolfcode.crm.domain.Member;
+import cn.wolfcode.crm.query.MemberBonusPointQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface MemberMapper {

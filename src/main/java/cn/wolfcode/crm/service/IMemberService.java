@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.service;
 
 import cn.wolfcode.crm.domain.Member;
+import cn.wolfcode.crm.query.MemberBonusPointQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
