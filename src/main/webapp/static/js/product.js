@@ -31,25 +31,6 @@ $(function () {
     });
 
 
-    $("#stair").change(function () {
-        //清空
-        $("#secondary").html("<option value='-1'>清选择</option>");
-        if(this.value == -1){
-            return;
-        }
-        //console.log(this.value);
-        $.get("/secondary/list.do",{pid:this.value}, function (data) {
-            //console.log(data);
-            $.each(data, function (index, item) {
-                //console.log(index, item);
-                // item.id
-                $( "<option value='"+item.id+"'>"+item.name+"</option>")
-                    .appendTo("#city");
-            });
-        },"json");
-    });
-
-
     //给商品设值 表头动态值
     $.get("/product/countId.do", function (data) {
        /* for(var i = 0; i < data.length; i++){
@@ -141,9 +122,14 @@ $(function () {
             /*{field:'imagePath',title:'商品图片',width:100},*/
             {
                 field: 'imagePath', title: '商品图片', width: 100, align: 'center', nowrap: true,
-                formatter: function (value, row, index) {
-                    //如下的写法太复杂了,注意只有数字才这么写.
-                    return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/' + (index + 1) + '.png"/>';
+                formatter: function (value, rows, index) {
+                    //var im = '<img src="/static/spaceImgPath/' + (index + 1) + '.png"/>';
+                    //console.log(im);
+                    if(rows.id == rows.imagePath){
+                        return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/' + value + '.png"/>';
+                    }else {
+                        return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/2117.png"/>';
+                    }
                 }
             },
             {field: 'brand', title: '商品品牌', width: 100},
@@ -172,6 +158,7 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
+
     });
 
 
@@ -198,7 +185,7 @@ $(function () {
             })
         },
 
-        //查看已下架的商品 按钮
+        //查看已下架的商品 按钮 改变路径
         examinePutaway: function () {
             product_datagrid.datagrid('options').url="/product/list.do";
             product_datagrid.datagrid("reload");
