@@ -88,7 +88,7 @@
                     </div>
                     <form action="/pay/save.do" method="post" id="pay_form" style="margin-top: 20px;">
                         <!--数据表格-->
-                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:130px;"id="pay_datagrid">
+                        <table style="margin-top: 15px;margin-left:20px;width:330px;height:150px;"id="pay_datagrid">
 
                         </table>
                         <div style="margin-left: 20px;margin-top: 20px;" >

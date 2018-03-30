@@ -14,6 +14,9 @@ $(function () {
     var addMaxType_form = $("#addMaxType_form");
     var addMinType_form = $("#addMinType_form");
     var maxType_datagrid = $("#maxType_datagrid");
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('pie'));
+    var option;
     //设置日期输入框的值
     //$('#showDate').datetimebox('setValue', new Date());
     //页面一加载完，就要将今日按钮选中，表单是按照今日来查
@@ -178,7 +181,8 @@ $(function () {
         today:function () {
             maxType_datagrid.datagrid("load",{"today":1});
             //也要让饼状图的值发生变化
-            $.get("/pay/view.do",{"today":1});
+            //$.get("/pay/view.do",{"today":1});
+            myChart.setOption(option);
         },
         //按照本周查询
         week:function () {

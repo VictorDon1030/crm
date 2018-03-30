@@ -67,10 +67,21 @@ public class PayController {
      */
     @RequestMapping("selectByDate")
     @ResponseBody
-    public Object selectByDate(PayQueryObject qo){
+    public Object selectByDate(Model model,PayQueryObject qo){
         //1.根据条件查出数据
         List<Map<String,Object>> result=payService.query(qo);
-
+        //2.拿到所有的分组类型(要在点击查询按钮时，改变作用域的值，从而更新柱状图的值)
+        List<String> types=new ArrayList<>();//用来存储所有的分组类型:maxType
+        List<Map<String,Object>> totalAmounts=new ArrayList<>();//
+        for (Map<String, Object> item : result) {
+            types.add(item.get("maxType").toString());
+            Map<String,Object> map=new HashMap<>();
+            map.put("value",item.get("amount"));
+            map.put("name",item.get("maxType"));
+            totalAmounts.add(map);
+        }
+        model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
+        model.addAttribute("totalAmounts", JSON.toJSONString(totalAmounts));
         //返回给datagrid
         return result;
     }
