@@ -20,6 +20,7 @@
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="add();">新增供应商</a>
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="edit();">修改</a>
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="deleted();">删除</a>
+        <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'" onclick="reload();">刷新</a>
 
 
     </div>
