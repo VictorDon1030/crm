@@ -19,9 +19,10 @@
     <div id="depot_toolbar">
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="add();">新增仓库</a>
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="edit();">编辑</a>
-        <a id="changeState" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="changeStatus();">关闭仓库</a>
-        <input id="state" name="state" class="easyui-switchbutton"
-               data-options="onText:'开启仓库',offText:'关闭仓库',width:100,">
+        <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'" onclick="reload();">刷新</a>
+        <a id="changeState" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="changeStatus();">关闭仓库</a>
+         查询状态: <input id="state" name="state" class="easyui-switchbutton"
+               data-options="onText:'开启',offText:'关闭',width:100,">
 
     </div>
     <div id="depot_button">
