@@ -14,6 +14,12 @@ public class MemberAnalyzeServiceImpl implements IMemberAnalyzeService {
 
     @Autowired
     private MemberAnalyzeMapper memberAnalyzeMapper;
+
+    @Override
+    public List<Map<String, Object>> selectAll() {
+        return memberAnalyzeMapper.selectAll();
+    }
+
     /**
      * 根据日期查询产品及其销售信息
      * @param qo

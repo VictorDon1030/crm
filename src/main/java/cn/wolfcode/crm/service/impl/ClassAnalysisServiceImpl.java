@@ -14,6 +14,12 @@ public class ClassAnalysisServiceImpl implements IClassAnalysisService {
 
     @Autowired
     private ClassAnalysisMapper classAnalysisMapper;
+
+    @Override
+    public List<Map<String, Object>> selectAll() {
+        return classAnalysisMapper.selectAll();
+    }
+
     /**
      * 根据日期查询产品及其销售信息
      * @param qo

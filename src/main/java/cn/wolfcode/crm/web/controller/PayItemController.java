@@ -25,12 +25,13 @@ public class PayItemController {
 
     @Autowired
     private IPayItemService payItemService;
+    //导出报表：默认是导出所有
+    private List<PayItem> payItemList=payItemService.selectAll();
 
     @RequestMapping("view")
     public String view(){
         return "payItem";
     }
-
     /**
      * 查询所有的支出明细
      * @return
@@ -47,7 +48,8 @@ public class PayItemController {
     @RequestMapping("list")
     @ResponseBody
     public Object list(PayItemQueryObject qo){
-        Long to=qo.getToday();
+        //作用：不同的查询条件，导出不同的报表
+        payItemList= (List<PayItem>) payItemService.query(qo).getRows();
         return payItemService.query(qo);
     }
 
@@ -69,7 +71,6 @@ public class PayItemController {
         row.createCell(2).setCellValue("操作时间");
         row.createCell(3).setCellValue("支出人员");
         row.createCell(4).setCellValue("备注说明");
-        List<PayItem> payItemList=payItemService.selectAll();
         for(int i=0;i<payItemList.size();i++){
             PayItem payItem=payItemList.get(i);
             //创建行

@@ -47,11 +47,11 @@ $(function () {
                 {"beginDate":startDate,"endDate":endDate});
             selectCondition={"beginDate":startDate,"endDate":endDate};
         },
-        //点击导出
+       /* //点击导出
         export:function () {
-            console.log(selectCondition);
-            window.open("/productAnalyze/exportXls.do?selectCondition");
-        }
+            console.log("进来了");
+            window.open("/productAnalyze/exportXls.do");
+        }*/
     };
 
     //给所有具有data-btn属性的A标签统一绑定点击事件

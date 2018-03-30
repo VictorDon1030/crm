@@ -24,7 +24,7 @@
                 <!--北布局:查询按钮-->
                 <div data-options="region:'north',collapsible:false" style="height: 60px;">
                     <div  style="margin-top: 10px;margin-left: 10px;">
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="export" >导出报表</a>
+                        <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="window.open('/productAnalyze/exportXls.do')" >导出报表</a>
                         <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="all">全部</a>
                         <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="today">今日</a>
                         <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="week">昨日</a>

@@ -13,6 +13,16 @@ public class ProductAnalyzeServiceImpl implements IProductAnalyzeService {
 
     @Autowired
     private ProductAnalyzeMapper productAnalyzeMapper;
+
+    /**
+     * 查出所有
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> selectAll() {
+        return productAnalyzeMapper.selectAll();
+    }
+
     /**
      * 根据日期查询产品及其销售信息
      * @param qo

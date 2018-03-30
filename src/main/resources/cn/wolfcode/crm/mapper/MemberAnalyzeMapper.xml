@@ -12,6 +12,11 @@
     saleascount s on m.id=s.member_id
   </sql>
 
+  <!--查询所有-->
+  <select id="selectAll" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+  </select>
 
   <!--高级查询-->
   <select id="queryByDate" resultType="map">

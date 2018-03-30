@@ -9,10 +9,17 @@
     concat(TRUNCATE((sum(s.saleAmount)-sum(s.costAmount))/(sum(s.number)*100),2),'%') grossProfit
   </sql>
 
+
+
   <sql id="from">
     from product p JOIN saleascount s on p.id=s.product_id
   </sql>
 
+  <!--查询所有-->
+  <select id="selectAll" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+  </select>
 
   <!--高级查询-->
   <select id="queryByDate" resultType="map">

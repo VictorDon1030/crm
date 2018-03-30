@@ -25,7 +25,7 @@ public class MemberAnalyzeController {
 
     @Autowired
     private IMemberAnalyzeService memberAnalyzeService;
-
+    private List<Map<String,Object>> maps=memberAnalyzeService.selectAll();
 
     @RequestMapping("view")
     public String view(Model model){
@@ -52,45 +52,44 @@ public class MemberAnalyzeController {
     @RequestMapping("queryByDate")
     @ResponseBody
     public Object queryByDate(MemberAnalyzeObject qo){
-        return memberAnalyzeService.queryByDate(qo);
+        maps=memberAnalyzeService.queryByDate(qo);
+        return maps;
     }
 
     /***
      * 导出报表：不同的查询条件，导出不同的报表：怎么拿到这个查询条件呢？
      * @param response
-     * @param qo
      * @throws IOException
      */
     @RequestMapping("exportXls")
-    public void exportXls(HttpServletResponse response, MemberAnalyzeObject qo) throws IOException {
+    public void exportXls(HttpServletResponse response) throws IOException {
         //设置文件下载响应头
-        response.setHeader("Content-Disposition","attachment;filename=payItem.xls");
+        response.setHeader("Content-Disposition","attachment;filename=memberAnalyze.xls");
         //创建excel文件
         Workbook wb=new HSSFWorkbook();
         //创建工作簿
         Sheet sheet=wb.createSheet("day01");
         //设置标题:索引从0开始
         Row row=sheet.createRow(0);
-        row.createCell(0).setCellValue("商品条码");
-        row.createCell(1).setCellValue("商品名称");
-        row.createCell(2).setCellValue("销售数量");
-        row.createCell(3).setCellValue("销售金额");
-        row.createCell(4).setCellValue("销售毛利");
-        row.createCell(5).setCellValue("毛利率");
+        row.createCell(0).setCellValue("会员卡号");
+        row.createCell(1).setCellValue("会员名称");
+        row.createCell(2).setCellValue("消费笔数");
+        row.createCell(3).setCellValue("消费金额");
+        row.createCell(4).setCellValue("消费店铺");
+        row.createCell(5).setCellValue("总店");
         //查出所有的产品分析
-        List<Map<String,Object>> maps=memberAnalyzeService.queryByDate(qo);
         for(int i=0;i<maps.size();i++){
             //拿到每一个map：一条数据
             Map<String,Object> map=maps.get(i);
             //创建行
             row=sheet.createRow(i+1);
             //设置单元格内容
-            row.createCell(0).setCellValue((String)map.get("goodsMark"));
+            row.createCell(0).setCellValue((map.get("memberNum")).toString());
             row.createCell(1).setCellValue((String)map.get("name"));
-            row.createCell(1).setCellValue((String)map.get("totalNumber"));
-            row.createCell(1).setCellValue((String)map.get("totalAmount"));
-            row.createCell(1).setCellValue((String)map.get("totalProfit"));
-            row.createCell(1).setCellValue((String)map.get("grossProfit"));
+            row.createCell(2).setCellValue((map.get("totalNumber")).toString());
+            row.createCell(3).setCellValue((map.get("totalAmount")).toString());
+            row.createCell(4).setCellValue("德客便利店");
+            row.createCell(5).setCellValue("德客便利店");
         }
         //写入数据，输出到浏览器
         wb.write(response.getOutputStream());

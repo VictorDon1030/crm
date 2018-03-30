@@ -1,7 +1,6 @@
 $(function () {
 
     var memberAanalyze_datagrid = $("#memberAanalyze_datagrid");
-    var selectCondition=null;
     var methodObj = {
         //查询全部
         all:function () {
@@ -12,19 +11,16 @@ $(function () {
         today:function () {
             $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             memberAanalyze_datagrid.datagrid("load",{"today":1});
-            selectCondition="today=1"
         },
         //按照昨日查询
         week:function () {
             $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             memberAanalyze_datagrid.datagrid("load",{"week":7});
-            selectCondition="week=7";
         },
         //按照本月查询
         month:function () {
             $("#show_Other").css("display","none");//show的display属性设置为none（隐藏）
             memberAanalyze_datagrid.datagrid("load",{"month":30});
-            selectCondition="month=30";
         },
         //点击“其他”按钮，控制开始日期输入框、结束日期输入框、search按钮的显示与隐藏
         other:function () {
@@ -45,12 +41,10 @@ $(function () {
             var endDate=$("#endDate").val();
             memberAanalyze_datagrid.datagrid("load",
                 {"beginDate":startDate,"endDate":endDate});
-            selectCondition={"beginDate":startDate,"endDate":endDate};
         },
         //点击导出
         export:function () {
-            console.log(selectCondition);
-            window.open("/memberAnalyze/exportXls.do?selectCondition");
+            window.open("/memberAnalyze/exportXls.do");
         }
     };
 
