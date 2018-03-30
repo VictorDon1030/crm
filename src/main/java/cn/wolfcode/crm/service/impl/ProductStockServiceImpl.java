@@ -31,4 +31,14 @@ public class ProductStockServiceImpl implements IProductStockService {
         return productStockMapper.selectAll();
     }
 
+    @Override
+    public PageResult selectProductStockByDepotId(ProductStockQueryObject qo) {
+        int total = productStockMapper.selectProductStockByDepotId4Count(qo);
+        List<?> data = productStockMapper.selectProductStockByDepotId(qo);
+        if (total == 0){
+            return new PageResult(total, Collections.EMPTY_LIST);
+        }
+        return new PageResult(total, data);
+    }
+
 }

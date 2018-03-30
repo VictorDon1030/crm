@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ProductStockQueryObject extends QueryObject {
     private String keyword;
     private Integer depotId=-1;
-
+    private Long depot_stockId;
     private Long warnNum;
 }

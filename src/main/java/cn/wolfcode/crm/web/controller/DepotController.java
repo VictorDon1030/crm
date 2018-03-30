@@ -2,7 +2,7 @@ package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Depot;
 import cn.wolfcode.crm.domain.Employee;
-import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.query.DepotQueryObject;
 import cn.wolfcode.crm.service.IDepotService;
 import cn.wolfcode.crm.service.IEmployeeService;
 import cn.wolfcode.crm.util.JsonResult;
@@ -46,7 +46,7 @@ public class DepotController {
             value = {"depot:list", "仓库列表"},
             logical = Logical.OR
     )
-    public PageResult list(QueryObject qo) {
+    public PageResult list(DepotQueryObject qo) {
         return this.depotService.query(qo);
     }
 

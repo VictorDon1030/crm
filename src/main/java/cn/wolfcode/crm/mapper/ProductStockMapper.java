@@ -23,4 +23,7 @@ public interface ProductStockMapper {
     List<ProductStock> query4List(ProductStockQueryObject qo);
     Integer query4Count(ProductStockQueryObject qo);
 
+    List<ProductStock> selectProductStockByDepotId(ProductStockQueryObject qo);
+    Integer selectProductStockByDepotId4Count(ProductStockQueryObject qo);
+
 }

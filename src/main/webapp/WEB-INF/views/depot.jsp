@@ -19,7 +19,9 @@
     <div id="depot_toolbar">
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="add();">新增仓库</a>
         <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="edit();">编辑</a>
-
+        <a id="changeState" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" onclick="changeStatus();">关闭仓库</a>
+        <input id="state" name="state" class="easyui-switchbutton"
+               data-options="onText:'开启仓库',offText:'关闭仓库',width:100,">
 
     </div>
     <div id="depot_button">
@@ -52,8 +54,8 @@
                     <td>仓库状态:</td>
                     <td>
                         <%--<input class="easyui-switchbutton" checked >--%>
-                        <input  name="state" class="easyui-switchbutton"
-                               data-options="checked:true,onText:'正常',offText:'停用',width:100,">
+                        <input id="edit_state" name="state" class="easyui-switchbutton"
+                               data-options="onText:'正常',offText:'停用',width:130">
                     </td>
                 </tr>
                 <tr>
@@ -66,6 +68,18 @@
                 </tr>
             </table>
         </form>
+    </div>
+    <%--查看库存--%>
+    <div id="pro_dialog">
+        <table id="pro_datagrid">
+
+        </table>
+    </div>
+    <%--查看库存高级查询--%>
+    <div id="pro_toolbar">
+        <input id="pro_search" class="easyui-textbox" data-options="prompt:'按商品名称/编码查询'" \
+               style="width:630px">
+        <a  href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"  onclick="searchs()"></a>
     </div>
 </body>
 </html>

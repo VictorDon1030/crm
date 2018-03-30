@@ -113,9 +113,38 @@
             <if test="depotId &gt; 0">
                 and depot.id=#{depotId}
             </if>
+            <if test="depot_stockId &gt; 0">
+                and ps.depot_id=#{depot_stockId}
+            </if>
             <if test="warnNum!=null and warnNum &gt; 0  ">
                 and ps.storeNumber &lt;= #{warnNum}
             </if>
         </where>
     </sql>
+    <!--通过仓库id查询库存-->
+    <select id="selectProductStockByDepotId4Count" resultType="int" >
+        SELECT count(ps.id)
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+            <include refid="sql_where"/>
+    </select>
+
+    <select id="selectProductStockByDepotId" resultMap="BaseResultMap">
+        SELECT
+            ps.id,
+            ps.price,
+            ps.storeNumber,
+            ps.amount,
+            ps.auditTime,
+            product.id product_id,
+            product.name product_name,
+            product.goodsMark product_goodsMark,
+            depot.id depot_id,
+            depot.name depot_name
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+       <include refid="sql_where"/>
+    </select>
 </mapper>

@@ -10,4 +10,5 @@ import java.util.List;
 public interface IProductStockService {
     PageResult query(ProductStockQueryObject qo);
     List<ProductStock> selectAll();
+    PageResult selectProductStockByDepotId(ProductStockQueryObject qo);
 }
