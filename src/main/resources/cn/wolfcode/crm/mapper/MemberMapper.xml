@@ -17,7 +17,7 @@
             <result column="name" property="name"/>
         </association>
         <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
-                     select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
+                    select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
     </resultMap>
     <delete id="deleteByPrimaryKey">
         DELETE FROM member
@@ -70,7 +70,7 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int" >
+    <select id="queryCount" resultType="int">
         SELECT count(id)
         FROM member
     </select>
@@ -83,6 +83,26 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
         <include refid="bonusPoint_where"/>
+    </select>
+    <select id="checkPass" resultType="member">
+        SELECT
+            id,
+            memberNum,
+            name,
+            phone,
+            password,
+            grade_id,
+            payment_id,
+            points,
+            balance,
+            usefullife,
+            onUser_id,
+            state,
+            birthday
+        FROM member WHERE password = #{password} AND  id = #{id}
+    </select>
+    <select id="selectPoints" resultType="_int">
+        SELECT points FROM member WHERE id = #{id}
     </select>
 
     <sql id="base_column">

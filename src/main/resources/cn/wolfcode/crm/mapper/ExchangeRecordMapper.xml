@@ -28,6 +28,10 @@
         VALUES (#{number}, #{costPoints}, #{optUser.id}, #{consumeStore}, #{exchangeDate}, #{gift.id}
         )
     </insert>
+    <insert id="insertRelation">
+        INSERT INTO member_exechangerecord (member_id, exchangeRecord_id)
+                VALUES (#{memberId},#{recordId})
+    </insert>
     <update id="updateByPrimaryKey">
         UPDATE exchangerecord
         SET number       = #{number},

@@ -1,11 +1,11 @@
 $(function () {
     var memberSimpleInfo = $("#memberSimpleInfo,#memberSimpleInfo_gift");
-    var memberInfo = $("#memberInfo,#memberInfo_gift");
+    var memberInfo = $("#memberInfo");
     var giftList = $("#giftList");
     var giftEdit = $("#giftEdit");
     var giftDialog = $("#gift_dialog");
     var giftEditForm = $("#gift_edit_form");
-    var exchangeRecord = $("#exchange_record");
+    var exchangeRecord = $("#exchange_record,#memberInfo_gift");
     var giftList4choose = $("#giftList4choose");
     giftEdit.dialog({
         width: 330,
@@ -159,21 +159,11 @@ $(function () {
 
     });
     giftList4choose.datagrid({
-        onDblClickRow:function (index,row) {
-            var row = $("#giftList4choose").datagrid("getSelected");
-            $("#giftName").html(row.name);
-            $("#needed_point").html(row.points);
-            $("#quantity_remain").html(row.inventory);
-            $("#ss").css('border','1px solid #e5e5e5');
-            $("#ss").val(1);
-            $("#conform_exchange").css('backgroundColor','green');
-            $("#conform_exchange").linkbutton('enable');
-            $("#neededPoints_text").html("所需积分:");
-            $("#neededPoints_num").html(row.points);
-            $("#operate").html("删除");
-            giftDialog.dialog('close');
+        onDblClickRow: function () {
+            chooseGift();
         }
     });
+
     //将时间戳转换为日期格式
     function timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -196,7 +186,7 @@ $(function () {
             var exchangekeyword = $("#exchange_keyword").textbox("getValue");
             var beginDate = $("#beginDate").textbox("getValue");
             var endDate = $("#endDate").textbox("getValue");
-            exchangeRecord.datagrid("load", {keyword: exchangekeyword,beginDate:beginDate,endDate:endDate});
+            exchangeRecord.datagrid("load", {keyword: exchangekeyword, beginDate: beginDate, endDate: endDate});
         },
         searchGifts: function () {
             var giftKeyword = $("#giftKeyword").textbox("getValue");
@@ -312,27 +302,69 @@ $(function () {
             giftDialog.dialog('close');
         },
         submitChoose: function () {
-            var row = $("#giftList4choose").datagrid("getSelected");
-            $("#giftName").html(row.name);
-            $("#needed_point").html(row.points);
-            $("#quantity_remain").html(row.inventory);
-            $("#ss").css('border','1px solid #e5e5e5');
-            $("#ss").val(1);
-            $("#conform_exchange").css('backgroundColor','green');
-            $("#conform_exchange").linkbutton('enable');
-            $("#neededPoints_text").html("所需积分:");
-            $("#neededPoints_num").html(row.points);
-            $("#operate").html("删除");
-            giftDialog.dialog('close');
+            chooseGift();
         },
-        deleteChoose:function () {
+        conformExchange: function () {
+            var memberId = $("#hiddenMemberId_gift").val();
+            //先输入会员密码进行校验
+            $.messager.prompt('提示信息', '请输入当前会员的密码：', function (password) {
+                if (password) {
+
+                    $.post('/member/checkPass.do', {password: password, id: memberId}, function (data) {
+                        if (!data.success) {
+
+                            methodObj.conformExchange();
+                            $.messager.alert("温馨提示", data.msg, "info");
+                            return;
+                        } else {
+                            //判断用户积分是否足够
+                            var neededPoints = $("#neededPoints_num").html();
+                            $.post('/member/checkPoints.do', {points: neededPoints, id: memberId}, function (data) {
+                                if (!data.success) {
+                                    $.messager.alert("温馨提示", data.msg, "info");
+                                    return;
+                                } else {
+                                    //保存一条记录
+                                    var giftId = $("#giftId").val();
+                                    var costPoints = $("#neededPoints_num").html();
+                                    var number = $("#ss").val();
+                                    $.post('/exchangeRecord/save.do', {
+                                        'gift.id': giftId,
+                                        costPoints: costPoints,
+                                        'members[0].id': memberId,
+                                        number: number
+                                    },function (data) {
+                                        if (data.success){
+                                            //刷新列表
+                                            $("#memberInfo_gift").datagrid("reload");
+                                            $.messager.alert("温馨提示","恭喜您兑换保成功","info");
+                                        } else {
+                                            $.messager.alert("温馨提示","对不起,操作失败,请联系管理员","info");
+                                        }
+                                    },'json')
+
+
+                                }
+                            }, 'json')
+                        }
+
+                    }, "json");
+                }
+            });
+
+        },
+        deleteChoose: function () {
             $("#giftName").html("");
             $("#needed_point").html("");
             $("#quantity_remain").html("");
-            $("#ss").css('border','0px solid #e5e5e5');
+            $("#ss").css('border', '0px solid #e5e5e5');
             $("#ss").val("");
-            $("#conform_exchange").css('border','0px solid #e5e5e5');
+            $("#conform_exchange").css('border', '0px solid #e5e5e5');
             $("#operate").html("");
+            $("#conform_exchange").css('backgroundColor', 'none');
+            $("#conform_exchange").linkbutton('disable');
+            $("#neededPoints_text").html("");
+            $("#neededPoints_num").html("");
         },
         submitData: function () {
             var url = '/gift/saveOrUpdate.do';
@@ -359,10 +391,33 @@ $(function () {
         var methodName = $(this).data("cmd");
         methodObj[methodName]();
     });
+    //改变数量所需积分改变
     $("#ss").change(function () {
         var point = $("#needed_point").html();
         var num = $("#ss").val();
-        var total = num * point ;
+        var total = num * point;
         $("#neededPoints_num").html(total);
     });
+
+    //抽取选择礼品操作的方法
+    function chooseGift() {
+        var row = $("#giftList4choose").datagrid("getSelected");
+        if (row.inventory == 0) {
+            $.messager.alert("温馨提示", "当前礼品剩余数量为零,请重新选择", "info");
+            return;
+        }
+
+        $("#giftName").html(row.name);
+        $("#needed_point").html(row.points);
+        $("#quantity_remain").html(row.inventory);
+        $("#ss").css('border', '1px solid #e5e5e5');
+        $("#ss").val(1);
+        $("#conform_exchange").css('backgroundColor', 'green');
+        $("#conform_exchange").linkbutton('enable');
+        $("#neededPoints_text").html("所需积分:");
+        $("#neededPoints_num").html(row.points);
+        $("#operate").html("删除");
+        $("#giftId").val(row.id);
+        giftDialog.dialog('close');
+    }
 });

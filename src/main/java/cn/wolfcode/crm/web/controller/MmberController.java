@@ -111,4 +111,28 @@ public class MmberController {
         }
         return result;
     }
+    @RequestMapping("checkPass")
+    @ResponseBody
+    public Object checkPass(String password,Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            memberService.checkPass(password,id);
+
+        } catch (Exception e) {
+            result.mark(e.getMessage());
+        }
+        return result;
+    }
+    @RequestMapping("checkPoints")
+    @ResponseBody
+    public Object checkPoints(Integer points,Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            memberService.checkPoints(points,id);
+
+        } catch (Exception e) {
+            result.mark(e.getMessage());
+        }
+        return result;
+    }
 }

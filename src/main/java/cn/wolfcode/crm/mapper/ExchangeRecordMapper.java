@@ -3,6 +3,7 @@ package cn.wolfcode.crm.mapper;
 import cn.wolfcode.crm.domain.ExchangeRecord;
 import cn.wolfcode.crm.domain.Gift;
 import cn.wolfcode.crm.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface ExchangeRecordMapper {
     int query4count(QueryObject qo);
 
     List<ExchangeRecord> query4list(QueryObject qo);
+
+    void insertRelation(@Param("memberId") Long memberId, @Param("recordId") Long recordId);
 }

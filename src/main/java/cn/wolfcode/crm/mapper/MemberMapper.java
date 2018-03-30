@@ -40,4 +40,8 @@ public interface MemberMapper {
 
     void clearPoints(Long id);
 
+    Member checkPass(@Param("password") String password,@Param("id") Long id);
+
+    Integer selectPoints(Long id);
+
 }

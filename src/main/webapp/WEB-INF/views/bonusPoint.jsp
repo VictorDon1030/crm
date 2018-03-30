@@ -243,6 +243,7 @@
                 <td valign="top">
                     <form method="post">
                         <input id="hiddenMemberId_gift" type="hidden" name="member.id"/>
+                        <input id="giftId" type="hidden" />
                         <table border="0" cellspacing="0" cellpadding="0">
                             <thead>
                             <tr>
@@ -252,6 +253,8 @@
                                 <th>&emsp;数&emsp;&emsp;量&emsp;</th>
                                 <th>&emsp;操&emsp;&emsp;作&emsp;</th>
                             </tr>
+                            </thead>
+                            <tbody id="gift_4_exchange">
                             <tr id="detail" align="center">
                                 <td>&emsp;<span id="giftName"></span>&emsp;</td>
                                 <td>&emsp;<span id="needed_point"></span>&emsp;</td>
@@ -259,25 +262,25 @@
                                 <td>&emsp;<span id="quantity"><input id="ss" align="center" type="number"
                                                                      style="width:60px;border: 0px" min="1"
                                                                      data-options="editable:false">
-                                    </span>&emsp;</td>
+                                    </span>&emsp;
+                                </td>
                                 <td>&emsp;<span><a id="operate"
-                                                   data-cmd="deleteChoose"></a></span>&emsp;</td>
+                                                   data-cmd="deleteChoose"></a></span>&emsp;
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody id="gift_4_exchange">
-
                             </tbody>
                         </table>
                         <div id="exchange_btn" style="margin:120px;margin-left: 20px">
                             <a class="easyui-linkbutton " style="width:80px;height:40px;background-color: green"
                                data-cmd="chooseGift">选择礼品</a>
-                            &emsp;&emsp;
-                            <a id="conform_exchange"  class="easyui-linkbutton " style="width:80px;height:40px; "
+                            &emsp;&nbsp;
+                            <a id="conform_exchange" class="easyui-linkbutton " style="width:80px;height:40px; "
                                disabled="true"
                                data-cmd="conformExchange">确定兑换</a>
-                            &emsp;&emsp;<span id="neededPoints_text"></span>&emsp;<span style="color: red" id="neededPoints_num"></span>
+                            &nbsp;<span id="neededPoints_text"></span>&emsp;<span style="color: red"
+                                                                                        id="neededPoints_num"></span>
                         </div>
-                        <div id="gift_dialog" >
+                        <div id="gift_dialog">
                             <table id="giftList4choose" class="easyui-datagrid" style="width: 100%"
                                    data-options="singleSelect:true,pagination:false,url:'/gift/list.do',method:'post',fitColumns:true">
                                 <thead>
@@ -291,10 +294,12 @@
                                 </thead>
                             </table>
                         </div>
-                            <div id="choose_buttons">
-                                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" data-cmd="submitChoose">确定</a>
-                                <a class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true" data-cmd="cancelChoose">取消</a>
-                            </div>
+                        <div id="choose_buttons">
+                            <a class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"
+                               data-cmd="submitChoose">确定</a>
+                            <a class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true"
+                               data-cmd="cancelChoose">取消</a>
+                        </div>
                     </form>
                 </td>
             </tr>
@@ -309,14 +314,17 @@
         </table>
     </div>
     <div title="兑换记录" data-options="" style="padding:10px">
-        <table id="exchange_record" class="easyui-datagrid"  style="width: 100%"
+        <table id="exchange_record" class="easyui-datagrid" style="width: 100%"
                data-options="singleSelect:true,collapsible:false,fitColumns:true,toolbar:'#toolbar_record'">
         </table>
         <div id="toolbar_record">
             <input id="exchange_keyword" class="easyui-textbox" prompt="请输入会员卡号或名称" data-options="width:250,height:30"/>
-            <input id="beginDate" class="easyui-datebox" prompt="请选择交易时间" data-options="width:250,height:30,editable:false"/>至
-            <input id="endDate" class="easyui-datebox" prompt="请选择交易时间" data-options="width:250,height:30,editable:false"/>
-            <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,height:30" data-cmd="searchExchangeRecord"></a>
+            <input id="beginDate" class="easyui-datebox" prompt="请选择交易时间"
+                   data-options="width:250,height:30,editable:false"/>至
+            <input id="endDate" class="easyui-datebox" prompt="请选择交易时间"
+                   data-options="width:250,height:30,editable:false"/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,height:30"
+               data-cmd="searchExchangeRecord"></a>
         </div>
     </div>
 </div>

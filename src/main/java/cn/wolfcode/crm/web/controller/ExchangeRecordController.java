@@ -1,8 +1,10 @@
 package cn.wolfcode.crm.web.controller;
 
+import cn.wolfcode.crm.domain.ExchangeRecord;
 import cn.wolfcode.crm.query.ExchangeRecordQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IExchangeRecordService;
+import cn.wolfcode.crm.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +20,18 @@ public class ExchangeRecordController {
     @ResponseBody
     public Object query(ExchangeRecordQueryObject qo) throws Exception {
         return exchangeRecordService.query(qo);
+    }
+
+    @RequestMapping("save")
+    @ResponseBody
+    public Object save(ExchangeRecord entity) throws Exception {
+        JsonResult jsonResult = new JsonResult();
+        try {
+
+            exchangeRecordService.save(entity);
+        } catch (Exception e){
+            jsonResult.mark(e.getMessage());
+        }
+        return jsonResult;
     }
 }

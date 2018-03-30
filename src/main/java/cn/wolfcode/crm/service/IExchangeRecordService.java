@@ -1,5 +1,6 @@
 package cn.wolfcode.crm.service;
 
+import cn.wolfcode.crm.domain.ExchangeRecord;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
@@ -14,4 +15,11 @@ public interface IExchangeRecordService {
      * @return
      */
     PageResult query(QueryObject qo);
+
+    /**
+     * 保存积分兑换记录的方式
+     * @param entity  包含积分兑换记录的实体
+     */
+    void save(ExchangeRecord entity);
+
 }
