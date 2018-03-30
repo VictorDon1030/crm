@@ -43,6 +43,7 @@
         select id, optUser_id, type, amount, optDate, remark, member_id
         from bonuspointrecord
         where member_id = #{memberId}
+      ORDER BY id DESC 
     </select>
     <select id="selectRecordByMemberId" resultType="BonusPointRecord">
         select id, optUser_id, type, amount, optDate, remark, member_id

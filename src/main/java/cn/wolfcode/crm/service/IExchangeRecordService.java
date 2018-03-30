@@ -3,6 +3,10 @@ package cn.wolfcode.crm.service;
 import cn.wolfcode.crm.domain.ExchangeRecord;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
+import com.sun.deploy.net.HttpResponse;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 处理积分兑换记录的service接口
@@ -21,5 +25,11 @@ public interface IExchangeRecordService {
      * @param entity  包含积分兑换记录的实体
      */
     void save(ExchangeRecord entity);
+
+    /**
+     * 导出兑换记录的方法
+     * @param response
+     */
+    void exportExcel(HttpServletResponse response) throws Exception;
 
 }

@@ -53,17 +53,23 @@
             gift_id
         FROM exchangerecord
         WHERE id = #{id}
+        ORDER BY id DESC
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT
-            id,
-            number,
-            costPoints,
-            optUser_id,
-            consumeStore,
-            exchangeDate,
-            gift_id
-        FROM exchangerecord
+        e.id,
+        e.number,
+        e.costPoints,
+        e.optUser_id,
+        e.consumeStore,
+        e.exchangeDate,
+        e.gift_id,
+        m.id        m_id,
+        m.points    m_points,
+        m.name      m_name,
+        m.memberNum m_memberNum
+        FROM exchangerecord e LEFT JOIN member_exechangerecord me ON e.id = me.exchangeRecord_id
+        LEFT JOIN member m ON m.id = me.member_id
     </select>
     <select id="query4count" resultType="int">
         SELECT count(*)
@@ -87,6 +93,7 @@
         FROM exchangerecord e LEFT JOIN member_exechangerecord me ON e.id = me.exchangeRecord_id
             LEFT JOIN member m ON m.id = me.member_id
             <include refid="base_where"/>
+        ORDER BY e.id DESC
         LIMIT #{start}, #{rows}
     </select>
     <sql id="base_where">

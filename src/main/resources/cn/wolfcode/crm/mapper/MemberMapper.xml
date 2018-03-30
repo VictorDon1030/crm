@@ -8,6 +8,7 @@
         <result column="phone" property="phone"/>
         <result column="password" property="password"/>
         <result column="points" property="points"/>
+        <result column="consumePoints" property="consumePoints"/>
         <result column="balance" property="balance"/>
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
@@ -24,24 +25,28 @@
         WHERE id = #{id}
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
+        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id, consumePoints,
                             points, balance, usefullife, onUser_id, state, birthday)
-        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
+        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id}, #{consumePoints},
                               #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
+    <update id="updateConsumePoints">
+        UPDATE member SET consumePoints = consumePoints + #{ret} WHERE id = #{id}
+    </update>
     <update id="updateByPrimaryKey">
         UPDATE member
-        SET memberNum  = #{memberNum},
-            name       = #{name},
-            phone      = #{phone},
-            password   = #{password},
-            grade_id   = #{grade.id},
-            payment_id = #{payment.id},
-            birthday   = #{birthday},
-            points     = #{points},
-            balance    = #{balance},
-            usefullife = #{usefullife},
-            onUser_id  = #{onUser.id}
+        SET memberNum     = #{memberNum},
+            name          = #{name},
+            phone         = #{phone},
+            password      = #{password},
+            grade_id      = #{grade.id},
+            payment_id    = #{payment.id},
+            birthday      = #{birthday},
+            points        = #{points},
+            balance       = #{balance},
+            usefullife    = #{usefullife},
+            consumePoints = #{consumePoints},
+            onUser_id     = #{onUser.id}
         WHERE id = #{id}
     </update>
 
@@ -77,6 +82,7 @@
     <select id="queryForList" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
+        ORDER BY id DESC
         LIMIT #{start}, #{rows}
     </select>
     <select id="queryByKeyword" resultMap="BaseResultMap">
@@ -98,11 +104,15 @@
             usefullife,
             onUser_id,
             state,
-            birthday
-        FROM member WHERE password = #{password} AND  id = #{id}
+            birthday,
+            consumePoints
+        FROM member
+        WHERE password = #{password} AND id = #{id}
     </select>
     <select id="selectPoints" resultType="_int">
-        SELECT points FROM member WHERE id = #{id}
+        SELECT points
+        FROM member
+        WHERE id = #{id}
     </select>
 
     <sql id="base_column">
@@ -120,6 +130,7 @@
             m.usefullife,
             m.onUser_id,
             m.state,
+            m.consumePoints,
             grade.id   grade_id,
             grade.name grade_name
 

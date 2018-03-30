@@ -42,14 +42,14 @@
                                                 style="font-size: medium" class="font-red" id="balance"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><span
-                                            style="font-size: medium" id="sumPoints">0</span>
+                                            style="font-size: medium" id="sumPoints"></span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员欠款：</span><span
-                                                style="font-size: medium" class="font-red">0</span></li>
+                                                style="font-size: medium" class="font-red"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><span
-                                            style="font-size: medium" id="comsumPoints">0</span>
+                                            style="font-size: medium" id="comsumPoints"></span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
-                                                style="font-size: medium" class="font-red">0</span></li>
+                                                style="font-size: medium" class="font-red"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">会员生日：</span><span
                                             style="font-size: medium" id="birthday"></span>
@@ -210,14 +210,14 @@
                                     </li>
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><span
-                                            style="font-size: medium" id="sumPoints_gift">0</span>
+                                            style="font-size: medium" id="sumPoints_gift"></span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员欠款：</span><span
-                                                style="font-size: medium" class="font-red">0</span></li>
+                                                style="font-size: medium" class="font-red"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><span
-                                            style="font-size: medium" id="comsumPoints_gift">0</span>
+                                            style="font-size: medium" id="comsumPoints_gift"></span>
                                         &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
-                                                style="font-size: medium" class="font-red">0</span></li>
+                                                style="font-size: medium" class="font-red"></span></li>
                                     &emsp;
                                     <li><span style="font-size: medium">会员生日：</span><span
                                             style="font-size: medium" id="birthday_gift"></span>
@@ -325,6 +325,8 @@
                    data-options="width:250,height:30,editable:false"/>
             <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,height:30"
                data-cmd="searchExchangeRecord"></a>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,height:30"
+               onclick="window.open('/exchangeRecord/exportExcel.do')">导出到Excel</a>
         </div>
     </div>
 </div>

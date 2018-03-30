@@ -60,6 +60,7 @@
         select id, name, sn, points, total_quantity, inventory,unit
         from gift
         <include refid="keyword_where"/>
+        ORDER BY id DESC
         LIMIT #{start}, #{rows}
     </select>
     <sql id="keyword_where">

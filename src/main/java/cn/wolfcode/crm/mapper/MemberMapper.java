@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ *
+ */
 public interface MemberMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -44,4 +47,5 @@ public interface MemberMapper {
 
     Integer selectPoints(Long id);
 
+    void updateConsumePoints(Long id, Integer ret);
 }

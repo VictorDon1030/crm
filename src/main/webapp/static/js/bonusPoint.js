@@ -334,9 +334,13 @@ $(function () {
                                         'members[0].id': memberId,
                                         number: number
                                     },function (data) {
+
                                         if (data.success){
                                             //刷新列表
                                             $("#memberInfo_gift").datagrid("reload");
+                                            //让礼品的剩余数量减少
+                                            // $.post('/')
+
                                             $.messager.alert("温馨提示","恭喜您兑换保成功","info");
                                         } else {
                                             $.messager.alert("温馨提示","对不起,操作失败,请联系管理员","info");
