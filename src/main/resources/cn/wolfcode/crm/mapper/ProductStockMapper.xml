@@ -9,13 +9,13 @@
         <result column="auditTime" property="auditTime"/>
         <result column="product_id" property="product.id"/>
         <result column="depot_id" property="depot.id"/>
-        <association property="product" javaType="product" columnPrefix="product_" fetchType="eager">
+        <association property="product" javaType="cn.wolfcode.crm.domain.Product" columnPrefix="product_" fetchType="eager">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="goodsMark" property="goodsMark"/>
             <result column="pastDueTime" property="pastDueTime"/>
         </association>
-        <association property="depot" javaType="depot" columnPrefix="depot_" fetchType="eager">
+        <association property="depot" javaType="cn.wolfcode.crm.domain.Depot" columnPrefix="depot_" fetchType="eager">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
@@ -146,9 +146,5 @@
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
        <include refid="sql_where"/>
-    </select>
-
-    <select id="selectByProductId" resultType="ProductStock">
-
     </select>
 </mapper>

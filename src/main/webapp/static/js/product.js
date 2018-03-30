@@ -22,13 +22,25 @@ $(function () {
                 editable:false,
                 valueField:'id',
                 textField:'name',
-                panelHeight:'auto',
-                /*onSelect : function(data){
-                    console.log(data);
-                }*/
-            })/*.combobox('clear');*/
+                panelHeight:'auto'
+            })
         }
     });
+
+    $.get("/productStock/query.do", function (data) {
+        var num2 = 0;
+        for(var i = 0; i < data.length; i++){
+            var num = data[i].storeNumber;
+            if(10 < num){
+                num2++;
+            }
+        }
+
+        $("#someProduct").html(num2);
+
+
+    },"json");
+
 
 
     //给商品设值 表头动态值

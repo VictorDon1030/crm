@@ -11,6 +11,12 @@
 	<import resource="classpath:applicationContext.xml"/>
 	<import resource="classpath:shiro.xml"/>
 
+	<!--配置上传文件解析器-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--上传文件大小-->
+		<property name="maxUploadSize" value="1024000"></property>
+	</bean>
+
 	<!--MVC的注解驱动-->
 	<mvc:annotation-driven/>
 

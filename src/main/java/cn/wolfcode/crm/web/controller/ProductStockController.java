@@ -35,6 +35,12 @@ public class ProductStockController {
 
         return productStockService.query(qo);
     }
+    @RequestMapping("query")
+    @ResponseBody
+    public Object query()throws Exception{
+
+        return productStockService.selectAll();
+    }
     @RequestMapping("selectProductStockByDepotId")
     @ResponseBody
     public PageResult selectProductStockByDepotId(ProductStockQueryObject qo)throws Exception{

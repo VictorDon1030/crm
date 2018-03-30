@@ -32,9 +32,9 @@
         &emsp; <input id="beginDate" class="easyui-datebox" prompt="开始时间" style="width:100px; height:32px;"><span style="font-size: 16px;">至</span>
         <input id="endDate" class="easyui-datebox" prompt="结束时间" style="width:100px; height:32px;">
         <a class="easyui-linkbutton"  data-options="iconCls:'icon-search', plain:true " data-cmd="searchs"><span style="font-size: 18px;">关键字查询</span></a>
-        &emsp;&emsp;<a class="easyui-linkbutton" data-options="iconCls:'icon-undo', plain:true " onclick="window.open('/product/exportXls.do')"><span style="font-size: 20px;">导出</span></a></p>
+        &emsp;&emsp;<a class="easyui-linkbutton" data-options="iconCls:'icon-undo', plain:true " onclick="window.open('/product/derive.do')"><span style="font-size: 20px;">导出</span></a></p>
         <p>
-        <form action="/product/importXls.do" method="post" enctype="multipart/form-data">
+        <form action="/product/tolead.do" method="post" enctype="multipart/form-data">
         &emsp;<input type="file" name="file"/>
         <input type="submit" value="上传"/>
 
@@ -56,6 +56,13 @@
                     </td>
 
                     <td>
+                        <div class="easyui-panel" style="width:320px;height:170px; background-color: #dff0d8;">
+                            <p style="color: #000000"><span style="font-size: 18px;">&emsp;库存低于10件的 二类 商品有:</span></p>
+                            <p style="color: darkorange;font-size:30px" align="center"><i><span id="someProduct">0</span>件</i></p>
+                        </div>
+                    </td>
+
+                    <td>
 
                         <div class="easyui-panel" style="width:320px;height:170px;  background-color: #ffffb6;">
                             <p style="color: #ff73fd"><span style="font-size: 18px;">&emsp;商品均价</span></p>
@@ -64,26 +71,14 @@
                     </td>
 
                     <td>
-                        <div id="p" class="easyui-panel" style="width:320px;height:170px; background-color: #dff0d8;">
+                        <div id="p" class="easyui-panel" style="width:320px;height:170px; background-color: #99cdff;">
                             <p><span style="font-size: 18px;">&emsp;共有商品</span></p>
                             <p style="font-size:30px ;" align="center"><span style="color: darkorange"><i
                                     id="totalProduct"><span id="piece">0</span>种</i></span></p>
-                            <p style="font-size:14px">库存低于
-                                <span style="color: navy"><i>10件的有</i></span>
-                                <span style="color: darkorange"><i id="someProduct">请期待下集 谢谢</i></span>  商品
-                            </p>
                         </div>
                     </td>
 
-                    <td>
-                        <div class="easyui-panel" style="width:320px;height:170px; background-color: #99cdff;">
-                            <p style="font-size:14px">待需求</p>
-                            <p style="font-size:30px ;" align="center"><span style="color: darkorange"><i
-                                    id="maxPrice">0</i></span></p>
-                            <p style="font-size:30px ;" align="center"><span style="color: darkblue">
-                        <i>小唐 666号</i></span></p>
-                        </div>
-                    </td>
+
                 </tr>
             </table>
         </form>
