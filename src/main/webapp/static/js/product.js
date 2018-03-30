@@ -31,6 +31,25 @@ $(function () {
     });
 
 
+    $("#stair").change(function () {
+        //清空
+        $("#secondary").html("<option value='-1'>清选择</option>");
+        if(this.value == -1){
+            return;
+        }
+        //console.log(this.value);
+        $.get("/secondary/list.do",{pid:this.value}, function (data) {
+            //console.log(data);
+            $.each(data, function (index, item) {
+                //console.log(index, item);
+                // item.id
+                $( "<option value='"+item.id+"'>"+item.name+"</option>")
+                    .appendTo("#city");
+            });
+        },"json");
+    });
+
+
     //给商品设值 表头动态值
     $.get("/product/countId.do", function (data) {
        /* for(var i = 0; i < data.length; i++){
@@ -105,7 +124,7 @@ $(function () {
         //目的拿到时间加
     },"json");
 
-
+    //主页面
     product_datagrid.datagrid({
         fit: true,
         fitColumns: true,
@@ -158,7 +177,10 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
+<<<<<<< HEAD
 
+=======
+>>>>>>>
     });
 
 
@@ -225,6 +247,8 @@ $(function () {
         },
         //商品下架按钮
         soldOut: function () {
+        //商品上架按钮
+        putaway: function () {
             //获取选中的数据
             var row = product_datagrid.datagrid("getSelected");
             //判断是否选中

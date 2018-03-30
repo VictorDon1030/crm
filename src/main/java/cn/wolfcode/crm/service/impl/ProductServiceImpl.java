@@ -64,4 +64,9 @@ public class ProductServiceImpl implements IProductService {
         return productMapper.selectByUnitId(id);
     }
 
+    @Override
+    public void deleteAll() {
+        productMapper.deleteAll();
+    }
+
 }

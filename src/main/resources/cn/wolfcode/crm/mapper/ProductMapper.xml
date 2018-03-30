@@ -25,13 +25,16 @@
     delete from product
     where id = #{id}
   </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory, 
-      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice, 
-      minDiscount, specification, integral, pastDueTime, imagePath, images)
-    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory}, 
-      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice}, 
-      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath}, #{images})
+    <delete id="deleteAll">
+      delete from product
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory,
+      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice,
+      minDiscount, specification, integral, pastDueTime, imagePath)
+    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory},
+      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice},
+      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath})
   </insert>
   <update id="updateByPrimaryKey">
     update product

@@ -45,6 +45,13 @@
                     <a href="javascript:;"><i class="fa fa-home"></i>首页</a>
                 </li>
                 <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-cloud" style="color: yellow"></i>天气预报</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/weather.do" data-id="1">我方出品</a></dd>
+                        <dd><a href="javascript:;" data-url="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=385&h=96&align=center" data-id="2">敌方出品</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-user" style="color:#00f7ff"></i>会员管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="#" data-id="1">新增会员</a></dd>
@@ -132,35 +139,7 @@
             <div id="main" style="height:250px;width: 250px"></div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <p style="padding: 10px 15px; margin-bottom: 20px; margin-top: 10px; border:1px solid #ddd;display:inline-block;">
-                        待填充功能
-                        <span style="padding-left:1em;">xxxx</span>
-                        <span style="padding-left:1em;">oooo</span>
-                        <span style="padding-left:1em;">yyyyyy</span>
-                    </p>
-                    <fieldset class="layui-elem-field layui-field-title">
-                        <legend>统计信息</legend>
-                        <div class="layui-field-box">
-                            <div style="display: inline-block; width: 100%;">
-                                <div class="ht-box layui-bg-blue">
-                                    <p>???</p>
-                                    <p>今日折扣</p>
-                                </div>
-                                <div class="ht-box layui-bg-red">
-                                    <p>???</p>
-                                    <p>今日特价</p>
-                                </div>
-                                <div class="ht-box layui-bg-green">
-                                    <p>???</p>
-                                    <p>今日新品</p>
-                                </div>
-                                <div class="ht-box layui-bg-orange">
-                                    <p>???</p>
-                                    <p>会员特价</p>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
+                    <iframe id="import" src="/allchart.do" width="100%" height="100%" frameborder="0"></iframe>
                 </div>
             </div>
         </div>

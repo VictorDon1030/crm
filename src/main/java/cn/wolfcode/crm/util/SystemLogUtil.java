@@ -22,12 +22,15 @@ public class SystemLogUtil {
     @Autowired
     private SystemLogMapper systemLogMapper;
 
+
     public void writeLog(JoinPoint joinPoint){
         SystemLog systemLog = new SystemLog();
 
         systemLog.setOpTime(new Date());
         Object principal = SecurityUtils.getSubject().getPrincipal();
-        systemLog.setOpUser((Employee) principal);
+        if (principal != null) {
+            systemLog.setOpUser((Employee) principal);
+        }
 
         String addr = UserUtil.getRequest().getRemoteAddr();
         systemLog.setOpIp(addr);

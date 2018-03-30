@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.JoinApplyMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.JoinApply">
+    <id column="id" property="id" />
+    <result column="shopName" property="shopName" />
+    <result column="tel" property="tel" />
+    <result column="email" property="email" />
+    <result column="accountType" property="accountType" />
+    <result column="bankName" property="bankName" />
+    <result column="accountName" property="accountName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from joinapply
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into joinapply (shopName, tel, email, accountType, bankName, accountName
+      )
+    values (#{shopName}, #{tel}, #{email}, #{accountType}, #{bankName}, #{accountName}
+      )
+  </insert>
+  <update id="updateByPrimaryKey">
+    update joinapply
+    set shopName = #{shopName},
+      tel = #{tel},
+      email = #{email},
+      bankName = #{bankName},
+      accountName = #{accountName}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, shopName, tel, email, accountType, bankName, accountName
+    from joinapply
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, shopName, tel, email, accountType, bankName, accountName
+    from joinapply
+  </select>
+
+  <select id="queryCount" resultType="int">
+    SELECT count(id) from joinapply
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, shopName, tel, email, accountType, bankName, accountName
+    from joinapply
+    LIMIT #{start},#{rows}
+  </select>
+</mapper>

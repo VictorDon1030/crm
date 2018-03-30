@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.LoginLog">
+    <id column="id" property="id" />
+    <result column="logName" property="logName" />
+    <result column="logIp" property="logIp" />
+    <result column="logTime" property="logTime" />
+  </resultMap>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, logName, logIp, logTime
+    from loginlog
+  </select>
+
+  <select id="queryCount" resultType="int">
+    SELECT count(id) from loginlog
+      <include refid="base_where"/>
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, logName, logIp, logTime
+    from loginlog
+      <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword !=null and keyword != '' ">
+        and logName like concat('%',#{keyword},'%')
+      </if>
+      <if test="beginDate != null">
+        and logTime &gt;= #{beginDate}
+      </if>
+      <if test="endDate != null">
+        and logTime &lt;= #{endDate}
+      </if>
+    </where>
+  </sql>
+</mapper>

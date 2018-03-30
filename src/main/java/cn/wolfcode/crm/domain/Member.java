@@ -45,4 +45,5 @@ public class Member extends BaseDomain {
     private  List<BonusPointRecord> bonusPointRecord = new ArrayList<>(5);
 
     private List<MemberTopUp> memberTopUps = new ArrayList<>();
+
 }
