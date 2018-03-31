@@ -120,9 +120,9 @@
         </form>
     </div>
 
-    <div data-options="region:'center',title:'字典详细信息',split:true" style="width:600px;">
+    <div data-options="region:'center',title:'商品栏',split:true" style="width:600px;">
         <table id="product" class="easyui-datagrid" data-options="fit:true,singleSelect:true,fitColumns:true,
-            url:'/product/list.do',pagination:true,remoteSort:false,sortOrder:'desc'">
+            url:'/product/list.do',pagination:true,remoteSort:false,sortOrder:'desc',toolbar:'#tt'">
             <thead>
             <tr>
                 <th data-options="field:'id',width:'50',sortable:true">id</th>
@@ -170,6 +170,10 @@
         </tr>
         </thead>
     </table>
+</div>
+<div id="tt">
+    <input id="beginDate" class="easyui-textbox" name="beginDate" data-options="label:'商品名称',width:250,labelWidth:50,"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchs();"></a>
 </div>
 </body>
 </html>

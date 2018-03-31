@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CheckOutController {
     @RequestMapping("view")
     public String view(){
-        return "checkout/checkout";
+        return "checkout";
     }
 }
