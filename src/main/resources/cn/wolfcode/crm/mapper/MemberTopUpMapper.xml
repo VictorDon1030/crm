@@ -18,6 +18,10 @@
             <result column="balance" property="balance"/>
             <result column="points" property="points"/>
         </association>
+        <association property="payment" javaType="DictionaryItem" columnPrefix="p_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
     </resultMap>
     <delete id="deleteByPrimaryKey">
         DELETE FROM membertopup
@@ -87,13 +91,17 @@
             topup.intro,
             topup.member_id,
             topup.product_id,
+            topup.state,
             topup.discount,
-            m.id m_id,
-            m.name m_name,
+            m.id      m_id,
+            m.name    m_name,
+            p.id      p_id,
+            p.name    p_name,
             m.balance m_balance,
-            m.points m_points
+            m.points  m_points
     </sql>
     <sql id="base_table">
         FROM membertopup topup left join member m on topup.member_id=m.id
+        left join dictionaryItem p on topup.payment_id=p.id
     </sql>
 </mapper>

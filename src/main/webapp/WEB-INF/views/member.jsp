@@ -39,176 +39,13 @@
 
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs">确认</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reloadData">刷新</a>
-    <%--
-    <li id="nav-header-serv" class="top-cat hassub" data-cat="engine">
-        <h2><a href="javascript:void(0);">技术引擎</a><i class="top-cat-arrow"></i></h2>
-    </li>
-
-    <div class="cat">
-        <div class="cat-box" data-cat="engine">
-            <div class="layout">
-                <div class="cat-group">
-                    <h3 class="cat-tit"><div class="cat-ico"><i class="ico-lan"></i></div>自然语言处理</h3>
-                    <ul class="cat-list">
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>基础文本分析</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#participle">分词/词性</a>
-                                    <a href="#proper">专有名词</a>
-                                    <a href="#synonym">同义词</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>语义解析</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#">意图/成分<i class="cat-tag is-beta"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <a href="#">情感分析</a>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>机器翻译</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#">文本翻译</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <a href="#">智能闲聊<i class="cat-tag is-hot"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="cat-group">
-                    <h3 class="cat-tit"><div class="cat-ico"><i class="ico-image"></i></div>计算机视觉</h3>
-                    <ul class="cat-list">
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>OCR<i class="cat-tag is-hot"></i></span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#identify">身份证识别</a>
-                                    <a href="#card">名片识别</a>
-                                    <a href="#driverregistration">行驶证/驾驶证识别</a>
-                                </div>
-                                <div class="cat-item-row">
-                                    <a href="#businesslicense">营业执照识别</a>
-                                    <a href="#creditcard">银行卡识别</a>
-                                    <a href="#common">通用识别</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>人脸识别</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#detect">人脸分析</a>
-                                    <a href="#multiface">多人脸检测<i class="cat-tag is-new"></i></a>
-                                    <a href="#compare">人脸对比</a>
-                                    <a href="#search">人脸搜索</a>
-                                </div>
-                                <div class="cat-item-row">
-                                    <a href="#shape">五官定位</a>
-                                    <a href="javascript:void(0);" class="disabled">人脸核身(即将开放)</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>图片识别</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#express">看图说话</a>
-                                </div>
-                                <div class="cat-item-row">
-                                    <a href="#plants">花草识别<i class="cat-tag is-hot"></i></a>
-                                </div>
-                                <div class="cat-item-row">
-                                    <a href="#cars">车辆识别<i class="cat-tag is-new"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>图片特效<i class="cat-tag is-new"></i></span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#">人脸美妆</a>
-                                </div>
-                                <div class="cat-item-row">
-                                    <a href="#">颜龄检测</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <a href="#">智能鉴黄</a>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <a href="#">暴恐识别</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="cat-group">
-                    <h3 class="cat-tit"><div class="cat-ico"><i class="ico-voice"></i></div>智能语音</h3>
-                    <ul class="cat-list">
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>语音识别</span>
-                            </div>
-                            <div class="cat-item-sub">
-                                <div class="cat-item-row">
-                                    <a href="#">关键词检索<i class="cat-tag is-new"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <a href="#">语音合成<i class="cat-tag is-new"></i></a>
-                            </div>
-                        </li>
-                        <li class="cat-item">
-                            <div class="cat-item-main">
-                                <span>语音唤醒(即将开放)</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
---%>
     <table style="align-content: center">
         <tr style="align-content: center" >
             <td>
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
                            <p style="color: black"><span style="font-size: 15px;">&emsp;今天过生日的会员</span></p>
-                          <p style="color: red;font-size:30px" align="center"><i><span class="feteCount">${todayBirthday ==null? 0:todayBirthday}</span>位</i></p>
-                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" >${monthBirthday}</span>&emsp;位会员过生日</p>
+                          <p style="color: red;font-size:30px" align="center"><i><span class="feteCount">${result.todayBirthday}</span>位</i></p>
+                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" >${result.monthBirthday}</span>&emsp;位会员过生日</p>
 
                       </div>
                 </span>
@@ -217,16 +54,15 @@
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
                            <p style="color: black"><span style="font-size: 15px;">&emsp;累计消费</span></p>
                           <p style="color: red;font-size:30px" align="center"><i><span class="feteCount"></span>元</i></p>
-                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" ></span>&emsp;位会员过生日</p>
+                          <p style="color: black; margin-left: 90px">位会员,消费订单&emsp;<span style="color: #CC2222" class="feteCount" ></span>&emsp;笔</p>
 
                       </div>
                 </span>
             </td>
             <td>
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
-                           <p style="color: black"><span style="font-size: 15px;">&emsp;会员总数:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;储值卡总额:<span style="color: #CC2222">${sumbalance}</span></p>
-                          <p style="color: red;font-size:30px" align="center">${sumMember}<span class="feteCount"></span>位</></p>
-                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" ></span>&emsp;位会员过生日</p>
+                           <p style="color: black"><span style="font-size: 15px;">&emsp;会员总数:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;储值卡总额:<span style="color: #CC2222">${result.sumbalance}</span></p>
+                          <p style="color: red;font-size:30px" align="center">${result.sumMember}<span class="feteCount"></span>位</></p>
 
                       </div>
                 </span>
@@ -322,16 +158,6 @@
                     <input name="name" class="easyui-textbox"/>
                 </td>
             </tr>
-            <%--<tr>--%>
-            <%--<td>--%>
-
-            <%--<font size="1">会员姓名:</font>--%>
-
-            <%--</td>--%>
-            <%--<td>--%>
-            <%--<input name="name" class="easyui-textbox"/>--%>
-            <%--</td>--%>
-            <%--</tr>--%>
             <tr id="passwordId">
                 <td>
 

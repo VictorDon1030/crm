@@ -7,6 +7,7 @@ import cn.wolfcode.crm.mapper.BonusPointRecordMapper;
 import cn.wolfcode.crm.mapper.MemberMapper;
 import cn.wolfcode.crm.query.MemberBonusPointQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.service.IMemberAnalyzeService;
 import cn.wolfcode.crm.service.IMemberService;
 import cn.wolfcode.crm.util.PageResult;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,8 @@ public class MemberServiceImpl implements IMemberService {
     private MemberMapper memberMapper;
     @Autowired
     private BonusPointRecordMapper bonusPointRecordMapper;
+    @Autowired
+    private IMemberAnalyzeService memberAnalyzeService;
 
     @Override
     public int deleteByPrimaryKey(Long id) {
@@ -116,24 +119,25 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
-    public List<Map<String,Object>> selectMemberMsg() {
+    public Map<String,Object> selectMemberMsg() {
         /**
          * 查询今日生日
          * 查询这个月的生日
          * 查询总余额和总会员数
          */
         List<Map<String,Object>> list = new ArrayList();
+        Map<String,Object> map = new HashMap<>();
         //查询生日
-        list.add(memberMapper.selectTodayBirthdayMember());
+        map.putAll(memberMapper.selectTodayBirthdayMember());
 
-        //查询总余额
-        list.add(memberMapper.selectSumMember());
+        //查询总余额,总会员数
+        map.putAll(memberMapper.selectSumMember());
         //查询今月生日
-        list.add(memberMapper.selectMonthBirthdayMember());
+        map.putAll(memberMapper.selectMonthBirthdayMember());
 
 
 
-        return list;
+        return map;
     }
 
 }

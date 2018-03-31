@@ -1,7 +1,9 @@
 package cn.wolfcode.crm.web.controller;
 
+import cn.wolfcode.crm.domain.DictionaryItem;
 import cn.wolfcode.crm.domain.MemberTopUp;
 import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.service.IDictionaryItemService;
 import cn.wolfcode.crm.service.IMemberTopUpService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
@@ -9,8 +11,11 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Demo class
@@ -24,6 +29,8 @@ public class MemberTopUpController {
 
     @Autowired
     IMemberTopUpService memberTopUpService;
+    @Autowired
+    IDictionaryItemService dictionaryItemService;
 
     @RequestMapping("selectAll")
     @ResponseBody
@@ -32,8 +39,10 @@ public class MemberTopUpController {
     }
 
     @RequestMapping("view")
-    @RequiresPermissions(value={"memberTopUp:view","部门列表"},logical = Logical.OR)
-    public String view(){
+    @RequiresPermissions(value={"memberTopUp:view","会员充值列表"},logical = Logical.OR)
+    public String view(Model model){
+        List<DictionaryItem> payment = dictionaryItemService.selectItemByDictionarySn("payment");
+        model.addAttribute("payment",payment);
         return "memberTopUp";
     }
 
@@ -47,7 +56,8 @@ public class MemberTopUpController {
     @RequestMapping("selecToptItemByMemberId")
     @ResponseBody
     public Object selecToptItemByMemberId(Long id){
-        return memberTopUpService.selecToptItemByMemberId(id);
+        List<MemberTopUp> topUps = memberTopUpService.selecToptItemByMemberId(id);
+        return topUps;
     }
 
     @RequestMapping("delete")

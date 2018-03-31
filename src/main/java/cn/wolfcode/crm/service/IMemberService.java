@@ -56,5 +56,5 @@ public interface IMemberService {
      * 查询生日,人数,总额
      * @return
      */
-    List<Map<String,Object>> selectMemberMsg();
+    Map<String,Object> selectMemberMsg();
 }

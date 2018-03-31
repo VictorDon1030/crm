@@ -44,14 +44,8 @@ public class MmberController {
     @RequestMapping("view")
     @RequiresPermissions(value = {"member:view", "会员列表"}, logical = Logical.OR)
     public String view( Model model) {
-        List<Map<String,Object>> list = memberService.selectMemberMsg();
-        for (Map<String, Object> map : list) {
-
-            model.addAttribute("todayBirthday",map.get("todayBirthday"));
-            model.addAttribute("monthBirthday",map.get("monthBirthday"));
-            model.addAttribute("sumMember",map.get("sumMember"));
-            model.addAttribute("sumbalance",map.get("sumbalance"));
-        }
+        Map<String, Object> map = memberService.selectMemberMsg();
+        model.addAttribute("result",map );
         return "member";
     }
 
@@ -144,13 +138,5 @@ public class MmberController {
         }
         return result;
     }
-    //public Object updatePasswordById();{
-    //    JsonResult result = new JsonResult();
-    //    try {
-    //        memberService.updatePasswordById(member);
-    //    } catch (Exception e){
-    //        result.mark("设置失败");
-    //    }
-    //    return result;
-    //}
+
 }

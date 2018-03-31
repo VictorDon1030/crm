@@ -1,14 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>会员充值</title>
     <%@ include file="/static/common/common.jsp" %>
     <script type="text/javascript" src="/static/js/memberTopUp.js"></script>
-    <%--<link rel="stylesheet" type="text/css" href="/static/css/public.css">--%>
-    <%--<link rel="stylesheet" type="text/css" href="/static/css/reset.css">--%>
-    <%--<link rel="stylesheet" type="text/css" href="/static/css/style.css">--%>
 </head>
 <body>
 
@@ -138,11 +136,12 @@
             <p> &nbsp; </p>
             </span>
             <div>
+
                 <span>支付方式:</span>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'现金'" data-btn="cash"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'银行卡'" data-btn="bankcard"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'支付宝'" data-btn="alipay"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'微信'" data-btn="wechat"></a>
+<c:forEach var="p" items="${payment}">
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'${p.name}'" data-btn="${p.id}"></a>
+</c:forEach>
+
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
@@ -177,13 +176,6 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
 
-
-        <%--扣费--%>
-      <%--  <span id="feeWay" style="display:none ">
-            </span>--%>
-
-        <%--退还--%>
-        <%--<span id="retreatWay" style="display:none;  "> </span>--%>
 
 
         合计充值:<span id="totalMoney" style="color: red"></span>
@@ -220,11 +212,12 @@
             </span>
             <div>
                 <span>支付方式:</span>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'现金'" data-btn="cash"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'银行卡'" data-btn="bankcard"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'支付宝'" data-btn="alipay"></a>
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'微信'" data-btn="wechat"></a>
+
+             <c:forEach var="p" items="${payment}">
+                 <a class="easyui-linkbutton" data-options="width:60,height:36,text:'${p.name}'" data-btn="${p.id}"></a>
+             </c:forEach>
                 <span>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <span><input class="easyui-textbox" name="addcount" data-options="width:280,label:'充值次数:'"

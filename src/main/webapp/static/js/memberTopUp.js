@@ -130,7 +130,11 @@ $(function () {
             }
         );
     })
-
+//判断支付方式
+    var p = -1
+    $("a[data-payment]").click(function () {
+        p = $(this).data("payment");
+    })
     var sta = 1;
     $("a[data-state]").click(function () {
 //设置充值还是充次
@@ -156,12 +160,9 @@ $(function () {
         ff.form("submit", {
             url: '/memberTopUp/saveOrUpdate.do',
             onSubmit: function (param) {
-                param.state = 1;
-                $("a[data-state]").click(function () {
-//设置充值还是充次
-                    param.state = $(this).data("state");
-                    console.log($(this).data("state"));
-                })
+                param.state = sta;
+                param.payment = p;
+
 
             },
             success: function (data) {
@@ -187,73 +188,6 @@ $(function () {
     });
     /*焦点事件,判断充值的input和赠送金额的input*/
     var base = 0;
-    // $("[data-cmd]").textbox({
-    //     onChange: function (newValue, oldValue) {
-    //         dd = $(this);
-    //         var d = $(this).data("cmd");
-    //         $("#chooseway").children("input").each(function (i, v) {
-    //             if ($(v).prop("checked")) {
-    //                 /*等于1表示充值*/
-    //                 if (v.value == 1) {
-    //
-    //                     if (d == 'add') {
-    //                         var v = newValue;
-    //                         addValue = v;
-    //                         if (v >= 5000) {
-    //                             $("#msg").css("color", "red");
-    //                             getValue = parseFloat(getValue == null ? 0 : getValue) + parseFloat(500);
-    //                             base = parseFloat(500);
-    //                             dd.data("cmd", "");
-    //                         }
-    //
-    //                     }
-    //                     if (d == 'give') {
-    //                         getValue = base + parseFloat(newValue);
-    //                     }
-    //                     if (d == '') {
-    //                         if (newValue < 5000) {
-    //
-    //                             if (base == 500) {
-    //                                 getValue = getValue - 500;
-    //                                 base = 0;
-    //                                 $("#msg").css("color", "black");
-    //                             }
-    //                             dd.data("cmd", "add");
-    //                         }
-    //                         addValue = newValue;
-    //                     }
-    //                     totalValue = (parseFloat(addValue == null ? 0 : addValue) + parseFloat(getValue == null ? 0 : getValue)).toFixed(2);
-    //                     totalMoney.html("¥" + (totalValue) + "(赠送" + getValue + "金额)");
-    //                 }
-    //                 else if (v.value == -1 || v.value == 0) {
-    //
-    //                     console.log(this);
-    //                     /*扣费或者退还的操作*/
-    //                     var row = $(this);
-    //                     var data = member_load_datagrid.datagrid("getSelected");
-    //                     if (!data) {
-    //                         $.messager.alert("提示", "请选择会员", "error")
-    //                         return;
-    //                     }
-    //                     if (data.balance < newValue) {
-    //                         $.messager.alert("提示", "超出会员的余额,请重新输入", "error", function () {
-    //                             addbalance_textbox.textbox("setText", data.balance);
-    //                         })
-    //                     }
-    //                     // console.log(row.textbox("getText"));
-    //                     subValue = newValue;
-    //                     if (data.balance < newValue) {
-    //                         subValue = data.balance;
-    //                     }
-    //                     totalMoney.html("¥" + (parseFloat(subValue).toFixed(2)))
-    //
-    //                 }
-    //
-    //             }
-    //
-    //         })
-    //     }
-    // })
     /*显示表格的单号*/
     topup_datagrid.datagrid({
         width: 400,
@@ -276,7 +210,8 @@ $(function () {
                 }
             },
             {
-                field: 'grade.id', title: '支付类型', width: 80, align: 'center', formatter: function (index, row, value) {
+                field: 'payment.id', title: '支付类型', width: 80, align: 'center',
+                formatter: function (index, row, value) {
                     return row.grade ? '<span style="color: #CC2222">' + row.grade.name + '</span>' : row.grade;
                 }
             },
@@ -452,49 +387,6 @@ $(function () {
         }
     })
     /*显示表格的单号*/
-    // topup_datagrid.datagrid({
-    //     width: 400,
-    //     height: 150,
-    //     fit: true,
-    //     fitColumns: true,
-    //     remoteSort: false,
-    //     singleSelect: true,
-    //     url: '/memberTopUp/selecToptItemByMemberId.do',
-    //     columns: [[
-    //
-    //         {
-    //             field: 'state', title: '操作类型', width: 80, align: 'center',
-    //             formatter: function (value, row, index) {
-    //                 if (value == 1) {
-    //                     return '充值';
-    //                 } else {
-    //                     return '充次';
-    //                 }
-    //             }
-    //         },
-    //         {
-    //             field: 'grade.id', title: '支付类型', width: 80, align: 'center', formatter: function (index, row, value) {
-    //                 return row.grade ? '<span style="color: #CC2222">' + row.grade.name + '</span>' : row.grade;
-    //             }
-    //         },
-    //         {field: 'addbalance', title: '充值金额', width: 80, align: 'center'},
-    //         {field: 'give', title: '赠送金额', width: 80, align: 'center'},
-    //         {
-    //             field: 'member.balance', title: '储值', width: 80, align: 'center',
-    //             formatter: function (value, row, index) {
-    //                 if (row.member.balance) {
-    //                     return row.member.balance;
-    //                 } else {
-    //                     return row.member
-    //                 }
-    //                 console.log(value, row, index);
-    //
-    //             }
-    //         },
-    //         {field: 'toptime', title: '充值时间', width: 80, align: 'center'},
-    //         {field: 'intro', title: '备注', width: 80, align: 'center'}
-    //     ]]
-    // })
 
 
     /*充值次数的操作*/
@@ -505,10 +397,10 @@ $(function () {
             return;
         }
         var product = $("#productId").textbox("getValue");
-        if (product ) {
+        if (product) {
             $.messager.alert("提示", "该商品不能充值次数,请重新选择", "warning");
             return;
-        }else if(!product){
+        } else if (!product) {
             $.messager.alert("提示", "请选择商品", "warning");
             return;
         }
@@ -523,11 +415,9 @@ $(function () {
         count_from.form("submit", {
             url: '/memberTopUp/saveOrUpdate.do',
             onSubmit: function (param) {
-                param.state ==  sta;
-//                 $("a[data-state]").click(function () {
+                param.state == sta;
+                param.payment = p;
 // //设置充值还是充次
-//                     param.state = $(this).data("state");
-//                 })
 
             },
             success: function (data) {
@@ -554,86 +444,10 @@ $(function () {
         })
     });
     /*焦点事件,判断充值的input和赠送金额的input*/
-    // $("[data-cmd]").textbox({
-    //     onChange: function (newValue, oldValue) {
-    //         dd = $(this);
-    //         var d = $(this).data("cmd");
-    //         $("#chooseway").children("input").each(function (i, v) {
-    //             if ($(v).prop("checked")) {
-    //                 /*等于1表示充值*/
-    //                 if (v.value == 1) {
-    //
-    //                     if (d == 'addCount') {
-    //                         var v = newValue;
-    //                         addBalanceValue = v;
-    //                         if (v >= 5000) {
-    //                             $("#msg").css("color", "red");
-    //                             addCountValue = parseFloat(addCountValue == null ? 0 : addCountValue) + parseFloat(5);
-    //                             base = parseFloat(5);
-    //                             dd.data("cmd", "aa");
-    //                         }
-    //
-    //                     }
-    //                     if (d == 'addcount') {
-    //                         var v = newValue;
-    //                         addCountValue = base + parseFloat(v);
-    //                         if (v >= 10) {
-    //                             $("#msg").css("color", "red");
-    //                             addCountValue = parseFloat(addCountValue == null ? 0 : addCountValue) + parseFloat(1);
-    //                             base = parseFloat(1);
-    //                             dd.data("cmd", "");
-    //                         }
-    //
-    //                     }
-    //                     if (d == 'aa') {
-    //                         if (newValue < 5000) {
-    //
-    //                             if (base == 500) {
-    //                                 addCountValue = addCountValue - 5;
-    //                                 base = base-5;
-    //                                 $("#msg").css("color", "black");
-    //                             }
-    //                             dd.data("cmd", "add");
-    //                         }
-    //                         addBalanceValue = newValue;
-    //                     }
-    //                     totalValue = (parseFloat(addBalanceValue == null ? 0 : addBalanceValue) .toFixed(2));
-    //                     totalMoney.html("¥" + (totalValue) + "(充次总数:"+addCountValue+" 赠送" + base + "次数)");
-    //                 }
-    //                 else if (v.value == -1 || v.value == 0) {
-    //
-    //                     console.log(this);
-    //                     /*扣费或者退还的操作*/
-    //                     var row = $(this);
-    //                     var data = member_load_datagrid.datagrid("getSelected");
-    //                     if (!data) {
-    //                         $.messager.alert("提示", "请选择会员", "error")
-    //                         return;
-    //                     }
-    //                     if (data.balance < newValue) {
-    //                         $.messager.alert("提示", "超出会员的余额,请重新输入", "error", function () {
-    //                             addbalance_textbox.textbox("setText", data.balance);
-    //                         })
-    //                     }
-    //                     // console.log(row.textbox("getText"));
-    //                     subValue = newValue;
-    //                     if (data.balance < newValue) {
-    //                         subValue = data.balance;
-    //                     }
-    //                     totalMoney.html("¥" + (parseFloat(subValue).toFixed(2)))
-    //
-    //                 }
-    //
-    //             }
-    //
-    //         })
-    //     }
-    // })
     /*显示充次 表格的单号*/
     count_datagrid.datagrid({
-        width: 400,
+        width: 700,
         height: 150,
-        fit: true,
         fitColumns: true,
         remoteSort: false,
         singleSelect: true,

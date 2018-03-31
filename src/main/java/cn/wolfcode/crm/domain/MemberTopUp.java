@@ -39,7 +39,8 @@ public class MemberTopUp extends BaseDomain {
     //操作员工
     private Employee onUser;
 
-
+    //支付方式 ,使用明细对象
+    private DictionaryItem payment;
 
 
 
