@@ -12,4 +12,6 @@ public interface AllChatMapper {
     List<Map<String,Object>> selectAllAmount();
 
     List<Map<String,Object>> selectAllProfit();
+
+    List<Map<String,Object>> selectAllProfitDesc();
 }

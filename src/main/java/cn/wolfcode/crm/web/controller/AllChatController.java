@@ -62,6 +62,24 @@ public class AllChatController {
             monthSale.add(mapA.get("totalSale"));
             profit.add(mapA.get("profit"));
         }
+
+        //最多利润
+        List<Map<String, Object>> descProfits = allChatService.selectAllProfitDesc();
+        List<Object> productName = new ArrayList<>();
+        List<Object> totalCost = new ArrayList<>();
+        List<Object> totalSale = new ArrayList<>();
+        List<Object> totalProfit = new ArrayList<>();
+        int i = 0;
+        for (Map<String, Object> descProfit : descProfits) {
+            productName.add(descProfit.get("productName"));
+            totalCost.add(descProfit.get("totalCostAmount"));
+            totalSale.add(descProfit.get("totalSaleAmount"));
+            totalProfit.add(descProfit.get("profits"));
+            i++;
+            if (i == 6){
+                break;
+            }
+        }
         //库存
         model.addAttribute("one", JSON.toJSONString(one));
 
@@ -74,6 +92,12 @@ public class AllChatController {
         model.addAttribute("month", JSON.toJSONString(month));
         model.addAttribute("monthSale", JSON.toJSONString(monthSale));
         model.addAttribute("profit", JSON.toJSONString(profit));
+
+        //最高商品利润
+        model.addAttribute("productName", JSON.toJSONString(productName));
+        model.addAttribute("totalCost", JSON.toJSONString(totalCost));
+        model.addAttribute("totalSale", JSON.toJSONString(totalSale));
+        model.addAttribute("totalProfit", JSON.toJSONString(totalProfit));
         return "forward:/allchart.do";
     }
 }

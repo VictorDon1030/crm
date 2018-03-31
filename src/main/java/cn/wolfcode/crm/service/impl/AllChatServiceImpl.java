@@ -40,4 +40,9 @@ public class AllChatServiceImpl implements IAllChatService {
     public List<Map<String, Object>> selectAllProfit() {
         return allChatMapper.selectAllProfit();
     }
+
+    @Override
+    public List<Map<String, Object>> selectAllProfitDesc() {
+        return allChatMapper.selectAllProfitDesc();
+    }
 }
