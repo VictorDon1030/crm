@@ -81,10 +81,13 @@ public class CheckoutComeBillServiceImpl implements ICheckoutComeBillService {
             Member member = memberMapper.selectByPrimaryKey(id);
             //判断余额是否充足
             if (member.getBalance().compareTo(checkoutComeBill.getTotalAmount()) > 0) {
+                //修改余额
                 BigDecimal balance = member.getBalance().subtract(checkoutComeBill.getTotalAmount());
-                BigDecimal points = checkoutComeBill.getMember().getPoints().add(checkoutComeBill.getTotalAmount().multiply(new BigDecimal(0.1)).setScale(2, BigDecimal.ROUND_HALF_UP));
                 memberMapper.updateBalance(balance, id);
+                //修改积分
+                BigDecimal points = checkoutComeBill.getMember().getPoints().add((checkoutComeBill.getTotalAmount().subtract(checkoutComeBill.getTotalAmount().divideAndRemainder(new BigDecimal(10))[1])).multiply(new BigDecimal(0.1)));
                 memberMapper.updatePoints(points,id);
+
             } else {
                 /*throw new ProductExceptions("商品"+item.getProduct().getName()+"在仓库"+stockOutcomeBill.getDepot().getName()+"不存在");*/
             }

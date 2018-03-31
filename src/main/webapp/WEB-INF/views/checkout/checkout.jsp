@@ -104,7 +104,7 @@
                     </table>
                 </div>
             </div>
-            <div id="p" class="p" style="width:100px;height:150px;" align="canter">
+            <div id="p" class="easyui-panl p" style="width:100px;height:150px;" align="canter">
                 <p><span class="hfont"><font size="4">应付款: ¥</font></span></p>
                 <p><span id="totalNum" class="hfont"></span></p>
                 <p><span class="hfont"></span></p>
@@ -120,7 +120,7 @@
         </form>
     </div>
 
-    <div data-options="region:'center',title:'字典详细信息',split:true" style="width:600px;">
+    <div data-options="region:'center',title:'商品表',split:true" style="width:600px;">
         <table id="product" class="easyui-datagrid" data-options="fit:true,singleSelect:true,fitColumns:true,
             url:'/product/list.do',pagination:true,remoteSort:false,sortOrder:'desc'">
             <thead>
@@ -130,11 +130,11 @@
                 <th data-options="field:'goodsMark',width:'50',sortable:true">商品编号</th>
                 <th data-options="field:'unitpPrice',width:'50',sortable:true">商品售价</th>
                 <th data-options="field:'brand',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'purchasingPrice',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'minPrice',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'initialInventory',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'integral',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'minDiscount',width:'50',sortable:true" style="color: red">会员折扣</th>
+                <th data-options="field:'purchasingPrice',width:'50',sortable:true,hidden:true" >进货价</th>
+                <th data-options="field:'minPrice',width:'50',sortable:true,hidden:true">会员价</th>
+                <th data-options="field:'initialInventory',width:'50',sortable:true">库存</th>
+                <th data-options="field:'integral',width:'50',sortable:true,hidden:true">积分</th>
+                <th data-options="field:'minDiscount',width:'50',sortable:true,hidden:true" style="color: red">会员折扣</th>
             </tr>
             </thead>
         </table>

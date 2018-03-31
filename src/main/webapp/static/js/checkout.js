@@ -26,10 +26,9 @@ $(function () {
     $('#product').datagrid(
         {
             //引用视图
-
             view: cardview,
             onClickRow: function (index, row) {
-
+                console.log(row);
                 //获取jquery对象
                 var arr = $($("#cashier_item").find("[tag=id]"));
                 /*console.log(arr);*/
