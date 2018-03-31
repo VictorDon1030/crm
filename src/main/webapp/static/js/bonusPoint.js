@@ -45,15 +45,15 @@ $(function () {
             {field: 'balance', width: 100, align: 'center', title: '余额'}
         ]],
         onLoadSuccess: function () {
-            memberSimpleInfo.datagrid("selectRow", 0)
+            memberSimpleInfo.datagrid("selectRow", 0);
         },
         onSelect: function (index, row) {
-            $("#memberName,#memberName_gift").val(row.name);
+            $("#memberName,#memberName_gift").html(row.name);
             $("#memberNum,#memberNum_gift").val(row.memberNum);
             $("#grade,#grade_gift").val(row.grade.name);
             $("#points,#points_gift").val(row.points);
             $("#balance,#balance_gift").val(row.balance);
-            $("#birthday,#birthday_gift").html(row.birthday);
+            $("#birthday,#birthday_gift").val(row.birthday);
             $("#hiddenMemberId,#hiddenMemberId_gift").val(row.id);
             $("#comsumPoints,#comsumPoints_gift").val(row.consumePoints);
             var sumPoints = 0;
@@ -198,6 +198,7 @@ $(function () {
             var type = $("[name='type']:checked").val();
             var amount = $("[name='amount']").val();
             var remark = $("#remark").val();
+
             if (memberId) {
                 if (!amount) {
                     $.messager.alert("温馨提示", "请输入要改变的金额", "info");
@@ -213,6 +214,12 @@ $(function () {
                         $.messager.alert("温馨提示", "操作成功", "info");
                         //刷新积分记录表
                         memberInfo.datagrid("reload");
+                        //先获得当前的选中行
+                        var index = memberSimpleInfo.datagrid("getRowIndex",memberSimpleInfo.datagrid('getSelected'));
+
+                        //刷新会员列表
+                        memberSimpleInfo.datagrid("reload");
+                        memberSimpleInfo.datagrid('selectRow', index);
 
                     } else {
                         $.messager.alert("温馨提示", data.msg, "info");
@@ -224,6 +231,7 @@ $(function () {
         },
         clearPoints: function () {
             var memberId = $("#hiddenMemberId").val();
+            var index = memberSimpleInfo.datagrid("getRowIndex");
             if (memberId) {
                 $.messager.confirm("温馨提示", "请确定将当前会员的所有积分清零吗?", function (r) {
                     if (r) {
@@ -238,6 +246,13 @@ $(function () {
                         }, "json");
                         //刷新积分记录表
                         memberInfo.datagrid("reload");
+                        //先获得当前的选中行
+                        var index = memberSimpleInfo.datagrid("getRowIndex",memberSimpleInfo.datagrid('getSelected'));
+                        console.log(index);
+
+                        //刷新会员列表
+                        memberSimpleInfo.datagrid("reload");
+                        memberSimpleInfo.datagrid('selectRow', index);
                     }
                 });
 

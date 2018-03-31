@@ -44,16 +44,14 @@
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><input readonly
                                                                                            style="font-size: medium;border: 0px;width: 100px" id="sumPoints"/>
-                                        <span style="font-size: medium">会员欠款：</span><input readonly
-                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
+                                        <span style="font-size: medium">会员生日：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px"  id="birthday"/></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><input readonly
                                                                                            style="font-size: medium;border: 0px;width: 100px" id="comsumPoints"/>
                                         <span style="font-size: medium">累计消费：</span><input readonly
                                                                                            style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
-                                    &emsp;
-                                    <li><span style="font-size: medium">会员生日：</span><span
-                                            style="font-size: medium" id="birthday"></span>
+
                                 </ul>
 
                             </div>
@@ -105,7 +103,7 @@
                                     </form>
                                     &emsp;
                                     <li>
-                                        <a href="#" class="easyui-linkbutton" data-cmd="clearPoints"
+                                        <a  class="easyui-linkbutton" data-cmd="clearPoints"
                                            style="width:80px;background-color: red">积分清零</a>
                                         &emsp; &emsp; &emsp; &emsp;
                                         <a class="easyui-linkbutton" data-cmd="changePoint"
@@ -213,15 +211,14 @@
                                     <li><span style="font-size: medium">累计积分：</span><input readonly
                                             style="font-size: medium;border: 0px;width: 100px" id="sumPoints_gift"/>
                                         <span style="font-size: medium">会员欠款：</span><input readonly
-                                                style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
+                                                style="font-size: medium;border: 0px;width: 100px"  id="birthday_gift"/></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><input readonly
                                             style="font-size: medium;border: 0px;width: 100px" id="comsumPoints_gift"/>
                                         <span style="font-size: medium">累计消费：</span><input readonly
                                                 style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
-                                    &emsp;
-                                    <li><span style="font-size: medium">会员生日：</span><span
-                                            style="font-size: medium" id="birthday_gift"></span>
+
+
                                 </ul>
 
                             </div>
