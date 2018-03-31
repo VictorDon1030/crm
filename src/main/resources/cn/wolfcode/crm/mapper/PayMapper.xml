@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.PayMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Pay">
+    <id column="id" property="id" />
+    <result column="amount" property="amount" />
+    <result column="date" property="date" />
+    <result column="remark" property="remark" />
+    <result column="type" property="type" />
+    <result column="maxType" property="maxType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from pay
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into pay (amount, date, remark,type,maxType)
+    values (#{amount}, #{date}, #{remark},#{type},#{maxType})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update pay
+    set amount = #{amount},
+      date = #{date},
+      remark = #{remark},
+      type=#{type},
+      maxType=#{maxType}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, amount, date, remark,type,maxType
+    from pay
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, amount, date, remark,type,maxType
+    from pay
+  </select>
+
+  <!--高级查询-->
+
+
+  <select id="query" resultType="map">
+    select maxType,SUM(amount) amount
+    from pay
+    <include refid="base_where"/>
+    GROUP BY maxType
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="today!=null">
+        and DateDiff(date,now())=0
+      </if>
+      <if test="week!=null">
+        and YEARWEEK(date_format(date,'%Y-%m-%d')) = YEARWEEK(now())
+
+      </if>
+      <if test="month!=null">
+        and DATE_FORMAT(date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+      </if>
+      <if test="year!=null">
+        and YEAR(date)=YEAR(NOW())
+      </if>
+    </where>
+  </sql>
+
+
+  <!--查询前5个支出-->
+  <select id="selectBeforeFiveByDate" resultType="map">
+    select
+    i.id id,i.type type,i.amount amount,i.date date,p.maxType pType
+    from payitem i left join pay p on i.pay_id=p.id
+    ORDER BY i.date desc limit 5
+  </select>
+</mapper>

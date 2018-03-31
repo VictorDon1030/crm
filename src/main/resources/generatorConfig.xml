@@ -23,7 +23,7 @@
 
         <!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql:///dece" userId="root" password="admin">
+                        connectionURL="jdbc:mysql://192.168.2.127:3306/dece" userId="root" password="admin">
             <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
         </jdbcConnection>
 
@@ -61,7 +61,8 @@
                 value=""/> -->
         </javaClientGenerator>
 
-        <table tableName="checkoutcomebillitem" domainObjectName="CheckoutComeBillItem">
+        <table tableName="ProductTwo" domainObjectName="ProductTwo">
+
             <property name="useActualColumnNames" value="true" />
             <!-- 参考 javaModelGenerator 的 constructorBased属性 -->
             <property name="constructorBased" value="false"/>

@@ -50,4 +50,11 @@ public class IndexController {
 
         return "management";
     }
+
+    //跳转数据管理
+    @RequestMapping("dataManage")
+    public String dataManage(){
+
+        return "dataManage";
+    }
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.ProductOneMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.ProductOne">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="brand" property="brand" />
+    <result column="goodsMark" property="goodsMark" />
+    <result column="unitpPrice" property="unitpPrice" />
+    <result column="minPrice" property="minPrice" />
+    <result column="initialInventory" property="initialInventory" />
+    <result column="unit" property="unit" />
+    <result column="commission" property="commission" />
+    <result column="remark" property="remark" />
+    <result column="auxiliaryWord" property="auxiliaryWord" />
+    <result column="purchasingPrice" property="purchasingPrice" />
+    <result column="memberPrice" property="memberPrice" />
+    <result column="minDiscount" property="minDiscount" />
+    <result column="specification" property="specification" />
+    <result column="integral" property="integral" />
+    <result column="pastDueTime" property="pastDueTime" />
+    <result column="imagePath" property="imagePath" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from productone
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into productone (name, brand, goodsMark, unitpPrice, minPrice, initialInventory, 
+      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice, 
+      minDiscount, specification, integral, pastDueTime, imagePath)
+    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory}, 
+      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice}, 
+      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update productone
+    set name = #{name},
+      brand = #{brand},
+      goodsMark = #{goodsMark},
+      unitpPrice = #{unitpPrice},
+      minPrice = #{minPrice},
+      initialInventory = #{initialInventory},
+      unit = #{unit},
+      commission = #{commission},
+      remark = #{remark},
+      auxiliaryWord = #{auxiliaryWord},
+      purchasingPrice = #{purchasingPrice},
+      memberPrice = #{memberPrice},
+      minDiscount = #{minDiscount},
+      specification = #{specification},
+      integral = #{integral},
+      pastDueTime = #{pastDueTime},
+      imagePath = #{imagePath}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, name, brand, goodsMark, unitpPrice, minPrice, initialInventory, unit, 
+    commission, remark, auxiliaryWord, purchasingPrice, memberPrice, minDiscount, specification, 
+    integral, pastDueTime, imagePath
+    from productone
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, brand, goodsMark, unitpPrice, minPrice, initialInventory, unit, 
+    commission, remark, auxiliaryWord, purchasingPrice, memberPrice, minDiscount, specification, 
+    integral, pastDueTime, imagePath
+    from productone
+  </select>
+</mapper>

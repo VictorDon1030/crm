@@ -25,7 +25,7 @@ public class Product extends BaseDomain {
     //销售单价
     private BigDecimal unitpPrice;
     //会员售价
-    private String memberPrice;
+    private BigDecimal memberPrice;
     //会员折扣
     private BigDecimal minDiscount;
     //最低售价
@@ -34,8 +34,8 @@ public class Product extends BaseDomain {
     private String initialInventory;
     //商品规格
     private String specification;
-    //商品单位
-    private String unit;
+    //商品分类
+    private Long unit;
     //商品积分
     private Long integral;
     //商品提成
@@ -48,5 +48,9 @@ public class Product extends BaseDomain {
     private String remark;
     //商品图片
     private String imagePath;
+    //商品图片2
+    private String images;
+
+    //商品维护二级级关系 多对多
 }
 
