@@ -1,6 +1,9 @@
 package cn.wolfcode.crm.mapper;
 
+import cn.wolfcode.crm.domain.Employee;
 import cn.wolfcode.crm.domain.SystemLog;
+import cn.wolfcode.crm.query.QueryObject;
+
 import java.util.List;
 
 public interface SystemLogMapper {
@@ -13,4 +16,10 @@ public interface SystemLogMapper {
     List<SystemLog> selectAll();
 
     int updateByPrimaryKey(SystemLog entity);
+
+    int queryCount(QueryObject qo);
+
+    List<SystemLog> queryForList(QueryObject qo);
+
+    void deleteAll();
 }

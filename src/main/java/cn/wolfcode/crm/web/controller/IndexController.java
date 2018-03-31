@@ -1,9 +1,16 @@
 package cn.wolfcode.crm.web.controller;
 
+import cn.wolfcode.crm.domain.Employee;
+import cn.wolfcode.crm.domain.LoginLog;
+import cn.wolfcode.crm.mapper.LoginLogMapper;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Date;
 
 /**
  * Demo class
@@ -14,13 +21,27 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
 
-    @RequestMapping("index")
+    @Autowired
+    private LoginLogMapper loginLogMapper;
+    @Autowired
+    private HttpServletRequest request;
+
+    @RequestMapping("main")
     public String index(){
-        return "index";
+
+        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+        LoginLog loginLog = new LoginLog();
+        loginLog.setLogTime(new Date());
+        loginLog.setLogName(employee.getUsername());
+        String addr = request.getRemoteAddr();
+        loginLog.setLogIp(addr);
+        loginLogMapper.insert(loginLog);
+        return "main";
     }
 
     @RequestMapping("login")
     public String login(){
+
         return "redirect:/login.jsp";
     }
 
@@ -57,5 +78,12 @@ public class IndexController {
     public String dataManage(){
 
         return "dataManage";
+    }
+
+    //跳转
+    @RequestMapping("payment")
+    public String payment(){
+
+        return "payment";
     }
 }

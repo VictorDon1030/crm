@@ -22,4 +22,9 @@ public interface ProductMapper {
 
     List<Product> selectByUnitId(Long id);
 
+    /**
+     * 慎重
+     * 删库
+     */
+    void deleteAll();
 }

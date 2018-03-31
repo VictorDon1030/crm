@@ -197,5 +197,17 @@ public class CheckoutComeBillServiceImpl implements ICheckoutComeBillService {
         return 200010L+odd+1000+13*odds;
     }
 
+    @Override
+    public BigDecimal selectBillAmount(Long id) {
+        BigDecimal ret = BigDecimal.ZERO;
+        List<BigDecimal> amounts = checkoutComeBillMapper.selectBillAmount(id);
+        if (amounts != null) {
+            for (BigDecimal amount : amounts) {
+                ret = ret.add(amount);
+            }
+        }
+        return ret;
+    }
+
 
 }

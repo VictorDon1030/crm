@@ -47,4 +47,5 @@ public class Member extends BaseDomain {
     private Integer consumePoints;
 
     private List<MemberTopUp> memberTopUps = new ArrayList<>();
+
 }

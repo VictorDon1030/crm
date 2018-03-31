@@ -14,7 +14,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
     <a id="changeState" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="changeState">设置离职</a>
     </shiro:hasRole>
-    <a id="changePassword" class="easyui-linkbutton" data-options="iconCls:'icon-bqt',plain:true" data-btn="changePassword">重置密码</a>
+    <a id="changePassword" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="changePassword">重置密码</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reloadData">刷新</a>
     <input class="easyui-textbox" id="keyword" prompt="请输入用户名或电话"/>
     <input id="deptId" class="easyui-combobox"

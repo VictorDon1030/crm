@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.AllChatMapper">
+
+
+    <select id="selectAllStair" resultType="map">
+        select s.name statirName,sum(ps.storeNumber) totalNumber from stair s
+            join secondary sec on s.secondary_id = sec.id
+            join productstock ps on sec.product_id = ps.product_id
+        group by s.name
+    </select>
+
+    <select id="selectAllAmount" resultType="map">
+        select s.name statirName,
+               sum(sale.costAmount) totalCost,sum(sale.saleAmount) totalSale from stair s
+            join secondary sec on s.secondary_id = sec.id
+            join productstock ps on sec.product_id = ps.product_id
+            join saleascount sale on sec.product_id = sale.product_id
+        group by s.name
+    </select>
+    <select id="selectAllProfit" resultType="map">
+        select MONTH(sale.vdate) saleMonth,
+               sum(sale.saleAmount) totalSale,sum(sale.saleAmount - sale.costAmount) profit
+        from stair s
+            join secondary sec on s.secondary_id = sec.id
+            join productstock ps on sec.product_id = ps.product_id
+            join saleascount sale on sec.product_id = sale.product_id
+        group by MONTH(sale.vdate)
+    </select>
+</mapper>

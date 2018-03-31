@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.WeChatMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.WeChat">
+    <id column="id" property="id" />
+    <result column="accountNumber" property="accountNumber" />
+    <result column="secretkey" property="secretkey" />
+    <result column="applyKey" property="applyKey" />
+    <association property="applyer" javaType="JoinApply" columnPrefix="j_">
+      <id property="id" column="id"/>
+      <result property="accountName" column="accountName"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from wechat
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into wechat (accountNumber, secretkey, applyKey, applyer_id)
+    values (#{accountNumber}, #{secretkey}, #{applyKey}, #{applyer.id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update wechat
+    set accountNumber = #{accountNumber},
+      secretkey = #{secretkey},
+      applyKey = #{applyKey},
+      applyer_id = #{applyer.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    <include refid="base_sql"/>
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    <include refid="base_sql"/>
+  </select>
+
+  <sql id="base_sql">
+    select w.id,w.accountNumber,w.secretkey,w.applyKey,
+      j.id j_id,j.accountName j_accountName
+    from wechat w
+      join joinapply j on w.applyer_id = j.id
+  </sql>
+
+  <select id="queryCount" resultType="int">
+    select count(w.id)
+    from wechat w
+      join joinapply j on w.applyer_id = j.id
+    <include refid="base_where"/>
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    <include refid="base_sql"/>
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword != null and keyword != '' ">
+        and (j.accountName like concat('%',#{keyword},'%') or w.accountNumber like concat('%',#{keyword},'%'))
+      </if>
+    </where>
+  </sql>
+
+</mapper>

@@ -2,6 +2,7 @@ package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.SubBranch;
 import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.query.SubBranchQuery;
 import cn.wolfcode.crm.service.ISubBranchService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
@@ -39,7 +40,7 @@ public class SubBranchController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(SubBranchQuery qo){
         return subBranchService.query(qo);
     }
 
@@ -74,9 +75,22 @@ public class SubBranchController {
         return result;
     }
 
-    @RequestMapping("changeMallState")
+
+    @RequestMapping("changeState")
     @ResponseBody
     public Object changeState(Long id){
+        JsonResult result = new JsonResult();
+        try {
+            subBranchService.changeState(id);
+        } catch (Exception e){
+            result.mark("设置失败");
+        }
+        return result;
+    }
+
+    @RequestMapping("changeMallState")
+    @ResponseBody
+    public Object changeMallState(Long id){
         JsonResult result = new JsonResult();
         try {
             subBranchService.changeMallState(id);

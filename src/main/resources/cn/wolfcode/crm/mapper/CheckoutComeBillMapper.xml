@@ -1,76 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.wolfcode.crm.mapper.CheckoutComeBillMapper">
-  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.CheckoutComeBill">
-    <id column="id" property="id" />
-    <result column="sn" property="sn" />
-    <result column="vdate" property="vdate" />
-    <result column="status" property="status" />
-    <result column="totalAmount" property="totalAmount" />
-    <result column="totalNumber" property="totalNumber" />
-    <result column="depot_id" property="depotId" />
-    <association property="member" javaType="member" columnPrefix="em_">
-      <id column="id" property="id"/>
-      <result column="name" property="name"/>
-      <result column="memberNum" property="memberNum"/>
-      <result column="balance" property="balance"/>
-      <result column="points" property="points"/>
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey">
-    delete from checkoutcomebill
-    where id = #{id}
-  </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into checkoutcomebill (sn, vdate, status, totalAmount, totalNumber, saleas_id, 
-      depot_id, member_id)
-    values (#{sn}, #{vdate}, #{status}, #{totalAmount}, #{totalNumber}, #{salesman.id},
-      #{depotId}, #{member.id})
-  </insert>
-  <update id="updateByPrimaryKey">
-    update checkoutcomebill
-    set sn = #{sn},
-      vdate = #{vdate},
-      status = #{status},
-      totalAmount = #{totalAmount},
-      totalNumber = #{totalNumber},
-      saleas_id = #{salesman.id},
-      depot_id = #{depotId},
-      member_id = #{member.id}
-    where id = #{id}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, sn, vdate, status, totalAmount, totalNumber, saleas_id, depot_id, member_id
-    from checkoutcomebill
-    where id = #{id}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, sn, vdate, status, totalAmount, totalNumber, saleas_id, depot_id, member_id
-    from checkoutcomebill
-  </select>
-  <update id="updatestatus">
-    update checkoutcomebill
-    set status = 0
-    where id=#{id}
-  </update>
-  <select id="selectWaitPaymentMember" resultMap="BaseResultMap">
-    select che.*,mem.id em_id,mem.name em_name,mem.memberNum em_memberNum,
-    mem.balance em_balance,
-    mem.points em_points
-    from checkoutcomebill che left join member mem on
-    che.member_id = mem.id where status=0
-  </select>
-  <select id="selectWaitPayment4MemberId" resultMap="BaseResultMap">
-    select * from checkoutcomebill where status=0 and member_id=#{memberId}
-  </select>
-  <delete id="deleteByMemberId">
-    delete from checkoutcomebill
-    where member_id = #{memberId}
-  </delete>
-  <select id="selectSn" resultMap="BaseResultMap">
-    select * from checkoutcomebill where sn=#{sn}
-  </select>
-  <select id="selectSnSetOdd" resultType="long">
-    select count(id) from checkoutcomebill
-  </select>
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.CheckoutComeBill">
+        <id column="id" property="id"/>
+        <result column="sn" property="sn"/>
+        <result column="vdate" property="vdate"/>
+        <result column="status" property="status"/>
+        <result column="totalAmount" property="totalAmount"/>
+        <result column="totalNumber" property="totalNumber"/>
+        <result column="depot_id" property="depotId"/>
+        <association property="member" javaType="member" columnPrefix="em_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="memberNum" property="memberNum"/>
+            <result column="balance" property="balance"/>
+            <result column="points" property="points"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM checkoutcomebill
+        WHERE id = #{id}
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO checkoutcomebill (sn, vdate, status, totalAmount, totalNumber, saleas_id,
+                                      depot_id, member_id)
+        VALUES (#{sn}, #{vdate}, #{status}, #{totalAmount}, #{totalNumber}, #{salesman.id},
+                #{depotId}, #{member.id})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE checkoutcomebill
+        SET sn          = #{sn},
+            vdate       = #{vdate},
+            status      = #{status},
+            totalAmount = #{totalAmount},
+            totalNumber = #{totalNumber},
+            saleas_id   = #{salesman.id},
+            depot_id    = #{depotId},
+            member_id   = #{member.id}
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+            id,
+            sn,
+            vdate,
+            status,
+            totalAmount,
+            totalNumber,
+            saleas_id,
+            depot_id,
+            member_id
+        FROM checkoutcomebill
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            id,
+            sn,
+            vdate,
+            status,
+            totalAmount,
+            totalNumber,
+            saleas_id,
+            depot_id,
+            member_id
+        FROM checkoutcomebill
+    </select>
+    <update id="updatestatus">
+        UPDATE checkoutcomebill
+        SET status = 0
+        WHERE id = #{id}
+    </update>
+    <select id="selectWaitPaymentMember" resultMap="BaseResultMap">
+        SELECT
+            che.*,
+            mem.id        em_id,
+            mem.name      em_name,
+            mem.memberNum em_memberNum,
+            mem.balance   em_balance,
+            mem.points    em_points
+        FROM checkoutcomebill che LEFT JOIN member mem ON
+                                                           che.member_id = mem.id
+        WHERE status = 0
+    </select>
+    <select id="selectWaitPayment4MemberId" resultMap="BaseResultMap">
+        SELECT *
+        FROM checkoutcomebill
+        WHERE status = 0 AND member_id = #{memberId}
+    </select>
+    <delete id="deleteByMemberId">
+        DELETE FROM checkoutcomebill
+        WHERE member_id = #{memberId}
+    </delete>
+    <select id="selectSn" resultMap="BaseResultMap">
+        SELECT *
+        FROM checkoutcomebill
+        WHERE sn = #{sn}
+    </select>
+    <select id="selectSnSetOdd" resultType="long">
+        SELECT count(id)
+        FROM checkoutcomebill
+    </select>
+    <select id="selectBillAmount" resultType="decimal">
+        SELECT totalAmount
+        FROM checkoutcomebill
+        WHERE member_id = #{id}
+    </select>
 </mapper>

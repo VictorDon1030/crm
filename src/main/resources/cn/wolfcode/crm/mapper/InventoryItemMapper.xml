@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.InventoryItemMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.InventoryItem">
+    <id column="id" property="id" />
+    <result column="storeNumber" property="storeNumber" />
+    <result column="newNumber" property="newNumber" />
+    <result column="inventoryTime" property="inventoryTime" />
+    <result column="productStock_id" property="productStockeId" />
+      <association property="employee" column="employee_id" fetchType="eager"
+                   javaType="employee" select="cn.wolfcode.crm.mapper.EmployeeMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from inventoryitem
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into inventoryitem (storeNumber, newNumber, employee_id, inventoryTime,productStock_id)
+    values (#{storeNumber}, #{newNumber}, #{employee.id}, #{inventoryTime},#{productStockeId})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update inventoryitem
+    set storeNumber = #{storeNumber},
+      newNumber = #{newNumber},
+      employee_id = #{employee.id},
+      inventoryTime = #{inventoryTime},
+      productStock_id=#{productStockeId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, storeNumber, newNumber, employee_id, inventoryTime, productStock_id
+    from inventoryitem
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, storeNumber, newNumber, employee_id, inventoryTime ,productStock_id
+    from inventoryitem
+  </select>
+
+  <select id="query4Count" resultType="int">
+      select count(id)
+      from inventoryitem
+      where productStock_id=#{productStockId}
+  </select>
+  <select id="query4List" resultMap="BaseResultMap">
+      select id, storeNumber, newNumber, employee_id, inventoryTime,productStock_id
+      from inventoryitem
+      where productStock_id=#{productStockId}
+      LIMIT #{start},#{rows}
+  </select>
+</mapper>

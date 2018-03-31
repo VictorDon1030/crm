@@ -167,7 +167,7 @@ layui.define(['element', 'layer', 'util', 'pagesize', 'form'], function (exports
 
         function getNotReplyLeaveMessage() {
             clearInterval(interval); //停止计时器
-            var content = '<p>目前有<span>12</span>条留言未回复<a href="javascript:layer.msg(\'跳转到相应页面\')">点击查看</a></p>';
+            var content = '<p>目前有<span>12</span>条留言未回复<a href="javascript:layer.msg(\'正在开发中...若要使用请联系渣渣辉客服\')">点击查看</a></p>';
             content += '<div class="notnotice" >不再提醒</div>';
             layerSteward = layer.open({
                 type: 1,

@@ -42,18 +42,7 @@ public class OrderBillServiceImpl implements IOrderBillService {
         BigDecimal totalAmount = new BigDecimal(0);
         //从订单中获取明细集合对象
         List<OrderBillItem> items = entity.getItems();
-        ////明细至少选择一件商品,否则提示报错,不能保存
-        //for (OrderBillItem item : items) {
-        //    if (item.getProduct().getId()==null){
-        //        throw new RuntimeException(",至少选择一件商品");
-        //    }
-        //    if(item.getCostPrice()==null||item.getCostPrice().intValue()<=0){
-        //        throw new RuntimeException(",价格必填为正数");
-        //    }
-        //    if(item.getNumber()==null||item.getNumber().intValue()<=0){
-        //        throw new RuntimeException(",商品数量必填为正数");
-        //    }
-        //}
+
         for (OrderBillItem item : items) {
             //明细的数量.遍历增加后赋给订单数量
             //明细的总价.为数量*售价  相加后赋给订单总计
@@ -142,5 +131,10 @@ public class OrderBillServiceImpl implements IOrderBillService {
             }
 
         }
+    }
+
+    @Override
+    public List<OrderBill> selectAll() {
+        return orderBillMapper.selectAll();
     }
 }

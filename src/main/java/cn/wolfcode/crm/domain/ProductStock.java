@@ -20,14 +20,21 @@ public class ProductStock extends BaseDomain{
     private BigDecimal price;
     //库存数量
     private BigDecimal storeNumber;
+    //盘点数量
+    private BigDecimal newNumber;
     //金额
     private BigDecimal amount;
 
     private Product product;
+    private Employee employee;
 
     private Depot depot;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     //入库时间
     private Date auditTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    //盘点时间
+    private Date inventoryTime;
 }

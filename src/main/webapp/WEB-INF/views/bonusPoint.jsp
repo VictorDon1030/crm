@@ -36,21 +36,21 @@
                                         <span style="font-size: medium">会员等级：</span><input readonly
                                                                                            style="font-size: medium;border: 0px;width: 100px" id="grade"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium;">当前积分：</span><input readonly
+                                    <li><span style="font-size: medium;">当前积分：</span><input readonly value="0"
                                                                                             style="font-size: medium;border: 0px;width: 100px" id="points"/>
-                                        <span style="font-size: medium">会员余额：</span><input readonly
+                                        <span style="font-size: medium">会员余额：</span><input readonly value="0"
                                                                                            style="font-size: medium;border: 0px;width: 100px" class="font-red" id="balance"/>
                                     </li>
                                     &emsp;
-                                    <li><span style="font-size: medium">累计积分：</span><input readonly
+                                    <li><span style="font-size: medium">累计积分：</span><input readonly value="0"
                                                                                            style="font-size: medium;border: 0px;width: 100px" id="sumPoints"/>
                                         <span style="font-size: medium">会员生日：</span><input readonly
                                                                                            style="font-size: medium;border: 0px;width: 100px"  id="birthday"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium">已用积分：</span><input readonly
+                                    <li><span style="font-size: medium">已用积分：</span><input readonly value="0"
                                                                                            style="font-size: medium;border: 0px;width: 100px" id="comsumPoints"/>
-                                        <span style="font-size: medium">累计消费：</span><input readonly
-                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
+                                        <span style="font-size: medium">累计消费：</span><input readonly value="0"
+                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red" id="totalConsumeAmounts"/></li>
 
                                 </ul>
 
@@ -88,7 +88,7 @@
                                         </li>
                                         &emsp;
                                         <li><span style="font-size: medium;">变动金额：</span>
-                                            <input class="easyui-numberbox" name="amount" style="font-size: medium;"
+                                            <input id="changeAmout" type="number" name="amount" style="font-size: medium;"
                                                    data-options="prompt:'请输入要改变的积分金额'"/>
                                         </li>
                                         &emsp;
@@ -186,7 +186,7 @@
     <div title="兑换礼品" data-options="" style="padding:10px">
         <table style="width: 100%">
             <tr>
-                <td style="margin-top: 10px;margin-left: 5px">
+                <td style="margin-top: 10px;margin-left: 5px;width:420px">
                     <div class="user_info_standard_panel user_info_standard_classic">
                         <div style="margin-left: 140px" class="left">
                             <div class="panel_user_portrait">
@@ -200,23 +200,23 @@
                                     <li><span style="font-size: medium">会员卡号：</span>
                                         <input type="text" readonly style="font-size: medium;border: 0px;width: 100px" id="memberNum_gift"/>
                                         <span style="font-size: medium">会员等级：</span><input readonly
-                                                style="font-size: medium;border: 0px;width: 100px" id="grade_gift"/></li>
+                                                style="font-size: medium;border: 0px;width: 100px" id="grade_gift" /></li>
                                     &emsp;
                                     <li><span style="font-size: medium;">当前积分：</span><input readonly
-                                            style="font-size: medium;border: 0px;width: 100px" id="points_gift"/>
+                                            style="font-size: medium;border: 0px;width: 100px" id="points_gift" value="0"/>
                                         <span style="font-size: medium">会员余额：</span><input readonly
-                                                style="font-size: medium;border: 0px;width: 100px" class="font-red" id="balance_gift"/>
+                                                style="font-size: medium;border: 0px;width: 100px" class="font-red" id="balance_gift" value="0"/>
                                     </li>
                                     &emsp;
                                     <li><span style="font-size: medium">累计积分：</span><input readonly
-                                            style="font-size: medium;border: 0px;width: 100px" id="sumPoints_gift"/>
-                                        <span style="font-size: medium">会员欠款：</span><input readonly
+                                            style="font-size: medium;border: 0px;width: 100px" id="sumPoints_gift" value="0"/>
+                                        <span style="font-size: medium">会员生日：</span><input readonly
                                                 style="font-size: medium;border: 0px;width: 100px"  id="birthday_gift"/></li>
                                     &emsp;
                                     <li><span style="font-size: medium">已用积分：</span><input readonly
                                             style="font-size: medium;border: 0px;width: 100px" id="comsumPoints_gift"/>
                                         <span style="font-size: medium">累计消费：</span><input readonly
-                                                style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
+                                                style="font-size: medium;border: 0px;width: 100px" class="font-red" value="0" id="totalConsumeAmounts_gift"/></li>
 
 
                                 </ul>
@@ -258,8 +258,7 @@
                                 <td>&emsp;<span id="needed_point"></span>&emsp;</td>
                                 <td>&emsp;<span id="quantity_remain"></span>&emsp;</td>
                                 <td>&emsp;<span id="quantity"><input id="ss" align="center" type="number"
-                                                                     style="width:60px;border: 0px" min="1"
-                                                                     data-options="editable:false">
+                                                                     style="width:60px;border: 0px" min="1"/>
                                     </span>&emsp;
                                 </td>
                                 <td>&emsp;<span><a id="operate"
@@ -313,7 +312,7 @@
     </div>
     <div title="兑换记录" data-options="" style="padding:10px">
         <table id="exchange_record" class="easyui-datagrid" style="width: 100%"
-               data-options="singleSelect:true,collapsible:false,fitColumns:true,toolbar:'#toolbar_record'">
+               data-options="singleSelect:true,pagination:true,collapsible:false,fitColumns:true,toolbar:'#toolbar_record'">
         </table>
         <div id="toolbar_record">
             <input id="exchange_keyword" class="easyui-textbox" prompt="请输入会员卡号或名称" data-options="width:250,height:30"/>

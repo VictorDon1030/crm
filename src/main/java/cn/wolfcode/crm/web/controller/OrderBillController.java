@@ -59,6 +59,13 @@ public class OrderBillController {
         }
         return  new JsonResult();
     }
+    //查询所有的已入库单
+    @RequestMapping("selectAll")
+    @ResponseBody
+    public Object selectAll()throws Exception{
+        return orderBillService.selectAll();
+    }
+
     @RequestMapping({"saveOrUpdate"})
     @ResponseBody
     @RequiresPermissions(
@@ -124,19 +131,19 @@ public class OrderBillController {
 
             }
             if (items.get(0).getProduct().getName() != null) {
-                
+
                 row1.createCell(2).setCellValue(items.get(0).getProduct().getName());
             }
             if (items.get(0).getCostPrice() != null) {
-                
+
                 row1.createCell(3).setCellValue(String.valueOf(items.get(0).getCostPrice()));
             }
             if (orderBill.getTotalNumber().toString() != null) {
-                
+
                 row1.createCell(4).setCellValue(orderBill.getTotalNumber().toString());
             }
             if (orderBill.getTotalAmount() != null) {
-                
+
                 row1.createCell(5).setCellValue(String.valueOf(orderBill.getTotalAmount()));
             }
             if (orderBill.getStatus() >=0) {

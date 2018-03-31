@@ -21,6 +21,7 @@
             <result column="name" property="name"/>
         </association>
         <!--回显支付方式-->
+
         <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
@@ -42,6 +43,7 @@
     <update id="updateConsumePoints">
         UPDATE member SET consumePoints = consumePoints + #{ret} WHERE id = #{id}
     </update>
+
     <update id="updateByPrimaryKey">
         UPDATE member
         SET memberNum     = #{memberNum},
@@ -81,9 +83,6 @@
         SET points = 0
         WHERE id = #{id}
     </update>
-    <!--修改密码的操作-->
-
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
@@ -93,7 +92,7 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int">
+    <select id="queryCount" resultType="int" >
         SELECT count(m.id)
         <include refid="base_table"/>
         <include refid="base_where"/>
@@ -173,6 +172,7 @@
             grade.name   grade_name,
             payment.id   payment_id,
             payment.name payment_name
+
     </sql>
     <sql id="base_table">
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id

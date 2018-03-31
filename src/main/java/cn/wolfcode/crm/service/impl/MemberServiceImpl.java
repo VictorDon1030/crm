@@ -67,7 +67,7 @@ public class MemberServiceImpl implements IMemberService {
     public PageResult query(QueryObject qo) {
         int total = memberMapper.queryCount(qo);
         List<Member> data = memberMapper.queryForList(qo);
-        if (total == 0) {
+        if (total == 0){
             return new PageResult(total, Collections.EMPTY_LIST);
         }
         return new PageResult(total, data);

@@ -34,9 +34,10 @@ public class BonusPointRecordServiceImpl implements IBonusPointRecordService {
             entity.setOptDate(new Date());
             //如果type等于1则让会员的积分增加 等于0 则将会员的积分减少
             if (entity.getType() == 0) {
-                //获取当前会员的积分余额 进行判断如何小于0 则扣除失败
+                //获取当前会员的积分余额 进行判断如何小于要扣除的积分 则扣除失败
+
                 Member member = memberMapper.selectByPrimaryKey(entity.getMember().getId());
-                if (BigDecimal.ZERO.compareTo(member.getPoints()) == 1) {
+                if (entity.getAmount().compareTo(member.getPoints()) == 1) {
                     throw new RuntimeException("当前会员"+member.getName()+"的积分余额"
                             + member.getPoints()+"不足"+entity.getAmount()+"扣除积分失败," +
                             "请确认后重新输入");
@@ -97,14 +98,4 @@ public class BonusPointRecordServiceImpl implements IBonusPointRecordService {
         return bonusPointRecordMapper.selectByMemberId(memberId);
     }
 
-    /**
-     * 根据用户输入的搜索添加进行高级查询
-     *
-     * @param qo 用户输入的关键字
-     * @return
-     */
-   /* @Override
-    public List<BonusPointRecord> queryByKeyword(MemberBonusPointQueryObject qo) {
-        return bonusPointRecordMapper.queryByKeyword(qo);
-    }*/
 }
