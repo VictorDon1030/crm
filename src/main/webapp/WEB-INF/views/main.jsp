@@ -12,7 +12,15 @@
     <link href="/home-face/css/animate.min.css" rel="stylesheet" />
     <!-- 本页样式 -->
     <link href="/home-face/css/main.css" rel="stylesheet" />
+    <%@ include file="/static/common/common.jsp"%>
     <script type="text/javascript" src="/home-face/plugin/echart/echarts-all.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#admin').click(function () {
+                alert("编辑资料");
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -21,7 +29,7 @@
         <div class="ht-console">
             <div class="ht-user">
                 <img src="../../home-face/images/Logo_40.png" />
-                <a class="ht-user-name">超级管理员</a>
+                <a class="ht-user-name" id="admin">超级管理员</a>
             </div>
         </div>
         <span class="sys-title">德客超市系统</span>
@@ -54,73 +62,73 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-user" style="color:#00f7ff"></i>会员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#" data-id="1">新增会员</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="2">会员列表</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="3">会员充值</a></dd>
-                        <dd><a href="javascript:;" data-id="5">会员充次</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="4">积分管理</a></dd>
+                        <dd><a href="javascript:;" data-url="#" data-id="3">新增会员</a></dd>
+                        <dd><a href="javascript:;" data-url="datalist.html" data-id="4">会员列表</a></dd>
+                        <dd><a href="javascript:;" data-url="datalist.html" data-id="5">会员充值</a></dd>
+                        <dd><a href="javascript:;" data-id="6">会员充次</a></dd>
+                        <dd><a href="javascript:;" data-url="datalist.html" data-id="7">积分管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-product-hunt" style="color: #00bbee"></i>商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">新增商品</a></dd>
-                        <dd><a href="javascript:;" data-id="2">商品列表</a></dd>
-                        <dd><a href="javascript:;" data-id="3">商品分类</a></dd>
+                        <dd><a href="javascript:;" data-id="8">新增商品</a></dd>
+                        <dd><a href="javascript:;" data-id="9">商品列表</a></dd>
+                        <dd><a href="javascript:;" data-id="10">商品分类</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-cubes" style="color: #00ee00"></i>库存管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">进货管理</a></dd>
-                        <dd><a href="javascript:;" data-id="2">采购退货</a></dd>
-                        <dd><a href="javascript:;" data-id="3">产品盘点</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="5">库存调拨</a></dd>
+                        <dd><a href="javascript:;" data-id="11">进货管理</a></dd>
+                        <dd><a href="javascript:;" data-id="12">采购退货</a></dd>
+                        <dd><a href="javascript:;" data-id="13">产品盘点</a></dd>
+                        <dd><a href="javascript:;" data-url="datalist.html" data-id="14">库存调拨</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-money" style="color: #f4e039"></i>日常支出</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">支出录入</a></dd>
-                        <dd><a href="javascript:;" data-id="2">支出明细</a></dd>
+                        <dd><a href="javascript:;" data-id="15">支出录入</a></dd>
+                        <dd><a href="javascript:;" data-id="16">支出明细</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-bar-chart-o" style="color: #0000FF"></i>智能分析</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">销售分析</a></dd>
-                        <dd><a href="javascript:;" data-id="2">会员分析</a></dd>
-                        <dd><a href="javascript:;" data-id="3">产品分析</a></dd>
+                        <dd><a href="javascript:;" data-id="17">销售分析</a></dd>
+                        <dd><a href="javascript:;" data-id="18">会员分析</a></dd>
+                        <dd><a href="javascript:;" data-id="19">产品分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-handshake-o" style="color: #1acbfc"></i>营销平台</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">营销短信</a></dd>
-                        <dd><a href="javascript:;" data-id="2">微信会员</a></dd>
-                        <dd><a href="javascript:;" data-id="3">微信商城</a></dd>
-                        <dd><a href="javascript:;" data-id="4">营销活动</a></dd>
-                        <dd><a href="javascript:;" data-id="5">优惠券</a></dd>
+                        <dd><a href="javascript:;" data-id="20">营销短信</a></dd>
+                        <dd><a href="javascript:;" data-id="21">微信会员</a></dd>
+                        <dd><a href="javascript:;" data-id="22">微信商城</a></dd>
+                        <dd><a href="javascript:;" data-id="23">营销活动</a></dd>
+                        <dd><a href="javascript:;" data-id="24">优惠券</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-file-text-o" style="color: #00ee00"></i>营销订单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="1">线上订单</a></dd>
-                        <dd><a href="javascript:;" data-id="2">线下订单</a></dd>
+                        <dd><a href="javascript:;" data-id="25">线上订单</a></dd>
+                        <dd><a href="javascript:;" data-id="26">线下订单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-group " style="color: #f4e039"></i>咨询客服</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#" data-id="1">渣渣辉</a></dd>
-                        <dd><a href="javascript:;" data-id="2">古扎乐</a></dd>
+                        <dd><a href="javascript:;" data-url="#" data-id="27">渣渣辉</a></dd>
+                        <dd><a href="javascript:;" data-id="28">古扎乐</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-gear" style="color: #9b2979"></i>系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/syshome.do" data-id="1">店铺管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/syshome.do" data-id="29">店铺管理</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -139,7 +147,7 @@
             <div id="main" style="height:250px;width: 250px"></div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="import" src="/allchart.do" width="100%" height="100%" frameborder="0"></iframe>
+                    <iframe id="import" src="/chat/statirName.do" width="100%" height="100%" frameborder="0"></iframe>
                 </div>
             </div>
         </div>

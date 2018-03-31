@@ -41,11 +41,24 @@
 
   <select id="queryCount" resultType="int">
     SELECT count(id) from joinapply
+      <include refid="where_base"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     select id, shopName, tel, email, accountType, bankName, accountName
     from joinapply
+      <include refid="where_base"/>
     LIMIT #{start},#{rows}
   </select>
+
+  <sql id="where_base">
+    <where>
+      <if test="keyword !=null and keyword != '' ">
+        and (accountName like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%'))
+      </if>
+      <if test="appType >= 0">
+        and accountType = #{appType}
+      </if>
+    </where>
+  </sql>
 </mapper>

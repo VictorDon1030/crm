@@ -2,6 +2,7 @@ package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.JoinApply;
 import cn.wolfcode.crm.domain.WeChat;
+import cn.wolfcode.crm.query.JoinApplyQuery;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IJoinApplyService;
 import cn.wolfcode.crm.service.IWeChatService;
@@ -43,7 +44,7 @@ public class JoinApplyController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(JoinApplyQuery qo){
         return joinApplyService.query(qo);
     }
 

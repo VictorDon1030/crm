@@ -41,13 +41,14 @@
   </select>
 
   <select id="queryCount" resultType="int">
-    SELECT count(id) from systemlog
+    SELECT count(s.id) from systemlog s
     <include refid="base_where"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     <include refid="base_sql"/>
     <include refid="base_where"/>
+    limit #{start},#{rows}
   </select>
 
   <sql id="base_sql">

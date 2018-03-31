@@ -1,7 +1,6 @@
 package cn.wolfcode.crm.query;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,8 +14,8 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class SystemLogQuery extends QueryObject {
-
+public class SubBranchQuery extends QueryObject {
+    private String keyword;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

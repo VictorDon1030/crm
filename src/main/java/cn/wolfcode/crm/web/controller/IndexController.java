@@ -25,28 +25,23 @@ public class IndexController {
     @Autowired
     private HttpServletRequest request;
 
-    @RequestMapping("index")
+    @RequestMapping("main")
     public String index(){
-        return "index";
+
+        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+        LoginLog loginLog = new LoginLog();
+        loginLog.setLogTime(new Date());
+        loginLog.setLogName(employee.getUsername());
+        String addr = request.getRemoteAddr();
+        loginLog.setLogIp(addr);
+        loginLogMapper.insert(loginLog);
+        return "main";
     }
 
     @RequestMapping("login")
     public String login(){
 
         return "redirect:/login.jsp";
-    }
-
-    //跳转主页面
-    @RequestMapping("main")
-    public String main(){
-        //这里暂时还是报错的,index主页面跳转路径更改即可解决
-        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
-        LoginLog loginLog = new LoginLog();
-        loginLog.setLogTime(new Date());
-        loginLog.setLogName(employee.getUsername());
-        loginLog.setLogIp(request.getRemoteAddr());
-        loginLogMapper.insert(loginLog);
-        return "main";
     }
 
     //跳转系统设置页面

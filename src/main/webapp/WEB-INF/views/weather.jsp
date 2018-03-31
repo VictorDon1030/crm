@@ -16,7 +16,6 @@
                     //生活指标数
                     var state = weather[0].suggestion;
 
-
                     //白天信息
                     var daytime = day[0].cond.txt_d;
                     //晚上天气
@@ -93,26 +92,26 @@
     </div>
     <div data-options="region:'center'" align="center" style="background-color: whitesmoke">
         <div style="margin-top: 80px">
-            <span class="bg">当前城市 : <input id="iCity" class="easyui-textbox" iconCls="icon-city"/></span>
-            <span class="bg">更新时间 : <input id="iTime" class="easyui-textbox" iconCls="icon-Itime"/></span>
+            <span class="bg">当前城市 : <input disabled id="iCity" class="easyui-textbox" iconCls="icon-city"/></span>
+            <span class="bg">更新时间 : <input disabled id="iTime" class="easyui-textbox" iconCls="icon-Itime"/></span>
         </div>
         <div class="by">
-            <span class="bg">白天天气 : <input id="iDayTime" class="easyui-textbox" iconCls="icon-dayTime"/></span>
-            <span class="bg">晚上天气 : <input id="iNightTime" class="easyui-textbox" iconCls="icon-nightTime"/></span>
+            <span class="bg">白天天气 : <input disabled id="iDayTime" class="easyui-textbox" iconCls="icon-dayTime"/></span>
+            <span class="bg">晚上天气 : <input disabled id="iNightTime" class="easyui-textbox" iconCls="icon-nightTime"/></span>
         </div>
         <div class="by">
-            <span class="bg">最高温度 : <input id="iMax" class="easyui-textbox" iconCls="icon-max"/></span>
-            <span class="bg">最低温度 : <input id="iMin" class="easyui-textbox" iconCls="icon-min"/></span>
+            <span class="bg">最高温度 : <input disabled id="iMax" class="easyui-textbox" iconCls="icon-max"/></span>
+            <span class="bg">最低温度 : <input disabled id="iMin" class="easyui-textbox" iconCls="icon-min"/></span>
         </div>
         <div class="by">
-            <span class="bg">今日风向 : <input id="iDir" class="easyui-textbox" iconCls="icon-dir"/></span>
-            <span class="bg">今日风力 : <input id="ISpd" class="easyui-textbox" iconCls="icon-spd"/></span>
+            <span class="bg">今日风向 : <input disabled id="iDir" class="easyui-textbox" iconCls="icon-dir"/></span>
+            <span class="bg">今日风力 : <input disabled id="ISpd" class="easyui-textbox" iconCls="icon-spd"/></span>
         </div>
         <div class="by">
-            <span class="bg">舒适指数 : <input id="iBrf" class="easyui-textbox" iconCls="icon-brf"/></span>
+            <span class="bg">舒适指数 : <input disabled id="iBrf" class="easyui-textbox" iconCls="icon-brf"/></span>
         </div>
         <div class="by">
-            <span class="bg">推荐事宜 : <input id="iBrf_txt" class="easyui-textbox" iconCls="icon-brf_txt" data-options="width:500,height:50,multiline:true"/></span>
+            <span class="bg">推荐事宜 : <input disabled id="iBrf_txt" class="easyui-textbox" iconCls="icon-brf_txt" data-options="width:500,height:50,multiline:true"/></span>
         </div>
     </div>
 </div>

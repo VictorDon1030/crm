@@ -1,7 +1,5 @@
 package cn.wolfcode.crm.web.controller;
 
-import cn.wolfcode.crm.domain.SystemLog;
-import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.query.SystemLogQuery;
 import cn.wolfcode.crm.service.ISystemLogService;
 import cn.wolfcode.crm.util.PageResult;

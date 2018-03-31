@@ -41,9 +41,44 @@ $(function () {
                 }
             })
         },
+        //高级查询
+        searchs: function () {
+            var keyword = $("#keyword").textbox("getValue");
+            var beginDate = $("#beginDate").textbox("getValue");
+            var endDate = $("#endDate").textbox("getValue");
+            sub_datagrid.datagrid("load", {
+                keyword: keyword,
+                beginDate:beginDate,
+                endDate:endDate
+            });
+        },
         //取消按钮
         cancel: function () {
             sub_dialog.dialog("close");
+        },
+        //设置停用
+        changeState: function () {
+            var val = sub_datagrid.datagrid("getSelected");
+            var status = "";
+            if (!val) {
+                $.messager.alert("温馨提示", "请选择一条数据", "info");
+                return;
+            }
+            if (val.state) {
+                status = "确定设置停用吗?";
+            } else {
+                status = "确定设置使用吗?";
+            }
+            $.messager.confirm("温馨提示", status, function (ret) {
+                if (ret) {
+                    $.get("/subBranch/changeState.do", {id: val.id}, function (data) {
+                        if (data.success) {
+                            $.messager.alert("温馨提示", "操作成功", "info");
+                            sub_datagrid.datagrid("reload");
+                        }
+                    });
+                }
+            })
         }
     };
 
@@ -95,6 +130,7 @@ $(function () {
                         $(this).switchbutton({
                             onText:'开启'
                         });
+                        $.messager.alert('温馨提示','分店微商城开启成功','info');
                     } else {
                         /*$.get('/subBranch/changeMallState.do',{id:shopId},function (data) {
                             if (data) {
@@ -106,8 +142,20 @@ $(function () {
                         $(this).switchbutton({
                             offText:'关闭'
                         });
+                        $.messager.alert('温馨提示','分店微商城关闭成功','info');
                     }
                 }});
+        },
+        onClickRow: function (index, row) {
+            if (row.state) {
+                $("#changeState").linkbutton({
+                    text: "设置停用"
+                });
+            } else {
+                $("#changeState").linkbutton({
+                    text: "设置使用"
+                });
+            }
         }
     });
     sub_dialog.dialog({
