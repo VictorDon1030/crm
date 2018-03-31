@@ -122,7 +122,7 @@
 
     <div data-options="region:'center',title:'商品表',split:true" style="width:600px;">
         <table id="product" class="easyui-datagrid" data-options="fit:true,singleSelect:true,fitColumns:true,
-            url:'/product/list.do',pagination:true,remoteSort:false,sortOrder:'desc'">
+            url:'/product/list.do',pagination:true,remoteSort:false,sortOrder:'desc',toolbar:'#tt'">
             <thead>
             <tr>
                 <th data-options="field:'id',width:'50',sortable:true">id</th>
@@ -170,6 +170,16 @@
         </tr>
         </thead>
     </table>
+</div>
+<div id="tt" class="easyui-dialog" style="width: 400px;height: 300px" data-options="buttons:'#b',closed:true">
+    <div style="margin-left: 50px;margin-top: 5px">
+        <select class="easyui-combobox" name="dept.id"
+                data-options="label:'商品分类',width:250,labelWidth:50,panelHeight:'auto',url:'',
+                    valueField:'id',textField:'name'">
+        </select>
+    </div>
+    <div style="margin-left: 50px;margin-top: 5px">
+</div>
 </div>
 </body>
 </html>
