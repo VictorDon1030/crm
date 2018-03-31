@@ -38,8 +38,8 @@ public class Member extends BaseDomain {
     //会员状态
     private boolean state = true;
     //会员生日
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GTM+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "MM-dd", timezone = "GTM+8")
+    @DateTimeFormat(pattern = "MM-dd")
     private Date birthday;
     //维护与会员积分变化的关系
     private  List<BonusPointRecord> bonusPointRecord = new ArrayList<>(5);

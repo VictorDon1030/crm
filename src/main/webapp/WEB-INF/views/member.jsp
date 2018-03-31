@@ -5,7 +5,14 @@
     <%@ include file="/static/common/common.jsp"%>
  <%--   <script type="text/javascript" src="/static/plugins/jiaoben5714/js/ai.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/plugins/jiaoben5714/css/ai.css">--%>
-
+<script type="text/css">
+    .diamonds{
+      width: 150px;
+      height: 150px;
+      float: left;
+      margin-right: 20px;
+    }
+</script>
     <script type="text/javascript" src="/static/js/member.js"></script>
     <title>会员管理</title>
 </head>
@@ -195,6 +202,25 @@
     </div>
 
 --%>
+    <div>
+        <ul>
+            <li>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+            </li>
+            <li>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+            </li>
+            <li>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+                <div class="diamonds"><span>111</span></div>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <%--重置密码的操作--%>
@@ -337,7 +363,7 @@
 
                 </td>
                 <td>
-                    <input name="birthday" class="easyui-datebox"/>
+                    <input id="birthdayId" name="birthday" class="easyui-datebox"/>
                 </td>
             </tr>
             <tr>

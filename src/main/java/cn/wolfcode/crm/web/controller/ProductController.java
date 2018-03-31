@@ -49,7 +49,7 @@ public class ProductController {
     //查询所有列
     @RequestMapping("countId")
     @ResponseBody
-    public Object countId(ProductQueryObject qo){
+    public Object countId(){
 
         return productService.listAll();
     }
@@ -147,5 +147,6 @@ public class ProductController {
         //写入数据(输出到浏览器)
         wb.write(response.getOutputStream());
     }
+
 
 }

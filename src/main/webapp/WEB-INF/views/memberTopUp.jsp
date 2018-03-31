@@ -92,7 +92,7 @@
         </div>
 
         <%--充值的表单--%>
-        <span id="totalResult" style="display;  ">
+        <span id="totalResult" >
         <form id="ff" method="post">
             <input type="hidden" name="member.id" id="id_hidden">
             <span>
@@ -194,26 +194,26 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
         <a class="easyui-linkbutton" id="btn" data-options="width:80,height:46,text:'确认'" data-btn="addData"></a>
-              <table id="topup_datagrid"></table>
+              <table class="topup_datagrid"></table>
         </form>
         </span>
         <%--充次的表单--%>
-        <span id="countResult" style="display: none">
-        <form id="count" method="post">
+        <span id="countResult" >
+        <form id="count_from" method="post">
             <input type="hidden" name="member.id" id="id_hiddenCount">
             <span>
             <p> &nbsp; </p>
             </span>
             <span>
-                     <input class="easyui-combobox" name="addbalance" data-options="width:280,label:'选择商品:',valueField:'id',textField:'name',
-                     url:'/product/selectAll.do'"/>
+                     <input id="productId" class="easyui-combobox" name="product.id" data-options="width:280,label:'选择商品:',valueField:'id',textField:'name',
+                     url:'/product/countId.do'"/>
                           </span>
             <span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
 
             <span>
-                <input class="easyui-textbox" name="give" data-options="width:280,label:'充值金额:'" data-cmd="add"/>
+                <input class="easyui-textbox" name="addbalance" data-options="width:280,label:'充值金额:'" data-cmd="addBalance"/>
             </span>
             <span>
             <p> &nbsp; </p>
@@ -228,7 +228,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <span><input class="easyui-textbox" name="addcount" data-options="width:280,label:'充值次数:'"
-                             data-cmd="add"/></span>
+                             data-cmd="addCount"/></span>
             </div>
               &nbsp;
             <div>
@@ -251,7 +251,7 @@
                        data-options="multiline:true,height:80,width:300"/>
             </div>
             <span>  <input id="select_printCount" data-recharge_type="0"
-                           name="select_print" data-print="print"
+                           name="select_print" data-printCount="print"
                            value="" type="checkbox">
             </span>
             <span>打印充值小票</span>
@@ -265,13 +265,16 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
             <a class="easyui-linkbutton" id="btnCount" data-options="width:80,height:46,text:'充值'"
-               data-btn="addData"></a>
+               data-btnCount="addData"></a>
+            <table id="count_datagrid" ></table>
         </form>
         </span>
-        <%--<table id="topup_datagrid"></table>--%>
+        <%----%>
     </div>
 </div>
 
+<script type="text/javascript">
 
+</script>
 </body>
 </html>
