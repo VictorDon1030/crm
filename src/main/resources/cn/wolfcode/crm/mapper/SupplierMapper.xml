@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.SupplierMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Supplier">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="realname" property="realname" />
+    <result column="tel" property="tel" />
+    <result column="vdate" property="vdate" />
+    <result column="address" property="address" />
+    <result column="info" property="info" />
+      <association property="employee" javaType="employee" fetchType="eager"
+                   column="employee_id" select="cn.wolfcode.crm.mapper.EmployeeMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from supplier
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into supplier (name, realname, tel, vdate, address, info,employee_id)
+    values (#{name}, #{realname}, #{tel}, #{vdate}, #{address}, #{info},#{employee.id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update supplier
+    set name = #{name},
+      realname = #{realname},
+      tel = #{tel},
+      address = #{address},
+      info = #{info},
+        employee_id=#{employee.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, name, realname, tel, vdate, address, info,employee_id
+    from supplier
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, realname, tel, vdate, address, info,employee_id
+    from supplier
+  </select>
+  <select id="queryCount" resultType="int">
+    select count(id) from depot
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+      select id, name, realname, tel, vdate, address, info,employee_id
+      from supplier
+    limit #{start},#{rows}
+  </select>
+</mapper>

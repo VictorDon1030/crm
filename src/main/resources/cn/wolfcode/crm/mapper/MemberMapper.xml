@@ -10,22 +10,23 @@
         <result column="phone" property="phone"/>
         <result column="password" property="password"/>
         <result column="points" property="points"/>
+        <result column="consumePoints" property="consumePoints"/>
         <result column="balance" property="balance"/>
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
         <result column="birthday" property="birthday"/>
+        <!--会员会员等级-->
         <association property="grade" javaType="DictionaryItem" columnPrefix="grade_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
-
+        <!--回显支付方式-->
         <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
         <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
                     select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
-
     </resultMap>
 
     <delete id="deleteByPrimaryKey">
@@ -33,24 +34,27 @@
         WHERE id = #{id}
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
+        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id, consumePoints,
                             points, balance, usefullife, onUser_id, state, birthday)
-        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
+        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id}, #{consumePoints},
                               #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
-
+    <update id="updateConsumePoints">
+        UPDATE member SET consumePoints = consumePoints + #{ret} WHERE id = #{id}
+    </update>
     <update id="updateByPrimaryKey">
         UPDATE member
-        SET memberNum  = #{memberNum},
-            name       = #{name},
-            phone      = #{phone},
-            grade_id   = #{grade.id},
-            payment_id = #{payment.id},
-            birthday   = #{birthday},
-            points     = #{points},
-            balance    = #{balance},
-            usefullife = #{usefullife},
-            onUser_id  = #{onUser.id}
+        SET memberNum     = #{memberNum},
+            name          = #{name},
+            phone         = #{phone},
+            grade_id      = #{grade.id},
+            payment_id    = #{payment.id},
+            birthday      = #{birthday},
+            points        = #{points},
+            balance       = #{balance},
+            usefullife    = #{usefullife},
+            consumePoints = #{consumePoints},
+            onUser_id     = #{onUser.id}
         WHERE id = #{id}
     </update>
 
@@ -77,6 +81,8 @@
         SET points = 0
         WHERE id = #{id}
     </update>
+    <!--修改密码的操作-->
+
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
@@ -96,6 +102,7 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
         <include refid="base_where"/>
+        ORDER BY id DESC
         LIMIT #{start}, #{rows}
     </select>
     <select id="queryByKeyword" resultMap="BaseResultMap">
@@ -121,6 +128,31 @@
             sum(balance) sumbalance
         from member
     </select>
+    <select id="checkPass" resultType="member">
+        SELECT
+            id,
+            memberNum,
+            name,
+            phone,
+            password,
+            grade_id,
+            payment_id,
+            points,
+            balance,
+            usefullife,
+            onUser_id,
+            state,
+            birthday,
+            consumePoints
+        FROM member
+        WHERE password = #{password} AND id = #{id}
+    </select>
+    <select id="selectPoints" resultType="_int">
+        SELECT points
+        FROM member
+        WHERE id = #{id}
+    </select>
+
     <sql id="base_column">
         SELECT
             m.id,
@@ -136,15 +168,22 @@
             m.usefullife,
             m.onUser_id,
             m.state,
-            grade.id     grade_id,
+            m.consumePoints,
+            grade.id   grade_id,
             grade.name   grade_name,
             payment.id   payment_id,
             payment.name payment_name
-
     </sql>
     <sql id="base_table">
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id
         left join dictionaryitem payment on m.payment_id=payment.id
+    </sql>
+    <sql id="bonusPoint_where">
+        <where>
+            <if test="keyword != null">
+                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
+            </if>
+        </where>
     </sql>
 
     <sql id="base_where">
@@ -157,16 +196,16 @@
                 and m.grade_id= #{gradeId}
             </if>
             <if test="beginDate != null">
-                and m.usefullife &gt;= #{beginDate}
+                and    m.usefullife &gt;= #{beginDate}
             </if>
             <if test="endDate != null">
-                and m.usefullife &lt;= #{endDate}
+                and   m.usefullife &lt;= #{endDate}
             </if>
             <if test="birthdayBeginDate != null">
-                and m.birthday &gt;= #{birthdayBeginDate}
+                and  m.birthday &gt;= #{birthdayBeginDate}
             </if>
             <if test="birthdayEndDate != null">
-                and m.birthday &lt;= #{birthdayEndDate}
+                and   m.birthday &lt;= #{birthdayEndDate}
             </if>
         </where>
     </sql>
@@ -177,13 +216,7 @@
             </if>
         </trim>
     </sql>
-    <sql id="bonusPoint_where">
-        <where>
-            <if test="keyword != null">
-                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
-            </if>
-        </where>
-    </sql>
+
 
     <!--beginDate;
     //结束时间
@@ -192,4 +225,11 @@
     private Date birthdayBeginDate;
     //生日结束时间
     private Date birthdayEndDate;-->
+    <update id="updateBalance">
+        update member set balance = #{balance} where id=#{mumberId}
+    </update>
+
+    <update id="updatePoints">
+        update member set points = #{points} where id=#{mumberId}
+    </update>
 </mapper>

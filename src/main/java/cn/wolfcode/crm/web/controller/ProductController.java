@@ -45,6 +45,14 @@ public class ProductController {
 
         return productService.query(qo);
     }
+    @RequestMapping("get")
+    @ResponseBody
+    public Product get(Long id){
+
+        return productService.get(id);
+    }
+
+
 
     //查询所有列
     @RequestMapping("countId")
