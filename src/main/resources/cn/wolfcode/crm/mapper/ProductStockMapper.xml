@@ -118,4 +118,10 @@
             </if>
         </where>
     </sql>
+    <update id="updateNumber">
+        update productstock set
+        storeNumber = #{number},
+        amount = #{amount}
+        where id=#{productId} and depot_id = 1
+    </update>
 </mapper>

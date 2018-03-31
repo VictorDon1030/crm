@@ -8,9 +8,24 @@
     <result column="amount" property="amount" />
     <result column="bill_id" property="billId" />
     <association property="product" javaType="product" columnPrefix="p_">
-      <id property="id" column="id"/>
-      <result property="name" column="name"/>
-      <result property="brand" column="brand"/>
+      <id column="id" property="id" />
+      <result column="name" property="name" />
+      <result column="brand" property="brand" />
+      <result column="goodsMark" property="goodsMark" />
+      <result column="unitpPrice" property="unitpPrice" />
+      <result column="minPrice" property="minPrice" />
+      <result column="initialInventory" property="initialInventory" />
+      <result column="unit" property="unit" />
+      <result column="commission" property="commission" />
+      <result column="remark" property="remark" />
+      <result column="auxiliaryWord" property="auxiliaryWord" />
+      <result column="purchasingPrice" property="purchasingPrice" />
+      <result column="memberPrice" property="memberPrice" />
+      <result column="minDiscount" property="minDiscount" />
+      <result column="specification" property="specification" />
+      <result column="integral" property="integral" />
+      <result column="pastDueTime" property="pastDueTime" />
+      <result column="imagePath" property="imagePath" />
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey">
@@ -45,9 +60,19 @@
   <delete id="deleteByOrderId">
     delete from checkoutcomebillitem where bill_id=#{billId}
   </delete>
-  <select id="selectByOrderId" resultMap="BaseResultMap">
-    select ord.*,p.id p_id,p.name p_name,p.brandName p_brandName
-    from stockoutcomebillItem ord left join product p on ord.product_id=p.id
-    where bill_id = #{billId}
+  <select id="selectbyMemberId" resultMap="BaseResultMap">
+    select ch.id, ch.unitpPrice, ch.number, ch.amount, ch.product_id, ch.bill_id, ch.member_id,
+    pro.id p_id,pro.name p_name,pro.brand p_brand,pro.goodsMark p_goodsMark,pro.purchasingPrice p_purchasingPrice,
+    pro.minPrice p_minPrice,pro.initialInventory p_initialInventory,pro.integral p_integral,pro.unitpPrice p_unitpPrice
+    from checkoutcomebillitem ch left join product pro on
+    ch.product_id = pro.id
+    where ch.member_id = #{memberId}
+  </select>
+  <delete id="deleteWaitPaymentItem">
+    delete from checkoutcomebillitem
+    where bill_id=#{billId}
+  </delete>
+  <select id="selectCount" resultType="long">
+    select count(id) from checkoutcomebillitem
   </select>
 </mapper>

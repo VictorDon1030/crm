@@ -141,4 +141,8 @@
     <update id="updateBalance">
         update member set balance = #{balance} where id=#{mumberId}
     </update>
+
+    <update id="updatePoints">
+        update member set points = #{points} where id=#{mumberId}
+    </update>
 </mapper>

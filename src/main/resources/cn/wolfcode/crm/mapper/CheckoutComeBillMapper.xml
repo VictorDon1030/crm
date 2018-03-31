@@ -9,6 +9,13 @@
     <result column="totalAmount" property="totalAmount" />
     <result column="totalNumber" property="totalNumber" />
     <result column="depot_id" property="depotId" />
+    <association property="member" javaType="member" columnPrefix="em_">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+      <result column="memberNum" property="memberNum"/>
+      <result column="balance" property="balance"/>
+      <result column="points" property="points"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from checkoutcomebill
@@ -40,5 +47,30 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, sn, vdate, status, totalAmount, totalNumber, saleas_id, depot_id, member_id
     from checkoutcomebill
+  </select>
+  <update id="updatestatus">
+    update checkoutcomebill
+    set status = 0
+    where id=#{id}
+  </update>
+  <select id="selectWaitPaymentMember" resultMap="BaseResultMap">
+    select che.*,mem.id em_id,mem.name em_name,mem.memberNum em_memberNum,
+    mem.balance em_balance,
+    mem.points em_points
+    from checkoutcomebill che left join member mem on
+    che.member_id = mem.id where status=0
+  </select>
+  <select id="selectWaitPayment4MemberId" resultMap="BaseResultMap">
+    select * from checkoutcomebill where status=0 and member_id=#{memberId}
+  </select>
+  <delete id="deleteByMemberId">
+    delete from checkoutcomebill
+    where member_id = #{memberId}
+  </delete>
+  <select id="selectSn" resultMap="BaseResultMap">
+    select * from checkoutcomebill where sn=#{sn}
+  </select>
+  <select id="selectSnSetOdd" resultType="long">
+    select count(id) from checkoutcomebill
   </select>
 </mapper>

@@ -15,4 +15,14 @@ public interface CheckoutComeBillItemMapper {
     int updateByPrimaryKey(CheckoutComeBillItem entity);
 
     void deleteByOrderId(Long billId);
+
+    List<CheckoutComeBillItem> selectbyMemberId(Long memberId);
+
+    /**
+     * 删除客户的挂单明细
+     * @param billId
+     */
+    void deleteWaitPaymentItem(Long billId);
+
+    Long selectCount();
 }

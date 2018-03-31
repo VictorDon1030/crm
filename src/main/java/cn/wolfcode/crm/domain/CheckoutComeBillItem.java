@@ -21,4 +21,5 @@ public class CheckoutComeBillItem {
     private Long billId;
 
     private Member member;
+
 }

@@ -25,11 +25,16 @@ public class CheckoutComeBillController {
 
 
     @RequestMapping("saveOrUpdate")
-    /*@ResponseBody*/
-    public void saveOrUpdate(CheckoutComeBill checkoutComeBill){
-
-        checkoutComeBillService.saveOrUpdate(checkoutComeBill);
-        /*return new JsonResult();*/
+    @ResponseBody
+    //用于支付
+    public Object saveOrUpdate(CheckoutComeBill checkoutComeBill){
+        JsonResult result = new JsonResult();
+        try{
+            checkoutComeBillService.saveOrUpdate(checkoutComeBill);
+        }catch (Exception e){
+           result.mark("支付失败!"+e.getMessage());
+        }
+        return result;
     }
     @RequestMapping("delete")
     @ResponseBody
@@ -53,6 +58,29 @@ public class CheckoutComeBillController {
 
         return util;
     }*/
+    @RequestMapping("waitPayment")
+    //挂单
+    public void waitPayment(CheckoutComeBill checkoutComeBill){
+        checkoutComeBillService.waitPayment(checkoutComeBill);
+    }
 
+    @RequestMapping("selectwaitPayment")
+    @ResponseBody
+    //查找挂单会员
+    public Object selectwaitPayment(Long id){
+        return checkoutComeBillService.selectWaitPaymentMember();
+    }
 
+    @RequestMapping("selectbyMemberId")
+    @ResponseBody
+    public Object selectbyMemberId(Long id){
+        return checkoutComeBillService.selectbyMemberId(id);
+    }
+
+    @RequestMapping("addOdd")
+    @ResponseBody
+    //设置单号
+    public Object addOdd(String sn){
+        return String.valueOf(checkoutComeBillService.addOdd(sn));
+    }
 }

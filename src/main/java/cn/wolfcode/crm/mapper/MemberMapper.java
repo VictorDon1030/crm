@@ -28,4 +28,6 @@ public interface MemberMapper {
     void updatePasswordById(Member member);
 
     void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
+
+    void updatePoints(@Param("points") BigDecimal points,@Param("mumberId") Long id);
 }
