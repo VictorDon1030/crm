@@ -92,13 +92,13 @@
         </div>
 
         <%--充值的表单--%>
-        <span id="totalResult" style="display;  ">
+        <span id="totalResult" style="display:block;">
         <form id="ff" method="post">
             <input type="hidden" name="member.id" id="id_hidden">
             <span>
             <p> &nbsp; </p>
             </span>
-            <div id="chooseway" style="display;  ">
+            <div id="chooseway" style="display:block;  ">
                 <span>选择类型:</span>
                 <input id="select_topup" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
                        value="1" type="radio">
@@ -127,7 +127,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             <%--充值--%>
-            <span id="addWay" style="display  ">
+            <span id="addWay" style="display:block;">
 
 
             <span>
