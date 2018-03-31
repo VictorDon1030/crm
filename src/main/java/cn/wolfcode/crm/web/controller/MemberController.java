@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("member")
-public class MmberController {
+public class MemberController {
 
     @Autowired
     private IMemberService memberService;

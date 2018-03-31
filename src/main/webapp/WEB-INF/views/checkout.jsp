@@ -3,8 +3,10 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="/static/plugins/easyuiplus/reset.min.css" rel="stylesheet" type="text/css">
+    <%--<%@ include file="/static/common/common.jsp"%>--%>
+    <link href="/static/plugins/" rel="stylesheet" type="text/css">
     <link href="/static/plugins/easyuiplus/easyui_full.css" rel="stylesheet" type="text/css">
+    <link href="/static/plugins/easyuiplus/icon.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="/static/plugins/easyuiplus/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/static/plugins/easyuiplus/jquery.easyui-1.5.2.min.js"></script>
@@ -172,7 +174,8 @@
     </table>
 </div>
 <div id="tt">
-    <input id="beginDate" class="easyui-textbox" name="beginDate" data-options="label:'商品名称',width:250,labelWidth:50,"/>
+    <input id="keyword" class="easyui-textbox" name="beginDate" data-options="label:''
+            ,width:250,labelWidth:50,prompt:'商品名称'"/>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchs();"></a>
 </div>
 </body>

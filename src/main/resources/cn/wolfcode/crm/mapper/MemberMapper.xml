@@ -97,7 +97,6 @@
         SELECT count(m.id)
         <include refid="base_table"/>
         <include refid="base_where"/>
->>>>>>>>> Temporary merge branch 2
     </select>
     <select id="queryForList" resultMap="BaseResultMap">
         <include refid="base_column"/>
@@ -156,8 +155,6 @@
             grade.name   grade_name,
             payment.id   payment_id,
             payment.name payment_name
->>>>>>>>> Temporary merge branch 2
-
     </sql>
     <sql id="base_table">
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id

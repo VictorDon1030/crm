@@ -379,4 +379,7 @@ function memberPoints(value, row, index) {
         return row.member.points;
     }
 }
-
+function searchs() {
+    var keyword = $("#keyword").val();
+    $("#product").datagrid("load",{"keyword":keyword});
+}
