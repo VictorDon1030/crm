@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Product;
+import cn.wolfcode.crm.mapper.ProductMapper;
 import cn.wolfcode.crm.query.ProductQueryObject;
 import cn.wolfcode.crm.service.IProductService;
 import cn.wolfcode.crm.util.JsonResult;
@@ -29,6 +30,8 @@ public class ProductController {
 
     @Autowired
     private IProductService productService;
+    @Autowired
+    private ProductMapper productMapper;
 
     @RequestMapping("view")
     public String view(){
@@ -51,12 +54,40 @@ public class ProductController {
 
 
 
+    //查询所有列
+    @RequestMapping("countId")
+    @ResponseBody
+    public Object countId(ProductQueryObject qo){
+
+        return productService.listAll();
+    }
+
+    //查询所有列
+    @RequestMapping("query")
+    @ResponseBody
+    public Object query(Long id){
+
+        return productService.get(id);
+    }
+
     @RequestMapping("saveOrUpdate")
     @ResponseBody
     public Object saveOrUpdate(Product entity){
         JsonResult jsonResult = new JsonResult();
         try {
             productService.saveOrUpdate(entity);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonResult.mark("操作失败");
+        }
+        return jsonResult;
+    }
+    @RequestMapping("save")
+    @ResponseBody
+    public Object save(Product entity){
+        JsonResult jsonResult = new JsonResult();
+        try {
+            productService.save(entity);
         }catch (Exception e){
             e.printStackTrace();
             jsonResult.mark("操作失败");
@@ -109,7 +140,7 @@ public class ProductController {
             row.createCell(4).setCellValue(product.getGoodsMark());
             row.createCell(5).setCellValue(product.getPurchasingPrice().toString());
             row.createCell(6).setCellValue(product.getUnitpPrice().toString());
-            row.createCell(7).setCellValue(product.getMemberPrice());
+            row.createCell(7).setCellValue(product.getMemberPrice().toString());
             row.createCell(8).setCellValue(product.getMinDiscount().toString());
             row.createCell(9).setCellValue(product.getMinPrice().toString());
             row.createCell(10).setCellValue(product.getInitialInventory());
@@ -124,4 +155,5 @@ public class ProductController {
         //写入数据(输出到浏览器)
         wb.write(response.getOutputStream());
     }
+
 }

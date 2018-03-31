@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.service;
 
 import cn.wolfcode.crm.domain.Member;
+import cn.wolfcode.crm.query.MemberBonusPointQueryObject;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
@@ -32,6 +33,18 @@ public interface IMemberService {
      */
     void changeState(Long id);
 
+    /**
+     * 根据用户输入的关键字查询会员列表
+     * @param qo
+     * @return
+     */
+    List<Member> queryByKeyword(MemberBonusPointQueryObject qo);
+
+    /**
+     * 清除会员积分的方法
+     * @param id 要清除积分的会员的id
+     */
+    void clearPoints(Long id);
     /**
      *  修改会员密码的操作
      * @param member
