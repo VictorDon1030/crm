@@ -40,4 +40,13 @@ public class ProductAnalyzeServiceImpl implements IProductAnalyzeService {
     public  List<Map<String,Object>> selectAndOrder(ProductAnalyzeObject qo){
         return productAnalyzeMapper.selectAndOrder(qo);
     }
+
+
+    /**
+     * 高级查询并排序：柱状图用(按照毛利排序)
+     */
+    @Override
+    public List<Map<String, Object>> selectAndOrderByProfit(ProductAnalyzeObject qo) {
+        return productAnalyzeMapper.selectAndOrderByProfit(qo);
+    }
 }

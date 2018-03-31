@@ -58,6 +58,15 @@
     <include refid="from"/>
     <include refid="where"/>
     group by p.name
-    order by totalAmount desc
+    order by totalNumber desc
+  </select>
+
+  <!--高级查询，排序:按照销售毛利-->
+  <select id="selectAndOrderByProfit" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+    <include refid="where"/>
+    group by p.name
+    order by totalProfit desc
   </select>
 </mapper>
