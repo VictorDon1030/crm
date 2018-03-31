@@ -93,7 +93,7 @@ public class ProductAnalyzeController {
     }
 
     /***
-     * 柱状图的数据
+     * 柱状图的数据:按照销量排序
      */
     @RequestMapping("queryForBar")
     @ResponseBody
@@ -105,7 +105,26 @@ public class ProductAnalyzeController {
         for (Map<String, Object> item : result) {
             Map<String,Object> map=new HashMap<>();
             map.put("typeName",item.get("name"));
-            map.put("totalAmount",item.get("totalAmount"));
+            map.put("totalNumber",item.get("totalNumber"));
+            list.add(map);
+        }
+        return list;
+    }
+
+    /***
+     * 柱状图的数据:按照销量排序
+     */
+    @RequestMapping("selectAndOrderByProfit")
+    @ResponseBody
+    public Object selectAndOrderByProfit(ProductAnalyzeObject qo){
+        //1.根据条件查出数据
+        List<Map<String,Object>> result=productAnalyzeService.selectAndOrderByProfit(qo);
+        //2.要将分组类型及对应的amount
+        List<Map<String,Object>> list=new ArrayList<>();//
+        for (Map<String, Object> item : result) {
+            Map<String,Object> map=new HashMap<>();
+            map.put("typeName",item.get("name"));
+            map.put("totalProfit",item.get("totalProfit"));
             list.add(map);
         }
         return list;
