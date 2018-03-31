@@ -31,18 +31,6 @@ public class SaleAnalyzeController {
     @RequestMapping("view")
     public String view(Model model){
         maps=saleAnalyzeService.selectAll();
-        /*//柱状图需要：所有的分组类型，及对应分组类型的销售总额
-        //1.根据多条件所有的数据:排序
-        List<Map<String,Object>> result=saleAnalyzeService.selectAndOrder();
-        List<String> types=new ArrayList<>();//存储所有的分组类型
-        List<String> totalNumber=new ArrayList<>();//存储所有的销售总额
-        for (Map<String, Object> item : result) {
-            //根据每一个map里的分组类型（列名），取出对应的分组类型（页面上的）,销售总额也是这样
-            types.add(item.get("name").toString());//拿到当前map的分组类型,添加到集合中
-            totalNumber.add(item.get("totalNumber").toString());//拿到当前map的销售总额，添加到集合中
-        }
-        model.addAttribute("types", JSON.toJSONString(types));//转换成json格式，共享给页面
-        model.addAttribute("totalNumber", JSON.toJSONString(totalNumber));*/
         return "saleAnalyze";
     }
 

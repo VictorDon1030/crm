@@ -26,7 +26,12 @@ public interface ProductAnalyzeMapper {
     List<Map<String,Object>> queryByDate(QueryObject qo);
 
     /**
-     * 高级查询并排序：柱状图用
+     * 高级查询并排序：柱状图用（按照销量排序）
      */
     List<Map<String,Object>> selectAndOrder(ProductAnalyzeObject qo);
+
+    /**
+     * 高级查询并排序：柱状图用（按照毛利排序）
+     */
+    List<Map<String,Object>> selectAndOrderByProfit(ProductAnalyzeObject qo);
 }
