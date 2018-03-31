@@ -22,7 +22,7 @@ import java.util.List;
  * @date yyyy/MM/dd
  */
 @Service
-public class IManagerServiceImpl implements IManagerService {
+public class ManagerServiceImpl implements IManagerService {
 
     @Autowired
     private ManagerMapper managerMapper;

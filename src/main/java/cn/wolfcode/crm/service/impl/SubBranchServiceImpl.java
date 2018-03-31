@@ -18,7 +18,7 @@ import java.util.List;
  * @date yyyy/MM/dd
  */
 @Service
-public class ISubBranchServiceImpl implements ISubBranchService {
+public class SubBranchServiceImpl implements ISubBranchService {
 
     @Autowired
     private SubBranchMapper subBranchMapper;

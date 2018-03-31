@@ -76,7 +76,6 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
-<<<<<<<<< Temporary merge branch 1
     public List<Member> queryByKeyword(MemberBonusPointQueryObject qo) {
         return memberMapper.queryByKeyword(qo);
     }
