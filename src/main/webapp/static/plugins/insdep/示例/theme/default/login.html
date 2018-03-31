@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<link rel="shortcut icon" href="../../../favicon.ico" />
+<title>演示 - Codebox主题 - jQuery EasyUI 1.5.x Of Insdep theme examples 2.0.0</title>
+
+<!--顶部进度加载库-->
+<script src='../../../insdep/plugin/nprogress-0.2.0/nprogress.js'></script>
+<link rel='stylesheet' href='../../../insdep/plugin/nprogress-0.2.0/nprogress.css'/>
+<!--顶部进度加载库 end-->
+
+<!--CSS Reset-->
+<!--说明：根据使用要求，此处可选 reset.min.css 或 normalize.min.css-->
+<link href="../../../insdep/reset.min.css" rel="stylesheet" type="text/css">
+<!--CSS Reset end-->
+
+<!-- CSS Easyui Of insdep theme-->
+<link href="../../../insdep/easyui_full.css" rel="stylesheet" type="text/css">
+<!-- CSS Easyui Of insdep theme end-->
+
+<!-- CSS 登录样式主题样式 Default-->
+<link href="../../../insdep/theme.other/login.default/master.css" rel="stylesheet" type="text/css">
+<!-- CSS 登录样式主题样式 Default end-->
+
+<!-- Jquery-->
+<script type="text/javascript" src="../../../jquery-1.11.3.min.js"></script>
+<!-- Jquery end-->
+
+<!-- Jquery Easyui-->
+<script type="text/javascript" src="../../../jquery.easyui-1.5.2.min.js"></script>
+<!-- Jquery Easyui end-->
+
+<!-- JavaScript Easyui Of insdep theme 初始化扩展-->
+<script type="text/javascript" src="../../../insdep/insdep-extend.min.js"></script>
+<!-- JavaScript Easyui Of insdep theme 初始化扩展 end-->
+
+<script>
+    /*JavaScript Easyui 初始化当前控件*/
+    $.fn.linkbutton.defaults.height = 38;
+    $.fn.textbox.defaults.height = 38;
+    $.fn.combobox.defaults.height = 38;
+    $.extend($.fn.validatebox.defaults.tipOptions, {
+        onShow: function() {
+            /*设置新的tooltip样式*/
+            $(this).tooltip("tip").css({
+                color: "#fff",
+                border: "1px solid transparent",
+                padding:"10px 10px",
+                backgroundColor: "#ff7e00"
+            });
+            /*重置提示框位置*/
+            $(this).tooltip("reposition");
+        }
+    }); 
+</script>
+</head>
+
+<body>
+    <!--启动顶部加载进度条-->
+    <script>NProgress.start();</script>
+    <!--显示遮罩层-->
+    <div class="initial-mask" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#fff;z-index:9999999;"></div>
+
+    <!--登录窗口框架-->
+    <div class="theme-layout">
+
+        <!--账号登录窗口框架-->
+        <div class="theme-account-layout">
+            <div class="theme-corner-QRcode"></div>
+            <div class="theme-logo"></div>
+            <div class="theme-form">
+                <dl>
+                    <dd>
+                        <select class="easyui-combobox combobox-blue" name="dept" 
+                            data-options="
+                                width:'100%',
+                                editable:false
+                            ">   
+                            <option>请选择用户类型</option>   
+                            <option>学生</option>   
+                            <option>教师</option> 
+                        </select>  
+                    </dd>
+                    <dd>
+                        <hgroup class="group-mail">
+                            <input class="easyui-textbox" 
+                                data-options="
+                                    required:true,
+                                    prompt: 'Mail address'
+                                ">
+                            <label>@</label>
+                            <select class="easyui-combobox combobox-group-mail" name="mail"
+                                data-options="
+                                    editable:false,
+                                    width:'120'
+                                ">   
+                                <option>insdep.com</option>   
+                                <option>google.com</option>   
+                                <option>163.com</option>   
+                                <option>sina.com.cn</option>
+                            </select>
+                        </hgroup>
+                    </dd>
+                    <dd><input class="easyui-textbox" 
+                            data-options="
+                                required:true,
+                                prompt: 'Account or Number',
+                                width:'100%'
+                            "></dd>
+                    <dd><input class="easyui-textbox" 
+                            data-options="
+                                required:true,
+                                prompt: '123456',
+                                type:'password',
+                                width:'100%'
+                            "></dd>
+                    <dd><input class="easyui-textbox" 
+                            data-options="
+                                required:true,
+                                prompt: '验证码',
+                                width:'100%'
+                            "></dd>
+                    <dd><input class="easyui-textbox" 
+                            data-options="
+                                width:'100%',
+                                prompt: '短信验证码',
+                                buttonText:'获取短信验证码'
+                            "></dd>
+                    <dd>
+                        <input id="checkbox_password" name="checkbox_password" data-options="label:'记住密码'">
+                        <input id="checkbox_auto" name="checkbox_auto" data-options="label:'自动登录'">
+                    </dd>
+                    <dt><a class="easyui-linkbutton submit" href="index.html" style="width: 100px;">Sign</a> <a class="easyui-linkbutton">inforgotten ?</a></dt>
+                </dl> 
+
+
+                <div id="browser_prompt" class="alert alert-warning">
+                  <div class="alert-icons"></div>
+                  <b>提示：</b> <p>您当前的浏览器版本过低,可能会导致部分功能无法使用,建议立即升级你的浏览器或更换其他浏览器.</p>
+                </div>
+
+            </div>
+        </div>
+        <!--账号登录窗口框架 end-->
+
+        <!--二维码登录窗口框架-->
+        <div class="theme-code-layout hide">
+            <div class="theme-corner-close"></div>
+            <div class="theme-caption">APP扫码登录</div>
+            <div class="theme-describe">请使用最新版APP进行扫码登录</div>
+            <div class="theme-QRcode"><img src="../../../insdep/theme.other/login.default/images/examples_QRcode.png"></div>
+        </div>
+        <!--二维码登录窗口框架-->
+
+        <div class="theme-footer-layout">
+            &copy; 2007 - <script>var year = new Date();document.write(year.getFullYear());</script> Insdep.Com. All Rights Reserved
+        </div>
+        
+    </div>
+    <!--登录窗口框架 end-->
+
+
+    <script>
+    /* 页面加载完成后 */
+    // JavaScript #1
+    $(document).ready(function(){ 
+
+        /*EasyUI 返回combobox的面板对象,并给combobox面板赋值CSS类*/
+        var combobox_blue_panel=$('.combobox-blue').combobox('panel');
+            combobox_blue_panel.panel({cls:"combobox-blue-panel"}); 
+
+        /*EasyUI Mail组合表单面板对象*/
+        var combobox_group_mail_panel=$('.combobox-group-mail').combobox('panel');
+            combobox_group_mail_panel.panel({cls:"combobox-group-mail-panel"}); 
+
+        /*QRcode角标翻页*/
+        $(".theme-corner-QRcode").on("click",function(){
+            $(".theme-account-layout").addClass("hide");
+            $(".theme-code-layout").removeClass("hide");
+        });
+        $(".theme-corner-close").on("click",function(){
+            $(".theme-account-layout").removeClass("hide");
+            $(".theme-code-layout").addClass("hide");
+        });
+        /*QRcode角标翻页 end*/
+
+
+        /*结束顶部加载进度条*/
+        NProgress.done();
+        /*移除遮罩层*/
+    　　$(".initial-mask").remove();
+
+        /*检测浏览器是否为IE8以下*/
+        if (!$.support.leadingWhitespace) {
+            $("#browser_prompt").show();
+        }
+
+
+    }); 
+    // JavaScript #1
+    /* 页面加载完成后 end*/
+    </script>
+
+
+    <script>
+    /*页面操作脚本(根据需求自行调整)*/
+
+    /*记住密码&自动登录表单控制脚本*/
+
+    var checkbox_auto=$("#checkbox_auto").checkbox({
+        onChange: function(checked) {
+            checked?checkbox_password.checkbox("check"):checkbox_password.checkbox("uncheck");
+        }
+    });
+    var checkbox_password=$("#checkbox_password").checkbox({
+        onChange: function(checked) {
+            if(checkbox_auto.checkbox('isCheck')) checkbox_auto.checkbox("check");
+        }
+    });
+
+    /*记住密码&自动登录表单控制脚本 end*/
+
+    </script>
+
+
+
+
+    <!--百度统计脚本(可删除)-->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?2b3f4e046085001a80d501ac63aded48";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <!--百度统计脚本(可删除) end-->
+
+</body>
+</html>

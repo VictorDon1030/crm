@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.StairMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Stair">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="secondary_id" property="secondary_id" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from stair
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into stair (name,secondary_id)
+    values (#{name},#{secondary_id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update stair
+    set name = #{name},
+      secondary_id = #{secondary_id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, name, secondary_id
+    from stair
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, secondary_id
+    from stair
+  </select>
+</mapper>
