@@ -47,5 +47,5 @@ public interface MemberMapper {
 
     Integer selectPoints(Long id);
 
-    void updateConsumePoints(Long id, Integer ret);
+    void updateConsumePoints(@Param("id") Long id, @Param("ret") Integer ret);
 }

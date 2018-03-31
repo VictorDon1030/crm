@@ -82,4 +82,9 @@ public class GiftServiceImpl implements IGiftService {
         List<Gift> rows = giftMapper.query4list(qo);
         return new PageResult(total, rows);
     }
+
+    @Override
+    public void updateInventory(Long id,Integer number) {
+        giftMapper.updateInventory(id,number);
+    }
 }

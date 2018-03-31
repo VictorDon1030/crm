@@ -47,4 +47,9 @@ public interface IGiftService {
      */
     PageResult query(QueryObject qo);
 
+    /**
+     * 更新礼品剩余数量的方法
+     * @param id 要改变数量的id
+     */
+    void updateInventory(Long id,Integer number);
 }

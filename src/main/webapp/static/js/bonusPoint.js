@@ -48,13 +48,14 @@ $(function () {
             memberSimpleInfo.datagrid("selectRow", 0)
         },
         onSelect: function (index, row) {
-            $("#memberName,#memberName_gift").html(row.name);
-            $("#memberNum,#memberNum_gift").html(row.memberNum);
-            $("#grade,#grade_gift").html(row.grade.name);
-            $("#points,#points_gift").html(row.points);
-            $("#balance,#balance_gift").html(row.balance);
+            $("#memberName,#memberName_gift").val(row.name);
+            $("#memberNum,#memberNum_gift").val(row.memberNum);
+            $("#grade,#grade_gift").val(row.grade.name);
+            $("#points,#points_gift").val(row.points);
+            $("#balance,#balance_gift").val(row.balance);
             $("#birthday,#birthday_gift").html(row.birthday);
             $("#hiddenMemberId,#hiddenMemberId_gift").val(row.id);
+            $("#comsumPoints,#comsumPoints_gift").val(row.consumePoints);
             var sumPoints = 0;
             // var comsumPoints = 0;
             $.each(row.bonusPointRecord, function (index, item) {
@@ -66,7 +67,7 @@ $(function () {
                                }*/
 
             });
-            $("#sumPoints,#sumPoints_gift").html(sumPoints);
+            $("#sumPoints,#sumPoints_gift").val(sumPoints);
             // $("#comsumPoints").html(comsumPoints);
 
 
@@ -339,7 +340,15 @@ $(function () {
                                             //刷新列表
                                             $("#memberInfo_gift").datagrid("reload");
                                             //让礼品的剩余数量减少
-                                            // $.post('/')
+                                            $.post('/gift/updateInventory.do',{id:giftId,number:number},function (data) {
+                                                if (!data.success) {
+                                                    $.messager.alert("温馨提示",data.msg,"info")
+                                                } else {
+                                                    //刷新列表
+                                                    giftList.datagrid("reload");
+                                                    giftList4choose.datagrid("reload");
+                                                }
+                                            },'json')
 
                                             $.messager.alert("温馨提示","恭喜您兑换保成功","info");
                                         } else {

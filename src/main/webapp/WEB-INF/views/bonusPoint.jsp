@@ -31,25 +31,26 @@
                             <div class="panel_user_information">
                                 <h3 id="memberName" style="margin-left: 110px">会员姓名</h3>
                                 <ul>
-                                    <li><span style="font-size: medium">会员卡号：</span><span
-                                            style="font-size: medium" id="memberNum"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员等级：</span><span
-                                                style="font-size: medium" id="grade"></span></li>
+                                    <li><span style="font-size: medium">会员卡号：</span>
+                                        <input type="text" readonly style="font-size: medium;border: 0px;width: 100px" id="memberNum"/>
+                                        <span style="font-size: medium">会员等级：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" id="grade"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium;">当前积分：</span><span
-                                            style="font-size: medium;" id="points"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员余额：</span><span
-                                                style="font-size: medium" class="font-red" id="balance"></span></li>
+                                    <li><span style="font-size: medium;">当前积分：</span><input readonly
+                                                                                            style="font-size: medium;border: 0px;width: 100px" id="points"/>
+                                        <span style="font-size: medium">会员余额：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red" id="balance"/>
+                                    </li>
                                     &emsp;
-                                    <li><span style="font-size: medium">累计积分：</span><span
-                                            style="font-size: medium" id="sumPoints"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员欠款：</span><span
-                                                style="font-size: medium" class="font-red"></span></li>
+                                    <li><span style="font-size: medium">累计积分：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" id="sumPoints"/>
+                                        <span style="font-size: medium">会员欠款：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium">已用积分：</span><span
-                                            style="font-size: medium" id="comsumPoints"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
-                                                style="font-size: medium" class="font-red"></span></li>
+                                    <li><span style="font-size: medium">已用积分：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" id="comsumPoints"/>
+                                        <span style="font-size: medium">累计消费：</span><input readonly
+                                                                                           style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
                                     &emsp;
                                     <li><span style="font-size: medium">会员生日：</span><span
                                             style="font-size: medium" id="birthday"></span>
@@ -198,26 +199,26 @@
                             <div class="panel_user_information">
                                 <h3 id="memberName_gift" style="margin-left: 110px">会员姓名</h3>
                                 <ul>
-                                    <li><span style="font-size: medium">会员卡号：</span><span
-                                            style="font-size: medium" id="memberNum_gift"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员等级：</span><span
-                                                style="font-size: medium" id="grade_gift"></span></li>
+                                    <li><span style="font-size: medium">会员卡号：</span>
+                                        <input type="text" readonly style="font-size: medium;border: 0px;width: 100px" id="memberNum_gift"/>
+                                        <span style="font-size: medium">会员等级：</span><input readonly
+                                                style="font-size: medium;border: 0px;width: 100px" id="grade_gift"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium;">当前积分：</span><span
-                                            style="font-size: medium;" id="points_gift"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员余额：</span><span
-                                                style="font-size: medium" class="font-red" id="balance_gift"></span>
+                                    <li><span style="font-size: medium;">当前积分：</span><input readonly
+                                            style="font-size: medium;border: 0px;width: 100px" id="points_gift"/>
+                                        <span style="font-size: medium">会员余额：</span><input readonly
+                                                style="font-size: medium;border: 0px;width: 100px" class="font-red" id="balance_gift"/>
                                     </li>
                                     &emsp;
-                                    <li><span style="font-size: medium">累计积分：</span><span
-                                            style="font-size: medium" id="sumPoints_gift"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">会员欠款：</span><span
-                                                style="font-size: medium" class="font-red"></span></li>
+                                    <li><span style="font-size: medium">累计积分：</span><input readonly
+                                            style="font-size: medium;border: 0px;width: 100px" id="sumPoints_gift"/>
+                                        <span style="font-size: medium">会员欠款：</span><input readonly
+                                                style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
                                     &emsp;
-                                    <li><span style="font-size: medium">已用积分：</span><span
-                                            style="font-size: medium" id="comsumPoints_gift"></span>
-                                        &emsp; &emsp;&emsp;&emsp; <span style="font-size: medium">累计消费：</span><span
-                                                style="font-size: medium" class="font-red"></span></li>
+                                    <li><span style="font-size: medium">已用积分：</span><input readonly
+                                            style="font-size: medium;border: 0px;width: 100px" id="comsumPoints_gift"/>
+                                        <span style="font-size: medium">累计消费：</span><input readonly
+                                                style="font-size: medium;border: 0px;width: 100px" class="font-red"/></li>
                                     &emsp;
                                     <li><span style="font-size: medium">会员生日：</span><span
                                             style="font-size: medium" id="birthday_gift"></span>
@@ -240,7 +241,7 @@
                            style="width:80px">搜索</a>
                     </div>
                 </td>
-                <td valign="top">
+                <td valign="top" style="width: 500px">
                     <form method="post">
                         <input id="hiddenMemberId_gift" type="hidden" name="member.id"/>
                         <input id="giftId" type="hidden" />

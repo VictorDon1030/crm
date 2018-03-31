@@ -28,6 +28,11 @@
         unit           = #{unit}
         WHERE id = #{id}
     </update>
+    <update id="updateInventory">
+        UPDATE gift
+        SET inventory = inventory - #{number}
+        WHERE id = #{id}
+    </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         SELECT
             id,
