@@ -6,20 +6,23 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-
-@Setter
 @Getter
-public class SystemLog extends BaseDomain {
+@Setter
+public class Supplier extends BaseDomain{
 
-    private Employee opUser;
+    private String name;
+
+    private String realname;
+
+    private String tel;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date opTime;
+    private Date vdate;
 
-    private String opIp;
+    private String address;
 
-    private String function;
+    private String info;
+    private Employee employee;
 
-    private String params;
 }
