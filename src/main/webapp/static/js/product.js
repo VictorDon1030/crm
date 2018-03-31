@@ -63,7 +63,7 @@ $(function () {
         var create = new Date();
         var create1 = create.getFullYear();
         var create2 = create.getMonth()+1;
-        var create4 = create.getMonth()+2;
+        var create4 = create.getMonth()+3;
         var create3 = create.getDate();
 
         var examine1 = new Date();
@@ -71,48 +71,52 @@ $(function () {
         var examine3 = new Date();
         var examine4 = new Date();
 
-        var pastDue = 0;
-        var pastDue2 = 0;
+        var num = 0;
+        var num2 = 0;
 
         var totalPrices = 0;
         //console.log(data.total);
         for(var i = 0; i < data.length; i++){
             totalPrices += data[i].unitpPrice;
-            var a = data[i].pastDueTime;
-            //console.log(a);
-            var split1 = a.split("-");
-            var split2 = a.split("-");
-            var split3 = a.split("-");
-            var split4 = a.split("-");
-            examine1.setFullYear(split1[0]);
-            examine2.setFullYear(split1[1]);
-            examine3.setFullYear(split1[2]);
-            examine4.setFullYear(split1[1]);
-            // console.log(examine1.getFullYear());
-            if (create1 >= examine1.getFullYear()){
-                //console.log(create1, split1);
-                if (create2 >= examine2.getFullYear()){
-                    if (create3 >= examine3.getFullYear()){
-                        pastDue++
+            if(data[i].pastDueTime != null && data[i].pastDueTime != ''){
+                var a = data[i].pastDueTime;
+                //console.log(data.length);
+                var split1 = a.split("-");
+                var split2 = a.split("-");
+                var split3 = a.split("-");
+                var split4 = a.split("-");
+                examine1.setFullYear(split1[0]);
+                examine2.setFullYear(split1[1]);
+                examine3.setFullYear(split1[2]);
+                examine4.setFullYear(split1[1]);
+                // console.log(examine1.getFullYear());
+                if (create1 >= examine1.getFullYear()){
+                    //console.log(create1, split1);
+                    if (create2 >= examine2.getFullYear()){
+                        if (create3 >= examine3.getFullYear()){
+                            num++
+                        }
                     }
                 }
-            }
-            if (create1 >= examine1.getFullYear()){
-                //console.log(create1, split1);
-                if (create4 >= examine4.getFullYear()){
-                    if (create3 >= examine3.getFullYear()){
-                        pastDue2++
+                //console.log(create4 , examine4.getFullYear());
+                if (create1 >= examine1.getFullYear()){
+                    //console.log(create1, split1);
+                    if (create4 >= examine4.getFullYear()){
+                        if (create3 >= examine3.getFullYear()){
+                            num2++;
+                        }
                     }
                 }
             }
             //console.log(pastDue);
         }
+        //console.log(num2);
         //console.log(count);
         $("#piece").html(data.length); //共有多少商品
 
         $("#avgPrice").html((totalPrices / data.length).toFixed(2));//设置平均价格
-        $("#pastDue").html(pastDue); //设置已经过期商品总数量
-        $("#beAboutTo").html(pastDue2); //设置两个月后过期商品总数量
+        $("#pastDue").html(num); //设置已经过期商品总数量
+        $("#beAboutTo").html(num2-num); //设置两个月后过期商品总数量
 
         //目的拿到时间加
     },"json");
@@ -136,9 +140,9 @@ $(function () {
                 field: 'imagePath', title: '商品图片', width: 100, align: 'center', nowrap: true,
                 formatter: function (value, rows, index) {
                     //var im = '<img src="/static/spaceImgPath/' + (index + 1) + '.png"/>';
-                    //console.log(im);
-                    if(rows.id == rows.imagePath){
-                        return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/' + value + '.png"/>';
+                    //console.log(rows.imagePath);
+                    if(rows.imagePath != null && rows.imagePath != ''){
+                        return '<img width="120px" height="60px" border="0" src= '+rows.imagePath+ '>';
                     }else {
                         return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/2117.png"/>';
                     }
@@ -394,23 +398,28 @@ function cancel2() {
 }
 //子窗口提交按钮 保存按钮
 function save2() {
-    $("#product2_form").form("submit", { //表单中的submit方法}
-        url: '/stair/saveOrUpdate.do',
-        success: function (data) { //data响应回来数据
-            data = $.parseJSON(data); //转成json对象
-            if (data.success) {
-                $.messager.alert("温馨提示", "保存成功", "info", function () {
-                    //关闭弹出的窗口
-                    $("#product2_dialog").dialog("close", true);
-                    //product_dialog.dialog("close",true);
-                    //刷新datagrid数据表格
-                    $("#product2_dialog").datagrid("reload");
+    var value = $("[name=type]:checked").val();
+    var category = $("#category").val();
+    //判断是否选中
+    if (!value) {
+        $.messager.alert("温馨提示", "亲,请选择需要的类型", "info");
+        return;
+    }
+    $.post("/stair/saveOrUpdate.do", {"name":category, "secondary_id":value}, function (data) {
+        if (data.success) {
+            $.messager.alert("温馨提示", "操作成功", "info", function () {
+                $("#product2_dialog").dialog("close");
+                $('#stair').combobox({
+                    url : "/stair/list.do",
+                    queryParams: {
+
+                    }
                 });
-            } else {
-                $.messager.alert("温馨提示", data.msg);
-            }
+            });
+        } else {
+            $.messager.alert("温馨提示", data.msg);
         }
-    })
+    },"json");
 }
 //商品单位 TODO
 function newSave2() {

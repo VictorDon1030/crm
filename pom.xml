@@ -209,7 +209,7 @@
 
   <build>
     <plugins>
-      <!--Tomcat7插件
+      <!--Tomcat7插件-->
       <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
@@ -220,7 +220,6 @@
               <port>80</port>
           </configuration>
       </plugin>
-      -->
       <!--Java编译器插件-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

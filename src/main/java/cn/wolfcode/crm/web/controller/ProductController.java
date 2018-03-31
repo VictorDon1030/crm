@@ -6,16 +6,19 @@ import cn.wolfcode.crm.query.ProductQueryObject;
 import cn.wolfcode.crm.service.IProductService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
+import cn.wolfcode.crm.util.UploadUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -36,6 +39,8 @@ public class ProductController {
     private IProductService productService;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private ServletContext context;
 
     @RequestMapping("view")
     public String view(){
@@ -74,7 +79,7 @@ public class ProductController {
         return productService.get(id);
     }
 
-    @RequestMapping("saveOrUpdate")
+ /*   @RequestMapping("saveOrUpdate")
     @ResponseBody
     public Object saveOrUpdate(Product entity){
         JsonResult jsonResult = new JsonResult();
@@ -85,7 +90,35 @@ public class ProductController {
             jsonResult.mark("操作失败");
         }
         return jsonResult;
+    }*/
+//  <%--post 1 提交表单  enctype  2 编码类型  3 上传控件 controller/ MultipartFile--%>
+    //保存的时候路径+名称一起保存 然后就可以直接找到图片
+    @RequestMapping("saveOrUpdate")
+    @ResponseBody
+    public Object saveOrUpdate(Product entity, MultipartFile pic){ //pic 与 input商品图片 name 相同
+        JsonResult result = new JsonResult();
+        try {
+            //删除商品的图片:1用户传递了图片 2:当前商品之前是有图片的
+            if(pic != null && !StringUtils.isEmpty(entity.getImagePath())){
+                //如果有图片先删除
+                UploadUtil.deleteFile(context, entity.getImagePath());
+            }
+            //保存上传文件 判断一下不为null
+            if (pic != null){
+                String imagePath = UploadUtil.upload(pic, context.getRealPath("/static/upload"));
+                System.out.println(context.getRealPath("/static/upload"));
+                //获取到再设置到
+                entity.setImagePath(imagePath);
+            }
+            productService.saveOrUpdate(entity);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.mark("保存失败");
+        }
+        return result;
     }
+
+
     @RequestMapping("save")
     @ResponseBody
     public Object save(Product entity){

@@ -31,17 +31,16 @@
         &emsp; <input id="keyword" class="easyui-textbox" prompt="商品名称/品牌/销售单价" style="width:190px; height:32px;">
         &emsp; <input id="beginDate" class="easyui-datebox" prompt="开始时间" style="width:100px; height:32px;"><span style="font-size: 16px;">至</span>
         <input id="endDate" class="easyui-datebox" prompt="结束时间" style="width:100px; height:32px;">
-        <a class="easyui-linkbutton"  data-options="iconCls:'icon-search', plain:true " data-cmd="searchs"><span style="font-size: 18px;">关键字查询</span></a>
+        <a class="easyui-linkbutton"  data-options="iconCls:'icon-search', plain:true " data-cmd="searchs"><span style="font-size: 18px;">筛选</span></a>
         &emsp;&emsp;<a class="easyui-linkbutton" data-options="iconCls:'icon-undo', plain:true " onclick="window.open('/product/derive.do')"><span style="font-size: 20px;">导出</span></a></p>
         <p>
         <form action="/product/tolead.do" method="post" enctype="multipart/form-data">
-        &emsp;<input type="file" name="file"/>
-        <input type="submit" value="上传"/>
-
-        &emsp;&emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-cancel', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
+        &emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-cancel', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
         &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-ok', plain:true " data-cmd="putaway"><span style="font-size: 20px;">商品上架</span></a>
-        &emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-tip', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-tip', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
         &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examineSoldOut"><span style="font-size: 18px;" >查看已下架商品</span></a>
+        &emsp;&emsp;&emsp;&emsp;&emsp; <input class="easyui-filebox"  name="file" data-options="buttonText:'选择excl',buttonAlign: 'left', plain:true" style="width:150px; height: 35px;"/>
+        <input type="submit" value="导入" style="height:32px;"/>
         </form>
         </p>
         <form id="min_form" method="post">
@@ -94,7 +93,7 @@
 
 <!--弹窗 编辑页面 closed 隐藏起来 点击新增打开 -->
 <div id="product_dialog" class="easyui-dialog">
-    <form id="product_form" method="post">
+    <form id="product_form" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id"/>
             <tr >
                 <center><span style="font-size: 20px;font-weight: bold; line-height: 45px">新增商品</span></center>
@@ -104,7 +103,7 @@
                 &emsp;
                 <td >
                  <span style="font-size: 20px;">一级分类</span>&emsp;
-                <td><input id="stair" name="stair.id" class="easyui-combobox" style="width:190px; height:35px;"></td>
+                <td><input id="stair" name="unit" class="easyui-combobox" style="width:190px; height:35px;"></td>
               <%--  <input id="gardenCombox" name="garden" qr="garden" required="true" type="hidden" class="queryRequired" />--%>
                 <input type="button" onclick="newAdd()" value="新增" style="background-color: #00ffff">
                 </td>
@@ -189,7 +188,7 @@
             <tr>
                 <td>&emsp;
                     <span style="font-size: 18px;">商品单位</span>&emsp;
-                    <select name="unit" class="easyui-combobox" style="width:200px; height:35px;">
+                    <select name="" class="easyui-combobox" style="width:200px; height:35px;">
                         <option value="件" selected="">件</option>
                         <option value="条" selected="">条</option>
                     </select>
@@ -231,6 +230,17 @@
                     <input type="hidden" id="readBarcodeInfo">
 
                 </td>
+                <td>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input class="easyui-filebox" name="pic" data-options="buttonText:'上传图片',buttonAlign: 'left', plain:true" style="width:180px; height: 40px; background-color: #7dc9e2"/>
+                    <%--<input type="submit" value="上传图片"/>--%>
+                </td>
+               <%-- <div>
+                    <div id="thelist" class="uploader" name="pic">
+                        <div class="btns">
+                            <div>选择图片</div>
+                        </div>
+                    </div>
+                </div>--%>
             </tr></br>
 
             <tr>
@@ -242,9 +252,10 @@
                             <span class="testswitch-inner" data-on="开" data-off="关"></span>
                             <span class="testswitch-switch"></span>
                     </div>
-
                 </td>
             </tr></br>
+
+
     </form>
 
 
@@ -262,13 +273,15 @@
             <p align="center"><span style="font-size: 18px;" >新增大分类</span></p>
             <div>
                 &emsp;&emsp;<span style="font-size: 18px;"> 选择类型 &nbsp;:</span>
-                &emsp;<a id="addStyle" class="easyui-linkbutton" data-options="plain:true" onclick="genre()"><span style="font-size: 18px;">产品类型</span></a>
-                &emsp;<a id="addStyle2" class="easyui-linkbutton" data-options="plain:true" onclick="serve()"><span style="font-size: 18px;">服务产品</span></a>
+               <%-- &emsp;<a id="addStyle" class="easyui-linkbutton" data-options="plain:true" onclick="genre()"><span style="font-size: 18px;">产品类型</span></a>
+                &emsp;<a id="addStyle2" class="easyui-linkbutton" data-options="plain:true" onclick="serve()"><span style="font-size: 18px;">服务产品</span></a>--%>
+                <input type="radio"  maxlength="50"   name="type"  value="1" prompt="">产品类型</input>
+                <input type="radio"  maxlength="50"   name="type"  value="0" prompt="">服务产品</input>
             </div>
 
         <p>&emsp;
             &emsp;<span style="font-size: 18px;">类别名称 &nbsp;:</span>&emsp;
-            <input type="text" class="easyui-textbox" maxlength="50" data-options="required:true"  name="name"  prompt="输入名称"style="width:180px; height:30px;"/>
+            <input type="text" id="category" class="easyui-textbox" maxlength="50" data-options="required:true"  name="name"  prompt="输入名称"style="width:180px; height:30px;"/>
         </p>
     </form>
 </div>
