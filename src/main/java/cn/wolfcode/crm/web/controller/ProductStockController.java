@@ -44,6 +44,12 @@ public class ProductStockController {
 
         return productStockService.query(qo);
     }
+    @RequestMapping("query")
+    @ResponseBody
+    public Object query()throws Exception{
+
+        return productStockService.selectAll();
+    }
     @RequestMapping("listNoaudit")
     @ResponseBody
     public PageResult listNoaudit(ProductStockQueryObject qo) throws Exception {

@@ -15,7 +15,7 @@
             <result column="pastDueTime" property="pastDueTime"/>
             <result column="specification" property="specification"/>
         </association>
-        <association property="depot" javaType="depot" columnPrefix="depot_" fetchType="eager">
+        <association property="depot" javaType="cn.wolfcode.crm.domain.Depot" columnPrefix="depot_" fetchType="eager">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
