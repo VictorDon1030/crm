@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.DepotMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Depot">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="sn" property="sn" />
+    <result column="address" property="address" />
+    <result column="state" property="state" />
+    <result column="info" property="info" />
+    <result column="vdate" property="vdate" />
+    <association property="employee" javaType="employee" fetchType="eager"
+                 column="employee_id" select="cn.wolfcode.crm.mapper.EmployeeMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from depot
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into depot (name, sn, address, state, info, vdate,employee_id)
+    values (#{name}, #{sn}, #{address}, #{state}, #{info}, #{vdate},#{employee.id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update depot
+    set name = #{name},
+      sn = #{sn},
+      address = #{address},
+      state = #{state},
+      info = #{info},
+
+    employee_id = #{employee.id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, name, sn, address, state, info, vdate,employee_id
+    from depot
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, sn, address, state, info, vdate,employee_id
+    from depot
+  </select>
+
+  <!--分页-->
+  <select id="queryCount" resultType="int">
+    select count(id) from depot
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, name, sn, address, state, info, vdate,employee_id
+    from depot
+    limit #{start},#{rows}
+  </select>
+    <!--停用-->
+    <update id="changeState">
+        UPDATE depot SET state= state^1 WHERE id =#{id}
+    </update>
+</mapper>

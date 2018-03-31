@@ -10,6 +10,7 @@ import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IMemberService;
 import cn.wolfcode.crm.util.PageResult;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,6 +123,17 @@ public class MemberServiceImpl implements IMemberService {
       if(point < points) {
           throw new RuntimeException("对不起,兑换失败!当前会员积分余额"+point+"不足"+points+",请确定后重试!");
       }
+    }
+
+    @Override
+    public void updatePasswordById(Member member) {
+        Md5Hash md5Hash = new Md5Hash(member.getPassword(), member.getName(), 2);
+        /*if(entity.getPassword()!= null) {
+                Md5Hash md5Hash = new Md5Hash(entity.getPassword(), entity.getUsername(), 2);
+                entity.setPassword(md5Hash.toString());
+            }*/
+        member.setPassword(md5Hash.toString());
+        memberMapper.updatePasswordById(member);
     }
 
 }

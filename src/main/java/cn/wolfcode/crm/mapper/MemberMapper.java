@@ -48,4 +48,10 @@ public interface MemberMapper {
     Integer selectPoints(Long id);
 
     void updateConsumePoints(@Param("id") Long id, @Param("ret") Integer ret);
+
+    void updatePasswordById(Member member);
+
+    void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
+
+    void updatePoints(@Param("points") BigDecimal points,@Param("mumberId") Long id);
 }
