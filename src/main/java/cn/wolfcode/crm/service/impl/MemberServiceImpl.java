@@ -76,6 +76,7 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
+<<<<<<<<< Temporary merge branch 1
     public List<Member> queryByKeyword(MemberBonusPointQueryObject qo) {
         return memberMapper.queryByKeyword(qo);
     }
@@ -102,6 +103,28 @@ public class MemberServiceImpl implements IMemberService {
         bonusPointRecord.setRemark("积分清零");
         bonusPointRecordMapper.insert(bonusPointRecord);
         memberMapper.clearPoints(id);
+    }
+
+
+    /**
+     * 校验会员密码的方法
+     *
+     * @param password
+     */
+    @Override
+    public void checkPass(String password,Long id) {
+       Member member = memberMapper.checkPass(password,id);
+        if (member == null) {
+            throw new RuntimeException("密码不正确,请确定后重新输入");
+        }
+    }
+
+    @Override
+    public void checkPoints(Integer points,Long id) {
+       Integer point = memberMapper.selectPoints(id);
+      if(point < points) {
+          throw new RuntimeException("对不起,兑换失败!当前会员积分余额"+point+"不足"+points+",请确定后重试!");
+      }
     }
 
     @Override

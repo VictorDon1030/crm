@@ -1,6 +1,6 @@
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- 该页面使用的主题样式文件 /themes/这里修改/easyui.css-->
 <link rel="stylesheet" type="text/css" href="/static/plugins/easyui/themes/default/easyui.css">
 <!-- 图标样式文件 -->
