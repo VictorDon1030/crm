@@ -1,6 +1,8 @@
 package cn.wolfcode.crm.mapper;
 
 import cn.wolfcode.crm.domain.CheckoutComeBill;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CheckoutComeBillMapper {
@@ -31,4 +33,11 @@ public interface CheckoutComeBillMapper {
     CheckoutComeBill selectSn(String sn);
 
     Long selectSnSetOdd();
+
+    /**
+     * 查询会员累计消费金额
+     * @param id
+     * @return
+     */
+    List<BigDecimal> selectBillAmount(Long id);
 }

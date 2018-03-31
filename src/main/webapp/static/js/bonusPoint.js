@@ -31,6 +31,7 @@ $(function () {
         }
 
     });
+    var index;
     memberSimpleInfo.datagrid({
         url: '/member/listByKeyword.do',
         columns: [[
@@ -44,8 +45,15 @@ $(function () {
             {field: 'phone', width: 200, align: 'center', title: '电话'},
             {field: 'balance', width: 100, align: 'center', title: '余额'}
         ]],
+        onBeforeLoad: function () {
+            index = memberSimpleInfo.datagrid("getRowIndex", memberSimpleInfo.datagrid('getSelected'));
+        },
         onLoadSuccess: function () {
-            memberSimpleInfo.datagrid("selectRow", 0);
+            if (index == -1) {
+                memberSimpleInfo.datagrid("selectRow", 0);
+            } else {
+                memberSimpleInfo.datagrid("selectRow", index);
+            }
         },
         onSelect: function (index, row) {
             $("#memberName,#memberName_gift").html(row.name);
@@ -56,6 +64,9 @@ $(function () {
             $("#birthday,#birthday_gift").val(row.birthday);
             $("#hiddenMemberId,#hiddenMemberId_gift").val(row.id);
             $("#comsumPoints,#comsumPoints_gift").val(row.consumePoints);
+            $.post("/checkoutComeBill/selectBillAmount.do", {id: row.id}, function (data) {
+                $("#totalConsumeAmounts,#totalConsumeAmounts_gift").val(data);
+            });
             var sumPoints = 0;
             // var comsumPoints = 0;
             $.each(row.bonusPointRecord, function (index, item) {
@@ -215,11 +226,11 @@ $(function () {
                         //刷新积分记录表
                         memberInfo.datagrid("reload");
                         //先获得当前的选中行
-                        var index = memberSimpleInfo.datagrid("getRowIndex",memberSimpleInfo.datagrid('getSelected'));
-
+                        memberSimpleInfo.datagrid('load');
                         //刷新会员列表
-                        memberSimpleInfo.datagrid("reload");
                         memberSimpleInfo.datagrid('selectRow', index);
+                        //将金额中的数据清空
+                        $("#changeAmout").val("");
 
                     } else {
                         $.messager.alert("温馨提示", data.msg, "info");
@@ -246,12 +257,10 @@ $(function () {
                         }, "json");
                         //刷新积分记录表
                         memberInfo.datagrid("reload");
-                        //先获得当前的选中行
-                        var index = memberSimpleInfo.datagrid("getRowIndex",memberSimpleInfo.datagrid('getSelected'));
-                        console.log(index);
 
-                        //刷新会员列表
+                        //先获得当前的选中行
                         memberSimpleInfo.datagrid("reload");
+                        //刷新会员列表
                         memberSimpleInfo.datagrid('selectRow', index);
                     }
                 });
@@ -301,8 +310,8 @@ $(function () {
         },
         chooseGift: function () {
             //判断当前用户的积分是否为0
-            var points = $("#points_gift").html();
-            if (points == 0) {
+            var points = $("#points_gift").val();
+            if (points === 0) {
                 $.messager.alert("温馨提示", "当前用户积分为0", "info");
                 return;
             }
@@ -321,6 +330,8 @@ $(function () {
             chooseGift();
         },
         conformExchange: function () {
+           if($("#conform_exchange").linkbutton('options').disabled == false) {
+
             var memberId = $("#hiddenMemberId_gift").val();
             //先输入会员密码进行校验
             $.messager.prompt('提示信息', '请输入当前会员的密码：', function (password) {
@@ -349,27 +360,36 @@ $(function () {
                                         costPoints: costPoints,
                                         'members[0].id': memberId,
                                         number: number
-                                    },function (data) {
+                                    }, function (data) {
 
-                                        if (data.success){
+                                        if (data.success) {
                                             //刷新列表
                                             $("#memberInfo_gift").datagrid("reload");
                                             //让礼品的剩余数量减少
-                                            $.post('/gift/updateInventory.do',{id:giftId,number:number},function (data) {
+                                            $.post('/gift/updateInventory.do', {
+                                                id: giftId,
+                                                number: number
+                                            }, function (data) {
                                                 if (!data.success) {
-                                                    $.messager.alert("温馨提示",data.msg,"info")
+                                                    $.messager.alert("温馨提示", data.msg, "info")
                                                 } else {
                                                     //刷新列表
                                                     giftList.datagrid("reload");
                                                     giftList4choose.datagrid("reload");
-                                                }
-                                            },'json')
+                                                    //刷新会员列表
+                                                    memberSimpleInfo.datagrid("reload");
+                                                    //将记录删除
+                                                    methodObj.deleteChoose();
 
-                                            $.messager.alert("温馨提示","恭喜您兑换保成功","info");
+
+                                                }
+                                            }, 'json');
+
+                                            $.messager.alert("温馨提示", "恭喜您兑换保成功", "info");
                                         } else {
-                                            $.messager.alert("温馨提示","对不起,操作失败,请联系管理员","info");
+                                            $.messager.alert("温馨提示", "对不起,操作失败,请联系管理员", "info");
                                         }
-                                    },'json')
+                                    }, 'json')
 
 
                                 }
@@ -379,6 +399,7 @@ $(function () {
                     }, "json");
                 }
             });
+           }
 
         },
         deleteChoose: function () {
