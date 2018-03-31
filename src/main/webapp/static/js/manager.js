@@ -76,6 +76,17 @@ $(function () {
         //刷新按钮
         reloadData: function () {
             manager_datagrid.datagrid("load");
+        },
+        //高级查询
+        searchs: function () {
+            var roleId = $("#roleId").textbox("getValue");
+            var beginDate = $("#beginDate").textbox("getValue");
+            var endDate = $("#endDate").textbox("getValue");
+            manager_datagrid.datagrid("load", {
+                roleId:roleId,
+                beginDate:beginDate,
+                endDate:endDate
+            });
         }
     };
 

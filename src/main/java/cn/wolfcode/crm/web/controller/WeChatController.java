@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.WeChat;
+import cn.wolfcode.crm.query.WeChatQuery;
 import cn.wolfcode.crm.service.IWeChatService;
 import cn.wolfcode.crm.util.JsonResult;
 import org.apache.shiro.authz.annotation.Logical;
@@ -27,6 +28,12 @@ public class WeChatController {
     @ResponseBody
     public Object selectAll(){
         return weChatService.selectAll();
+    }
+
+    @RequestMapping("list")
+    @ResponseBody
+    public Object list(WeChatQuery qo){
+        return weChatService.query(qo);
     }
 
     @RequestMapping("view")

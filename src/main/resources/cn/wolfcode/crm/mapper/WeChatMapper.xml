@@ -6,7 +6,10 @@
     <result column="accountNumber" property="accountNumber" />
     <result column="secretkey" property="secretkey" />
     <result column="applyKey" property="applyKey" />
-    <result column="applyer_id" property="applyer.id" />
+    <association property="applyer" javaType="JoinApply" columnPrefix="j_">
+      <id property="id" column="id"/>
+      <result property="accountName" column="accountName"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey">
     delete from wechat
@@ -25,12 +28,39 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, accountNumber, secretkey, applyKey, applyer_id
-    from wechat
+    <include refid="base_sql"/>
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, accountNumber, secretkey, applyKey, applyer_id
-    from wechat
+    <include refid="base_sql"/>
   </select>
+
+  <sql id="base_sql">
+    select w.id,w.accountNumber,w.secretkey,w.applyKey,
+      j.id j_id,j.accountName j_accountName
+    from wechat w
+      join joinapply j on w.applyer_id = j.id
+  </sql>
+
+  <select id="queryCount" resultType="int">
+    select count(w.id)
+    from wechat w
+      join joinapply j on w.applyer_id = j.id
+    <include refid="base_where"/>
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    <include refid="base_sql"/>
+    <include refid="base_where"/>
+    limit #{start},#{rows}
+  </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword != null and keyword != '' ">
+        and (j.accountName like concat('%',#{keyword},'%') or w.accountNumber like concat('%',#{keyword},'%'))
+      </if>
+    </where>
+  </sql>
+
 </mapper>

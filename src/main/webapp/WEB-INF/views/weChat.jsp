@@ -11,6 +11,8 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="deleteData">删除</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reloadData">刷新</a>
+    <input class="easyui-textbox" id="keyword" data-options="width:200" prompt="请输入用户名或威信账号"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs"></a>
 </div>
 <div id="chat_dialog">
     <form id="chat_form" method="post">

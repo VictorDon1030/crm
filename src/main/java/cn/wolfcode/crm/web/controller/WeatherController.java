@@ -35,7 +35,8 @@ public class WeatherController {
     @ResponseBody
     public Object trying(String city){
         try {
-
+            //解码后无法使用待研究
+//            String ecity = new String(city.getBytes("ISO-8859-1"), "utf-8");
             String str = "https://way.jd.com/he/freeweather?city="+city+"&appkey=7f77cb0db842f501e3e4c080d74dace5";
             URL url = new URL(str);
             //得到connection对象。

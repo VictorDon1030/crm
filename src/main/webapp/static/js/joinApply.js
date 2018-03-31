@@ -68,6 +68,15 @@ $(function () {
         //刷新按钮
         reloadData: function () {
             app_datagrid.datagrid("load");
+        },
+        //高级查询
+        searchs: function () {
+            var keyword = $("#keyword").textbox("getValue");
+            var appType = $("#appType").textbox("getValue");
+            app_datagrid.datagrid("load", {
+                keyword: keyword,
+                appType:appType
+            });
         }
     };
 

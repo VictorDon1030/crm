@@ -70,6 +70,13 @@ $(function () {
         //刷新按钮
         reloadData: function () {
             chat_datagrid.datagrid("load");
+        },
+        //高级查询
+        searchs: function () {
+            var keyword = $("#keyword").textbox("getValue");
+            chat_datagrid.datagrid("load", {
+                keyword: keyword
+            });
         }
     };
 
@@ -83,7 +90,7 @@ $(function () {
         fit: true,
         fitColumns: true,
         striped: true,
-        url: '/weiChat/selectAll.do',
+        url: '/weiChat/list.do',
         toolbar: '#chat_toolbar',
         pagination: true,
         rownumbers: true,
@@ -93,7 +100,7 @@ $(function () {
             {field: 'secretkey', title: '应用秘钥', width: 50},
             {field: 'applyKey', title: '用户秘钥', width: 50},
             {
-                field: 'applyer', title: '用户ID', width: 50, formatter: function (value, row, index) {
+                field: 'applyer', title: '用户名', width: 50, formatter: function (value, row, index) {
                     return row.applyer.id > 1 ? ""+row.applyer.accountName+""  : "已作废";
                 }
             }

@@ -24,4 +24,6 @@ public interface IWeChatService {
 
     int updateByPrimaryKey(WeChat entity);
 
+    PageResult query(QueryObject qo);
+
 }

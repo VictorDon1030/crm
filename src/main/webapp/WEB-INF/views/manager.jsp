@@ -9,9 +9,13 @@
 <table id="manager_datagrid"></table>
 <div id="manager_toolbar">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-btn="addData">新增</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="deleteData">删除</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-btn="reloadData">刷新</a>
+    <input id="roleId" class="easyui-combobox"
+           data-options="prompt:'职位查询',valueField:'id',textField:'name',url:'/role/selectAll.do',panelHeight:'auto'"/>
+    <input id="beginDate" class="easyui-datebox" prompt="开始时间"/>
+    <input id="endDate" class="easyui-datebox" prompt="结束时间"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs"></a>
 </div>
 <div id="manager_dialog">
     <form id="manager_form" method="post">

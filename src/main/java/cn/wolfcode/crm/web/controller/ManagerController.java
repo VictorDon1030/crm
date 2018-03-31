@@ -2,6 +2,7 @@ package cn.wolfcode.crm.web.controller;
 
 import cn.wolfcode.crm.domain.Employee;
 import cn.wolfcode.crm.domain.Manager;
+import cn.wolfcode.crm.query.ManagerQuery;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.IManagerService;
 import cn.wolfcode.crm.util.JsonResult;
@@ -41,7 +42,7 @@ public class ManagerController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(ManagerQuery qo){
         return managerService.query(qo);
     }
 

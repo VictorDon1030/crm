@@ -40,12 +40,12 @@ public class IndexController {
     @RequestMapping("main")
     public String main(){
         //这里暂时还是报错的,index主页面跳转路径更改即可解决
-        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+        /*Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
         LoginLog loginLog = new LoginLog();
         loginLog.setLogTime(new Date());
         loginLog.setLogName(employee.getUsername());
         loginLog.setLogIp(request.getRemoteAddr());
-        loginLogMapper.insert(loginLog);
+        loginLogMapper.insert(loginLog);*/
         return "main";
     }
 
