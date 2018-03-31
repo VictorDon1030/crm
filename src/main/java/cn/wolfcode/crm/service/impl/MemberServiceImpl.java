@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Demo class
@@ -33,6 +31,7 @@ public class MemberServiceImpl implements IMemberService {
     private MemberMapper memberMapper;
     @Autowired
     private BonusPointRecordMapper bonusPointRecordMapper;
+
     @Override
     public int deleteByPrimaryKey(Long id) {
         return memberMapper.deleteByPrimaryKey(id);
@@ -60,11 +59,12 @@ public class MemberServiceImpl implements IMemberService {
     public int updateByPrimaryKey(Member entity) {
         return memberMapper.updateByPrimaryKey(entity);
     }
+
     @Override
     public PageResult query(QueryObject qo) {
         int total = memberMapper.queryCount(qo);
         List<Member> data = memberMapper.queryForList(qo);
-        if (total == 0){
+        if (total == 0) {
             return new PageResult(total, Collections.EMPTY_LIST);
         }
         return new PageResult(total, data);
@@ -113,6 +113,27 @@ public class MemberServiceImpl implements IMemberService {
             }*/
         member.setPassword(md5Hash.toString());
         memberMapper.updatePasswordById(member);
+    }
+
+    @Override
+    public List<Map<String,Object>> selectMemberMsg() {
+        /**
+         * 查询今日生日
+         * 查询这个月的生日
+         * 查询总余额和总会员数
+         */
+        List<Map<String,Object>> list = new ArrayList();
+        //查询生日
+        list.add(memberMapper.selectTodayBirthdayMember());
+
+        //查询总余额
+        list.add(memberMapper.selectSumMember());
+        //查询今月生日
+        list.add(memberMapper.selectMonthBirthdayMember());
+
+
+
+        return list;
     }
 
 }

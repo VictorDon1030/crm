@@ -103,7 +103,24 @@
         <include refid="base_table"/>
         <include refid="bonusPoint_where"/>
     </select>
-
+    <!--//本日生日-->
+    <select id="selectTodayBirthdayMember" resultType="map">
+        select count(id) todayBirthday
+        from member
+        where month(birthday)=month(now()) and day(birthday) =day(now())
+    </select>
+    <!--本月生日-->
+    <select id="selectMonthBirthdayMember" resultType="map">
+        select count(id) monthBirthday
+        from member
+        where month(birthday)=month(now())
+    </select>
+    <!--总人数和余额-->
+    <select id="selectSumMember" resultType="map">
+        select sum(id) sumMember,
+            sum(balance) sumbalance
+        from member
+    </select>
     <sql id="base_column">
         SELECT
             m.id,

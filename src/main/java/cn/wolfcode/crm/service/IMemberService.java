@@ -6,6 +6,7 @@ import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Demo class
@@ -50,4 +51,10 @@ public interface IMemberService {
      * @param member
      */
     void updatePasswordById(Member member);
+
+    /**
+     * 查询生日,人数,总额
+     * @return
+     */
+    List<Map<String,Object>> selectMemberMsg();
 }

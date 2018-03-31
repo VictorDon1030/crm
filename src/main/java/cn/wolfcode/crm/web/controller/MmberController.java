@@ -15,10 +15,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Demo class
@@ -41,7 +43,15 @@ public class MmberController {
 
     @RequestMapping("view")
     @RequiresPermissions(value = {"member:view", "会员列表"}, logical = Logical.OR)
-    public String view() {
+    public String view( Model model) {
+        List<Map<String,Object>> list = memberService.selectMemberMsg();
+        for (Map<String, Object> map : list) {
+
+            model.addAttribute("todayBirthday",map.get("todayBirthday"));
+            model.addAttribute("monthBirthday",map.get("monthBirthday"));
+            model.addAttribute("sumMember",map.get("sumMember"));
+            model.addAttribute("sumbalance",map.get("sumbalance"));
+        }
         return "member";
     }
 
@@ -55,6 +65,7 @@ public class MmberController {
     @RequestMapping("list")
     @ResponseBody
     public PageResult list(MemberQueryObject qo){
+
         return memberService.query(qo);
     }
 

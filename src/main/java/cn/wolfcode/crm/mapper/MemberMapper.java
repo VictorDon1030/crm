@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface MemberMapper {
     int deleteByPrimaryKey(Long id);
@@ -43,4 +44,9 @@ public interface MemberMapper {
 
     void clearPoints(Long id);
 
+    Map<String,Object> selectSumMember();
+
+    Map<String,Object> selectMonthBirthdayMember();
+
+    Map<String,Object> selectTodayBirthdayMember();
 }
