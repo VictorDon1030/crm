@@ -81,33 +81,22 @@ $(function () {
         columns: [[
             {field: 'name', title: '商品名称', width: 100},
             {field: 'sn', title: '单号', width: 100},
-           {field: 'member', title: '消费对象', width: 100,formatter: function(row){
-                    if(row){
-                        return value?'会员':'散客';
-                    }
-
+           {field: 'member', title: '消费对象', width: 100,formatter: function(row,value){
+                   return value?'会员':'散客';
                }},
             {field: 'salePrice', title: '商品单价', width: 100},
             {field: 'type', title: '折扣类型', width: 100,formatter: function(row){
-                    if(row){
                         return '无折扣';
-                    }
-
                 }
             },
             {field: 'number', title: '数量', width: 100},
             {field: 'saleAmount', title: '销售金额', width: 100},
             {field: 'pay', title: '支付方式', width: 100,formatter:function (row) {
-                    if(row){
                         return '现金';
-                    }
-
                 }},
 
             {field: 'home', title: '消费店铺', width: 100,formatter:function (row) {
-                    if(row){
                         return '德客便利店';
-                    }
                 }},
             {field: 'vdate', title: '消费时间', width: 100,formatter: formatDatebox}
         ]]
