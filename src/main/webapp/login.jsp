@@ -18,7 +18,7 @@
         function login() {
             $.post("/login.do",$("form").serialize(),function (data) {
                 if (data.success) {
-                    window.location.href = "/index.do";
+                    window.location.href = "/main.do";
                 } else {
                     alert(data.msg);
                 }

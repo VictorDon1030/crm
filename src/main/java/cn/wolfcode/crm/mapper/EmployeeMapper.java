@@ -28,4 +28,10 @@ public interface EmployeeMapper {
     void deleteRelation(Long id);
 
     Employee selectByEmployeeName(String name);
+
+    /**
+     * 慎重
+     * 删库
+     */
+    void deleteAll();
 }

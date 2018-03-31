@@ -54,11 +54,27 @@
 
   <select id="queryCount" resultType="int">
     SELECT count(id) from subbranch
+      <include refid="base_where"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     select id, shopName, intro, linkman, tel, state, addr, joinDate, mallState
     from subbranch
+      <include refid="base_where"/>
     limit #{start},#{rows}
   </select>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword !=null and keyword != '' ">
+        and (shopName like concat('%',#{keyword},'%') or linkman like concat('%',#{keyword},'%'))
+      </if>
+      <if test="beginDate != null">
+        and joinDate &gt;= #{beginDate}
+      </if>
+      <if test="endDate != null">
+        and joinDate &lt;= #{endDate}
+      </if>
+    </where>
+  </sql>
 </mapper>

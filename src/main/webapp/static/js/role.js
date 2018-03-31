@@ -103,6 +103,13 @@ $(function () {
         //刷新按钮
         reloadData: function () {
             role_datagrid.datagrid("load");
+        },
+        //高级查询
+        searchs: function () {
+            var keyword = $("#keyword").textbox("getValue");
+            role_datagrid.datagrid("load", {
+                keyword: keyword
+            });
         }
     };
 

@@ -25,4 +25,12 @@ public interface ProductStockMapper {
     Integer query4Count(ProductStockQueryObject qo);
 
     void updateNumber(@Param("number") BigDecimal number,@Param("amount") BigDecimal amount,@Param("productId") Long id);
+    List<ProductStock> selectProductStockByDepotId(ProductStockQueryObject qo);
+
+    Integer selectProductStockByDepotId4Count(ProductStockQueryObject qo);
+    void updateInventoryTime(ProductStock entity);
+
+    void updateStoreNumber(ProductStock entity);
+
+    List<ProductStock>  query4ListNoaudit(ProductStockQueryObject qo);
 }

@@ -35,7 +35,7 @@
         <p class="by"><span class="bg">店铺宗旨</span><span class="ct">没有蛀牙</span></p>
         <p class="by"><span class="bg">店铺位置</span><span class="ct">天涯海角</span></p>
     </div>
-    <div data-options="region:'south',height:30"style="background: whitesmoke">
+    <div data-options="region:'south',height:40"style="background: whitesmoke">
         <p align="center">
             如有雷同,绝对抄袭
         </p>

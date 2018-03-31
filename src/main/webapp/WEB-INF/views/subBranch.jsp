@@ -11,6 +11,11 @@
 <div id="sub_toolbar">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-btn="addData">新增</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
+    <a id="changeState" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-btn="changeState">设置停用</a>
+    <input class="easyui-textbox" data-options="width:200" id="keyword" prompt="分店名称或联系人名称"/>
+    <input id="beginDate" class="easyui-datebox" prompt="注册时间"/> -
+    <input id="endDate" class="easyui-datebox" prompt="注册时间"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs"></a>
 </div>
 <div id="sub_dialog">
     <form id="sub_form" method="post">

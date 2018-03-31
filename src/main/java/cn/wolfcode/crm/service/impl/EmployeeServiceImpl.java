@@ -75,4 +75,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void changeState(Long id) {
         employeeMapper.changeState(id);
     }
+
+    @Override
+    public void deleteAll() {
+        employeeMapper.deleteAll();
+    }
 }

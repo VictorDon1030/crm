@@ -19,13 +19,11 @@ $(function () {
             {
                 field: 'imagePath', title: '商品图片', width: 100, align: 'center', nowrap: true,
                 formatter: function (value, rows, index) {
-                    //var im = '<img src="/static/spaceImgPath/' + (index + 1) + '.png"/>';
-                    //console.log(im);
-                        if(rows.id == rows.imagePath){
-                            return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/' + value + '.png"/>';
-                        }else {
-                            return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/2117.png"/>';
-                        }
+                    if(rows.imagePath != null && rows.imagePath != ''){
+                        return '<img width="120px" height="60px" border="0" src= '+rows.imagePath+ '>';
+                    }else {
+                        return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/2117.png"/>';
+                    }
                 }
             },
             {field: 'brand', title: '商品品牌', width: 100},

@@ -22,12 +22,43 @@ $(function () {
                 editable:false,
                 valueField:'id',
                 textField:'name',
-                panelHeight:'auto',
-                /*onSelect : function(data){
-                    console.log(data);
-                }*/
-            })/*.combobox('clear');*/
+                panelHeight:'auto'
+            })
         }
+    });
+
+    $.get("/productStock/query.do", function (data) {
+        var num2 = 0;
+        for(var i = 0; i < data.length; i++){
+            var num = data[i].storeNumber;
+            if(10 < num){
+                num2++;
+            }
+        }
+
+        $("#someProduct").html(num2);
+
+
+    },"json");
+
+
+
+    $("#stair").change(function () {
+        //清空
+        $("#secondary").html("<option value='-1'>清选择</option>");
+        if(this.value == -1){
+            return;
+        }
+        //console.log(this.value);
+        $.get("/secondary/list.do",{pid:this.value}, function (data) {
+            //console.log(data);
+            $.each(data, function (index, item) {
+                //console.log(index, item);
+                // item.id
+                $( "<option value='"+item.id+"'>"+item.name+"</option>")
+                    .appendTo("#city");
+            });
+        },"json");
     });
 
 
@@ -51,7 +82,7 @@ $(function () {
         var create = new Date();
         var create1 = create.getFullYear();
         var create2 = create.getMonth()+1;
-        var create4 = create.getMonth()+2;
+        var create4 = create.getMonth()+3;
         var create3 = create.getDate();
 
         var examine1 = new Date();
@@ -59,53 +90,76 @@ $(function () {
         var examine3 = new Date();
         var examine4 = new Date();
 
-        var pastDue = 0;
-        var pastDue2 = 0;
+        var num = 0;
+        var num2 = 0;
 
         var totalPrices = 0;
         //console.log(data.total);
         for(var i = 0; i < data.length; i++){
             totalPrices += data[i].unitpPrice;
-            var a = data[i].pastDueTime;
-            //console.log(a);
-            var split1 = a.split("-");
-            var split2 = a.split("-");
-            var split3 = a.split("-");
-            var split4 = a.split("-");
-            examine1.setFullYear(split1[0]);
-            examine2.setFullYear(split1[1]);
-            examine3.setFullYear(split1[2]);
-            examine4.setFullYear(split1[1]);
-            // console.log(examine1.getFullYear());
-            if (create1 >= examine1.getFullYear()){
-                //console.log(create1, split1);
-                if (create2 >= examine2.getFullYear()){
-                    if (create3 >= examine3.getFullYear()){
-                        pastDue++
+            if(data[i].pastDueTime != null && data[i].pastDueTime != ''){
+                var a = data[i].pastDueTime;
+                //console.log(data.length);
+                var split1 = a.split("-");
+                var split2 = a.split("-");
+                var split3 = a.split("-");
+                var split4 = a.split("-");
+                examine1.setFullYear(split1[0]);
+                examine2.setFullYear(split1[1]);
+                examine3.setFullYear(split1[2]);
+                examine4.setFullYear(split1[1]);
+                // console.log(examine1.getFullYear());
+                if (create1 >= examine1.getFullYear()){
+                    //console.log(create1, split1);
+                    if (create2 >= examine2.getFullYear()){
+                        if (create3 >= examine3.getFullYear()){
+                            num++
+                        }
                     }
                 }
-            }
-            if (create1 >= examine1.getFullYear()){
-                //console.log(create1, split1);
-                if (create4 >= examine4.getFullYear()){
-                    if (create3 >= examine3.getFullYear()){
-                        pastDue2++
+                //console.log(create4 , examine4.getFullYear());
+                if (create1 >= examine1.getFullYear()){
+                    //console.log(create1, split1);
+                    if (create4 >= examine4.getFullYear()){
+                        if (create3 >= examine3.getFullYear()){
+                            num2++;
+                        }
                     }
                 }
             }
             //console.log(pastDue);
         }
+        //console.log(num2);
         //console.log(count);
         $("#piece").html(data.length); //共有多少商品
 
         $("#avgPrice").html((totalPrices / data.length).toFixed(2));//设置平均价格
-        $("#pastDue").html(pastDue); //设置已经过期商品总数量
-        $("#beAboutTo").html(pastDue2); //设置两个月后过期商品总数量
+        $("#pastDue").html(num); //设置已经过期商品总数量
+        $("#beAboutTo").html(num2-num); //设置两个月后过期商品总数量
+
+
+        /*function selectSort(arr){
+            var min,temp;
+            for(var i=0;i<arr.length-1;i++){
+                min=i;
+                for(var j=i+1;j<arr.length;j++){
+                    if(arr[j]<arr[min]){
+                        min = j;
+                    }
+                }
+                temp=arr[i];
+                arr[i]=arr[min];
+                arr[min]=temp;
+
+            }
+            return arr;
+        }
+        console.log(selectSort([6,1,2,4,3,5]))*/
 
         //目的拿到时间加
     },"json");
 
-
+    //主页面
     product_datagrid.datagrid({
         fit: true,
         fitColumns: true,
@@ -124,9 +178,9 @@ $(function () {
                 field: 'imagePath', title: '商品图片', width: 100, align: 'center', nowrap: true,
                 formatter: function (value, rows, index) {
                     //var im = '<img src="/static/spaceImgPath/' + (index + 1) + '.png"/>';
-                    //console.log(im);
-                    if(rows.id == rows.imagePath){
-                        return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/' + value + '.png"/>';
+                    //console.log(rows.imagePath);
+                    if(rows.imagePath != null && rows.imagePath != ''){
+                        return '<img width="120px" height="60px" border="0" src= '+rows.imagePath+ '>';
                     }else {
                         return '<img width="120px" height="60px" border="0" src="/static/spaceImgPath/2117.png"/>';
                     }
@@ -158,7 +212,10 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
+<<<<<<< HEAD
 
+=======
+>>>>>>>
     });
 
 
@@ -187,6 +244,7 @@ $(function () {
 
         //查看已下架的商品 按钮 改变路径
         examinePutaway: function () {
+            //$("#todu_changeState").linkbutton('enable');
             product_datagrid.datagrid('options').url="/product/list.do";
             product_datagrid.datagrid("reload");
         },
@@ -225,6 +283,8 @@ $(function () {
         },
         //商品下架按钮
         soldOut: function () {
+        //商品上架按钮
+        putaway: function () {
             //获取选中的数据
             var row = product_datagrid.datagrid("getSelected");
             //判断是否选中
@@ -260,37 +320,41 @@ $(function () {
 
         //商品上架按钮
         putaway: function () {
+            //设置点击事件禁止使用 点击查看已下架商品后促发可以点击
+           // $("#todu_changeState").linkbutton('disable');
+            //if($("#todu_changeState").linkbutton("options").disabled==false){
             //获取选中的数据
-            var row = product_datagrid.datagrid("getSelected");
-            //判断是否选中
-            if (!row) {
-                $.messager.alert("温馨提示", "亲,请选择需要下架的商品", "info");
-                return;
-            }
-            $.get("/productone/list.do", {id: row.id}, function (data) {
-                $.messager.confirm("温馨提示", "您确定需要下架此商品吗?", function (r) {
-                    //data = $.parseJSON(data); //转成json对象
-                    if (r) {
-                        console.log(row);
-                        $.post("/product/save.do", row, function (data) {
+                var row = product_datagrid.datagrid("getSelected");
+                //判断是否选中
+                if (!row) {
+                    $.messager.alert("温馨提示", "亲,请选择需要上架的商品", "info");
+                    return;
+                }
+                $.get("/productone/list.do", {id: row.id}, function (data) {
+                    $.messager.confirm("温馨提示", "您确定需要上架此商品吗?", function (r) {
+                        //data = $.parseJSON(data); //转成json对象
+                        if (r) {
+                            console.log(row);
+                            $.post("/product/save.do", row, function (data) {
 
-                            if (data.success) {
-                                $.messager.alert("温馨提示", "操作成功", "info", function () {
-                                    // emp_datagrid.datagrid("reload");
-                                    product_datagrid.datagrid("reload");
-                                });
-                            } else {
-                                $.messager.alert("温馨提示", data.msg);
-                            }
-                            $.get("/productone/delete.do", {id: row.id}, function (data) {
+                                if (data.success) {
+                                    $.messager.alert("温馨提示", "操作成功", "info", function () {
+                                        // emp_datagrid.datagrid("reload");
+                                        product_datagrid.datagrid("reload");
+                                    });
+                                } else {
+                                    $.messager.alert("温馨提示", data.msg);
+                                }
+                                $.get("/productone/delete.do", {id: row.id}, function (data) {
 
-                            },"json")
-                        },"json");
+                                },"json")
+                            },"json");
 
-                    }
+                        }
 
-                })
-            },"json");
+                    })
+                },"json");
+           // }
         },
 
         //删除按钮
@@ -382,23 +446,28 @@ function cancel2() {
 }
 //子窗口提交按钮 保存按钮
 function save2() {
-    $("#product2_form").form("submit", { //表单中的submit方法}
-        url: '/stair/saveOrUpdate.do',
-        success: function (data) { //data响应回来数据
-            data = $.parseJSON(data); //转成json对象
-            if (data.success) {
-                $.messager.alert("温馨提示", "保存成功", "info", function () {
-                    //关闭弹出的窗口
-                    $("#product2_dialog").dialog("close", true);
-                    //product_dialog.dialog("close",true);
-                    //刷新datagrid数据表格
-                    $("#product2_dialog").datagrid("reload");
+    var value = $("[name=type]:checked").val();
+    var category = $("#category").val();
+    //判断是否选中
+    if (!value) {
+        $.messager.alert("温馨提示", "亲,请选择需要的类型", "info");
+        return;
+    }
+    $.post("/stair/saveOrUpdate.do", {"name":category, "secondary_id":value}, function (data) {
+        if (data.success) {
+            $.messager.alert("温馨提示", "操作成功", "info", function () {
+                $("#product2_dialog").dialog("close");
+                $('#stair').combobox({
+                    url : "/stair/list.do",
+                    queryParams: {
+
+                    }
                 });
-            } else {
-                $.messager.alert("温馨提示", data.msg);
-            }
+            });
+        } else {
+            $.messager.alert("温馨提示", data.msg);
         }
-    })
+    },"json");
 }
 //商品单位 TODO
 function newSave2() {

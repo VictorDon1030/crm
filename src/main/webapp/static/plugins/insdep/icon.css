@@ -1,3 +1,37 @@
+.icon-city{
+	background:url('icons/city.png') no-repeat center center;
+}
+.icon-Itime{
+	background:url('icons/time.png') no-repeat center center;
+}
+.icon-dayTime{
+	background:url('icons/daytime.png') no-repeat center center;
+}
+.icon-nightTime{
+	background:url('icons/nighttime.png') no-repeat center center;
+}
+.icon-max{
+	background:url('icons/max.png') no-repeat center center;
+}
+.icon-min{
+	background:url('icons/min.png') no-repeat center center;
+}
+.icon-dir{
+	background:url('icons/dir.png') no-repeat center center;
+}
+.icon-spd{
+	background:url('icons/spd.png') no-repeat center center;
+}
+.icon-brf{
+	background:url('icons/brf.png') no-repeat center center;
+}
+.icon-brf_txt{
+	background:url('icons/brf_txt.png') no-repeat center center;
+}
+
+
+
+
 .icon-blank{
 	background:url('icons/blank.gif') no-repeat center center;
 }

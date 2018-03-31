@@ -15,4 +15,6 @@ public interface IOrderBillService {
     PageResult query(OrderBillQueryObject qo);
 
     void audit(Long id);
+
+    List<OrderBill> selectAll();
 }

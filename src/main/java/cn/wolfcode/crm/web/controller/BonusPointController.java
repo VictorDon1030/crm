@@ -1,5 +1,7 @@
 package cn.wolfcode.crm.web.controller;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("bonusPoint")
 public class BonusPointController {
-    @RequestMapping("bonusPointManage")
+    @RequiresPermissions(value={"Gift:view","积分管理"},logical = Logical.OR)
+    @RequestMapping("view")
     public String bonusPointManage() throws Exception {
         return "bonusPoint";
     }

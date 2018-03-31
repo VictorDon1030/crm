@@ -5,13 +5,13 @@ import cn.wolfcode.crm.domain.CheckoutComeBillItem;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * Demo class
  *
  * @author user
- * @date yyyy/MM/dd
  */
 public interface ICheckoutComeBillService {
 
@@ -44,4 +44,11 @@ public interface ICheckoutComeBillService {
      * @return
      */
     Long addOdd(String sn);
+
+    /**
+     * 查询会员的累计消费金额
+     * @param id 会员的id
+     * @return
+     */
+    BigDecimal selectBillAmount(Long id);
 }

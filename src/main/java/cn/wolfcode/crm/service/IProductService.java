@@ -25,4 +25,5 @@ public interface IProductService {
 
     List<Product> selectByUnitId(Long id);
 
+    void deleteAll();
 }

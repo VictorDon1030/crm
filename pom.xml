@@ -176,6 +176,11 @@
       <artifactId>shiro-ehcache</artifactId>
       <version>1.2.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.17</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -209,7 +214,7 @@
 
   <build>
     <plugins>
-      <!--Tomcat7插件
+      <!--Tomcat7插件-->
       <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
@@ -220,7 +225,6 @@
               <port>80</port>
           </configuration>
       </plugin>
-      -->
       <!--Java编译器插件-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

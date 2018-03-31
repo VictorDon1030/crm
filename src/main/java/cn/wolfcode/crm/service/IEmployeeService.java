@@ -27,4 +27,6 @@ public interface IEmployeeService {
     PageResult query(QueryObject qo);
 
     void changeState(Long id);
+
+    void deleteAll();
 }

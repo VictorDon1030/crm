@@ -11,23 +11,19 @@ $(function () {
         columns:[[
             {field: 'ck', checkbox:true},
             {field: 'name', title: '供应商', width: 50},
-            {field: 'debt', title: '应付欠款', width: 50},
+           // {field: 'debt', title: '应付欠款', width: 50},
             {field: 'realname', title: '联系人', width: 50},
             {field: 'tel', title: '联系电话', width: 50},
             {field: 'vdate', title: '添加时间', width: 50},
             {field: 'employee', title: '操作人员', width: 50,formatter:function (value, row, index) {
                 return value ? value.realname  :"";
             }},
-            {field: 'str1', title: '操作', width: 50 ,
+            {field: 'str1', title: '操作', width: 80 ,
                 formatter:function(value, row, index){
                     var str1 = '<a href="#" name="str1" onclick="dept()" class="easyui-linkbutton  button-line-olive" ></a>';
-                return str1;}
-            },
-            {field: 'str2', width: 50 ,
-                formatter:function(value, row, index){
-                    var str2 = '<a href="#" name="str2" class="easyui-linkbutton button-line-green" ></a>';
-                    return str2;}
-            },
+                    var str2 = '<a href="#" name="str2" onclick="dept()" class="easyui-linkbutton button-line-green" ></a>';
+                return str1+str2;}
+            }
 
         ]],
         onLoadSuccess:function(data){
@@ -46,6 +42,12 @@ $(function () {
     });
 
 })
+//还款
+function dept() {
+    $.messager.alert('温馨提示','此功能为VIP使用,请购买后使用!');
+}
+
+
 //删除供应商
 function deleted(){
     var row = $('#supplier_datagrid').datagrid('getSelected');

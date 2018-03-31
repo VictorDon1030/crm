@@ -28,11 +28,14 @@
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
     insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory, 
       unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice, 
-      minDiscount, specification, integral, pastDueTime, imagePath, images)
-    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory}, 
-      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice}, 
-      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath}, #{images})
+      minDiscount, specification, integral, pastDueTime, imagePath)
+    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory},
+      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice},
+      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath})
   </insert>
+    <delete id="deleteAll">
+      delete from product
+    </delete>
   <update id="updateByPrimaryKey">
     update product
     set name = #{name},
@@ -52,7 +55,6 @@
       integral = #{integral},
       pastDueTime = #{pastDueTime},
       imagePath = #{imagePath}
-      images = #{images}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
@@ -86,7 +88,7 @@
   <sql id="base_column">
     select id, name, brand, goodsMark, unitpPrice, minPrice, initialInventory, unit,
     commission, remark, auxiliaryWord, purchasingPrice, memberPrice, minDiscount, specification,
-    integral, pastDueTime, imagePath, images
+    integral, pastDueTime, imagePath
   </sql>
 
   <sql id="base_where">

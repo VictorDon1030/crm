@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.wolfcode.crm.mapper.MemberMapper">
-
     <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Member">
-
         <id column="id" property="id"/>
         <result column="memberNum" property="memberNum"/>
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>
         <result column="password" property="password"/>
         <result column="points" property="points"/>
+        <result column="consumePoints" property="consumePoints"/>
         <result column="balance" property="balance"/>
         <result column="usefullife" property="usefullife"/>
         <result column="state" property="state"/>
         <result column="birthday" property="birthday"/>
+        <!--会员会员等级-->
         <association property="grade" javaType="DictionaryItem" columnPrefix="grade_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+        <!--回显支付方式-->
 
         <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
@@ -25,32 +26,34 @@
         </association>
         <collection property="bonusPointRecord" column="id" ofType="bonusPointRecord" fetchType="eager"
                     select="cn.wolfcode.crm.mapper.BonusPointRecordMapper.selectRecordByMemberId"/>
-
     </resultMap>
-
     <delete id="deleteByPrimaryKey">
         DELETE FROM member
         WHERE id = #{id}
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id,
+        INSERT INTO member (memberNum, name, phone, password, grade_id, payment_id, consumePoints,
                             points, balance, usefullife, onUser_id, state, birthday)
-        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id},
+        VALUES (#{memberNum}, #{name}, #{phone}, #{password}, #{grade.id}, #{payment.id}, #{consumePoints},
                               #{points}, #{balance}, #{usefullife}, #{onUser.id}, #{state}, #{birthday})
     </insert>
+    <update id="updateConsumePoints">
+        UPDATE member SET consumePoints = consumePoints + #{ret} WHERE id = #{id}
+    </update>
 
     <update id="updateByPrimaryKey">
         UPDATE member
-        SET memberNum  = #{memberNum},
-            name       = #{name},
-            phone      = #{phone},
-            grade_id   = #{grade.id},
-            payment_id = #{payment.id},
-            birthday   = #{birthday},
-            points     = #{points},
-            balance    = #{balance},
-            usefullife = #{usefullife},
-            onUser_id  = #{onUser.id}
+        SET memberNum     = #{memberNum},
+            name          = #{name},
+            phone         = #{phone},
+            grade_id      = #{grade.id},
+            payment_id    = #{payment.id},
+            birthday      = #{birthday},
+            points        = #{points},
+            balance       = #{balance},
+            usefullife    = #{usefullife},
+            consumePoints = #{consumePoints},
+            onUser_id     = #{onUser.id}
         WHERE id = #{id}
     </update>
 
@@ -77,7 +80,6 @@
         SET points = 0
         WHERE id = #{id}
     </update>
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
@@ -87,7 +89,7 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
     </select>
-    <select id="queryCount" resultType="int">
+    <select id="queryCount" resultType="int" >
         SELECT count(m.id)
         <include refid="base_table"/>
         <include refid="base_where"/>
@@ -96,12 +98,37 @@
         <include refid="base_column"/>
         <include refid="base_table"/>
         <include refid="base_where"/>
+        ORDER BY id DESC
         LIMIT #{start}, #{rows}
     </select>
     <select id="queryByKeyword" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
         <include refid="bonusPoint_where"/>
+    </select>
+    <select id="checkPass" resultType="member">
+        SELECT
+            id,
+            memberNum,
+            name,
+            phone,
+            password,
+            grade_id,
+            payment_id,
+            points,
+            balance,
+            usefullife,
+            onUser_id,
+            state,
+            birthday,
+            consumePoints
+        FROM member
+        WHERE password = #{password} AND id = #{id}
+    </select>
+    <select id="selectPoints" resultType="_int">
+        SELECT points
+        FROM member
+        WHERE id = #{id}
     </select>
 
     <sql id="base_column">
@@ -119,7 +146,8 @@
             m.usefullife,
             m.onUser_id,
             m.state,
-            grade.id     grade_id,
+            m.consumePoints,
+            grade.id   grade_id,
             grade.name   grade_name,
             payment.id   payment_id,
             payment.name payment_name
@@ -168,13 +196,6 @@
         </where>
     </sql>
 
-    <!--beginDate;
-    //结束时间
-    private Date endDate;
-    //生日开始时间
-    private Date birthdayBeginDate;
-    //生日结束时间
-    private Date birthdayEndDate;-->
     <update id="updateBalance">
         update member set balance = #{balance} where id=#{mumberId}
     </update>

@@ -45,6 +45,15 @@ public interface IMemberService {
      * @param id 要清除积分的会员的id
      */
     void clearPoints(Long id);
+
+    /**
+     * 校验会员密码的方法
+     * @param password
+     */
+    void checkPass(String password,Long id);
+
+    void checkPoints(Integer points,Long id);
+    /**
     /**
      *  修改会员密码的操作
      * @param member

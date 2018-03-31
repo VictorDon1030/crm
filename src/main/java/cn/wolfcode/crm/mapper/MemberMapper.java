@@ -26,12 +26,6 @@ public interface MemberMapper {
 
     void changeState(Long id);
 
-    void updatePasswordById(Member member);
-
-    void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
-
-    void updatePoints(@Param("points") BigDecimal points,@Param("mumberId") Long id);
-
 
     /**
      * 改变会员的积分余额
@@ -47,4 +41,15 @@ public interface MemberMapper {
 
     void clearPoints(Long id);
 
+    Member checkPass(@Param("password") String password,@Param("id") Long id);
+
+    Integer selectPoints(Long id);
+
+    void updateConsumePoints(@Param("id") Long id, @Param("ret") Integer ret);
+
+    void updatePasswordById(Member member);
+
+    void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
+
+    void updatePoints(@Param("points") BigDecimal points,@Param("mumberId") Long id);
 }

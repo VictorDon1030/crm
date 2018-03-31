@@ -77,10 +77,16 @@ public class CheckoutComeBillController {
         return checkoutComeBillService.selectbyMemberId(id);
     }
 
+    //设置单号
     @RequestMapping("addOdd")
     @ResponseBody
-    //设置单号
     public Object addOdd(String sn){
         return String.valueOf(checkoutComeBillService.addOdd(sn));
+    }
+    @RequestMapping("selectBillAmount")
+    @ResponseBody
+    public Object selectBillAmount(Long id){
+
+        return checkoutComeBillService.selectBillAmount(id);
     }
 }

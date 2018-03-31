@@ -24,15 +24,15 @@
         singleSelect: true,
         checkbox: true">
     <thead>
-    <tr>
-        <th data-options="field: 'ck', checkbox: true"></th>
-        <th data-options="field: 'sn', title: '单据编号', width: 50"></th>
-        <th data-options="field: 'supplier', title: '供应商', width: 50,formatter:supplierFormatter"></th>
-        <th data-options="field: 'depot', title: '仓库名称', width: 50,formatter:depotFormatter"></th>
-        <th data-options="field: 'totalNumber', title: '数量', width: 50"></th>
-        <th data-options="field: 'totalAmount', title: '合计', width: 50"></th>
-        <th data-options="field: 'status', title: '入库状态', width: 50,formatter:statusFormatter"></th>
-    </tr>
+        <tr>
+            <th data-options="field: 'ck', checkbox: true"></th>
+            <th data-options="field: 'sn', title: '单据编号', width: 50"></th>
+            <th data-options="field: 'supplier', title: '供应商', width: 50,formatter:supplierFormatter"></th>
+            <th data-options="field: 'depot', title: '仓库名称', width: 50,formatter:depotFormatter"></th>
+            <th data-options="field: 'totalNumber', title: '数量', width: 50"></th>
+            <th data-options="field: 'totalAmount', title: '合计', width: 50"></th>
+            <th data-options="field: 'status', title: '入库状态', width: 50,formatter:statusFormatter"></th>
+        </tr>
     </thead>
 </table>
 
@@ -46,26 +46,26 @@
 
 <%--添加采购订单弹出框--%>
 <div id="orderBill_dialog" >
-    <form id="orderBill_form" method="post">
+    <form id="orderBill_form" method="post" class="easyui-">
         <table align="center">
             <tbody>
                 <tr>
                     <td><a class="easyui-linkbutton button-line-green" data-cmd="productOpen">选择商品</a></td>
                    <td>
                        <input name="supplier.id" class="easyui-combobox"
-                           data-options="prompt:'供应商选择',panelHeight:'auto',valueField:'id',textField:'realname',
-                               url:'/supplier/selectAll.do'">
-                    <input name="depot.id" class="easyui-combobox"
-                           data-options="prompt:'仓库选择',panelHeight:'auto',valueField:'id',textField:'name',
-                               url:'/depot/selectAll.do'">
-                   业务时间: <input  id="dd" name="vdate" type= "text" class= "easyui-datebox" required ="required"></input>
+                               data-options="prompt:'供应商选择',panelHeight:'auto',valueField:'id',textField:'realname',
+                                   url:'/supplier/selectAll.do',limitToList:true,required:true">
+                       <input name="depot.id" class="easyui-combobox"
+                               data-options="prompt:'仓库选择',panelHeight:'auto',valueField:'id',textField:'name',
+                                   url:'/depot/selectAll.do',limitToList:true,required:true">
+                       业务时间: <input  id="dd" name="vdate" type= "text" class= "easyui-datebox" required ="required"></input>
+                       <input type="hidden" name="id">
                    </td>
                 </tr>
             </tbody>
         </table>
         <%--明细列表--%>
-        <input type="hidden" name="id">
-        <table id="orderBillItem_datagrid" >
+        <table id="orderBillItem_datagrid"  >
             <thead>
             <tr>
                 <th width="100">商品</th>
@@ -77,27 +77,34 @@
                 <th width="50"></th>
             </tr>
             </thead>
-            <tbody id="edit_tbody">
-                <tr id="itemTr">
-                    <input  tag="pid" type="hidden">
-                    <th >
-                        <span  tag="name" width="150"></span>
-                    </th>
-                    <th >
-                        <span  tag="sn" width="150"></span>
-                    </th>
-                    <th ><input tag="costPrice"  type="number" style="width: 60px"></th>
-                    <th><input tag="number"   type="number" style="width: 60px"></th>
-                    <th ><span tag="amount"width="150"></span></th>
-                    <th ><input tag="remark" style="width: 60px"></th>
-                    <th>
-                        <a  class="easyui-linkbutton removeItem" data-options="title:'删除',plain:true,iconCls:'icon-remove'"></a>
-                    </th>
-                </tr>
-            </tbody>
+            <tbody id="edit_tbody"></tbody>
         </table>
     </form>
 </div>
+<table id="itemTr">
+    <tbody>
+        <tr style="align-content: center">
+            <input  tag="pid" type="hidden">
+            <th >
+                <span  tag="name" width="150"></span>
+            </th>
+            <th >
+                <span  tag="sn" width="150"></span>
+            </th>
+            <th >
+
+                <input tag="costPrice"  type="number" min="1" style="width: 50px">
+
+            </th>
+            <th><input tag="number"  type="number" min="1" style="width: 50px"></th>
+            <th ><span tag="amount" width="150"></span></th>
+            <th ><input tag="remark"    style="width: 50px"></th>
+            <th>
+                <a  class="easyui-linkbutton removeItem" data-options="title:'删除',plain:true,iconCls:'icon-remove'"></a>
+            </th>
+        </tr>
+    </tbody>
+</table>
 
 <!--订单列表顶部按钮-->
 <div id="orderBill_toolbar">
@@ -116,7 +123,7 @@
 </div>
 <%--采购弹框底部按钮--%>
 <div id="orderBillItem_button">
-    <a class="easyui-linkbutton button-line-green" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton button-line-green ser" data-cmd="save">保存</a>
     <a class="easyui-linkbutton button-line-grayish" data-cmd="cancel">取消</a>
 </div>
 
