@@ -9,9 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- *
- */
 public interface MemberMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -29,6 +26,7 @@ public interface MemberMapper {
 
     void changeState(Long id);
 
+    void updatePasswordById(Member member);
     /**
      * 改变会员的积分余额
      * @param id 会员的id
@@ -48,8 +46,6 @@ public interface MemberMapper {
     Integer selectPoints(Long id);
 
     void updateConsumePoints(@Param("id") Long id, @Param("ret") Integer ret);
-
-    void updatePasswordById(Member member);
 
     void updateBalance(@Param("balance") BigDecimal balance,@Param("mumberId") Long id);
 
