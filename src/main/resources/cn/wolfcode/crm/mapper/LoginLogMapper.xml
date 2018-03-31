@@ -8,6 +8,11 @@
     <result column="logTime" property="logTime" />
   </resultMap>
 
+  <insert id="insert" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    insert into loginlog (logName,logIp,logTime)
+    values (#{logName},#{logIp},#{logTime})
+  </insert>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, logName, logIp, logTime
     from loginlog

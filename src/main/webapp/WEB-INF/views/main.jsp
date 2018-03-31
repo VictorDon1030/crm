@@ -147,7 +147,7 @@
             <div id="main" style="height:250px;width: 250px"></div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="import" src="/allchart.do" width="100%" height="100%" frameborder="0"></iframe>
+                    <iframe id="import" src="/chat/statirName.do" width="100%" height="100%" frameborder="0"></iframe>
                 </div>
             </div>
         </div>

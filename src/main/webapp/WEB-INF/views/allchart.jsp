@@ -5,26 +5,34 @@
     <script type="text/javascript" src="/home-face/plugin/echart/echarts-all.js"></script>
     <style type="text/css">
         .live{
-            position:absolute;
+            /*position:absolute;
             right:-100px;
-            top:-10px;
+            top:-10px;*/
         }
         .bar-one{
-            position:absolute;
+           /* position:absolute;
             right:-100px;
-            top:280px;
+            top:280px;*/
         }
 
     </style>
 </head>
 <body>
+<div style="width: auto;height: auto" align="center">
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="height:280px;width: 280px;margin-left: 50px"></div>
+<%--<div id="main" style="height:280px;width: 280px;margin-left: 50px"></div>--%>
+    <div align="center">
+<div id="main" style="height:280px;width: 280px;"></div>
 <!-- ECharts单文件引入 -->
-<div class="live" id="bar" style="height:280px;width: 580px;margin-right: 50px;margin-top: 20px"></div>
+<%--<div class="live" id="bar" style="height:300px;width: 580px;margin-right: 50px;margin-top: 10px"></div>--%>
+<div class="live" id="bar" style="height:300px;width: 580px;margin-top: 10px"></div>
+    </div>
 <!---->
-<div id="pie" style="height:280px;width: 280px;margin-left: 50px"></div>
-<div class="bar-one" id="bar-one" style="height:280px;width: 600px;margin-right: 20px"></div>
+<%--<div id="pie" style="height:280px;width: 280px;margin-left: 50px"></div>--%>
+<div id="pie" style="height:280px;width: 280px;"></div>
+<%--<div class="bar-one" id="bar-one" style="height:280px;width: 600px;margin-right: 20px"></div>--%>
+<div class="bar-one" id="bar-one" style="height:280px;width: 600px;"></div>
+</div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts图表
     var myChart = echarts.init(document.getElementById('bar-one'));
@@ -41,7 +49,7 @@
         xAxis : [
             {
                 type : 'category',
-                data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                data : ${month}
             }
         ],
         yAxis : [
@@ -52,9 +60,14 @@
         ],
         series : [
             {
-                name:'销售数量',
+                name:'总销售',
                 type:'bar',
-                data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                data:${monthSale}
+            },
+            {
+                name:'总利润',
+                type:'bar',
+                data:${profit}
             }
         ]
     };
@@ -71,7 +84,7 @@
     var myChart = echarts.init(document.getElementById('bar'));
     var option = {
         title : {
-            text: '店铺业绩'
+            text: '分类销售额'
         },
         tooltip : {
             trigger: 'axis'
@@ -88,14 +101,19 @@
         yAxis : [
             {
                 type : 'category',
-                data : ['家具类','食品类','日常类','全部分类']
+                data : ${twoName}
             }
         ],
         series : [
             {
-                name:'营业额',
+                name:'总成本',
                 type:'bar',
-                data:[29034, 104970, 131744, 630230]
+                data:${twoCost}
+            },
+            {
+                name:'总销售',
+                type:'bar',
+                data:${twoSale}
             }
         ]
     };
@@ -160,7 +178,7 @@
     var myChart = echarts.init(document.getElementById('main'));
     var option = {
         title:{
-            text:'出入库报表',
+            text:'分类库存',
             x:'center'
         },
         tooltip : {
@@ -171,7 +189,7 @@
         calculable : true,
         series : [
             {
-                name:'访问来源',
+                name:'分类',
                 type:'pie',
                 radius : ['50%', '70%'],
                 itemStyle : {
@@ -194,10 +212,7 @@
                         }
                     }
                 },
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:800, name:'邮件营销'}
-                ]
+                data:${one}
             }
         ]
     };
