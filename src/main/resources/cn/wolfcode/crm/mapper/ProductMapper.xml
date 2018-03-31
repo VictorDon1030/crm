@@ -32,6 +32,7 @@
     values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory},
       #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice},
       #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath})
+  </insert>
     <delete id="deleteAll">
       delete from product
     </delete>

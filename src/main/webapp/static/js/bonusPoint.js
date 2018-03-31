@@ -73,13 +73,9 @@ $(function () {
                 if (item.amount >= 0) {
                     sumPoints = sumPoints + item.amount;
                 }
-                /*else {
-                                   comsumPoints = comsumPoints + (item.amount - item.amount * 2)
-                               }*/
 
             });
             $("#sumPoints,#sumPoints_gift").val(sumPoints);
-            // $("#comsumPoints").html(comsumPoints);
 
 
             memberInfo.datagrid({

@@ -80,12 +80,6 @@
         SET points = 0
         WHERE id = #{id}
     </update>
-    <!--修改密码的操作-->
-    <update id="updatePasswordById">
-        UPDATE member
-        SET password = #{password}
-        WHERE id = #{id}
-    </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         <include refid="base_column"/>
         <include refid="base_table"/>
@@ -163,13 +157,6 @@
         FROM member m left join dictionaryitem grade on m.grade_id=grade.id
         left join dictionaryitem payment on m.payment_id=payment.id
     </sql>
-    <sql id="bonusPoint_where">
-        <where>
-            <if test="keyword != null">
-                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
-            </if>
-        </where>
-    </sql>
 
     <sql id="base_where">
         <where>
@@ -209,13 +196,6 @@
         </where>
     </sql>
 
-    <!--beginDate;
-    //结束时间
-    private Date endDate;
-    //生日开始时间
-    private Date birthdayBeginDate;
-    //生日结束时间
-    private Date birthdayEndDate;-->
     <update id="updateBalance">
         update member set balance = #{balance} where id=#{mumberId}
     </update>

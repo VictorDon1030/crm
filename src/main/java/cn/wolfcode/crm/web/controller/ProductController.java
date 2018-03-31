@@ -38,8 +38,6 @@ public class ProductController {
     @Autowired
     private IProductService productService;
     @Autowired
-    private ProductMapper productMapper;
-    @Autowired
     private ServletContext context;
 
     @RequestMapping("view")
@@ -350,4 +348,3 @@ public class ProductController {
 
 
 
-}

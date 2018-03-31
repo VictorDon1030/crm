@@ -312,7 +312,7 @@
     </div>
     <div title="兑换记录" data-options="" style="padding:10px">
         <table id="exchange_record" class="easyui-datagrid" style="width: 100%"
-               data-options="singleSelect:true,collapsible:false,fitColumns:true,toolbar:'#toolbar_record'">
+               data-options="singleSelect:true,pagination:true,collapsible:false,fitColumns:true,toolbar:'#toolbar_record'">
         </table>
         <div id="toolbar_record">
             <input id="exchange_keyword" class="easyui-textbox" prompt="请输入会员卡号或名称" data-options="width:250,height:30"/>

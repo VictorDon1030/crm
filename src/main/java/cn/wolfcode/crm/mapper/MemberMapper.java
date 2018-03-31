@@ -26,8 +26,6 @@ public interface MemberMapper {
 
     void changeState(Long id);
 
-    void updatePasswordById(Member member);
-
 
     /**
      * 改变会员的积分余额
