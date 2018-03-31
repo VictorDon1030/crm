@@ -52,7 +52,7 @@
     </where>
   </sql>
 
-  <!--高级查询，排序-->
+  <!--高级查询，排序:按照销售总额-->
   <select id="selectAndOrder" resultType="map">
     <include refid="select"/>
     <include refid="from"/>

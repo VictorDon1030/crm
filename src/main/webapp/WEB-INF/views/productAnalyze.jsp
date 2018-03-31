@@ -10,13 +10,6 @@
 <body>
 
     <div class="easyui-layout" data-options="fit:true" style="fit:true">
-        <div data-options="region:'north'" style="height:60px">
-            <!--选项卡：用2个a标签-->
-            <div style="margin-top: 10px;margin-bottom: 30px;">
-                <a href="javascript:window.location.href='/productAnalyze/view.do'"><font style="font-size: 18px;">产品分析</font></a>
-                <a href="javascript:window.location.href='/classAnalysis/view.do'"><font style="font-size: 18px;">类别分析</font></a>
-            </div>
-        </div>
 
         <div data-options="region:'center',iconCls:'icon-ok'">
             <div class="easyui-layout" data-options="fit:true">
@@ -42,6 +35,12 @@
 
                 <!--中布局-->
                 <div data-options="region:'center',collapsible:false" >
+                    <!--柱状表的选择按钮-->
+                    <div>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="orderByNumber">产品销售排行</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="orderByProfit">产品销售毛利排行</a>
+                    </div>
+
                     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                     <div id="main" style="width: 900px;height:250px;"></div>
 

@@ -9,13 +9,7 @@
 </head>
 <body>
     <div class="easyui-layout" data-options="fit:true" style="fit:true">
-        <div data-options="region:'north'" style="height:50px">
-            <!--北布局-->
-            <!--选项卡：用2个a标签-->
-            <div style="margin-top: 10px;margin-bottom: 30px;">
-                <a href="javascript:window.location.href='/pay/view.do'"><font style="font-size: 18px;">销售报表</font></a>
-            </div>
-        </div>
+
         <!--中布局-->
         <div data-options="region:'center'">
 

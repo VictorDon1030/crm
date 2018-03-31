@@ -1,5 +1,6 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,15 +38,6 @@
 <body>
 
     <div class="easyui-layout" data-options="fit:true" style="width:700px;height:350px;">
-        <!--外北-->
-        <div data-options="region:'north'" style="height:50px">
-            <!--选项卡：用2个a标签-->
-            <div style="margin-top: 10px;margin-bottom: 30px;">
-                <a href="javascript:window.location.href='/pay/view.do'"><font style="font-size: 18px;">支出录入</font></a>
-                <a href="javascript:window.location.href='/payItem/view.do'"><font style="font-size: 18px;">支出明细</font></a>
-            </div>
-        </div>
-        <!--外中-->
         <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px">
             <div class="easyui-layout" data-options="fit:true">
 
@@ -70,7 +62,10 @@
                                 <li id='${map.id}'>
                                     <h1>${map.pType}</h1>
                                     <p>￥${map.amount}</p>
-                                    <p>${map.date}</p>
+                                    <%--
+                                    <p>${map.date}</p>--%>
+                                    <fmt:formatDate value="${map.date}" pattern="yyyy-MM-dd " var="startDate"/>
+                                    <p>${startDate}</p>
                                 </li>
                             </c:forEach>
                         </ul>

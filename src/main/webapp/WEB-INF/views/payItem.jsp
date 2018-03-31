@@ -8,13 +8,13 @@
 </head>
 <body>
 <div class="easyui-layout" data-options="fit:true" style="width:700px;height:350px;">
-    <div data-options="region:'north'" style="height:60px">
+    <%--<div data-options="region:'north'" style="height:60px">
         <!--选项卡：用2个a标签-->
         <div style="margin-top: 10px;margin-bottom: 30px;">
             <a href="javascript:window.location.href='/pay/view.do'"><font style="font-size: 18px;">支出录入</font></a>
             <a href="javascript:window.location.href='/payItem/view.do'"><font style="font-size: 18px;">支出明细</font></a>
         </div>
-    </div>
+    </div>--%>
 
     <div data-options="region:'center',iconCls:'icon-ok'"  style="padding:5px;margin-top: 0px;">
         <table style="margin-top: 0px;margin-left:20px;" >
