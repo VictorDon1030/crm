@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.service;
 
 import cn.wolfcode.crm.domain.Dictionary;
+import cn.wolfcode.crm.domain.DictionaryItem;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
 
@@ -22,4 +23,6 @@ public interface IDictionaryService {
 
     PageResult query(QueryObject qo);
 
+
+    void changeState(Long id);
 }

@@ -25,12 +25,15 @@
     delete from product
     where id = #{id}
   </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory, 
-      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice, 
+    <delete id="deleteAll">
+      delete from product
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory,
+      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice,
       minDiscount, specification, integral, pastDueTime, imagePath)
-    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory}, 
-      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice}, 
+    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory},
+      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice},
       #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath})
   </insert>
   <update id="updateByPrimaryKey">
@@ -52,12 +55,18 @@
       integral = #{integral},
       pastDueTime = #{pastDueTime},
       imagePath = #{imagePath}
+      images = #{images}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     <include refid="base_column"/>
     from product
     where id = #{id}
+  </select>
+  <select id="selectByUnitId" resultMap="BaseResultMap">
+    <include refid="base_column"/>
+    from product
+    where unit = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     <include refid="base_column"/>
@@ -80,7 +89,7 @@
   <sql id="base_column">
     select id, name, brand, goodsMark, unitpPrice, minPrice, initialInventory, unit,
     commission, remark, auxiliaryWord, purchasingPrice, memberPrice, minDiscount, specification,
-    integral, pastDueTime, imagePath
+    integral, pastDueTime, imagePath, images
   </sql>
 
   <sql id="base_where">
@@ -104,4 +113,27 @@
       </if>
     </where>
   </sql>
+
+  <select id="selectBySecondaryId" resultMap="BaseResultMap">
+    select *  from product p join secondary s on p.id = s.product_id
+    where s.product_id = #{id}
+  </select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

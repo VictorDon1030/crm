@@ -39,8 +39,11 @@
   <delete id="deleteRelation">
     delete from employee_role where employee_id = #{id}
   </delete>
+    <delete id="deleteAll">
+      DELETE from employee
+    </delete>
 
-  <select id="selectByEmployeeName" resultType="Employee">
+    <select id="selectByEmployeeName" resultType="Employee">
     SELECT * from employee where username = #{name}
   </select>
 
