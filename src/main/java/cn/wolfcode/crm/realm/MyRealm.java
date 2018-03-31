@@ -1,9 +1,13 @@
 package cn.wolfcode.crm.realm;
 
 import cn.wolfcode.crm.domain.Employee;
+import cn.wolfcode.crm.domain.LoginLog;
 import cn.wolfcode.crm.mapper.EmployeeMapper;
+import cn.wolfcode.crm.mapper.LoginLogMapper;
 import cn.wolfcode.crm.mapper.PermissionMapper;
 import cn.wolfcode.crm.mapper.RoleMapper;
+import cn.wolfcode.crm.util.SystemLogUtil;
+import cn.wolfcode.crm.util.UserUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,6 +17,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Demo class

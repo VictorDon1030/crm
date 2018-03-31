@@ -3,6 +3,7 @@ package cn.wolfcode.crm.web.controller;
 import cn.wolfcode.crm.domain.Permission;
 import cn.wolfcode.crm.domain.Role;
 import cn.wolfcode.crm.query.QueryObject;
+import cn.wolfcode.crm.query.RoleQuery;
 import cn.wolfcode.crm.service.IRoleService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
@@ -43,7 +44,7 @@ public class RoleController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(RoleQuery qo){
         return roleService.query(qo);
     }
 

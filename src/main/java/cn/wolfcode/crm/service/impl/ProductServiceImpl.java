@@ -27,6 +27,11 @@ public class ProductServiceImpl implements IProductService {
             productMapper.updateByPrimaryKey(entity);
         }
     }
+    @Override
+    public void save(Product entity) {
+
+            productMapper.insert(entity);
+    }
 
     @Override
     public int delete(Long id) {
@@ -51,6 +56,17 @@ public class ProductServiceImpl implements IProductService {
             return new PageResult(total, Collections.EMPTY_LIST);
         }
         return new PageResult(total, data);
+    }
+
+    @Override
+    public List<Product> selectByUnitId(Long id) {
+
+        return productMapper.selectByUnitId(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        productMapper.deleteAll();
     }
 
 }

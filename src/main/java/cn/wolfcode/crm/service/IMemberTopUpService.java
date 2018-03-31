@@ -1,5 +1,6 @@
 package cn.wolfcode.crm.service;
 
+import cn.wolfcode.crm.domain.Member;
 import cn.wolfcode.crm.domain.MemberTopUp;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.util.PageResult;
@@ -27,4 +28,5 @@ public interface IMemberTopUpService {
     PageResult query(QueryObject qo);
 
 
+    List<MemberTopUp> selecToptItemByMemberId(Long id);
 }

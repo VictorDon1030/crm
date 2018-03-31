@@ -37,7 +37,7 @@
 <!--订单列表顶部按钮-->
 <div id="productStock_toolbar">
     <input id="depot" class="easyui-combobox" name="depot.id"
-           data-options="valueField:'id',textField:'name',url:'/depot/selectAll.do',prompt:'仓库查询'" />
+           data-options="valueField:'id',textField:'name',url:'/depot/selectAll.do',prompt:'仓库查询',limitToList:true" />
     <input id="warnNum" type="text" class="easyui-numberbox"  name="warnNum" data-options="prompt:'阈值查询'" />
     <input id="keyword" class="easyui-textbox" data-options="prompt:'产品名称/编码查询'" name="keyword" style="width:300px">
     <a class="easyui-linkbutton button-line-green" data-options="iconCls:'icon-search',plain:true" onclick="searchs()"></a>

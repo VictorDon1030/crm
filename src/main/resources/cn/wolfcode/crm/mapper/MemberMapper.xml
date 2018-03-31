@@ -19,6 +19,7 @@
             <result column="name" property="name"/>
         </association>
         <!--回显支付方式-->
+
         <association property="payment" javaType="DictionaryItem" columnPrefix="payment_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
@@ -39,12 +40,12 @@
     <update id="updateConsumePoints">
         UPDATE member SET consumePoints = consumePoints + #{ret} WHERE id = #{id}
     </update>
+
     <update id="updateByPrimaryKey">
         UPDATE member
         SET memberNum     = #{memberNum},
             name          = #{name},
             phone         = #{phone},
-            password      = #{password},
             grade_id      = #{grade.id},
             payment_id    = #{payment.id},
             birthday      = #{birthday},
@@ -62,6 +63,13 @@
         SET state = state ^ 1
         WHERE id = #{id}
     </update>
+    <!--修改密码的操作-->
+    <update id="updatePasswordById">
+        UPDATE member
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
+
     <update id="changePoint">
         UPDATE member
         SET points = points + #{amount}
@@ -166,26 +174,41 @@
     <sql id="base_where">
         <where>
             <if test="keyword!= null">
-             and ( m.memberNum like concat('%',#{keyword},'%') or m.name like concat('%',#{keyword},'%')
-                or  m.phone like concat('%', #{keyword},'%'))
+                and ( m.memberNum like concat('%',#{keyword},'%') or m.name like concat('%',#{keyword},'%')
+                or m.phone like concat('%', #{keyword},'%'))
             </if>
             <if test="gradeId >-1 and  gradeId != null">
                 and m.grade_id= #{gradeId}
             </if>
             <if test="beginDate != null">
-                and    m.usefullife &gt;= #{beginDate}
+                and m.usefullife &gt;= #{beginDate}
             </if>
             <if test="endDate != null">
-                and   m.usefullife &lt;= #{endDate}
+                and m.usefullife &lt;= #{endDate}
             </if>
             <if test="birthdayBeginDate != null">
-                and  m.birthday &gt;= #{birthdayBeginDate}
+                and m.birthday &gt;= #{birthdayBeginDate}
             </if>
             <if test="birthdayEndDate != null">
-                and   m.birthday &lt;= #{birthdayEndDate}
+                and m.birthday &lt;= #{birthdayEndDate}
             </if>
         </where>
     </sql>
+    <sql id="base_update">
+        <trim prefix="set" suffixOverrides=",">
+            <if test="password != null">
+                password=#{password}
+            </if>
+        </trim>
+    </sql>
+    <sql id="bonusPoint_where">
+        <where>
+            <if test="keyword != null">
+                and (memberNum like CONCAT('%',#{keyword},'%') or phone like CONCAT('%',#{keyword},'%'))
+            </if>
+        </where>
+    </sql>
+
     <!--beginDate;
     //结束时间
     private Date endDate;

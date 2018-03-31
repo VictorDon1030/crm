@@ -20,4 +20,6 @@ public interface MemberTopUpMapper {
     int queryCount(QueryObject qo);
 
     List<MemberTopUp> queryForList(QueryObject qo);
+
+    List<MemberTopUp> selecToptItemByMemberId(Long memberId);
 }

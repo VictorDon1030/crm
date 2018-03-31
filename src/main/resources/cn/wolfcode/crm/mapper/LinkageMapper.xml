@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.LinkageMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Linkage">
+    <id column="id" property="id" />
+    <result column="text" property="text" />
+    <result column="url" property="url" />
+    <!--菜单关联的权限 发送额外sql-->
+    <association property="permission" javaType="cn.wolfcode.crm.domain.Permission"
+                 column="permission_id" fetchType="eager"
+                 select="cn.wolfcode.crm.mapper.PermissionMapper.selectByPrimaryKey"/>
+
+    <!--查询子菜单  映射到 查询根菜单  取消懒加载-->
+    <collection property="children" ofType="Linkage" select="getChildrenLinkage"
+              fetchType="eager"  column="id">
+    </collection>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from linkage
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into linkage (text, url, parent_id)
+    values (#{text}, #{url}, #{parent_id})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update linkage
+    set text = #{text},
+      url = #{url},
+      parent_id = #{parent_id}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, text, url, parent_id
+    from linkage
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, text, url, parent_id
+    from linkage
+  </select>
+  <!--查询根菜单-->
+  <select id="getRootLinkage" resultMap="BaseResultMap">
+    select id, text, url, parent_id from linkage where parent_id is null
+  </select>
+  <!--查询子菜单  映射到 查询根菜单-->
+  <select id="getChildrenLinkage" resultMap="BaseResultMap">
+    select id, text, url, parent_id from linkage where parent_id = #{id}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

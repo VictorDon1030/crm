@@ -46,5 +46,6 @@ public class Member extends BaseDomain {
     //会员已经消费的积分
     private Integer consumePoints;
 
+    private List<MemberTopUp> memberTopUps = new ArrayList<>();
 
 }

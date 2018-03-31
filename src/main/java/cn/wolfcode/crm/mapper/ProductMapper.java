@@ -20,4 +20,11 @@ public interface ProductMapper {
 
     List<Product> query4List(QueryObject qo);
 
+    List<Product> selectByUnitId(Long id);
+
+    /**
+     * 慎重
+     * 删库
+     */
+    void deleteAll();
 }

@@ -18,10 +18,9 @@
     <div data-options="region:'north',split:true,border:false" style="height:120px;">
         <form id="member_loadData_form">
             <div>
-                 <span>
+                <span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
 
             </span>
                 <input id="name_textbox" class="easyui-textbox" name="name"
@@ -32,8 +31,7 @@
                 <div>
             <span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
 
             </span>
                     <span>
@@ -54,10 +52,9 @@
                     &nbsp;
                 </div>
                 <div>
-            <span>
+           <span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
 
             </span>
                     <span>
@@ -79,125 +76,199 @@
     </div>
     <%--左--%>
     <div data-options="region:'west',split:true,border:false" style="width:400px;">
-        <%--<table id="member_load_datagrid"></table>--%>
         <%--表格--%>
         <table id="member_load_datagrid" class="table table-celled table-structured">
-            <%-- <tbody>
-             <tr>
-                 <td rowspan="3"><img src="#"></td>
-                 <td data-options="field:'name'"></td>
-                 <td>&nbsp;</td>
-                 <td data-options="field:'grade.id'"></td>
-
-             </tr>
-             <tr>
-             </tr>
-             <tr>
-                 <td data-options="field:'balance'"></td>
-                 <td>&nbsp;</td>
-                 <td data-options="field:'phone"></td>
-             </tr>
-             </tbody>--%>
         </table>
     </div>
     <%--中间,充值--%>
     <div data-options="region:'center',border:false" style="padding:5px;background:#eee;">
+        <div>
+            <span>操作类型:</span>
+            <a class="easyui-linkbutton" data-options="width:60,height:36,text:'充值'" data-state="1"></a>
+            <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <a class="easyui-linkbutton" data-options="width:60,height:36,text:'充次'" data-state="0"></a>
+        </div>
+
+        <%--充值的表单--%>
+        <span id="totalResult" style="display;  ">
         <form id="ff" method="post">
-            <p> &nbsp; </p>
             <input type="hidden" name="member.id" id="id_hidden">
-            <div id="state">
-                <span>操作类型:</span>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充值'" data-btn="1"></a>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'充次'" data-btn="0"></a>
-            </div>
             <span>
             <p> &nbsp; </p>
             </span>
-            <div id="addway">
+            <div id="chooseway" style="display;  ">
                 <span>选择类型:</span>
                 <input id="select_topup" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="充值" type="radio">
-                <span></span>
+                       value="1" type="radio">
+                <span>充值</span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <input id="select_fee" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="扣费" type="radio">
-                <span></span>
+                <input id="select_fee" class="checkinput" data-recharge_type="0" name="addway"
+                       value="-1" type="radio">
+                <span>扣费</span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <input id="select_refund" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="退还" type="radio">
-                <span></span>
+                <input id="select_refund" class="checkinput" data-recharge_type="0" name="addway"
+                       value="0" type="radio">
+                <span>退还</span>
             </div>
-            <span>
+              <span>
             <p> &nbsp; </p>
             </span>
             <span>
-                <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-            </span>
-            <span>
-                     <input class="easyui-textbox" name="addbalance" data-options="width:280,label:'充值金额:'"/>
+                     <input id="addbalance_textbox" class="easyui-textbox btn_add" name="addbalance"
+                            data-options="width:280,label:'充值金额:',prompt: '请输入充值金额'" data-cmd="add"/>
                           </span>
             <span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
+            <%--充值--%>
+            <span id="addWay" style="display  ">
+
+
             <span>
-                     <input class="easyui-textbox" name="give" data-options="width:280,label:'赠送金额:'"/>
+                     <input class="easyui-textbox" name="give" data-options="width:280,label:'赠送金额:',prompt: '请输入赠送金额'"
+                            data-cmd="give"/>
                           </span>
             <span>
             <p> &nbsp; </p>
             </span>
             <div>
                 <span>支付方式:</span>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'现金'" data-btn="cash"></a>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'银行卡'" data-btn="bankcard"></a>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'支付宝'" data-btn="alipay"></a>
-                <a class="easyui-linkbutton" data-options="width:80,height:46,text:'微信'" data-btn="wechat"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'现金'" data-btn="cash"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'银行卡'" data-btn="bankcard"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'支付宝'" data-btn="alipay"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'微信'" data-btn="wechat"></a>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <span><input class="easyui-textbox" name="username" data-options="width:280,label:'充值员工:'"/></span>
-                <%--<input class="easyui-textbox" type="text" name="email" data-options="validType:'email'"/>--%>
-            </div>
-              <p> &nbsp; </p>
-            <div>
+                <span>操作员工:</span>
+                <span><input class="easyui-validatebox" data-options="width:280,readonly:true"
+                             value="<shiro:principal property="username"/>"/></span>
+                </div>
+                  </span>
+                <p id="p">
+                   &nbsp;
+                </p>
+
+                <div id="discounts">
                 <span>优惠方式:</span>
-                <span>
+                <span id="msg">
                     (活动充值满5000元赠送500元储值现金)
                 </span>
-            </div>
-              <p> &nbsp; </p>
+                </div>
+              &nbsp;
             <div>
                 <span>备注信息:</span>
-                <input class="easyui-textbox" type="text" name="email"
-                       data-options="validType:'email',multiline:true,height:80,width:300"/>
+                <input class="easyui-textbox" type="text" name="intro"
+                       data-options="multiline:true,height:80,width:300"/>
             </div>
-            <span>
             <p> &nbsp; </p>
-            <p> &nbsp; </p>
-            </span>
-            <p> &nbsp; </p>
-            <span>  <input id="select_print" class="checkinput" data-recharge_type="0" checked="checked"
-                           name="select_print"
-                           value="" type="radio">
+            <span>  <input id="select_print" data-recharge_type="0"
+                           name="select_print" data-print="print"
+                           value="" type="checkbox">
             </span>
             <span>打印充值小票</span>
             <span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
-            合计充值:<span></span>
+
+
+        <%--扣费--%>
+      <%--  <span id="feeWay" style="display:none ">
+            </span>--%>
+
+        <%--退还--%>
+        <%--<span id="retreatWay" style="display:none;  "> </span>--%>
+
+
+        合计充值:<span id="totalMoney" style="color: red"></span>
+        <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+        <a class="easyui-linkbutton" id="btn" data-options="width:80,height:46,text:'确认'" data-btn="addData"></a>
+              <table id="topup_datagrid"></table>
+        </form>
+        </span>
+        <%--充次的表单--%>
+        <span id="countResult" style="display: none">
+        <form id="count" method="post">
+            <input type="hidden" name="member.id" id="id_hiddenCount">
+            <span>
+            <p> &nbsp; </p>
+            </span>
+            <span>
+                     <input class="easyui-combobox" name="addbalance" data-options="width:280,label:'选择商品:',valueField:'id',textField:'name',
+                     url:'/product/selectAll.do'"/>
+                          </span>
+            <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+
+            <span>
+                <input class="easyui-textbox" name="give" data-options="width:280,label:'充值金额:'" data-cmd="add"/>
+            </span>
+            <span>
+            <p> &nbsp; </p>
+            </span>
+            <div>
+                <span>支付方式:</span>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'现金'" data-btn="cash"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'银行卡'" data-btn="bankcard"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'支付宝'" data-btn="alipay"></a>
+                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'微信'" data-btn="wechat"></a>
+                <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <span><input class="easyui-textbox" name="addcount" data-options="width:280,label:'充值次数:'"
+                             data-cmd="add"/></span>
+            </div>
+              &nbsp;
+            <div>
+
+            </div>
+             <span><input class="easyui-datebox" name="usefullife" data-options="width:280,label:'有效期:'"/></span>
+                <span><input class="easyui-textbox" data-options="width:280,label:'充值员工:',readonly:true"
+                             value="<shiro:principal property="username"/>"/></span>
+            <div>
+                 <p> &nbsp; </p>
+                <span>优惠方式:</span>
+                <span>
+                    (活动冲次满10次送1次)
+                </span>
+            </div>
+                &nbsp;
+            <div>
+                <span>备注信息:</span>
+                <input class="easyui-textbox" type="text" name="intro"
+                       data-options="multiline:true,height:80,width:300"/>
+            </div>
+            <span>  <input id="select_printCount" data-recharge_type="0"
+                           name="select_print" data-print="print"
+                           value="" type="checkbox">
+            </span>
+            <span>打印充值小票</span>
+            <span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            合计充值:<span id="totalCount" style="color: red"></span>
             <span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-            <a class="easyui-linkbutton" id="btn" data-options="width:80,height:46,text:'充值'" data-btn="addData"></a>
+            <a class="easyui-linkbutton" id="btnCount" data-options="width:80,height:46,text:'充值'"
+               data-btn="addData"></a>
         </form>
+        </span>
+        <%--<table id="topup_datagrid"></table>--%>
     </div>
 </div>
 

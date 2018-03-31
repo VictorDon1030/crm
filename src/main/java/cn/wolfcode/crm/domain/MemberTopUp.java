@@ -1,7 +1,9 @@
 package cn.wolfcode.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,6 +20,8 @@ public class MemberTopUp extends BaseDomain {
     //赠送金额
     private BigDecimal give;
     //充值的时间
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GTM+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date toptime;
     //备注
     private String intro;
@@ -30,7 +34,13 @@ public class MemberTopUp extends BaseDomain {
 
     //充值状态,0表示冲次,1表示充值
     private boolean state;
-    //表示充值.扣费,退还
-    private DictionaryItem addway;
+    //表示1充值.-1扣费,0退还
+    private int addway;
+    //操作员工
+    private Employee onUser;
+
+
+
+
 
 }

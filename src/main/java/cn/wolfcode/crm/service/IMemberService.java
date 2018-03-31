@@ -54,6 +54,7 @@ public interface IMemberService {
 
     void checkPoints(Integer points,Long id);
     /**
+    /**
      *  修改会员密码的操作
      * @param member
      */

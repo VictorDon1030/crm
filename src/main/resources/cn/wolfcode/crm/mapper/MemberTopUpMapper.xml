@@ -1,47 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.wolfcode.crm.mapper.MemberTopUpMapper">
-  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.MemberTopUp">
-    <id column="id" property="id" />
-    <result column="addbalance" property="addbalance" />
-    <result column="addcount" property="addcount" />
-    <result column="give" property="give" />
-    <result column="toptime" property="toptime" />
-    <result column="intro" property="intro" />
-    <result column="product_id" property="product_id" />
-    <result column="discount" property="discount" />
-    <result column="state" property="state" />
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.MemberTopUp">
+        <id column="id" property="id"/>
+        <result column="addbalance" property="addbalance"/>
+        <result column="addcount" property="addcount"/>
+        <result column="give" property="give"/>
+        <result column="toptime" property="toptime"/>
+        <result column="intro" property="intro"/>
+        <result column="product_id" property="product_id"/>
+        <result column="discount" property="discount"/>
+        <result column="state" property="state"/>
+        <result column="addway" property="addway"/>
+        <association property="member" javaType="Member" columnPrefix="m_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="balance" property="balance"/>
+            <result column="points" property="points"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM membertopup
+        WHERE id = #{id}
+    </delete>
+    <!--添加操作-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO membertopup (addbalance, addcount, give, toptime, intro, member_id,
+                                 product_id, discount, state, addway, onuser_id)
+        VALUES (#{addbalance}, #{addcount}, #{give}, #{toptime}, #{intro}, #{member.id},
+                               #{product_id}, #{discount}, #{state}, #{addway}, #{onUser.id})
+    </insert>
 
-  </resultMap>
-  <delete id="deleteByPrimaryKey">
-    delete from membertopup
-    where id = #{id}
-  </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into membertopup (addbalance, addcount, give, toptime, intro, member_id, 
-      product_id, discount,state)
-    values (#{addbalance}, #{addcount}, #{give}, #{toptime}, #{intro}, #{member.id},
-      #{product_id}, #{discount},#{state})
-  </insert>
-  <update id="updateByPrimaryKey">
-    update membertopup
-    set addbalance = #{addbalance},
-      addcount = #{addcount},
-      give = #{give},
-      toptime = #{toptime},
-      intro = #{intro},
-      member_id = #{member.id},
-      product_id = #{product_id},
-      discount = #{discount}
-    where id = #{id}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, addbalance, addcount, give, toptime, intro, member_id, product_id, discount
-    from membertopup
-    where id = #{id}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, addbalance, addcount, give, toptime, intro, member_id, product_id, discount
-    from membertopup
-  </select>
+
+    <update id="updateByPrimaryKey">
+        UPDATE membertopup
+        SET addbalance = #{addbalance},
+            addcount   = #{addcount},
+            give       = #{give},
+            toptime    = #{toptime},
+            intro      = #{intro},
+            member_id  = #{member.id},
+            product_id = #{product_id},
+            discount   = #{discount}
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+            id,
+            addbalance,
+            addcount,
+            give,
+            toptime,
+            intro,
+            member_id,
+            product_id,
+            discount
+        FROM membertopup
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            id,
+            addbalance,
+            addcount,
+            give,
+            toptime,
+            intro,
+            member_id,
+            product_id,
+            discount
+        FROM membertopup
+    </select>
+    <!--根据会员的id来查询充值明细-->
+    <select id="selecToptItemByMemberId" resultMap="BaseResultMap">
+        <include refid="base_column"/>
+        <include refid="base_table"/>
+        where m.id=#{memberId}
+    </select>
+    <sql id="base_column">
+        SELECT
+            topup.id,
+            topup.addbalance,
+            topup.addcount,
+            topup.give,
+            topup.toptime,
+            topup.intro,
+            topup.member_id,
+            topup.product_id,
+            topup.discount,
+            m.id m_id,
+            m.name m_name,
+            m.balance m_balance,
+            m.points m_points
+    </sql>
+    <sql id="base_table">
+        FROM membertopup topup left join member m on topup.member_id=m.id
+    </sql>
 </mapper>

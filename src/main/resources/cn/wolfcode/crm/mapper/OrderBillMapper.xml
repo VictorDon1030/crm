@@ -77,19 +77,27 @@
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT
-            id,
-            sn,
-            vdate,
-            status,
-            totalAmount,
-            totalNumber,
-            auditTime,
-            inputTime,
-            inputUser_id,
-            auditor_id,
-            supplier_id,
-            depot_id
-        FROM orderbill
+            o.id,
+            o.sn,
+            o.vdate,
+            o.status,
+            o.totalAmount,
+            o.totalNumber,
+            o.auditTime,
+            o.inputTime,
+            inputUser.id   inputUser_id,
+            inputUser.realname inputUser_realname,
+            auditor.id     auditor_id,
+            auditor.realname   auditor_realname,
+            s.id           supplier_id,
+            s.realname         supplier_realname,
+            d.id           depot_id,
+            d.name         depot_name
+        FROM orderbill o
+            JOIN employee inputUser ON o.inputUser_id = inputUser.id
+            LEFT JOIN employee auditor ON o.auditor_id = auditor.id
+            JOIN supplier s ON o.supplier_id = s.id
+            JOIN depot d ON o.depot_id = d.id
     </select>
     <select id="query4List" resultMap="BaseResultMap">
         SELECT
@@ -144,4 +152,5 @@
             </if>
         </where>
     </sql>
+
 </mapper>

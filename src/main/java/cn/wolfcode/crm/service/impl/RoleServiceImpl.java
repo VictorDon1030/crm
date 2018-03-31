@@ -70,6 +70,8 @@ public class RoleServiceImpl implements IRoleService {
         return new PageResult(total, data);
     }
 
+
+
     @Override
     public List<Long> selectRoleIdByEmpId(Long id) {
         return roleMapper.selectRoleIdByEmpId(id);

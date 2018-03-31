@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.RefundMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Refund">
+        <id column="id" property="id"/>
+        <result column="sn" property="sn"/>
+        <result column="vdate" property="vdate"/>
+        <result column="status" property="status"/>
+        <result column="totalAmount" property="totalAmount"/>
+        <result column="totalNumber" property="totalNumber"/>
+        <result column="auditTime" property="auditTime"/>
+        <result column="inputTime" property="inputTime"/>
+        <association property="inputUser" javaType="employee" columnPrefix="inputUser_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+        <association property="auditor" javaType="employee" columnPrefix="auditor_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+        <association property="supplier" javaType="supplier" columnPrefix="supplier_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+        <association property="depot" javaType="depot" columnPrefix="depot_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+        <collection property="items" ofType="refundItem" fetchType="eager"
+                    column="id" select="cn.wolfcode.crm.mapper.RefundItemMapper.selectItemsByRefundId"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM refund
+        WHERE id = #{id}
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO refund (sn, vdate, status, totalAmount, totalNumber, auditTime,
+                               inputTime, inputUser_id, auditor_id, supplier_id,depot_id)
+        VALUES (#{sn}, #{vdate}, #{status}, #{totalAmount}, #{totalNumber}, #{auditTime},
+                #{inputTime}, #{inputUser.id}, #{auditor.id}, #{supplier.id},#{depot.id})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE refund
+        SET sn           = #{sn},
+            vdate        = #{vdate},
+            status       = #{status},
+            totalAmount  = #{totalAmount},
+            totalNumber  = #{totalNumber},
+            supplier_id  = #{supplier.id},
+            depot_id  = #{depot.id}
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+        o.id,
+        o.sn,
+        o.vdate,
+        o.status,
+        o.totalAmount,
+        o.totalNumber,
+        o.auditTime,
+        o.inputTime,
+        inputUser.id   inputUser_id,
+        inputUser.realname inputUser_realname,
+        auditor.id     auditor_id,
+        auditor.realname   auditor_realname,
+        s.id           supplier_id,
+        s.realname         supplier_realname,
+        d.id           depot_id,
+        d.name         depot_name
+        FROM refund o
+        JOIN employee inputUser ON o.inputUser_id = inputUser.id
+        LEFT JOIN employee auditor ON o.auditor_id = auditor.id
+        JOIN supplier s ON o.supplier_id = s.id
+        JOIN depot d ON o.depot_id = d.id
+        WHERE o.id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            id,
+            sn,
+            vdate,
+            status,
+            totalAmount,
+            totalNumber,
+            auditTime,
+            inputTime,
+            inputUser_id,
+            auditor_id,
+            supplier_id,
+            depot_id
+        FROM refund
+    </select>
+    <select id="query4List" resultMap="BaseResultMap">
+        SELECT
+            o.id,
+            o.sn,
+            o.vdate,
+            o.status,
+            o.totalAmount,
+            o.totalNumber,
+            o.auditTime,
+            o.inputTime,
+            inputUser.id   inputUser_id,
+            inputUser.realname inputUser_realname,
+            auditor.id     auditor_id,
+            auditor.realname   auditor_realname,
+            s.id           supplier_id,
+            s.realname         supplier_realname,
+            d.id           depot_id,
+            d.name         depot_name
+        FROM refund o
+            JOIN employee inputUser ON o.inputUser_id = inputUser.id
+            LEFT JOIN employee auditor ON o.auditor_id = auditor.id
+            JOIN supplier s ON o.supplier_id = s.id
+          JOIN depot d ON o.depot_id = d.id
+            <include refid="sql_where"/>
+        LIMIT #{start}, #{rows}
+    </select>
+    <select id="query4Count" resultType="int">
+        SELECT count(o.id)
+        FROM refund o
+            JOIN employee inputUser ON o.inputUser_id = inputUser.id
+            LEFT JOIN employee auditor ON o.auditor_id = auditor.id
+            JOIN supplier s ON o.supplier_id = s.id
+            JOIN depot d ON o.depot_id = d.id
+        <include refid="sql_where"/>
+    </select>
+    <!--审核-->
+    <update id="audit">
+        update refund SET status=#{status},auditor_id = #{auditor.id},auditTime=#{auditTime}
+        WHERE id = #{id}
+    </update>
+    <sql id="sql_where">
+        <where>
+            <if test="beginDate!=null">
+               and o.vdate >= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and o.vdate &lt;= #{endDate}
+            </if>
+            <if test="status>=0">
+                and o.status = #{status}
+            </if>
+        </where>
+    </sql>
+</mapper>

@@ -9,8 +9,10 @@ import cn.wolfcode.crm.service.IBonusPointRecordService;
 import cn.wolfcode.crm.service.IMemberService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,18 +80,18 @@ public class MmberController {
 
     @RequestMapping("saveOrUpdate")
     @ResponseBody
-    public Object saveOrUpdate(Member entity) {
+    public Object saveOrUpdate(Member entity){
         JsonResult result = new JsonResult();
 
 
         try {
-            if (entity.getId() == null) {
+            if (entity.getId() == null){
                 entity.setState(true);
                 memberService.insert(entity);
             } else {
                 memberService.updateByPrimaryKey(entity);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             result.mark("亲,保存失败");
         }
         return result;
@@ -97,11 +99,11 @@ public class MmberController {
 
     @RequestMapping("changeState")
     @ResponseBody
-    public Object changeState(Long id) {
+    public Object changeState(Long id){
         JsonResult result = new JsonResult();
         try {
             memberService.changeState(id);
-        } catch (Exception e) {
+        } catch (Exception e){
             result.mark("设置失败");
         }
         return result;

@@ -13,6 +13,8 @@ public interface IProductService {
 
     void saveOrUpdate(Product entity);
 
+    void save(Product entity);
+
     int delete(Long id);
 
     Product get(Long id);
@@ -20,4 +22,8 @@ public interface IProductService {
     List<Product> listAll();
 
     PageResult query(QueryObject qo);
+
+    List<Product> selectByUnitId(Long id);
+
+    void deleteAll();
 }

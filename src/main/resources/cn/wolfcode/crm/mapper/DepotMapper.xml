@@ -44,15 +44,25 @@
   <!--分页-->
   <select id="queryCount" resultType="int">
     select count(id) from depot
+    <include refid="sql_where"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     select id, name, sn, address, state, info, vdate,employee_id
     from depot
+      <include refid="sql_where"/>
     limit #{start},#{rows}
   </select>
     <!--停用-->
     <update id="changeState">
         UPDATE depot SET state= state^1 WHERE id =#{id}
     </update>
+  <sql id="sql_where">
+    <where>
+      <if test="state!=null">
+        and state = #{state}
+      </if>
+    </where>
+  </sql>
+
 </mapper>
