@@ -1,6 +1,7 @@
 package cn.wolfcode.crm.service.impl;
 
 import cn.wolfcode.crm.domain.Dictionary;
+import cn.wolfcode.crm.domain.DictionaryItem;
 import cn.wolfcode.crm.mapper.DictionaryItemMapper;
 import cn.wolfcode.crm.mapper.DictionaryMapper;
 import cn.wolfcode.crm.query.QueryObject;
@@ -70,5 +71,10 @@ public class DictionaryServiceImpl implements IDictionaryService {
         return result;
     }
 
+
+    @Override
+    public void changeState(Long id) {
+        dictionaryMapper.changeState(id);
+    }
 
 }

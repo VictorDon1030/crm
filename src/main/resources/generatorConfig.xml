@@ -61,7 +61,8 @@
                 value=""/> -->
         </javaClientGenerator>
 
-        <table tableName="manager" domainObjectName="Manager">
+        <table tableName="ProductTwo" domainObjectName="ProductTwo">
+
             <property name="useActualColumnNames" value="true" />
             <!-- 参考 javaModelGenerator 的 constructorBased属性 -->
             <property name="constructorBased" value="false"/>

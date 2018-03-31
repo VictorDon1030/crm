@@ -23,7 +23,7 @@
 <div id="dictionary_tb">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-cmd="dictionary_add">新增</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-cmd="dictionary_edit">编辑</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-cmd="dictionary_delete">删除</a>
+    <a id="changeState" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-cmd="dictionary_changeState">设置停用</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-cmd="dictionary_reload">刷新</a>
 </div>
 
@@ -31,7 +31,7 @@
 <div id="dictionaryItem_tb">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-cmd="dictionaryItem_add">新增</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-cmd="dictionaryItem_edit">编辑</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-cmd="dictionaryItem_delete">删除</a>
+    <a id="changeStateItem" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-cmd="dictionaryItem_changeState">设置停用</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-cmd="dictionaryItem_reload">刷新</a>
 </div>
 
@@ -67,8 +67,8 @@
             <input class="easyui-textbox" data-options="label:'条目简介',lableWidth:80,width:300" name="intro">
         </div>
         <div style="margin-left: 50px;margin-top: 20px;">
-            <select id="dictionaryItem" class="easyui-combobox" name="dictionary.id" data-options="url:'/dictionary/selectAll.do',label:'字典目录',
-            width:300, panelHeight:'auto',valueField:'id',textField:'name',readonly:true">
+            <select id="dictionaryItem" class="easyui-combobox" name="dictionary.id" data-options="label:'字典目录',
+            width:300, panelHeight:'auto',valueField:'id',textField:'name',url:'/dictionary/selectAll.do',readonly:true">
             </select>
         </div>
     </form>

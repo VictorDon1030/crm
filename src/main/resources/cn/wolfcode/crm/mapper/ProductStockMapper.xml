@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.ProductStockMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.ProductStock">
+        <id column="id" property="id"/>
+        <result column="price" property="price"/>
+        <result column="storeNumber" property="storeNumber"/>
+        <result column="amount" property="amount"/>
+        <result column="auditTime" property="auditTime"/>
+        <result column="product_id" property="product.id"/>
+        <result column="depot_id" property="depot.id"/>
+        <association property="product" javaType="product" columnPrefix="product_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="goodsMark" property="goodsMark"/>
+            <result column="pastDueTime" property="pastDueTime"/>
+        </association>
+        <association property="depot" javaType="depot" columnPrefix="depot_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM productstock
+        WHERE id = #{id}
+    </delete>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO productstock (price, storeNumber, amount, product_id, depot_id,auditTime)
+        VALUES (#{price}, #{storeNumber}, #{amount}, #{product.id}, #{depot.id},#{auditTime})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE productstock
+        SET price       = #{price},
+            storeNumber = #{storeNumber},
+            amount      = #{amount},
+            auditTime      = #{auditTime},
+            product_id  = #{product.id},
+            depot_id    = #{depot.id}
+        WHERE id = #{id}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+            id,
+            price,
+            storeNumber,
+            amount,
+            auditTime,
+            product_id,
+            depot_id
+        FROM productstock
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            id,
+            price,
+            storeNumber,
+            amount,
+            auditTime,
+            product_id,
+            depot_id
+        FROM productstock
+    </select>
+    <select id="selectByProductIdDepotId" resultMap="BaseResultMap">
+        SELECT
+            ps.id,
+            ps.price,
+            ps.storeNumber,
+            ps.amount,
+            ps.auditTime,
+            product.id product_id,
+            product.name product_name,
+            depot.id depot_id,
+            depot.name depot_name
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+        WHERE ps.product_id = #{productId} AND ps.depot_id = #{depotId}
+
+    </select>
+    <select id="query4List" resultMap="BaseResultMap">
+        SELECT
+            ps.id,
+            ps.price,
+            ps.storeNumber,
+            ps.amount,
+            ps.auditTime,
+            product.id product_id,
+            product.name product_name,
+            product.goodsMark product_goodsMark,
+            product.pastDueTime product_pastDueTime,
+            depot.id depot_id,
+            depot.name depot_name
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+
+            <include refid="sql_where"/>
+        LIMIT #{start},#{rows}
+    </select>
+    <select id="query4Count" resultType="int" >
+        SELECT count(ps.id)
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+            <include refid="sql_where"/>
+    </select>
+    <sql id="sql_where">
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (product.name like concat('%',#{keyword},'%') or product.goodsMark like concat('%',#{keyword},'%'))
+            </if>
+            <if test="depotId &gt; 0">
+                and depot.id=#{depotId}
+            </if>
+            <if test="warnNum!=null and warnNum &gt; 0  ">
+                and ps.storeNumber &lt;= #{warnNum}
+            </if>
+        </where>
+    </sql>
+    <update id="updateNumber">
+        update productstock set
+        storeNumber = #{number},
+        amount = #{amount}
+        where id=#{productId} and depot_id = 1
+    </update>
+</mapper>

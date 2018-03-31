@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.crm.domain.Product">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="brand" property="brand" />
+    <result column="goodsMark" property="goodsMark" />
+    <result column="unitpPrice" property="unitpPrice" />
+    <result column="minPrice" property="minPrice" />
+    <result column="initialInventory" property="initialInventory" />
+    <result column="unit" property="unit" />
+    <result column="commission" property="commission" />
+    <result column="remark" property="remark" />
+    <result column="auxiliaryWord" property="auxiliaryWord" />
+    <result column="purchasingPrice" property="purchasingPrice" />
+    <result column="memberPrice" property="memberPrice" />
+    <result column="minDiscount" property="minDiscount" />
+    <result column="specification" property="specification" />
+    <result column="integral" property="integral" />
+    <result column="pastDueTime" property="pastDueTime" />
+    <result column="imagePath" property="imagePath" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from product
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into product (name, brand, goodsMark, unitpPrice, minPrice, initialInventory, 
+      unit, commission, remark, auxiliaryWord, purchasingPrice, memberPrice, 
+      minDiscount, specification, integral, pastDueTime, imagePath, images)
+    values (#{name}, #{brand}, #{goodsMark}, #{unitpPrice}, #{minPrice}, #{initialInventory}, 
+      #{unit}, #{commission}, #{remark}, #{auxiliaryWord}, #{purchasingPrice}, #{memberPrice}, 
+      #{minDiscount}, #{specification}, #{integral}, #{pastDueTime}, #{imagePath}, #{images})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update product
+    set name = #{name},
+      brand = #{brand},
+      goodsMark = #{goodsMark},
+      unitpPrice = #{unitpPrice},
+      minPrice = #{minPrice},
+      initialInventory = #{initialInventory},
+      unit = #{unit},
+      commission = #{commission},
+      remark = #{remark},
+      auxiliaryWord = #{auxiliaryWord},
+      purchasingPrice = #{purchasingPrice},
+      memberPrice = #{memberPrice},
+      minDiscount = #{minDiscount},
+      specification = #{specification},
+      integral = #{integral},
+      pastDueTime = #{pastDueTime},
+      imagePath = #{imagePath}
+      images = #{images}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    <include refid="base_column"/>
+    from product
+    where id = #{id}
+  </select>
+  <select id="selectByUnitId" resultMap="BaseResultMap">
+    <include refid="base_column"/>
+    from product
+    where unit = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    <include refid="base_column"/>
+    from product
+  </select>
+
+  <select id="query4Cont" resultType="int">
+    select count(id)
+    from  product
+    <include refid="base_where"/>
+  </select>
+
+  <select id="query4List" resultMap="BaseResultMap">
+    <include refid="base_column"/>
+    from  product
+    <include refid="base_where"/>
+    limit #{start}, #{rows}
+  </select>
+
+  <sql id="base_column">
+    select id, name, brand, goodsMark, unitpPrice, minPrice, initialInventory, unit,
+    commission, remark, auxiliaryWord, purchasingPrice, memberPrice, minDiscount, specification,
+    integral, pastDueTime, imagePath, images
+  </sql>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword != null and keyword != ''">
+        and (
+          name like concat('%', #{keyword},'%') or
+          brand like concat('%', #{keyword},'%') or
+          unitpPrice like concat('%', #{keyword},'%')
+        )
+      </if>
+      <if test="beginDate != null">
+        and (
+        pastDueTime &gt;= #{beginDate}
+        )
+      </if>
+      <if test="endDate != null">
+        and (
+        pastDueTime &lt;= #{endDate}
+        )
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectBySecondaryId" resultMap="BaseResultMap">
+    select *  from product p join secondary s on p.id = s.product_id
+    where s.product_id = #{id}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
