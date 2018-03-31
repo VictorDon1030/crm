@@ -7,17 +7,21 @@
         <result column="storeNumber" property="storeNumber"/>
         <result column="amount" property="amount"/>
         <result column="auditTime" property="auditTime"/>
-        <result column="product_id" property="product.id"/>
-        <result column="depot_id" property="depot.id"/>
+        <result column="inventoryTime" property="inventoryTime"/>
         <association property="product" javaType="product" columnPrefix="product_" fetchType="eager">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="goodsMark" property="goodsMark"/>
             <result column="pastDueTime" property="pastDueTime"/>
+            <result column="specification" property="specification"/>
         </association>
         <association property="depot" javaType="depot" columnPrefix="depot_" fetchType="eager">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
+        </association>
+        <association property="employee" javaType="employee" columnPrefix="employee_" fetchType="eager">
+            <id column="id" property="id"/>
+            <result column="realname" property="realname"/>
         </association>
     </resultMap>
     <delete id="deleteByPrimaryKey">
@@ -25,8 +29,8 @@
         WHERE id = #{id}
     </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO productstock (price, storeNumber, amount, product_id, depot_id,auditTime)
-        VALUES (#{price}, #{storeNumber}, #{amount}, #{product.id}, #{depot.id},#{auditTime})
+        INSERT INTO productstock (price, storeNumber, amount, product_id, depot_id,auditTime,employee_id)
+        VALUES (#{price}, #{storeNumber}, #{amount}, #{product.id}, #{depot.id},#{auditTime},#{employee.id})
     </insert>
     <update id="updateByPrimaryKey">
         UPDATE productstock
@@ -35,7 +39,8 @@
             amount      = #{amount},
             auditTime      = #{auditTime},
             product_id  = #{product.id},
-            depot_id    = #{depot.id}
+            depot_id    = #{depot.id},
+            employee_id    = #{employee.id}
         WHERE id = #{id}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
@@ -45,21 +50,34 @@
             storeNumber,
             amount,
             auditTime,
+            inventoryTime,
             product_id,
-            depot_id
+            depot_id,
+            employee_id
         FROM productstock
         WHERE id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT
-            id,
-            price,
-            storeNumber,
-            amount,
-            auditTime,
-            product_id,
-            depot_id
-        FROM productstock
+            ps.id,
+            ps.price,
+            ps.storeNumber,
+            ps.amount,
+            ps.auditTime,
+            ps.inventoryTime,
+            product.id product_id,
+            product.name product_name,
+            product.goodsMark product_goodsMark,
+            product.pastDueTime product_pastDueTime,
+            product.specification product_specification,
+            depot.id depot_id,
+            depot.name depot_name,
+            e.id employee_id,
+            e.realname employee_realname
+        FROM productstock ps
+            JOIN product product ON ps.product_id = product.id
+            JOIN depot depot ON ps.depot_id = depot.id
+            LEFT JOIN employee e ON ps.employee_id = e.id
     </select>
     <select id="selectByProductIdDepotId" resultMap="BaseResultMap">
         SELECT
@@ -68,13 +86,18 @@
             ps.storeNumber,
             ps.amount,
             ps.auditTime,
+            ps.inventoryTime,
             product.id product_id,
             product.name product_name,
+            product.specification product_specification,
             depot.id depot_id,
-            depot.name depot_name
+            depot.name depot_name,
+            e.id employee_id,
+            e.realname employee_realname
         FROM productstock ps
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
+           LEFT JOIN employee e ON ps.employee_id = e.id
         WHERE ps.product_id = #{productId} AND ps.depot_id = #{depotId}
 
     </select>
@@ -85,16 +108,20 @@
             ps.storeNumber,
             ps.amount,
             ps.auditTime,
+            ps.inventoryTime,
             product.id product_id,
             product.name product_name,
             product.goodsMark product_goodsMark,
             product.pastDueTime product_pastDueTime,
+            product.specification product_specification,
             depot.id depot_id,
-            depot.name depot_name
+            depot.name depot_name,
+            e.id employee_id,
+            e.realname employee_realname
         FROM productstock ps
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
-
+           LEFT JOIN employee e ON ps.employee_id = e.id
             <include refid="sql_where"/>
         LIMIT #{start},#{rows}
     </select>
@@ -103,8 +130,41 @@
         FROM productstock ps
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
+          LEFT JOIN employee e ON ps.employee_id = e.id
             <include refid="sql_where"/>
     </select>
+    <select id="query4ListNoaudit" resultMap="BaseResultMap">
+        SELECT
+        ps.id,
+        ps.price,
+        ps.storeNumber,
+        ps.amount,
+        ps.auditTime,
+        ps.inventoryTime,
+        product.id product_id,
+        product.name product_name,
+        product.goodsMark product_goodsMark,
+        product.pastDueTime product_pastDueTime,
+        product.specification product_specification,
+        depot.id depot_id,
+        depot.name depot_name,
+        e.id employee_id,
+        e.realname employee_realname
+        FROM productstock ps
+        JOIN product product ON ps.product_id = product.id
+        JOIN depot depot ON ps.depot_id = depot.id
+        LEFT JOIN employee e ON ps.employee_id = e.id
+        WHERE ps.auditTime IS NOT NULL
+        <include refid="sql_where"/>
+        LIMIT #{start},#{rows}
+    </select>
+
+
+
+
+
+
+
     <sql id="sql_where">
         <where>
             <if test="keyword!=null and keyword!=''">
@@ -119,6 +179,12 @@
             <if test="warnNum!=null and warnNum &gt; 0  ">
                 and ps.storeNumber &lt;= #{warnNum}
             </if>
+            <if test="beginDate!=null">
+                and ps.inventoryTime >= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and ps.inventoryTime &lt;= #{endDate}
+            </if>
         </where>
     </sql>
     <!--通过仓库id查询库存-->
@@ -127,6 +193,7 @@
         FROM productstock ps
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
+            LEFT JOIN employee e ON ps.employee_id = e.id
             <include refid="sql_where"/>
     </select>
 
@@ -137,14 +204,31 @@
             ps.storeNumber,
             ps.amount,
             ps.auditTime,
+            ps.inventoryTime,
             product.id product_id,
             product.name product_name,
             product.goodsMark product_goodsMark,
+            product.specification product_specification,
             depot.id depot_id,
-            depot.name depot_name
+            depot.name depot_name,
+            e.id employee_id,
+            e.realname employee_realname
         FROM productstock ps
             JOIN product product ON ps.product_id = product.id
             JOIN depot depot ON ps.depot_id = depot.id
+          LEFT  JOIN employee e ON ps.employee_id = e.id
        <include refid="sql_where"/>
+        LIMIT #{start},#{rows}
     </select>
+
+    <!--更新盘点时间-->
+    <update id="updateInventoryTime">
+        UPDATE productstock SET inventoryTime=#{inventoryTime},employee_id=#{employee.id}
+        WHERE id=#{id}
+    </update>
+    <!--更新盘点时间-->
+    <update id="updateStoreNumber">
+        UPDATE productstock SET inventoryTime=#{inventoryTime},employee_id=#{employee.id},storeNumber=#{newNumber},amount=#{amount}
+        WHERE id=#{id}
+    </update>
 </mapper>

@@ -54,10 +54,10 @@
                    <td>
                        <input name="supplier.id" class="easyui-combobox"
                                data-options="prompt:'供应商选择',panelHeight:'auto',valueField:'id',textField:'realname',
-                                   url:'/supplier/selectAll.do'">
+                                   url:'/supplier/selectAll.do',limitToList:true,required:true">
                        <input name="depot.id" class="easyui-combobox"
                                data-options="prompt:'仓库选择',panelHeight:'auto',valueField:'id',textField:'name',
-                                   url:'/depot/selectAll.do'">
+                                   url:'/depot/selectAll.do',limitToList:true,required:true">
                        业务时间: <input  id="dd" name="vdate" type= "text" class= "easyui-datebox" required ="required"></input>
                        <input type="hidden" name="id">
                    </td>
@@ -83,7 +83,7 @@
 </div>
 <table id="itemTr">
     <tbody>
-        <tr>
+        <tr style="align-content: center">
             <input  tag="pid" type="hidden">
             <th >
                 <span  tag="name" width="150"></span>
@@ -92,13 +92,13 @@
                 <span  tag="sn" width="150"></span>
             </th>
             <th >
-                <span>
-                    <input tag="costPrice"  type="number" style="width: 60px;border: 0px">
-                </span>
+
+                <input tag="costPrice"  type="number" min="1" style="width: 50px">
+
             </th>
-            <th><input tag="number"  type="number" style="width: 60px"></th>
+            <th><input tag="number"  type="number" min="1" style="width: 50px"></th>
             <th ><span tag="amount" width="150"></span></th>
-            <th ><input tag="remark" style="width: 60px"></th>
+            <th ><input tag="remark"    style="width: 50px"></th>
             <th>
                 <a  class="easyui-linkbutton removeItem" data-options="title:'删除',plain:true,iconCls:'icon-remove'"></a>
             </th>

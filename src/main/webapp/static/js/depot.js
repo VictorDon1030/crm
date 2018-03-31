@@ -223,46 +223,6 @@ function searchs() {
     });
 }
 
-
-// //停用
-// function changeState2false(row) {
-//         $("[name='str1']").on
-//         $.messager.confirm('确认','确定设置为停用吗?',function (r) {
-//             if (r){
-//                 $.get('/depot/changeState.do',{id:id},function (data) {
-//                     if (data.success){
-//                         $.messager.alert('温馨提示','操作成功','info',function () {
-//                             $("#depot_datagrid").datagrid('reload');
-//
-//                         });
-//                     }else {
-//                         $.messager.alert('温馨提示',data.msg);
-//                     }
-//                 })
-//             }
-//         });
-//     }
-// }
-// //启用
-// function changeState2true(id) {
-//
-//     if (id){
-//         $.messager.confirm('确认','确定重新启用吗?',function (r) {
-//             if (r){
-//                 $.get('/depot/changeState.do',{id:row.id},function (data) {
-//                     if (data.success){
-//                         $.messager.alert('温馨提示','操作成功','info',function () {
-//                             $("#depot_datagrid").datagrid('reload');
-//
-//                         });
-//                     }else {
-//                         $.messager.alert('温馨提示',data.msg);
-//                     }
-//                 })
-//             }
-//         });
-//     }
-// }
 //保存
 function save() {
     $("#depot_form").form('submit', {

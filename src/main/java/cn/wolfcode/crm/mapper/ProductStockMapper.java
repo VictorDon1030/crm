@@ -24,6 +24,11 @@ public interface ProductStockMapper {
     Integer query4Count(ProductStockQueryObject qo);
 
     List<ProductStock> selectProductStockByDepotId(ProductStockQueryObject qo);
-    Integer selectProductStockByDepotId4Count(ProductStockQueryObject qo);
 
+    Integer selectProductStockByDepotId4Count(ProductStockQueryObject qo);
+    void updateInventoryTime(ProductStock entity);
+
+    void updateStoreNumber(ProductStock entity);
+
+    List<ProductStock>  query4ListNoaudit(ProductStockQueryObject qo);
 }

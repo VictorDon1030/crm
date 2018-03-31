@@ -11,7 +11,7 @@ $(function () {
         columns:[[
             {field: 'ck', checkbox:true},
             {field: 'name', title: '供应商', width: 50},
-            {field: 'debt', title: '应付欠款', width: 50},
+           // {field: 'debt', title: '应付欠款', width: 50},
             {field: 'realname', title: '联系人', width: 50},
             {field: 'tel', title: '联系电话', width: 50},
             {field: 'vdate', title: '添加时间', width: 50},

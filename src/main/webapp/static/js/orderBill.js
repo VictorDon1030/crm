@@ -152,6 +152,7 @@ $(function () {
     $("#orderBill_datagrid").datagrid({
         onClickRow: function (index, row) {
             if (!row.status) {
+
                 $("#edit_btn").linkbutton("enable");
                 $("#changeAudit_btn").linkbutton({
                     text: '审核订单'
@@ -208,7 +209,7 @@ $(function () {
     $("#product_dialog").dialog({
         closed: true,
         width: 600,
-        height: 400,
+        height: 400
     });
     $("#edit_tbody").on("change", "[tag=costPrice],[tag=number]", function () {
         var currentTr = $(this).closest('tr');

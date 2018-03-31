@@ -1,55 +1,26 @@
 package cn.wolfcode.crm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.math.BigDecimal;
 import java.util.Date;
+@Getter
+@Setter
+public class InventoryItem extends BaseDomain{
 
-public class InventoryItem {
-    private Long id;
+    private BigDecimal storeNumber;
 
-    private Long storeNumber;
+    private BigDecimal newNumber;
 
-    private Long newNumber;
+    private Employee employee;
 
-    private Long employee_id;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date inventoryTime;
 
-    public Long getId() {
-        return id;
-    }
+    private Long productStockeId;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getStoreNumber() {
-        return storeNumber;
-    }
-
-    public void setStoreNumber(Long storeNumber) {
-        this.storeNumber = storeNumber;
-    }
-
-    public Long getNewNumber() {
-        return newNumber;
-    }
-
-    public void setNewNumber(Long newNumber) {
-        this.newNumber = newNumber;
-    }
-
-    public Long getEmployee_id() {
-        return employee_id;
-    }
-
-    public void setEmployee_id(Long employee_id) {
-        this.employee_id = employee_id;
-    }
-
-    public Date getInventoryTime() {
-        return inventoryTime;
-    }
-
-    public void setInventoryTime(Date inventoryTime) {
-        this.inventoryTime = inventoryTime;
-    }
 }

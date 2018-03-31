@@ -35,11 +35,11 @@
             <input type="hidden" name="id">
                 <tr>
                     <td>仓库名称:</td>
-                    <td><input name="name" class="easyui-textbox" data-options="prompt:'输入仓库名称'"></td>
+                    <td><input name="name" class="easyui-textbox" data-options="prompt:'输入仓库名称',required:true"></td>
                 </tr>
                 <tr>
                     <td>仓库编码:</td>
-                    <td><input  name="sn" class="easyui-textbox" data-options="prompt:'输入仓库编码'"></td>
+                    <td><input  name="sn" class="easyui-textbox" data-options="prompt:'输入仓库编码',required:true"></td>
                 </tr>
                 <tr>
                     <td>联系电话:</td>
@@ -49,7 +49,7 @@
                     <td>管理人员:</td>
                     <td><input name="employee.id" class="easyui-combobox"
                                data-options="prompt:'仓库管理员',panelHeight:'auto',valueField:'id',textField:'realname',
-                               url:'/depot/selectAllEmployee.do'"></td>
+                               url:'/depot/selectAllEmployee.do',limitToList:true"></td>
                 </tr>
                 <tr>
                     <td>仓库状态:</td>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td>仓库地址:</td>
-                    <td><input  name="address" class="easyui-textbox" data-options="prompt:'输入仓库地址'"></td>
+                    <td><input  name="address" class="easyui-textbox" data-options="prompt:'输入仓库地址',required:true"></td>
                 </tr>
                 <tr>
                     <td>备注信息:</td>

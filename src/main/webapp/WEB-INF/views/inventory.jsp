@@ -16,7 +16,7 @@
 <body>
 <!--订单列表-->
 <table id="productStock_datagrid" class="easyui-datagrid"
-       data-options="url:'/productStock/list.do',
+       data-options="url:'/productStock/listNoaudit.do',
         toolbar: '#productStock_toolbar',
         fit: true,
         fitColumns: true,
@@ -32,7 +32,7 @@
             <th data-options="field: 'storeNumber', title: '库存数量', width: 50"></th>
             <th data-options="field: 'auditTime', title: '入库时间', width: 50"></th>
             <th data-options="field: 'inventoryTime', title: '上次盘点时间', width: 50"></th>
-            <th data-options="field: 'xx', title: '操作', width: 100,formatter:handle"></th>
+            <th data-options="field: 'xx', title: '操作', width: 110,formatter:handle"></th>
         </tr>
     </thead>
 </table>
@@ -47,7 +47,7 @@
     <input id="endDate" class="easyui-datetimebox" name="endDate"
            data-options="showSeconds:false,prompt:'end'"  style="width:150px">
     <a class="easyui-linkbutton button-line-green" data-options="iconCls:'icon-search',plain:true" onclick="searchs()"></a>
-    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-print'" onclick="window.open('/productStock/exportXls.do');">导出报表</a>
+    <a class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-print'" onclick="window.open('/productStock/exportInventoryXls.do');">导出报表</a>
 </div>
 
 
@@ -57,40 +57,29 @@
             <input type="hidden" name="id">
             <tr>
                 <td>商品名称:</td>
-                <td><input name="name" class="easyui-textbox" data-options="prompt:'输入仓库名称'"></td>
+                <td><input name="product.name" class="easyui-textbox" readonly></td>
             </tr>
             <tr>
                 <td>原有库存:</td>
-                <td><input  name="sn" class="easyui-textbox" data-options="prompt:'输入仓库编码'"></td>
+                <td><input  name="storeNumber" class="easyui-textbox" readonly></td>
             </tr>
             <tr>
                 <td>修改数量:</td>
-                <td><input  name="employee.tel" class="easyui-textbox" readonly></td>
-            </tr>
-            <tr>
-                <td>操作人员:</td>
-                <td><input name="employee.id" class="easyui-combobox"
-                           data-options="prompt:'操作员',panelHeight:'auto',valueField:'id',textField:'realname',
-                               url:'/depot/selectAllEmployee.do'"></td>
-            </tr>
-            <tr>
-                <td>备注信息:</td>
-                <td>
-                    <%--<input class="easyui-switchbutton" checked >--%>
-                    <input id="edit_state" name="state" class="easyui-switchbutton"
-                           data-options="onText:'正常',offText:'停用',width:130">
-                </td>
-            </tr>
-            <tr>
-                <td>仓库地址:</td>
-                <td><input  name="address" class="easyui-textbox" data-options="prompt:'输入仓库地址'"></td>
-            </tr>
-            <tr>
-                <td>备注信息:</td>
-                <td><input  name="info" class="easyui-textbox" data-options="prompt:'输入备注信息'"></td>
+                <td><input name="newNumber" class="easyui-textbox" ></td>
             </tr>
         </table>
     </form>
+</div>
+<%--更改库存数量按钮--%>
+<div id="productStock_button">
+    <a class="easyui-linkbutton button-line-green ser" onclick="save()">保存</a>
+    <a class="easyui-linkbutton button-line-grayish" onclick="cancel()">取消</a>
+</div>
+<%--查看盘点记录--%>
+<div id="inventory_dialog">
+    <table id="inventory_datagrid">
+
+    </table>
 </div>
 
 </body>

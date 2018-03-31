@@ -54,10 +54,10 @@
                    <td>
                        <input name="supplier.id" class="easyui-combobox "
                                data-options="prompt:'供应商选择',panelHeight:'auto',valueField:'id',textField:'realname',
-                                   url:'/supplier/selectAll.do',limitToList:true">
+                                   url:'/supplier/selectAll.do',limitToList:true,required:true">
                        <input  name="depot.id" class="easyui-combobox"
                                data-options="prompt:'仓库选择',panelHeight:'auto',valueField:'id',textField:'name',
-                                   url:'/depot/selectAll.do',limitToList:true">
+                                   url:'/depot/selectAll.do',limitToList:true,required:true">
                        业务时间: <input  id="dd" name="vdate" type= "text" class= "easyui-datebox" required ="required"></input>
                        <input type="hidden" name="id">
                    </td>
@@ -93,10 +93,10 @@
             </th>
             <th >
                 <span>
-                    <input tag="costPrice"  type="number" style="width: 60px;border: 0px">
+                    <input tag="costPrice"  type="number" min="1" style="width: 60px;border: 0px">
                 </span>
             </th>
-            <th><input  tag="number"  type="number" style="width: 60px"></th>
+            <th><input  tag="number"  type="number" min="1" style="width: 60px"></th>
             <th ><span tag="amount" width="150"></span></th>
             <th ><input tag="remark" style="width: 60px"></th>
             <th>

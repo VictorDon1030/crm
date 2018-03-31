@@ -34,19 +34,19 @@
             <input type="hidden" name="id">
                 <tr>
                     <td>供应商:</td>
-                    <td><input name="name" class="easyui-textbox" data-options="prompt:'输入供应商名称'"></td>
+                    <td><input name="name" class="easyui-textbox" data-options="prompt:'输入供应商名称',required:true"></td>
                 </tr>
                 <tr>
                     <td>联系人:</td>
-                    <td><input  name="realname" class="easyui-textbox" data-options="prompt:'输入联系人'"></td>
+                    <td><input  name="realname" class="easyui-textbox" data-options="prompt:'输入联系人',required:true"></td>
                 </tr>
                 <tr>
                     <td>联系电话:</td>
-                    <td><input  name="tel" class="easyui-textbox" data-options="prompt:'联系电话'"></td>
+                    <td><input  name="tel" class="easyui-textbox" data-options="prompt:'联系电话',required:true"></td>
                 </tr>
                 <tr>
                     <td>客户地址:</td>
-                    <td><input  name="address" class="easyui-textbox" data-options="prompt:'输入客户地址'"></td>
+                    <td><input  name="address" class="easyui-textbox" data-options="prompt:'输入客户地址',required:true"></td>
                 </tr>
                 <tr>
                     <td>备注信息:</td>
