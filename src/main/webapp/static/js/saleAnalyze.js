@@ -70,7 +70,7 @@ $(function () {
         onLoadSuccess: function (data) {
             if (data.total == 0) {
                 //添加一个新数据行，第一列的值为你需要的提示信息，然后将其他列合并到第一列来，注意colspan参数为columns配置的总列数
-                $(this).datagrid('appendRow', { itemid: '<div style="text-align:center;color:red">没有相关记录！</div>' }).datagrid('mergeCells',
+                $(this).datagrid('appendRow', { itemid: '<div style="text-align:center;color:red;">没有相关记录！</div>' }).datagrid('mergeCells',
                     { index: 0, field: 'itemid', colspan: 10 });
                 //隐藏分页导航条，这个需要熟悉datagrid的html结构，直接用jquery操作DOM对象，easyui datagrid没有提供相关方法隐藏导航条
                 $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').hide();
