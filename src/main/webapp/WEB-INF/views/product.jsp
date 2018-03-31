@@ -37,7 +37,7 @@
         <form action="/product/tolead.do" method="post" enctype="multipart/form-data">
         &emsp;<a class="easyui-linkbutton" name="putaway" data-options="iconCls:'icon-cancel', plain:true " data-cmd="soldOut"><span style="font-size: 20px;" >商品下架</span></a>
         &emsp;&emsp;<a id="todu_changeState" class="easyui-linkbutton" name="remove" data-options="iconCls:'icon-ok', plain:true " data-cmd="putaway"><span style="font-size: 20px;">商品上架</span></a>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-tip', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a id="soldOut_changeState" class="easyui-linkbutton" name="add" data-options="iconCls:'icon-tip', plain:true " data-cmd="examinePutaway"><span style="font-size: 18px;" >查看已上架商品</span></a>
         &emsp;&emsp;<a class="easyui-linkbutton" name="add" data-options="iconCls:'icon-search', plain:true " data-cmd="examineSoldOut"><span style="font-size: 18px;" >查看已下架商品</span></a>
         &emsp;&emsp;&emsp;&emsp;&emsp; <input class="easyui-filebox"  name="file" data-options="buttonText:'选择excl',buttonAlign: 'left', plain:true" style="width:150px; height: 35px;"/>
         <input type="submit" value="导入" style="height:32px;"/>

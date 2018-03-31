@@ -118,6 +118,25 @@ $(function () {
         $("#pastDue").html(num); //设置已经过期商品总数量
         $("#beAboutTo").html(num2-num); //设置两个月后过期商品总数量
 
+
+        /*function selectSort(arr){
+            var min,temp;
+            for(var i=0;i<arr.length-1;i++){
+                min=i;
+                for(var j=i+1;j<arr.length;j++){
+                    if(arr[j]<arr[min]){
+                        min = j;
+                    }
+                }
+                temp=arr[i];
+                arr[i]=arr[min];
+                arr[min]=temp;
+
+            }
+            return arr;
+        }
+        console.log(selectSort([6,1,2,4,3,5]))*/
+
         //目的拿到时间加
     },"json");
 
@@ -203,6 +222,7 @@ $(function () {
 
         //查看已下架的商品 按钮 改变路径
         examinePutaway: function () {
+            //$("#todu_changeState").linkbutton('enable');
             product_datagrid.datagrid('options').url="/product/list.do";
             product_datagrid.datagrid("reload");
         },
@@ -276,37 +296,41 @@ $(function () {
 
         //商品上架按钮
         putaway: function () {
+            //设置点击事件禁止使用 点击查看已下架商品后促发可以点击
+           // $("#todu_changeState").linkbutton('disable');
+            //if($("#todu_changeState").linkbutton("options").disabled==false){
             //获取选中的数据
-            var row = product_datagrid.datagrid("getSelected");
-            //判断是否选中
-            if (!row) {
-                $.messager.alert("温馨提示", "亲,请选择需要下架的商品", "info");
-                return;
-            }
-            $.get("/productone/list.do", {id: row.id}, function (data) {
-                $.messager.confirm("温馨提示", "您确定需要下架此商品吗?", function (r) {
-                    //data = $.parseJSON(data); //转成json对象
-                    if (r) {
-                        console.log(row);
-                        $.post("/product/save.do", row, function (data) {
+                var row = product_datagrid.datagrid("getSelected");
+                //判断是否选中
+                if (!row) {
+                    $.messager.alert("温馨提示", "亲,请选择需要上架的商品", "info");
+                    return;
+                }
+                $.get("/productone/list.do", {id: row.id}, function (data) {
+                    $.messager.confirm("温馨提示", "您确定需要上架此商品吗?", function (r) {
+                        //data = $.parseJSON(data); //转成json对象
+                        if (r) {
+                            console.log(row);
+                            $.post("/product/save.do", row, function (data) {
 
-                            if (data.success) {
-                                $.messager.alert("温馨提示", "操作成功", "info", function () {
-                                    // emp_datagrid.datagrid("reload");
-                                    product_datagrid.datagrid("reload");
-                                });
-                            } else {
-                                $.messager.alert("温馨提示", data.msg);
-                            }
-                            $.get("/productone/delete.do", {id: row.id}, function (data) {
+                                if (data.success) {
+                                    $.messager.alert("温馨提示", "操作成功", "info", function () {
+                                        // emp_datagrid.datagrid("reload");
+                                        product_datagrid.datagrid("reload");
+                                    });
+                                } else {
+                                    $.messager.alert("温馨提示", data.msg);
+                                }
+                                $.get("/productone/delete.do", {id: row.id}, function (data) {
 
-                            },"json")
-                        },"json");
+                                },"json")
+                            },"json");
 
-                    }
+                        }
 
-                })
-            },"json");
+                    })
+                },"json");
+           // }
         },
 
         //删除按钮
