@@ -118,6 +118,7 @@ $(function () {
                         $.messager.alert("温馨提示",'保存成功','info',function () {
                             //更新大分类列表里的数据
                             setMaxType.datagrid("load");
+                            maxType.combobox("reload");
                         });
                     }else {
                         $.messager.alert("温馨提示",data.msg,'warning');

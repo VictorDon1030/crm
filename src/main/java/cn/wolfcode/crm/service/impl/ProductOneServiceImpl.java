@@ -18,11 +18,7 @@ public class ProductOneServiceImpl implements IProductOneService {
 
     @Override
     public void saveOrUpdate(ProductOne entity) {
-        if (entity.getId() == null) {
             productOneMapper.insert(entity);
-        }else {
-            productOneMapper.updateByPrimaryKey(entity);
-        }
     }
 
     @Override

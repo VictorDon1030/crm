@@ -13,10 +13,10 @@ $(function () {
         textField:'name',
         panelHeight:'auto',
         onSelect : function(data){
-           /* //console.log(data.id);
-            $('#garden').val(data.id);
-            //查询类型
-            $('#typeId').val('');*/
+            /* //console.log(data.id);
+             $('#garden').val(data.id);
+             //查询类型
+             $('#typeId').val('');*/
             $('#gardenApprovalTypeCombox').combobox({
                 url:'/stair/getStair.do?id='+data.id+'',
                 editable:false,
@@ -190,6 +190,7 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
+
     });
 
 
@@ -293,40 +294,40 @@ $(function () {
         //商品上架按钮
         putaway: function () {
             //设置点击事件禁止使用 点击查看已下架商品后促发可以点击
-           // $("#todu_changeState").linkbutton('disable');
+            // $("#todu_changeState").linkbutton('disable');
             //if($("#todu_changeState").linkbutton("options").disabled==false){
             //获取选中的数据
-                var row = product_datagrid.datagrid("getSelected");
-                //判断是否选中
-                if (!row) {
-                    $.messager.alert("温馨提示", "亲,请选择需要上架的商品", "info");
-                    return;
-                }
-                $.get("/productone/list.do", {id: row.id}, function (data) {
-                    $.messager.confirm("温馨提示", "您确定需要上架此商品吗?", function (r) {
-                        //data = $.parseJSON(data); //转成json对象
-                        if (r) {
-                            console.log(row);
-                            $.post("/product/save.do", row, function (data) {
+            var row = product_datagrid.datagrid("getSelected");
+            //判断是否选中
+            if (!row) {
+                $.messager.alert("温馨提示", "亲,请选择需要上架的商品", "info");
+                return;
+            }
+            $.get("/productone/list.do", {id: row.id}, function (data) {
+                $.messager.confirm("温馨提示", "您确定需要上架此商品吗?", function (r) {
+                    //data = $.parseJSON(data); //转成json对象
+                    if (r) {
+                        console.log(row);
+                        $.post("/product/save.do", row, function (data) {
 
-                                if (data.success) {
-                                    $.messager.alert("温馨提示", "操作成功", "info", function () {
-                                        // emp_datagrid.datagrid("reload");
-                                        product_datagrid.datagrid("reload");
-                                    });
-                                } else {
-                                    $.messager.alert("温馨提示", data.msg);
-                                }
-                                $.get("/productone/delete.do", {id: row.id}, function (data) {
+                            if (data.success) {
+                                $.messager.alert("温馨提示", "操作成功", "info", function () {
+                                    // emp_datagrid.datagrid("reload");
+                                    product_datagrid.datagrid("reload");
+                                });
+                            } else {
+                                $.messager.alert("温馨提示", data.msg);
+                            }
+                            $.get("/productone/delete.do", {id: row.id}, function (data) {
 
-                                },"json")
-                            },"json");
+                            },"json")
+                        },"json");
 
-                        }
+                    }
 
-                    })
-                },"json");
-           // }
+                })
+            },"json");
+            // }
         },
 
         //删除按钮
@@ -378,17 +379,17 @@ $(function () {
             });
         }
     };
-     //弹出子窗口
-     $("#product2_dialog").dialog({
-         width: 400,
-         height: 300,
-         buttons: '#buttons2',
-         closed: true,
-         modal: true,
-         onClose: function () {
-         product_form.form('clear');
-         }
-     });
+    //弹出子窗口
+    $("#product2_dialog").dialog({
+        width: 400,
+        height: 300,
+        buttons: '#buttons2',
+        closed: true,
+        modal: true,
+        onClose: function () {
+            product_form.form('clear');
+        }
+    });
 
 });
 
