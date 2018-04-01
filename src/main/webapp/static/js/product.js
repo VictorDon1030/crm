@@ -212,10 +212,6 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
-<<<<<<< HEAD
-
-=======
->>>>>>>
     });
 
 
@@ -283,8 +279,6 @@ $(function () {
         },
         //商品下架按钮
         soldOut: function () {
-        //商品上架按钮
-        putaway: function () {
             //获取选中的数据
             var row = product_datagrid.datagrid("getSelected");
             //判断是否选中

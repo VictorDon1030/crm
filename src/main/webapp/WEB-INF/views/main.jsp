@@ -17,9 +17,13 @@
     <script type="text/javascript">
         $(function () {
             $('#admin').click(function () {
-                alert("编辑资料");
+                alert("时间不够 ==========================");
             });
         });
+        
+        function go() {
+            window.location.href = '/checkout/view.do';
+        }
     </script>
 </head>
 <body>
@@ -35,7 +39,7 @@
         <span class="sys-title">德客超市系统</span>
         <ul class="ht-nav">
             <li class="ht-nav-item">
-                <a target="_blank" href="javascript:;">前台入口</a>
+                <a target="_blank" href="javascript:go();">前台入口</a>
             </li>
             <li class="ht-nav-item">
                 <a href="javascript:;" id="individuation"><i class="fa fa-tasks fa-fw" style="padding-right:5px;"></i>个性化</a>
@@ -62,8 +66,8 @@
                     <a href="javascript:;"><i class="fa fa-user" style="color:#00f7ff"></i>会员管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="#" data-id="3">新增会员</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="4">会员列表</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="5">会员充值</a></dd>
+                        <dd><a href="javascript:;" data-url="/member/view.do" data-id="4">会员列表</a></dd>
+                        <dd><a href="javascript:;" data-url="/memberTopUp/view.do" data-id="5">会员充值</a></dd>
                         <dd><a href="javascript:;" data-id="6">会员充次</a></dd>
                         <dd><a href="javascript:;" data-url="datalist.html" data-id="7">积分管理</a></dd>
                     </dl>
@@ -72,34 +76,35 @@
                     <a href="javascript:;"><i class="fa fa-product-hunt" style="color: #00bbee"></i>商品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-id="8">新增商品</a></dd>
-                        <dd><a href="javascript:;" data-id="9">商品列表</a></dd>
-                        <dd><a href="javascript:;" data-id="10">商品分类</a></dd>
+                        <dd><a data-url="/product/view.do" href="javascript:;" data-id="9">商品列表</a></dd>
+                        <dd><a data-url="/linkage/view.do" href="javascript:;" data-id="10">商品分类</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-cubes" style="color: #00ee00"></i>库存管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="11">进货管理</a></dd>
-                        <dd><a href="javascript:;" data-id="31">供应商管理</a></dd>
-                        <dd><a href="javascript:;" data-id="12">采购退货</a></dd>
-                        <dd><a href="javascript:;" data-id="13">产品盘点</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="14">即时库存</a></dd>
+                        <dd><a href="javascript:;" data-url="/orderBill/view.do" data-id="11">进货管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/depot/view.do" data-id="32">仓库管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/supplier/view.do" data-id="31">供应商管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/refund/view.do" data-id="12">采购退货</a></dd>
+                        <dd><a href="javascript:;" data-url="/productStock/inventory.do" data-id="13">产品盘点</a></dd>
+                        <dd><a href="javascript:;" data-url="/productStock/view.do" data-id="14">即时库存</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-money" style="color: #f4e039"></i>日常支出</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="15">支出录入</a></dd>
-                        <dd><a href="javascript:;" data-id="16">支出明细</a></dd>
+                        <dd><a data-url="/pay/view.do" href="javascript:;" data-id="15">支出录入</a></dd>
+                        <dd><a data-url="/payItem/view.do" href="javascript:;" data-id="16">支出明细</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-bar-chart-o" style="color: #0000FF"></i>智能分析</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="17">销售分析</a></dd>
-                        <dd><a href="javascript:;" data-id="18">会员分析</a></dd>
-                        <dd><a href="javascript:;" data-id="19">产品分析</a></dd>
-                        <dd><a href="javascript:;" data-id="30">类别分析</a></dd>
+                        <dd><a data-url="/saleAnalyze/view.do" href="javascript:;" data-id="17">销售分析</a></dd>
+                        <dd><a data-url="/memberAnalyze/view.do" href="javascript:;" data-id="18">会员分析</a></dd>
+                        <dd><a data-url="/productAnalyze/view.do" href="javascript:;" data-id="19">产品分析</a></dd>
+                        <dd><a data-url="/classAnalysis/view.do" href="javascript:;" data-id="30">类别分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
