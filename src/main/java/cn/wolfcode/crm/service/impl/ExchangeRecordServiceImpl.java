@@ -17,11 +17,13 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -115,7 +117,9 @@ public class ExchangeRecordServiceImpl implements IExchangeRecordService {
                 row.createCell(4).setCellValue(exchangeRecord.getCostPoints());
                 row.createCell(5).setCellValue(exchangeRecord.getConsumeStore());
                 row.createCell(6).setCellValue(exchangeRecord.getOptUser().getUsername());
-                row.createCell(7).setCellValue(exchangeRecord.getExchangeDate());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = simpleDateFormat.format(exchangeRecord.getExchangeDate());
+                row.createCell(7).setCellValue(date);
             }
             //写出到浏览器
             wb.write(response.getOutputStream());

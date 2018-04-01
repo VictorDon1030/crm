@@ -90,7 +90,7 @@
                                         </li>
                                         &emsp;
                                         <li><span style="font-size: medium;">变动金额：</span>
-                                            <input id="changeAmout" type="number" name="amount" style="font-size: medium;"
+                                            <input id="changeAmount" type="number" name="amount" style="font-size: medium;" min="1"
                                                    data-options="prompt:'请输入要改变的积分金额'"/>
                                         </li>
                                         &emsp;
