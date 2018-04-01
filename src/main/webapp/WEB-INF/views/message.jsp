@@ -81,7 +81,7 @@
     <button style="background-color: pink;margin-left: 200px" onclick="window.history.back()">回到商城</button>
     <span style="margin-right: 100px;margin-left: 50px"><font color="#ffc0cb"><i>会员生日短信提醒功能</i></font></span>
     <input id="tel" class="easyui-textbox" data-options="width:200,prompt:'请输入正确的手机号码',validType:'phoneNum'"/>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" id="searchs"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" id="searchs">点击发送</a>
 <div class="by" align="center" style="margin-top: 50px">
     <span class="bg" id="sp"></span>
 </div>
