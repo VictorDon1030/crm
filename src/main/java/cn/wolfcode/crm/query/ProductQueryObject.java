@@ -20,7 +20,8 @@ public class ProductQueryObject extends QueryObject{
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")//后台传前台
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
-
+    //商品类别
+    private Long unit;
     //接口不用改 直接使用父类接收
     public String getKeyword(){
         return empty2Null(keyword);
