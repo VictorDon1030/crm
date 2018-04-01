@@ -5,6 +5,7 @@ import cn.wolfcode.crm.mapper.*;
 import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.ICheckoutComeBillService;
 import cn.wolfcode.crm.util.PageResult;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,8 +61,9 @@ public class CheckoutComeBillServiceImpl implements ICheckoutComeBillService {
             }
         }
         //保存时保存录入人的信息,由登录的人来获取录入人的id
-        /*d.setInputUser(UserContext.getCurrenUser());
-        d.setInputTime(new Date());*/
+        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+        checkoutComeBill.setSalesman(employee);
+        checkoutComeBill.setVdate(new Date());
         BigDecimal totalNumber = BigDecimal.ZERO;
         BigDecimal totalAmout = BigDecimal.ZERO;
         //获取集合里的数量,和总价格set到销售表单中

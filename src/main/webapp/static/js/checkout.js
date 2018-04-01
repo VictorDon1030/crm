@@ -7,14 +7,18 @@ $(function () {
             if (!frozen) {
                 var img = rowData.imagePath;
                 cc.push('<img src="/static/spaceImgPath/' + (rowIndex + 1) + '.png" style="width:150px;float:left"/>');
-                cc.push('<div style="float:left;margin-left:20px;">');
+                cc.push('<div style="float:left;margin-left:30px;">');
                 for (var i = 0; i < fields.length; i++) {
                     if (i == 0 || i == 2) {
                         continue;
                     }
                     var copts = $(target).datagrid('getColumnOption', fields[i]);
-                    cc.push('<p><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
 
+                    if(i%2==0){
+                        cc.push('<p></p>');
+
+                    }
+                    cc.push('&nbsp&nbsp&nbsp<span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '');
                 }
                 cc.push('</div>');
             }
@@ -28,7 +32,6 @@ $(function () {
             //引用视图
             view: cardview,
             onClickRow: function (index, row) {
-                console.log(row);
                 //获取jquery对象
                 var arr = $($("#cashier_item").find("[tag=id]"));
                 /*console.log(arr);*/
@@ -47,6 +50,7 @@ $(function () {
                 var p = $("#cashier_item").find("tr").last("tr").find("[tag=unitpPrice]").val(row.unitpPrice);
                 $("#cashier_item").find("tr").last("tr").find("[tag=number]").val(1);
                 $("#cashier_item").find("tr").last("tr").find("[tag=amount]").val(p.val());
+                $("#cashier_item").find("tr").last("tr").find("#remove_item").html("删除");
                 //克隆
                 var clone = $("#cashier_item tr:first").clone(true);
                 $(clone).find("[tag=goodsMark]").val("");
@@ -59,6 +63,7 @@ $(function () {
                 $(clone).find("[tag=minPrice]").val("");
                 $(clone).find("[tag=initialInventory]").val("");
                 $(clone).find("[tag=integral]").val("");
+                $(clone).find("#remove_item").html("");
                 $(clone).appendTo("#cashier_item");
 
                 //判断商品明细中是否有该商品
@@ -96,7 +101,6 @@ $(function () {
                         var prices = $("[tag=amount]");
                         for (var i = 0; i < prices.size()-1; i++) {
                             var price = $(prices[i]).val();
-                            console.log(price);
                             var intPrice = parseInt(price);
                             allprice = allprice + intPrice;
                         }
@@ -106,7 +110,37 @@ $(function () {
             }
         }
     );
-
+    //失去焦点时计算
+    $("[tag=number]").blur(function () {
+        var prices = $("[tag=amount]");
+        var numbers = $("[tag=number]");
+        for (var i = 0; i < prices.size()-1; i++) {
+            if(isNaN(parseInt($(numbers[i]).val()))){
+                $.messager.alert("温馨提示!", "请输入正确的数字格式!", "info", function () {
+                    $(numbers).val("");
+                });
+                $(numbers).val("");
+            }
+        }
+        if(parseInt($(numbers).val())!=0&&$(numbers).val()!=null){
+            //计算小计
+            var crrent = $(this).closest("tr");
+            var p = crrent.find("[tag=unitpPrice]").val();
+            var n = crrent.find("[tag=number]").val();
+            crrent.find("[tag=amount]").val((p * n));
+            //计算总额
+            var allprice = 0;
+            for (var i = 0; i < prices.size()-1; i++) {
+                var price = $(prices[i]).val();
+                var intPrice = parseInt(price);
+                allprice = allprice + intPrice;
+            }
+            $("#totalNum").html(allprice);
+        }else{
+            $("[tag=amount]").val(0);
+            $("#totalNum").html(0);
+        }
+    });
     //删除
     $(".btn_deleteItem").click(function () {
         var currentTr = $(this).closest("tr");
@@ -125,15 +159,6 @@ $(function () {
             currentTr.remove();
         }
     });
-
-
-    //隐藏列
-    $('#product').datagrid('hideColumn', 'goodsMark');
-    $('#product').datagrid('hideColumn', 'id');
-    $('#product').datagrid('hideColumn', 'purchasingPrice');
-    $('#product').datagrid('hideColumn', 'minPrice');
-    $('#product').datagrid('hideColumn', 'initialInventory');
-    $('#product').datagrid('hideColumn', 'integral');
 
     //选择会员按钮
     $("#selectmember").click(function () {
@@ -165,12 +190,18 @@ $(function () {
             });
             return;
         }
+        //判断
+        if ($(typeof ($("[tag=id]").val()!=number))) {
+            $.messager.alert("温馨提示!", "请输入商品数量!", "info", function () {
+                return;
+            });
+            return;
+        }
         //判断会员的余额是否足够付款
         var allprice = 0;
         var prices = $("[tag=amount]");
         for (var i = 0; i < prices.size()-1; i++) {
             var price = $(prices[i]).val();
-            console.log(price);
             var intPrice = parseInt(price);
             allprice = allprice + intPrice;
         }
@@ -338,8 +369,16 @@ $(function () {
     $.post("/checkoutComeBill/addOdd.do",{"sn":"20000"},function(data){
         console.log(data);
         data = $.parseJSON(data);
-        $("#salesOdd").textbox("setValue",data);
+        $("#salesOdd").val(data);
     },"json");
+
+    //隐藏列
+    $('#product').datagrid('hideColumn','goodsMark');
+    $('#product').datagrid('hideColumn','id');
+    $('#product').datagrid('hideColumn', 'purchasingPrice');
+    $('#product').datagrid('hideColumn', 'minPrice');
+    $('#product').datagrid('hideColumn', 'initialInventory');
+    $('#product').datagrid('hideColumn', 'integral');
 })
 
 //显示会员等级
@@ -382,4 +421,19 @@ function memberPoints(value, row, index) {
 function searchs() {
     var keyword = $("#keyword").val();
     $("#product").datagrid("load",{"keyword":keyword});
+}
+function fruits() {
+    $("#product").datagrid("load",{"unit":1});
+}
+function edibleoil() {
+    $("#product").datagrid("load",{"unit":5});
+}
+function drinks() {
+    $("#product").datagrid("load",{"unit":3});
+}
+function food() {
+    $("#product").datagrid("load",{"unit":2});
+}
+function vegetables() {
+    $("#product").datagrid("load",{"unit":4});
 }
