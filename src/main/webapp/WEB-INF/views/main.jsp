@@ -187,17 +187,17 @@
         </div>
         <div class="setting-title">主题</div>
         <div class="setting-item skin skin-default" data-skin="skin-default">
-            <span>低调优雅</span>
+            <span>优雅</span>
         </div>
         <div class="setting-item skin skin-deepblue" data-skin="skin-deepblue">
-            <span>蓝色梦幻</span>
+            <span>正太色</span>
         </div>
         <div class="setting-item skin skin-pink" data-skin="skin-pink">
-            <span>姹紫嫣红</span>
+            <span>萝莉色</span>
         </div>
-        <div class="setting-item skin skin-green" data-skin="skin-green">
+        <%--<div class="setting-item skin skin-green" data-skin="skin-green">
             <span>一碧千里</span>
-        </div>
+        </div>--%>
     </div>
 </div>
 
