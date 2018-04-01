@@ -18,7 +18,7 @@ $(function () {
                         cc.push('<p></p>');
 
                     }
-                    cc.push('&nbsp&nbsp&nbsp<span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '');
+                    cc.push('<p>&nbsp&nbsp&nbsp<span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
                 }
                 cc.push('</div>');
             }
@@ -107,6 +107,15 @@ $(function () {
                         $("#totalNum").html(allprice);
                     }
                 });
+                //获取number输入框的jquery对象
+                var nums = $($("#cashier_item").find("[tag=number]"));
+                //转成装number输入框的值的数组
+                var num = $.map(nums, function (input) {
+                    return $(input).val();
+                });
+               /* $.each(num,function (i,v) {
+
+                });*/
             }
         }
     );
@@ -191,7 +200,7 @@ $(function () {
             return;
         }
         //判断
-        if ($(typeof ($("[tag=id]").val()!=number))) {
+        if (isNaN(parseInt($("[tag=number]").val()))) {
             $.messager.alert("温馨提示!", "请输入商品数量!", "info", function () {
                 return;
             });
@@ -277,10 +286,24 @@ $(function () {
                     $(ele).find("[tag=integral]").prop("name", "items[" + index + "].integral");
                 });
                 $("#itemforms").form("submit", {
-                    url: "/checkoutComeBill/waitPayment.do"
+                    url: "/checkoutComeBill/waitPayment.do",
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        if (data.success) {
+                            console.log(data.success);
+                            $.messager.alert("温馨提示!", "挂单成功!", "info", function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            $.messager.alert("温馨提示!", "挂单失败!", "info",function () {
+                                window.location.reload();
+                            });
+                        }
+                    }
                 });
-                $.messager.alert("温馨提示!", "挂单成功!", "info");
-                window.location.reload();
+                /*$.messager.alert("温馨提示!", "挂单成功!", "info",function () {
+                    window.location.reload();
+                });*/
             }
         });
     })
@@ -372,13 +395,18 @@ $(function () {
         $("#salesOdd").val(data);
     },"json");
 
-    //隐藏列
-    $('#product').datagrid('hideColumn','goodsMark');
-    $('#product').datagrid('hideColumn','id');
-    $('#product').datagrid('hideColumn', 'purchasingPrice');
-    $('#product').datagrid('hideColumn', 'minPrice');
-    $('#product').datagrid('hideColumn', 'initialInventory');
-    $('#product').datagrid('hideColumn', 'integral');
+
+    $('#product').datagrid({
+        onLoadSuccess:function (data) {
+            //隐藏列
+            $('#product').datagrid('hideColumn','goodsMark');
+            $('#product').datagrid('hideColumn','id');
+            $('#product').datagrid('hideColumn', 'purchasingPrice');
+            $('#product').datagrid('hideColumn', 'minPrice');
+            $('#product').datagrid('hideColumn', 'initialInventory');
+            $('#product').datagrid('hideColumn', 'integral');
+        }
+    });
 })
 
 //显示会员等级

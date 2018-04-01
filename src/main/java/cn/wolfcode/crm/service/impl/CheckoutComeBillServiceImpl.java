@@ -82,7 +82,7 @@ public class CheckoutComeBillServiceImpl implements ICheckoutComeBillService {
             Long id = checkoutComeBill.getMember().getId();
             Member member = memberMapper.selectByPrimaryKey(id);
             //判断余额是否充足
-            if (member.getBalance().compareTo(checkoutComeBill.getTotalAmount()) > 0) {
+            if (member.getBalance().compareTo(checkoutComeBill.getTotalAmount()) >= 0) {
                 //修改余额
                 BigDecimal balance = member.getBalance().subtract(checkoutComeBill.getTotalAmount());
                 memberMapper.updateBalance(balance, id);
@@ -108,6 +108,8 @@ public class CheckoutComeBillServiceImpl implements ICheckoutComeBillService {
                                     BigDecimal number = productStock.getStoreNumber().subtract(items.get(i).getNumber());
                                     BigDecimal amount = productStock.getPrice().multiply(number);
                                     productStockMapper.updateNumber(number, amount, pid);
+                                }else{
+                                    /*throw new ProductExceptions("您输入的数量大于库存");*/
                                 }
                             }
                         }

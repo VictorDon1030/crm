@@ -60,8 +60,15 @@ public class CheckoutComeBillController {
     }*/
     @RequestMapping("waitPayment")
     //挂单
-    public void waitPayment(CheckoutComeBill checkoutComeBill){
-        checkoutComeBillService.waitPayment(checkoutComeBill);
+    @ResponseBody
+    public Object waitPayment(CheckoutComeBill checkoutComeBill){
+        JsonResult result = new JsonResult();
+        try{
+            checkoutComeBillService.waitPayment(checkoutComeBill);
+        }catch (Exception e){
+            result.mark("挂单失败!"+e.getMessage());
+        }
+        return result;
     }
 
     @RequestMapping("selectwaitPayment")
