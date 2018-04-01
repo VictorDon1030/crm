@@ -67,7 +67,7 @@
 
             <div style="margin-top: 40px;margin-left: 20%">
                 <button id="btn-clean" style="background-color: limegreen;width: 120px;height: 50px"><font size="3">初始化数据</font></button>
-                <button id="btn_dbBackup" style="background-color: limegreen;width: 120px;height: 50px" ><font size="3">备份数据D盘</font></button>
+                <button id="btn_dbBackup" style="background-color: limegreen;width: 120px;height: 50px" ><font size="3">备份数据</font></button>
                 <button id="btn_dbRecover"  style="background-color: darkred;width: 120px;height: 50px" ><font size="3">还原数据</font></button>
             </div>
         </div>
