@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,7 +19,7 @@ public class SaleasCount {
     private Date vdate;
     //出售的数量
     private BigDecimal number;
-
+    //
     private BigDecimal costPrice;
 
     private BigDecimal costAmount;
@@ -26,10 +28,11 @@ public class SaleasCount {
 
     private BigDecimal saleAmount;
 
-    private Product product;
+    private  Product product;
 
     private Employee saleman;
 
     private Member member;
 
+    private List<Product> products = new ArrayList<>();
 }

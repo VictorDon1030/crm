@@ -9,7 +9,20 @@
     <result column="costAmount" property="costAmount" />
     <result column="salePrice" property="salePrice" />
     <result column="saleAmount" property="saleAmount" />
+    <association property="product" javaType="cn.wolfcode.crm.mapper.ProductMapper" columnPrefix="p_">
+      <id column="id" property="id" />
+      <result column="name" property="name" />
+    </association>
   </resultMap>
+
+  <select id="selectByProductId" resultMap="BaseResultMap">
+    select s.id, s.vdate, s.number, p.id p_id, p.name p_name
+    FROM saleascount s
+    JOIN product p ON p.id = s.product_id
+    where product_id = #{id}
+  </select>
+
+
   <delete id="deleteByPrimaryKey">
     delete from saleascount
     where id = #{id}
