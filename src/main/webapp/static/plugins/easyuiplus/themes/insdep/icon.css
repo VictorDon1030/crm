@@ -41,7 +41,7 @@ QQ交流群：184075694 （优先发布更新主题及内测包）
 .icon-reload{
 	background:url('icons/reload.png') no-repeat center center;
 }
-.icon-search{
+.icon-search1{
 	background:url('icons/search.png') no-repeat center center;
 }
 .icon-print{
@@ -133,5 +133,23 @@ QQ交流群：184075694 （优先发布更新主题及内测包）
 	background:url('icons/large_smartart.png') no-repeat center center;
 }
 .icon-large-chart{
-	background:url('icons/large_chart.png') no-repeat center center;
+	 background:url('icons/large_chart.png') no-repeat center center;
+ }
+.icon-a{
+	background:url('icons/jiuss.png') no-repeat center center;
+}
+.icon-l{
+	 background:url('icons/l.png') no-repeat center center;
+ }
+.icon-s{
+	background:url('icons/s.png') no-repeat center center;
+}
+.icon-c{
+	background:url('icons/c.png') no-repeat center center;
+}
+.icon-h{
+	 background:url('icons/h.png') no-repeat center center;
+ }
+.icon-z{
+	background:url('icons/z.png') no-repeat center center;
 }

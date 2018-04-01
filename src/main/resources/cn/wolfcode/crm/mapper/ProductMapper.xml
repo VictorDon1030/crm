@@ -110,6 +110,11 @@
         pastDueTime &lt;= #{endDate}
         )
       </if>
+      <if test="unit > 0">
+        and (
+        unit = #{unit}
+        )
+      </if>
     </where>
   </sql>
 
