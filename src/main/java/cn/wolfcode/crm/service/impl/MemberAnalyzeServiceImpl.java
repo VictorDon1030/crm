@@ -36,4 +36,9 @@ public class MemberAnalyzeServiceImpl implements IMemberAnalyzeService {
     public  List<Map<String,Object>> selectAndOrder(){
         return memberAnalyzeMapper.selectAndOrder();
     }
+
+    @Override
+    public List<Map<String, Object>> selectsaleRanking() {
+        return null;
+    }
 }

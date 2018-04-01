@@ -27,4 +27,9 @@ public interface MemberAnalyzeMapper {
      * 高级查询并排序：柱状图用
      */
     List<Map<String,Object>> selectAndOrder();
+
+    /**
+     * 查询消费排行榜
+     */
+
 }

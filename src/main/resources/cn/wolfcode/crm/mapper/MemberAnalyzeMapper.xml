@@ -4,7 +4,8 @@
 
   <sql id="select">
     select m.id, m.memberNum, m.name,
-      SUM(s.number) totalNumber,sum(s.saleAmount) totalAmount
+      SUM(s.number) totalNumber,sum(s.saleAmount) totalAmount,
+     count(DISTINCT s.member_id) totalMen
   </sql>
 
   <sql id="from">
@@ -12,6 +13,14 @@
     saleascount s on m.id=s.member_id
   </sql>
 
+<!--  <select id="selectsaleRanking" resultType="map">
+    select m.id, m.memberNum, m.name memberRanking,
+    SUM(s.number) totalNumber,sum(s.saleAmount) totalMoney,
+    count(DISTINCT s.member_id) totalMen
+    <include refid="from"/>
+    order by desc
+    group by m.name
+  </select>-->
   <!--查询所有-->
   <select id="selectAll" resultType="map">
     <include refid="select"/>

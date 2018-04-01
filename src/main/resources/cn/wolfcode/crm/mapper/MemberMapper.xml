@@ -123,7 +123,7 @@
     </select>
     <!--总人数和余额-->
     <select id="selectSumMember" resultType="map">
-        select sum(id) sumMember,
+        select count(id) sumMember,
             sum(balance) sumbalance
         from member
     </select>

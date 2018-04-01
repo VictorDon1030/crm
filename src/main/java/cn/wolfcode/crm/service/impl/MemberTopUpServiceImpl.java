@@ -43,6 +43,11 @@ public class MemberTopUpServiceImpl implements IMemberTopUpService {
         Member   member = memberMapper.selectByPrimaryKey(entity.getMember().getId());
         /*回去会员的金额*/
         BigDecimal decimal = new BigDecimal(BigInteger.ZERO);
+/*比较充值的胆小,超过五千加500*/
+        if (entity.getAddbalance().compareTo(new BigDecimal(5000))>=0) {
+            //就赠送500
+            entity.setGive(new BigDecimal(500));
+        }
         decimal = decimal.add(entity.getAddbalance());
         //当赠送的金额null时,进行和充值的金额添加操作
         if (entity.getGive() != null) {

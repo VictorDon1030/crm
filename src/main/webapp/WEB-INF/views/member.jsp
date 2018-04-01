@@ -1,4 +1,5 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -45,7 +46,9 @@
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
                            <p style="color: black"><span style="font-size: 15px;">&emsp;今天过生日的会员</span></p>
                           <p style="color: red;font-size:30px" align="center"><i><span class="feteCount">${result.todayBirthday}</span>位</i></p>
-                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" >${result.monthBirthday}</span>&emsp;位会员过生日</p>
+                          <p style="color: black; margin-left: 50px ;font-size:13px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" >${result.monthBirthday}</span>&emsp;位会员过生日
+                              <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="monthBirthday"></a>
+                          </p>
 
                       </div>
                 </span>
@@ -53,8 +56,8 @@
             <td>
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
                            <p style="color: black"><span style="font-size: 15px;">&emsp;累计消费</span></p>
-                          <p style="color: red;font-size:30px" align="center"><i><span class="feteCount"></span>元</i></p>
-                          <p style="color: black; margin-left: 90px">位会员,消费订单&emsp;<span style="color: #CC2222" class="feteCount" ></span>&emsp;笔</p>
+                          <p style="color: red;font-size:30px" align="center"><i><span class="feteCount">${result.totalAmount}</span>元</i></p>
+                          <p style="color: black; margin-left: 20px;margin-bottom: 50px ;font-size:13px">${result.totalMen}位会员,消费订单&emsp;<span style="color: #CC2222" class="feteCount" >${result.totalNumber}</span>&emsp;笔</p>
 
                       </div>
                 </span>
@@ -63,15 +66,6 @@
                       <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
                            <p style="color: black"><span style="font-size: 15px;">&emsp;会员总数:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;储值卡总额:<span style="color: #CC2222">${result.sumbalance}</span></p>
                           <p style="color: red;font-size:30px" align="center">${result.sumMember}<span class="feteCount"></span>位</></p>
-
-                      </div>
-                </span>
-            </td>
-            <td>
-                      <div style="padding:10px;align-content: center;" class="easyui-panel" data-options="width:280, height:180,border:false">
-                           <p style="color: black"><span style="font-size: 18px;">&emsp;今天过生日的会员</span></p>
-                          <p style="color: red;font-size:30px" align="center"><i><span class="feteCount"></span>位</i></p>
-                          <p style="color: black; margin-left: 90px">本月还有&emsp;<span style="color: #CC2222" class="feteCount" ></span>&emsp;位会员过生日</p>
 
                       </div>
                 </span>
