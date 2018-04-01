@@ -191,7 +191,7 @@ $(function () {
             return;
         }
         //判断
-        if ($(typeof ($("[tag=number]").val()!=number))) {
+        if (isNaN(parseInt($("[tag=number]").val()))) {
             $.messager.alert("温馨提示!", "请输入商品数量!", "info", function () {
                 return;
             });
