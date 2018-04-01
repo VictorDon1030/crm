@@ -17,7 +17,7 @@ $(function () {
     //设置日期输入框的值
     //$('#showDate').datetimebox('setValue', new Date());
     //页面一加载完，就要将今日按钮选中，表单是按照今日来查
-    $("#today").linkbutton("select");
+   // $("#today").linkbutton("select");
     ajaxData({"today":1});
 
     var methodObj = {
