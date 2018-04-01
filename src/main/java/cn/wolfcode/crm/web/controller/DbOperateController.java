@@ -20,7 +20,7 @@ public class DbOperateController {
     public JsonResult dbBackup(){
         JsonResult jsonResult = new JsonResult();
         try {
-            DbOperate.dbBackup("root", "admin", "localhost","3306", "back", "D:/back.sql");
+            DbOperate.dbBackup("root", "admin", "localhost","3306", "dece", "C:/dece.sql");
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -36,7 +36,7 @@ public class DbOperateController {
     public JsonResult dbRecover(){
         JsonResult jsonResult = new JsonResult();
         try {
-            DbOperate.dbRecover("root", "admin", "localhost","3306", "back", "D:/back.sql");
+            DbOperate.dbRecover("root", "admin", "localhost","3306", "dece", "C:/dece.sql");
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

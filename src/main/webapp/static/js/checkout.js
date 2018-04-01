@@ -164,6 +164,7 @@ $(function () {
             $(clone).find("[tag=minPrice]").val("");
             $(clone).find("[tag=initialInventory]").val("");
             $(clone).find("[tag=integral]").val("");
+            $("#totalNum").html(0);
         } else {
             currentTr.remove();
         }
@@ -402,9 +403,9 @@ $(function () {
             $('#product').datagrid('hideColumn','goodsMark');
             $('#product').datagrid('hideColumn','id');
             $('#product').datagrid('hideColumn', 'purchasingPrice');
-            $('#product').datagrid('hideColumn', 'minPrice');
+            /*$('#product').datagrid('hideColumn', 'minPrice');
             $('#product').datagrid('hideColumn', 'initialInventory');
-            $('#product').datagrid('hideColumn', 'integral');
+            $('#product').datagrid('hideColumn', 'integral');*/
         }
     });
 })
