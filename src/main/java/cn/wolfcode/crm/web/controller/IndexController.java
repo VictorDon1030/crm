@@ -45,8 +45,6 @@ public class IndexController {
         return "redirect:/login.jsp";
     }
 
-
-
     //跳转系统设置页面
     @RequestMapping("syshome")
     public String syshome(){

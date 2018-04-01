@@ -29,8 +29,10 @@
                         </div>
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
-                                <h3 id="memberName" style="margin-left: 110px">会员姓名</h3>
+                                &emsp;
+                                <h3 id="memberName" style="margin-left: 115px">会员姓名</h3>
                                 <ul>
+                                    &emsp;
                                     <li><span style="font-size: medium">会员卡号：</span>
                                         <input type="text" readonly style="font-size: medium;border: 0px;width: 100px" id="memberNum"/>
                                         <span style="font-size: medium">会员等级：</span><input readonly
@@ -88,7 +90,7 @@
                                         </li>
                                         &emsp;
                                         <li><span style="font-size: medium;">变动金额：</span>
-                                            <input id="changeAmout" type="number" name="amount" style="font-size: medium;"
+                                            <input id="changeAmount" type="number" name="amount" style="font-size: medium;" min="1"
                                                    data-options="prompt:'请输入要改变的积分金额'"/>
                                         </li>
                                         &emsp;
@@ -195,7 +197,9 @@
                         </div>
                         <div style="margin-left: 30px" class="right">
                             <div class="panel_user_information">
-                                <h3 id="memberName_gift" style="margin-left: 110px">会员姓名</h3>
+                                &emsp;
+                                <h3 id="memberName_gift" style="margin-left: 115px">会员姓名</h3>
+                                &emsp;
                                 <ul>
                                     <li><span style="font-size: medium">会员卡号：</span>
                                         <input type="text" readonly style="font-size: medium;border: 0px;width: 100px" id="memberNum_gift"/>
@@ -258,7 +262,7 @@
                                 <td>&emsp;<span id="needed_point"></span>&emsp;</td>
                                 <td>&emsp;<span id="quantity_remain"></span>&emsp;</td>
                                 <td>&emsp;<span id="quantity"><input id="ss" align="center" type="number"
-                                                                     style="width:60px;border: 0px" min="1"/>
+                                                                     style="width:60px;border: 0px;text-align: center" min="1"/>
                                     </span>&emsp;
                                 </td>
                                 <td>&emsp;<span><a id="operate"

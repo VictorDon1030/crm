@@ -55,8 +55,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-cloud" style="color: yellow"></i>天气预报</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/weather.do" data-id="1">我方出品</a></dd>
-                        <dd><a href="javascript:;" data-url="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=385&h=96&align=center" data-id="2">敌方出品</a></dd>
+                        <dd><a href="javascript:;" data-url="/weather.do" data-id="1">牛犇天气</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -81,9 +80,10 @@
                     <a href="javascript:;"><i class="fa fa-cubes" style="color: #00ee00"></i>库存管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-id="11">进货管理</a></dd>
+                        <dd><a href="javascript:;" data-id="31">供应商管理</a></dd>
                         <dd><a href="javascript:;" data-id="12">采购退货</a></dd>
                         <dd><a href="javascript:;" data-id="13">产品盘点</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="14">库存调拨</a></dd>
+                        <dd><a href="javascript:;" data-url="datalist.html" data-id="14">即时库存</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -99,6 +99,7 @@
                         <dd><a href="javascript:;" data-id="17">销售分析</a></dd>
                         <dd><a href="javascript:;" data-id="18">会员分析</a></dd>
                         <dd><a href="javascript:;" data-id="19">产品分析</a></dd>
+                        <dd><a href="javascript:;" data-id="30">类别分析</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -155,16 +156,14 @@
     <!--快捷菜单-->
     <div class="short-menu" style="display:none">
         <fieldset class="layui-elem-field layui-field-title">
-            <legend style="color:#fff;padding-top:10px;padding-bottom:10px;">快捷菜单</legend>
+            <legend style="color:#fff;padding-top:10px;padding-bottom:10px;">天气查询</legend>
+            <iframe src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=385&h=96&align=center" height="100" width="100%" style="background-color: white"></iframe>
             <div class="layui-field-box">
                 <div style="width:832px;margin:0 auto;">
-
-                    <div class="windows-tile windows-two" align="center">
-                        <font size="4">唧唧复唧唧</font>
-                    </div>
-                    <div class="windows-tile windows-two" align="center">
-                        <font size="4">木兰开飞机</font>
-                    </div>
+                    <%--<div class="windows-tile windows-two" align="center">--%>
+                    <%--<div class="windows-tile windows-two" align="center">
+                        <iframe src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=385&h=96&align=center"></iframe>
+                    </div>--%>
                     <div style="clear:both;"></div>
                 </div>
             </div>

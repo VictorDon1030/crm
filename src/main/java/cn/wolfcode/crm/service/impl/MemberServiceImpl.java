@@ -93,7 +93,7 @@ public class MemberServiceImpl implements IMemberService {
         Employee optUser = (Employee) SecurityUtils.getSubject().getPrincipal();
         Member member = memberMapper.selectByPrimaryKey(id);
 
-        if (member.getPoints().equals(BigDecimal.ZERO)) {
+        if (BigDecimal.ZERO.equals(member.getPoints())) {
             throw new RuntimeException("当前会员的积分已经为0,无需重复操作");
         }
         BonusPointRecord bonusPointRecord = new BonusPointRecord();

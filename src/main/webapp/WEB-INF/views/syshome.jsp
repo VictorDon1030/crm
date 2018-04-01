@@ -27,7 +27,6 @@
         <p class="changColor" style="height: 25px"><a href="javascript:myshop();" style='text-decoration:none;'><font size="3" color="white">本店信息</font></a></p>
         <p class="changColor" style="height: 25px"><a href="javascript:subbranch();" style='text-decoration:none;'><font size="3" color="white">分店管理</font></a></p>
         <p class="changColor" style="height: 25px"><a href="javascript:manage();" style='text-decoration:none;'><font size="3" color="white">员工管理</font></a></p>
-        <p class="changColor" style="height: 25px"><a href="#" style='text-decoration:none;'><font size="3" color="white">商品配置</font></a></p>
         <p class="changColor" style="height: 25px"><a href="javascript:dataManage();" style='text-decoration:none;'><font size="3" color="white">数据管理</font></a></p>
         <p class="changColor" style="height: 25px"><a href="javascript:payment();" style='text-decoration:none;'><font size="3" color="white">支付设置</font></a></p>
         <p class="changColor" style="height: 25px"><a href="javascript:systemLog();" style='text-decoration:none;'><font size="3" color="white">操作日志</font></a></p>

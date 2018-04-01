@@ -27,4 +27,13 @@
             join saleascount sale on sec.product_id = sale.product_id
         group by MONTH(sale.vdate)
     </select>
+
+    <select id="selectAllProfitDesc" resultType="map">
+        SELECT p.name productName,
+               SUM(sale.costAmount) totalCostAmount,SUM(sale.saleAmount) totalSaleAmount,
+               SUM(sale.saleAmount - sale.costAmount) profits
+        from product p
+            join saleascount sale on sale.product_id = p.id
+        group by p.name order by profits desc
+    </select>
 </mapper>

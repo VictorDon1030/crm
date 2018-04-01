@@ -1,5 +1,6 @@
 $(function () {
-    var memberSimpleInfo = $("#memberSimpleInfo,#memberSimpleInfo_gift");
+    var memberSimpleInfo = $("#memberSimpleInfo");
+    var memberSimpleInfoGift = $("#memberSimpleInfo_gift");
     var memberInfo = $("#memberInfo");
     var giftList = $("#giftList");
     var giftEdit = $("#giftEdit");
@@ -54,18 +55,19 @@ $(function () {
             } else {
                 memberSimpleInfo.datagrid("selectRow", index);
             }
+            memberSimpleInfoGift.datagrid("reload");
         },
         onSelect: function (index, row) {
-            $("#memberName,#memberName_gift").html(row.name);
-            $("#memberNum,#memberNum_gift").val(row.memberNum);
-            $("#grade,#grade_gift").val(row.grade.name);
-            $("#points,#points_gift").val(row.points);
-            $("#balance,#balance_gift").val(row.balance);
-            $("#birthday,#birthday_gift").val(row.birthday);
-            $("#hiddenMemberId,#hiddenMemberId_gift").val(row.id);
-            $("#comsumPoints,#comsumPoints_gift").val(row.consumePoints);
+            $("#memberName").html(row.name);
+            $("#memberNum").val(row.memberNum);
+            $("#grade").val(row.grade.name);
+            $("#points").val(row.points);
+            $("#balance").val(row.balance);
+            $("#birthday").val(row.birthday);
+            $("#hiddenMemberId").val(row.id);
+            $("#comsumPoints").val(row.consumePoints);
             $.post("/checkoutComeBill/selectBillAmount.do", {id: row.id}, function (data) {
-                $("#totalConsumeAmounts,#totalConsumeAmounts_gift").val(data);
+                $("#totalConsumeAmounts").val(data);
             });
             var sumPoints = 0;
             // var comsumPoints = 0;
@@ -75,7 +77,7 @@ $(function () {
                 }
 
             });
-            $("#sumPoints,#sumPoints_gift").val(sumPoints);
+            $("#sumPoints").val(sumPoints);
 
 
             memberInfo.datagrid({
@@ -127,6 +129,103 @@ $(function () {
                     {field: 'remark', width: 100, align: 'center', title: '备注'}
                 ]]
             });
+        }
+    });
+    memberSimpleInfoGift.datagrid({
+        url: '/member/listByKeyword.do',
+        columns: [[
+            {field: 'memberNum', width: 120, align: 'center', title: '会员卡号'},
+            {field: 'name', width: 110, align: 'center', title: '会员姓名'},
+            {
+                field: 'grade', width: 87, align: 'center', title: '会员等级', formatter: function (grade) {
+                return grade ? grade.name : grade;
+            }
+            },
+            {field: 'phone', width: 200, align: 'center', title: '电话'},
+            {field: 'balance', width: 100, align: 'center', title: '余额'}
+        ]],
+        onBeforeLoad: function () {
+            index = memberSimpleInfoGift.datagrid("getRowIndex", memberSimpleInfo.datagrid('getSelected'));
+        },
+        onLoadSuccess: function () {
+            if (index == -1) {
+                memberSimpleInfoGift.datagrid("selectRow", 0);
+            } else {
+                memberSimpleInfoGift.datagrid("selectRow", index);
+            }
+        },
+        onSelect: function (index, row) {
+            $("#memberName_gift").html(row.name);
+            $("#memberNum_gift").val(row.memberNum);
+            $("#grade_gift").val(row.grade.name);
+            $("#points_gift").val(row.points);
+            $("#balance_gift").val(row.balance);
+            $("#birthday_gift").val(row.birthday);
+            $("#hiddenMemberId_gift").val(row.id);
+            $("#comsumPoints_gift").val(row.consumePoints);
+            $.post("/checkoutComeBill/selectBillAmount.do", {id: row.id}, function (data) {
+                $("#totalConsumeAmounts_gift").val(data);
+            });
+            var sumPoints = 0;
+            // var comsumPoints = 0;
+            $.each(row.bonusPointRecord, function (index, item) {
+                if (item.amount >= 0) {
+                    sumPoints = sumPoints + item.amount;
+                }
+
+            });
+            $("#sumPoints_gift").val(sumPoints);
+
+
+           /* memberInfo.datagrid({
+                url: '/bonusPointRecord/selectByMemberId.do?memberId=' + row.id + '',
+                columns: [[
+                    {
+                        field: 'member', width: 120, align: 'center', title: '会员卡号', formatter: function (member) {
+                        return member ? member.memberNum : member;
+                    }
+                    },
+                    {
+                        field: 'memberName',
+                        width: 110,
+                        align: 'center',
+                        title: '会员姓名',
+                        formatter: function (value, row, index) {
+                            return row.member ? row.member.name : row.member;
+                        }
+                    },
+                    {
+                        field: 'grade',
+                        width: 87,
+                        align: 'center',
+                        title: '会员等级',
+                        formatter: function (value, row, index) {
+                            return row.member ? row.member.grade.name : row.member;
+                        }
+                    },
+                    {
+                        field: 'optUser', width: 200, align: 'center', title: '操作人员', formatter: function (optUser) {
+                        return optUser ? optUser.username : optUser;
+                    }
+                    },
+                    {
+                        field: 'type', width: 100, align: 'center', title: '操作类型', formatter: function (type) {
+                        return type == 1 ? "增加积分" : "扣除积分";
+                    }
+                    },
+                    {
+                        field: 'amount', width: 100, align: 'center', title: '变动数额', formatter: function (amount) {
+                        return amount > 0 ? "<span style='color: green'>" + "+" + amount + "</span>" : "<span style='color: red'>" + amount + "</span>";
+                    }
+                    },
+                    {
+                        field: 'optDate', width: 100, align: 'center', title: '操作时间', formatter: function (optDate) {
+                        return optDate ? timestampToTime(optDate) : optDate;
+                    }
+                    },
+                    {field: 'remark', width: 100, align: 'center', title: '备注'}
+                ]]
+            });*/
         }
     });
 
@@ -226,7 +325,7 @@ $(function () {
                         //刷新会员列表
                         memberSimpleInfo.datagrid('selectRow', index);
                         //将金额中的数据清空
-                        $("#changeAmout").val("");
+                        $("#changeAmount").val("");
 
                     } else {
                         $.messager.alert("温馨提示", data.msg, "info");
@@ -246,18 +345,20 @@ $(function () {
                             'id': memberId
                         }, function (data) {
                             if (data.success) {
+                                //将金额中的数据清空
+                                $("#changeAmount").val("");
+                                //刷新积分记录表
+                                memberInfo.datagrid("reload");
+                                //先获得当前的选中行
+                                memberSimpleInfo.datagrid("reload");
+                                //刷新会员列表
+                                memberSimpleInfo.datagrid('selectRow', index);
                                 $.messager.alert("温馨提示", "操作成功", "info");
                             } else {
                                 $.messager.alert("温馨提示", data.msg, "info");
                             }
                         }, "json");
-                        //刷新积分记录表
-                        memberInfo.datagrid("reload");
 
-                        //先获得当前的选中行
-                        memberSimpleInfo.datagrid("reload");
-                        //刷新会员列表
-                        memberSimpleInfo.datagrid('selectRow', index);
                     }
                 });
 
@@ -307,7 +408,8 @@ $(function () {
         chooseGift: function () {
             //判断当前用户的积分是否为0
             var points = $("#points_gift").val();
-            if (points === 0) {
+            var parseInt = parseFloat(points);
+            if (parseInt === 0) {
                 $.messager.alert("温馨提示", "当前用户积分为0", "info");
                 return;
             }
@@ -326,76 +428,76 @@ $(function () {
             chooseGift();
         },
         conformExchange: function () {
-           if($("#conform_exchange").linkbutton('options').disabled == false) {
+            if ($("#conform_exchange").linkbutton('options').disabled == false) {
 
-            var memberId = $("#hiddenMemberId_gift").val();
-            //先输入会员密码进行校验
-            $.messager.prompt('提示信息', '请输入当前会员的密码：', function (password) {
-                if (password) {
+                var memberId = $("#hiddenMemberId_gift").val();
+                //先输入会员密码进行校验
+                $.messager.prompt('提示信息', '请输入当前会员的密码：', function (password) {
+                    if (password) {
 
-                    $.post('/member/checkPass.do', {password: password, id: memberId}, function (data) {
-                        if (!data.success) {
+                        $.post('/member/checkPass.do', {password: password, id: memberId}, function (data) {
+                            if (!data.success) {
 
-                            methodObj.conformExchange();
-                            $.messager.alert("温馨提示", data.msg, "info");
-                            return;
-                        } else {
-                            //判断用户积分是否足够
-                            var neededPoints = $("#neededPoints_num").html();
-                            $.post('/member/checkPoints.do', {points: neededPoints, id: memberId}, function (data) {
-                                if (!data.success) {
-                                    $.messager.alert("温馨提示", data.msg, "info");
-                                    return;
-                                } else {
-                                    //保存一条记录
-                                    var giftId = $("#giftId").val();
-                                    var costPoints = $("#neededPoints_num").html();
-                                    var number = $("#ss").val();
-                                    $.post('/exchangeRecord/save.do', {
-                                        'gift.id': giftId,
-                                        costPoints: costPoints,
-                                        'members[0].id': memberId,
-                                        number: number
-                                    }, function (data) {
+                                methodObj.conformExchange();
+                                $.messager.alert("温馨提示", data.msg, "info");
+                                return;
+                            } else {
+                                //判断用户积分是否足够
+                                var neededPoints = $("#neededPoints_num").html();
+                                $.post('/member/checkPoints.do', {points: neededPoints, id: memberId}, function (data) {
+                                    if (!data.success) {
+                                        $.messager.alert("温馨提示", data.msg, "info");
+                                        return;
+                                    } else {
+                                        //保存一条记录
+                                        var giftId = $("#giftId").val();
+                                        var costPoints = $("#neededPoints_num").html();
+                                        var number = $("#ss").val();
+                                        $.post('/exchangeRecord/save.do', {
+                                            'gift.id': giftId,
+                                            costPoints: costPoints,
+                                            'members[0].id': memberId,
+                                            number: number
+                                        }, function (data) {
 
-                                        if (data.success) {
-                                            //刷新列表
-                                            $("#memberInfo_gift").datagrid("reload");
-                                            //让礼品的剩余数量减少
-                                            $.post('/gift/updateInventory.do', {
-                                                id: giftId,
-                                                number: number
-                                            }, function (data) {
-                                                if (!data.success) {
-                                                    $.messager.alert("温馨提示", data.msg, "info")
-                                                } else {
-                                                    //刷新列表
-                                                    giftList.datagrid("reload");
-                                                    giftList4choose.datagrid("reload");
-                                                    //刷新会员列表
-                                                    memberSimpleInfo.datagrid("reload");
-                                                    //将记录删除
-                                                    methodObj.deleteChoose();
-
-
-                                                }
-                                            }, 'json');
-
-                                            $.messager.alert("温馨提示", "恭喜您兑换保成功", "info");
-                                        } else {
-                                            $.messager.alert("温馨提示", "对不起,操作失败,请联系管理员", "info");
-                                        }
-                                    }, 'json')
+                                            if (data.success) {
+                                                //刷新列表
+                                                $("#memberInfo_gift").datagrid("reload");
+                                                //让礼品的剩余数量减少
+                                                $.post('/gift/updateInventory.do', {
+                                                    id: giftId,
+                                                    number: number
+                                                }, function (data) {
+                                                    if (!data.success) {
+                                                        $.messager.alert("温馨提示", data.msg, "info")
+                                                    } else {
+                                                        //刷新列表
+                                                        giftList.datagrid("reload");
+                                                        giftList4choose.datagrid("reload");
+                                                        //刷新会员列表
+                                                        memberSimpleInfoGift.datagrid("reload");
+                                                        //将记录删除
+                                                        methodObj.deleteChoose();
 
 
-                                }
-                            }, 'json')
-                        }
+                                                    }
+                                                }, 'json');
 
-                    }, "json");
-                }
-            });
-           }
+                                                $.messager.alert("温馨提示", "恭喜您兑换保成功", "info");
+                                            } else {
+                                                $.messager.alert("温馨提示", "对不起,操作失败,请联系管理员", "info");
+                                            }
+                                        }, 'json')
+
+
+                                    }
+                                }, 'json')
+                            }
+
+                        }, "json");
+                    }
+                });
+            }
 
         },
         deleteChoose: function () {
