@@ -13,29 +13,19 @@
 
 <div id="cc" class="easyui-layout" data-options="fit:true">
     <%--上--%>
-    <div data-options="region:'north',split:true,border:false" style="height:120px;">
+    <div data-options="region:'north',split:false,border:false" style="height:130px;">
         <form id="member_loadData_form">
-            <div>
-                <span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-
-            </span>
+            <div  style="margin-left: 120px;">
+                <div style="margin-left: 80px;margin-top: 10px">
                 <input id="name_textbox" class="easyui-textbox" name="name"
-                       data-options="width:280,label:'会员名称:',readonly:true"/>
-                <div>
-                    &nbsp;
-                </div>
-                <div>
-            <span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
 
-            </span>
+                       data-options="width:280,label:'会员名称:',readonly:true"/>
+                </div>
+                <div  style="margin-left: 80px;margin-top: 10px">
                     <span>
-              <input id="grade_textbox" class="easyui-textbox" name="grade.id"
+                     <input id="grade_textbox" class="easyui-textbox" name="grade.id"
                      data-options="width:280,label:'会员等级:',readonly:true"/>
-            </span>
+                 </span>
 
                     <span>
                <input id="birthday_textbox" class="easyui-textbox" name="birthday"
@@ -46,15 +36,7 @@
                       data-options="width:280,label:'会员余额:',readonly:true"/>
             </span>
                 </div>
-                <div>
-                    &nbsp;
-                </div>
-                <div>
-           <span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <%--<input class="easyui-validatebox" type="text" name="name" data-options="required:true,label:操作类型" />--%>
-
-            </span>
+                <div  style="margin-left: 80px;margin-top: 10px">
                     <span>
               <input class="easyui-textbox" name="arrearage" data-options="width:280,label:'会员欠费:',readonly:true"/>
             </span>
@@ -73,7 +55,7 @@
         </form>
     </div>
     <%--左--%>
-    <div data-options="region:'west',split:true,border:false" style="width:400px;">
+    <div data-options="region:'west',split:false,border:false" style="width:400px;">
         <%--表格--%>
         <table id="member_load_datagrid" class="table table-celled table-structured">
         </table>
@@ -98,7 +80,8 @@
             </span>
             <div id="chooseway" style="display:block;  ">
                 <span>选择类型:</span>
-                <input id="select_topup" title="充值" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
+                <input id="select_topup" title="充值" class="checkinput" data-recharge_type="0" checked="checked"
+                       name="addway"
                        value="1" type="radio" data-choose="1">
                 <span>充值</span>
                 <span>
@@ -129,7 +112,8 @@
 
 
             <span>
-                     <input id="give" class="easyui-textbox" name="give" data-options="width:280,label:'赠送金额:',prompt: '请输入赠送金额'"
+                     <input id="give" class="easyui-textbox" name="give"
+                            data-options="width:280,label:'赠送金额:',prompt: '请输入赠送金额'"
                             data-cmd="give"/>
                           </span>
             <span>
@@ -139,7 +123,8 @@
 
                 <span>支付方式:</span>
                     <c:forEach var="p" items="${payment}">
-                        <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'" data-payment="${p.id}"></a>
+                        <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'"
+                           data-payment="${p.id}"></a>
                     </c:forEach>
 
                 <span>
@@ -215,7 +200,8 @@
                 <span>支付方式:</span>
 
              <c:forEach var="p" items="${payment}">
-                 <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'" data-payment="${p.id}"></a>
+                 <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'"
+                    data-payment="${p.id}"></a>
              </c:forEach>
                 <span>
 
