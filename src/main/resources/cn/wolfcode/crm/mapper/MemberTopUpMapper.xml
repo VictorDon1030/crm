@@ -30,9 +30,9 @@
     <!--添加操作-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO membertopup (addbalance, addcount, give, toptime, intro, member_id,
-                                 product_id, discount, state, addway, onuser_id)
+                                 product_id, discount, state, addway, onuser_id,payment_id )
         VALUES (#{addbalance}, #{addcount}, #{give}, #{toptime}, #{intro}, #{member.id},
-                               #{product_id}, #{discount}, #{state}, #{addway}, #{onUser.id})
+                               #{product_id}, #{discount}, #{state}, #{addway}, #{onUser.id},#{payment.id})
     </insert>
 
 
@@ -53,6 +53,7 @@
             id,
             addbalance,
             addcount,
+            addway,
             give,
             toptime,
             intro,
@@ -67,6 +68,7 @@
             id,
             addbalance,
             addcount,
+            addway,
             give,
             toptime,
             intro,
@@ -86,6 +88,7 @@
             topup.id,
             topup.addbalance,
             topup.addcount,
+            topup.addway,
             topup.give,
             topup.toptime,
             topup.intro,

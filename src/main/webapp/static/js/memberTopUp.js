@@ -4,7 +4,7 @@ var addValue = 0;
 var totalValue = 0;
 var subValue = 0;
 var addBalanceValue = 0;
-var addCountValue = 0;
+var countValue = 0;
 $(function () {
     //显示左边的会员列表
     var member_load_datagrid = $("#member_load_datagrid");
@@ -33,7 +33,9 @@ $(function () {
     var checkinput = $("#checkinput");
     /*合计充值的id*/
     var totalMoney = $("#totalMoney");
+    var totalCount = $("#totalCount");
     /*左边的表格,显示会员*/
+    var memberName = null;
     member_load_datagrid.datagrid({
         width: 400,
         height: 250,
@@ -65,6 +67,7 @@ $(function () {
             id_hiddenCount.val(row.id);
             topup_datagrid.datagrid("load", {id: row.id});
             count_datagrid.datagrid("load", {id: row.id});
+            memberName = row.name;
         }
     });
 //充值充次事件点击
@@ -87,6 +90,10 @@ $(function () {
 
         }
 
+    });
+    var choose = "充值";
+    $("[data-choose]").click(function () {
+        choose = this.title;
     })
 
     /*充值,扣费,退还点击事件*/
@@ -121,8 +128,8 @@ $(function () {
                     } else {
 //显示
                         $(stateChildern).insertAfter(p);
-                        $(".easyui-textbox").textbox("setValue", " ");
                         document.getElementById('addWay').style.display = '';
+                        $(".easyui-textbox").textbox("setValue", " ");
                         totalMoney.html("¥0.00");
 
                     }
@@ -131,8 +138,9 @@ $(function () {
         );
     })
 //判断支付方式
-    var p = -1
+    var p = 22;
     $("a[data-payment]").click(function () {
+        console.log($(this).data("payment"));
         p = $(this).data("payment");
     })
     var sta = 1;
@@ -157,34 +165,42 @@ $(function () {
                 showType: 'show'
             });
         }
-        ff.form("submit", {
-            url: '/memberTopUp/saveOrUpdate.do',
-            onSubmit: function (param) {
-                param.state = sta;
-                param.payment = p;
+        ;
+
+        var info = "您确定要为<span style='color: red'>" + memberName + "</span>" + choose + "<span style='color: red'>"
+            + "¥" + (totalValue) + "</span>元吗?另:(赠送<span style='color: red'>" + getValue + "</span>金额)"
+        $.messager.alert("提示", info, "info", function () {
+            ff.form("submit", {
+                url: '/memberTopUp/saveOrUpdate.do',
+                onSubmit: function (param) {
+                    param.state = sta;
+                    param['payment.id'] = p;
 
 
-            },
-            success: function (data) {
-                data = $.parseJSON(data);
-                if (data.success) {
-                    $.messager.alert("温馨提示", "操作成功", "info", function () {
-                        totalMoney.html("¥0.00");
+                },
+                success: function (data) {
+                    console.log(data);
+                    data = $.parseJSON(data);
+                    if (data.success) {
+                        $.messager.alert("温馨提示", "操作成功", "info", function () {
+                            $(".easyui-textbox").textbox("setValue", " ");
+                            totalMoney.html("¥0.00");
+                            member_load_datagrid.datagrid("reload");
+                            var d = member_load_datagrid.datagrid("getSelected");
+                            topup_datagrid.datagrid("load", {id: d.id});
+
+
+                        })
+                    } else {
+                        $.messager.alert("温馨提示", data.msg, "info");
                         ff.form("clear");
-                        member_load_datagrid.datagrid("reload");
-                        var d = member_load_datagrid.datagrid("getSelected");
-                        topup_datagrid.datagrid("load", {id: d.id});
-
-
-                    })
-                } else {
-                    $.messager.alert("温馨提示", data.msg, "info");
-                    ff.form("clear");
-                    member_load_datagrid.datagrid("reload");
-                    totalMoney.html("¥0.00");
+                        $(".easyui-textbox").textbox("setValue", " ");
+                        totalMoney.html("¥0.00");
+                    }
                 }
-            }
+            })
         })
+
     });
     /*焦点事件,判断充值的input和赠送金额的input*/
     var base = 0;
@@ -202,17 +218,28 @@ $(function () {
             {
                 field: 'state', title: '操作类型', width: 80, align: 'center',
                 formatter: function (value, row, index) {
-                    if (value == 1) {
-                        return '充值';
+                    var way = null;
+                    if (row.addway == 1) {
+                        way = "<span style='color: #CC2222'>充值</span>"
+                    } else if (row.addway == -1) {
+
+                        way = "<span style='color: #CC2222'>扣费</span>"
                     } else {
-                        return '充次';
+                        way = "<span style='color: #CC2222'>退还</span>"
+
+                    }
+
+                    if (value == 1) {
+                        return '充值(' + way + ')';
+                    } else {
+                        return '充次(' + way + ')';
                     }
                 }
             },
             {
                 field: 'payment.id', title: '支付类型', width: 80, align: 'center',
                 formatter: function (index, row, value) {
-                    return row.grade ? '<span style="color: #CC2222">' + row.grade.name + '</span>' : row.grade;
+                    return row.payment ? '<span style="color: #CC2222">' + row.payment.name + '</span>' : row.payment;
                 }
             },
             {field: 'addbalance', title: '充值金额', width: 80, align: 'center'},
@@ -236,51 +263,6 @@ $(function () {
 
 
     /*提交充值表单*/
-//     btn.click(function () {
-//         //判断当选择了会员后才能进行充值操作
-//         if (!id_hidden.val()) {
-//             $.messager.alert("提示", "请选择会员进行充值", "warning");
-//             return;
-//         }
-//         if ($("[data-print]").prop("checked")) {
-//             $.messager.show({
-//                 title: '提示',
-//                 msg: '打印机已没纸,请添加',
-//                 timeout: 5000,
-//                 showType: 'show'
-//             });
-//         }
-//         ff.form("submit", {
-//             url: '/memberTopUp/saveOrUpdate.do',
-//             onSubmit: function (param) {
-//                 param.state = 1;
-//                 $("a[data-state]").click(function () {
-// //设置充值还是充次
-//                     param.state = $(this).data("state");
-//                 })
-//
-//             },
-//             success: function (data) {
-//                 data = $.parseJSON(data);
-//                 if (data.success) {
-//                     $.messager.alert("温馨提示", "操作成功", "info", function () {
-//                         totalMoney.html("¥0.00");
-//                         ff.form("clear");
-//                         member_load_datagrid.datagrid("reload");
-//                         var d = member_load_datagrid.datagrid("getSelected");
-//                         topup_datagrid.datagrid("load",{id:d.id});
-//
-//
-//                     })
-//                 } else {
-//                     $.messager.alert("温馨提示", data.msg, "info");
-//                     ff.form("clear");
-//                     member_load_datagrid.datagrid("reload");
-//                     totalMoney.html("¥0.00");
-//                 }
-//             }
-//         })
-//     });
     /*焦点事件,判断充值的input和赠送金额的input*/
     $("[data-cmd]").textbox({
         onChange: function (newValue, oldValue) {
@@ -298,6 +280,7 @@ $(function () {
                                 $("#msg").css("color", "red");
                                 getValue = parseFloat(getValue == null ? 0 : getValue) + parseFloat(500);
                                 base = parseFloat(500);
+                                // $("#give").textbox("setValue",500);
                                 dd.data("cmd", "");
                             }
 
@@ -311,6 +294,7 @@ $(function () {
                                 if (base == 500) {
                                     getValue = getValue - 500;
                                     base = 0;
+                                    base = parseFloat(parseFloat(getValue) - 500);
                                     $("#msg").css("color", "black");
                                 }
                                 dd.data("cmd", "add");
@@ -346,46 +330,57 @@ $(function () {
                 }
 
             })
-            if (!$("#chooseway").children("input").prop("checked")) {
-                if (d == 'addBalance') {
-                    var v = newValue;
-                    addBalanceValue = v;
-                    if (v >= 5000) {
-                        $("#msg").css("color", "red");
-                        addCountValue = parseFloat(addCountValue == null ? 0 : addCountValue) + parseFloat(5);
-                        base = parseFloat(5);
-                        dd.data("cmd", "aa");
-                    }
 
-                }
-                if (d == 'addCount') {
-                    var v = newValue;
-                    addCountValue = base + parseFloat(v);
-                    if (v >= 10) {
-                        $("#msg").css("color", "red");
-                        addCountValue = parseFloat(addCountValue == null ? 0 : addCountValue) + parseFloat(1);
-                        base = parseFloat(1);
-                        dd.data("cmd", "");
-                    }
-
-                }
-                if (d == 'aa') {
-                    if (newValue < 5000) {
-
-                        if (base == 500) {
-                            addCountValue = addCountValue - 5;
-                            base = base - 5;
-                            $("#msg").css("color", "black");
-                        }
-                        dd.data("cmd", "add");
-                    }
-                    addBalanceValue = newValue;
-                }
-                totalValue = (parseFloat(addBalanceValue == null ? 0 : addBalanceValue).toFixed(2));
-                totalMoney.html("¥" + (totalValue) + "(充次总数:" + addCountValue + " 赠送" + base + "次数)");
-            }
         }
-    })
+    });
+
+    $("[data-cmdcount]").textbox({
+        onChange: function (newValue, oldValue) {
+            var dd = $(this);
+            var d = dd.data("cmdcount");
+            console.log(dd.data("cmdcount"));
+            console.log(dd);
+            if (d == 'addBalance') {
+                var v = newValue;
+                addBalanceValue = v;
+                if (v >= 5000) {
+                    $("#msg").css("color", "red");
+                    countValue = parseFloat(countValue == null ? 0 : countValue) + parseFloat(5);
+                    base = parseFloat(5);
+                    dd.data("cmd", "aa");
+                }
+
+            }
+            if (d == 'addCount') {
+                var c = newValue;
+               countValue = base + parseFloat(newValue);
+               //  countValue=d.textbox("setText",newValue);
+                if (c >= 10) {
+                    $("#msg").css("color", "red");
+                    countValue = parseFloat(countValue == null ? 0 : countValue) + parseFloat(1);
+                    base = parseFloat(1);
+                    dd.data("cmd", "");
+                }
+
+            }
+            console.log(newValue);
+            if (d == 'aa') {
+                if (newValue < 5000) {
+
+                    if (base == 500) {
+                        countValue = countValue - 5;
+                        base = base - 5;
+                        $("#msg").css("color", "black");
+                    }
+                    dd.data("cmd", "add");
+                }
+                addBalanceValue = newValue;
+            }
+            totalValue = (parseFloat(addBalanceValue == null ? 0 : addBalanceValue).toFixed(2));
+            totalCount.html("¥" + (totalValue) + "(充次总数:" + countValue + " 赠送" + base + "次数)");
+
+        }
+    });
     /*显示表格的单号*/
 
 
@@ -416,7 +411,7 @@ $(function () {
             url: '/memberTopUp/saveOrUpdate.do',
             onSubmit: function (param) {
                 param.state == sta;
-                param.payment = p;
+                param[payment.id] = p;
 // //设置充值还是充次
 
             },
@@ -465,8 +460,9 @@ $(function () {
                 }
             },
             {
-                field: 'grade.id', title: '支付类型', width: 80, align: 'center', formatter: function (index, row, value) {
-                    return row.grade ? '<span style="color: #CC2222">' + row.grade.name + '</span>' : row.grade;
+                field: 'payment.id', title: '支付类型', width: 80, align: 'center',
+                formatter: function (index, row, value) {
+                    return row.payment ? '<span style="color: #CC2222">' + row.payment.name + '</span>' : row.payment;
                 }
             },
             {field: 'addbalance', title: '充值金额', width: 80, align: 'center'},

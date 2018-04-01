@@ -58,4 +58,5 @@ public interface MemberMapper {
     Map<String,Object> selectMonthBirthdayMember();
 
     Map<String,Object> selectTodayBirthdayMember();
+
 }

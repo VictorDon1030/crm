@@ -98,20 +98,20 @@
             </span>
             <div id="chooseway" style="display:block;  ">
                 <span>选择类型:</span>
-                <input id="select_topup" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
-                       value="1" type="radio">
+                <input id="select_topup" title="充值" class="checkinput" data-recharge_type="0" checked="checked" name="addway"
+                       value="1" type="radio" data-choose="1">
                 <span>充值</span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <input id="select_fee" class="checkinput" data-recharge_type="0" name="addway"
-                       value="-1" type="radio">
+                <input id="select_fee" class="checkinput" data-recharge_type="0" title="扣费" name="addway"
+                       value="-1" type="radio" data-choose="-1">
                 <span>扣费</span>
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <input id="select_refund" class="checkinput" data-recharge_type="0" name="addway"
-                       value="0" type="radio">
+                <input id="select_refund" class="checkinput" data-recharge_type="0" name="addway" title="退还"
+                       value="0" type="radio" data-choose="0">
                 <span>退还</span>
             </div>
               <span>
@@ -129,7 +129,7 @@
 
 
             <span>
-                     <input class="easyui-textbox" name="give" data-options="width:280,label:'赠送金额:',prompt: '请输入赠送金额'"
+                     <input id="give" class="easyui-textbox" name="give" data-options="width:280,label:'赠送金额:',prompt: '请输入赠送金额'"
                             data-cmd="give"/>
                           </span>
             <span>
@@ -138,9 +138,9 @@
             <div>
 
                 <span>支付方式:</span>
-<c:forEach var="p" items="${payment}">
-                <a class="easyui-linkbutton" data-options="width:60,height:36,text:'${p.name}'" data-btn="${p.id}"></a>
-</c:forEach>
+                    <c:forEach var="p" items="${payment}">
+                        <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'" data-payment="${p.id}"></a>
+                    </c:forEach>
 
                 <span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -164,7 +164,7 @@
             <div>
                 <span>备注信息:</span>
                 <input class="easyui-textbox" type="text" name="intro"
-                       data-options="multiline:true,height:80,width:300"/>
+                       data-options="multiline:true,height:80,width:300,prompt: '备注信息'"/>
             </div>
             <p> &nbsp; </p>
             <span>  <input id="select_print" data-recharge_type="0"
@@ -190,7 +190,7 @@
         </form>
         </span>
         <%--充次的表单--%>
-        <span id="countResult" >
+        <span id="countResult">
         <form id="count_from" method="post">
             <input type="hidden" name="member.id" id="id_hiddenCount">
             <span>
@@ -205,7 +205,8 @@
             </span>
 
             <span>
-                <input class="easyui-textbox" name="addbalance" data-options="width:280,label:'充值金额:'" data-cmd="addBalance"/>
+                <input class="easyui-textbox" name="addbalance" data-options="width:280,label:'充值金额:'"
+                       data-cmdcount="addBalance"/>
             </span>
             <span>
             <p> &nbsp; </p>
@@ -214,14 +215,14 @@
                 <span>支付方式:</span>
 
              <c:forEach var="p" items="${payment}">
-                 <a class="easyui-linkbutton" data-options="width:60,height:36,text:'${p.name}'" data-btn="${p.id}"></a>
+                 <a class="easyui-linkbutton" data-options="width:71,height:36,text:'${p.name}'" data-payment="${p.id}"></a>
              </c:forEach>
                 <span>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <span><input class="easyui-textbox" name="addcount" data-options="width:280,label:'充值次数:'"
-                             data-cmd="addCount"/></span>
+                             data-cmdcount="addCount"/></span>
             </div>
               &nbsp;
             <div>
@@ -259,7 +260,7 @@
                 </span>
             <a class="easyui-linkbutton" id="btnCount" data-options="width:80,height:46,text:'充值'"
                data-btnCount="addData"></a>
-            <table id="count_datagrid" ></table>
+            <table id="count_datagrid"></table>
         </form>
         </span>
         <%----%>

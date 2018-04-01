@@ -153,7 +153,6 @@ $(function () {
         methodObj[btn]();
     });
 
-
     member_datagrid.datagrid({
         fit: true,
         fitColumns: true,
