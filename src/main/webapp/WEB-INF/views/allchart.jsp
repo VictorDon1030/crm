@@ -57,7 +57,7 @@
     myChart1 = echarts.init(document.getElementById('main2'));
     var option1 = {
         title: {
-            text: '商品销售记录'
+            text: '最佳利润排行'
         },
         tooltip: {
             trigger: 'axis'
