@@ -136,9 +136,7 @@
                 <th data-options="field:'goodsMark',width:'50',sortable:true">商品编号</th>
                 <th data-options="field:'unitpPrice',width:'50',sortable:true">商品售价</th>
                 <th data-options="field:'brand',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'purchasingPrice',width:'50',sortable:true,hidden:true" hidden="true">会员价格</th>
-                <th data-options="field:'minPrice',width:'50',sortable:true,hidden:true" hidden="true">进货价格</th>
-                <th data-options="field:'minDiscount',width:'50',sortable:true" style="color: red">会员折扣</th>
+                <th data-options="field:'purchasingPrice',width:'50',sortable:true,hidden:true,title:'商品号'"></th>
             </tr>
             </thead>
         </table>
