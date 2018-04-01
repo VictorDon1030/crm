@@ -15,7 +15,7 @@
             <div class="easyui-layout" data-options="fit:true">
 
                 <!--北布局:查询按钮-->
-                <div data-options="region:'north',collapsible:false" style="height: 60px;">
+                <div data-options="region:'north',collapsible:false" style="height: 70px;">
                     <div  style="margin-top: 10px;margin-left: 10px;">
                         <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="window.open('/productAnalyze/exportXls.do')" >导出报表</a>
                         <a id="all" href="#" class="easyui-linkbutton" data-options="plain:true" data-btn="all">全部</a>

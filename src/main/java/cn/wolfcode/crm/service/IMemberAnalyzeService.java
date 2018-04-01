@@ -24,4 +24,6 @@ public interface IMemberAnalyzeService {
      * 高级查询并排序：柱状图用
      */
     List<Map<String,Object>> selectAndOrder();
+
+    List<Map<String,Object>> selectsaleRanking();
 }

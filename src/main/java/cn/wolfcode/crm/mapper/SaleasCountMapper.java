@@ -1,6 +1,5 @@
 package cn.wolfcode.crm.mapper;
 
-import cn.wolfcode.crm.domain.Department;
 import cn.wolfcode.crm.domain.SaleasCount;
 import cn.wolfcode.crm.query.QueryObject;
 

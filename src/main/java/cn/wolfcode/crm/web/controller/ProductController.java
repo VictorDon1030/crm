@@ -77,6 +77,7 @@ public class ProductController {
         return productService.get(id);
     }
 
+
 //  <%--post 1 提交表单  enctype  2 编码类型  3 上传控件 controller/ MultipartFile--%>
     //保存的时候路径+名称一起保存 然后就可以直接找到图片
     @RequestMapping("saveOrUpdate")
@@ -324,3 +325,26 @@ public class ProductController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

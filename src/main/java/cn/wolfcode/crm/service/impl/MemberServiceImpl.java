@@ -151,7 +151,12 @@ public class MemberServiceImpl implements IMemberService {
         Map<String,Object> map = new HashMap<>();
         //查询生日
         map.putAll(memberMapper.selectTodayBirthdayMember());
-
+        List<Map<String, Object>> maps = memberAnalyzeService.selectAll();
+        for (Map<String, Object> objectMap : maps) {
+            map.putAll(objectMap);
+        }
+        /*消费排行榜*/
+        List<Map<String, Object>> memberRankings =   memberAnalyzeService.selectsaleRanking();
         //查询总余额,总会员数
         map.putAll(memberMapper.selectSumMember());
         //查询今月生日

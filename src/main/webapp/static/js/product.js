@@ -43,91 +43,38 @@ $(function () {
 
 
 
-    $("#stair").change(function () {
-        //清空
-        $("#secondary").html("<option value='-1'>清选择</option>");
-        if(this.value == -1){
-            return;
-        }
-        //console.log(this.value);
-        $.get("/secondary/list.do",{pid:this.value}, function (data) {
-            //console.log(data);
-            $.each(data, function (index, item) {
-                //console.log(index, item);
-                // item.id
-                $( "<option value='"+item.id+"'>"+item.name+"</option>")
-                    .appendTo("#city");
-            });
-        },"json");
-    });
-
-
     //给商品设值 表头动态值
     $.get("/product/countId.do", function (data) {
-       /* for(var i = 0; i < data.length; i++){
-            console.log(data[i].pastDueTime);
-        }*/
 
         var d = new Date;
+        var creat = new Date(d.getTime() +  7320 * 24 * 30 * 1000);  //往后推2个月
+        //console.log(creat.getTime());
 
-        /* var date = "2011-01-01";
-         var arr = date.split("-")
-         //console.log(arr);
-         var c = new Date();
-         c.setFullYear(arr[0],arr[1],arr[2]);
-         //console.log(c.getFullYear());
-         alert(c.getFullYear())*/
+        var now = new Date();
+        //console.log(now.getTime())
 
 
-        var create = new Date();
-        var create1 = create.getFullYear();
-        var create2 = create.getMonth()+1;
-        var create4 = create.getMonth()+3;
-        var create3 = create.getDate();
-
-        var examine1 = new Date();
-        var examine2 = new Date();
-        var examine3 = new Date();
-        var examine4 = new Date();
-
+        //var t = 787986456465; // 当参数为数字的时候，那么这个参数就是时间戳，被视为毫秒，创建一个距离1970年1月一日指定毫秒的时间日期对象。
+        //console.log(new Date(t))
         var num = 0;
         var num2 = 0;
 
+        //console.log(data);
         var totalPrices = 0;
-        //console.log(data.total);
         for(var i = 0; i < data.length; i++){
             totalPrices += data[i].unitpPrice;
             if(data[i].pastDueTime != null && data[i].pastDueTime != ''){
-                var a = data[i].pastDueTime;
-                //console.log(data.length);
-                var split1 = a.split("-");
-                var split2 = a.split("-");
-                var split3 = a.split("-");
-                var split4 = a.split("-");
-                examine1.setFullYear(split1[0]);
-                examine2.setFullYear(split1[1]);
-                examine3.setFullYear(split1[2]);
-                examine4.setFullYear(split1[1]);
-                // console.log(examine1.getFullYear());
-                if (create1 >= examine1.getFullYear()){
-                    //console.log(create1, split1);
-                    if (create2 >= examine2.getFullYear()){
-                        if (create3 >= examine3.getFullYear()){
-                            num++
-                        }
-                    }
+                var t = data[i].pastDueTime; // 月、日、时、分、秒如果不满两位数可不带0.
+                var T = new Date(t); // 将指定日期转换为标准日期格式。Fri Dec 08 2017 20:05:30 GMT+0800 (中国标准时间)
+                //console.log(T.getTime())
+                if(now.getTime() >= T.getTime()){
+                    num++;
+                    //console.log(num++);
                 }
-                //console.log(create4 , examine4.getFullYear());
-                if (create1 >= examine1.getFullYear()){
-                    //console.log(create1, split1);
-                    if (create4 >= examine4.getFullYear()){
-                        if (create3 >= examine3.getFullYear()){
-                            num2++;
-                        }
-                    }
+                if(creat.getTime() >=  T.getTime()){
+                    num2++;
                 }
             }
-            //console.log(pastDue);
         }
         //console.log(num2);
         //console.log(count);
@@ -137,27 +84,54 @@ $(function () {
         $("#pastDue").html(num); //设置已经过期商品总数量
         $("#beAboutTo").html(num2-num); //设置两个月后过期商品总数量
 
-
-        /*function selectSort(arr){
-            var min,temp;
-            for(var i=0;i<arr.length-1;i++){
-                min=i;
-                for(var j=i+1;j<arr.length;j++){
-                    if(arr[j]<arr[min]){
-                        min = j;
-                    }
-                }
-                temp=arr[i];
-                arr[i]=arr[min];
-                arr[min]=temp;
-
-            }
-            return arr;
-        }
-        console.log(selectSort([6,1,2,4,3,5]))*/
-
         //目的拿到时间加
     },"json");
+
+    //最近7天 热卖商品
+    $.get("/saleasCount/selectAll.do", function (data) {
+
+        var d = new Date;
+        var create3 = new Date(d.getTime() + 24*7*60*60*1000);  //往后推7天
+        //console.log(create3.getTime());
+
+        var myDate = new Date(); //获取今天日期
+        myDate.setDate(myDate.getDate() - 7);
+        //console.log(myDate);
+
+
+        var num = 0;
+        var num2 = 0;
+        //变成数组
+        var a = [];
+        for(var i = 0; i < data.length; i++){
+            a.push(data[i].number)
+        }
+        //console.log(a);
+        //排序
+        var arr = a;
+        arr.sort(function (a, b) {
+            return b-a;
+        });
+        /*console.log(a[0]);
+        console.log(a[1]);
+        console.log(a[2]);*/
+        $("#num1").html(a[0]);
+        $("#num2").html(a[1]);
+        $("#num3").html(a[2]);
+
+        var a = [];
+        for(var i = 0; i < data.length; i++){
+            //if(data[i].vdate != null && data[i].vdate != ''){
+            //var c = data[i].vdate;
+            var t = data[i].vdate; // 月、日、时、分、秒如果不满两位数可不带0.
+            var T = new Date(t); // 将指定日期转换为标准日期格式。Fri Dec 08 2017 20:05:30 GMT+0800 (中国标准时间)
+            //console.log(T.getTime())
+               if(create3.getTime() >= T.getTime() && myDate.getTime() >= T.getTime()){
+                   a.push(data[i].number)
+               }
+        }
+    },"json");
+
 
     //主页面
     product_datagrid.datagrid({
