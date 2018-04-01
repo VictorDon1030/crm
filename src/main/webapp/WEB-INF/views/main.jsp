@@ -65,17 +65,14 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-user" style="color:#00f7ff"></i>会员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#" data-id="3">新增会员</a></dd>
                         <dd><a href="javascript:;" data-url="/member/view.do" data-id="4">会员列表</a></dd>
                         <dd><a href="javascript:;" data-url="/memberTopUp/view.do" data-id="5">会员充值</a></dd>
-                        <dd><a href="javascript:;" data-id="6">会员充次</a></dd>
-                        <dd><a href="javascript:;" data-url="datalist.html" data-id="7">积分管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/bonusPoint/view.do" data-id="7">积分管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-product-hunt" style="color: #00bbee"></i>商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="8">新增商品</a></dd>
                         <dd><a data-url="/product/view.do" href="javascript:;" data-id="9">商品列表</a></dd>
                         <dd><a data-url="/linkage/view.do" href="javascript:;" data-id="10">商品分类</a></dd>
                     </dl>
@@ -110,25 +107,20 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-handshake-o" style="color: #1acbfc"></i>营销平台</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="20">营销短信</a></dd>
-                        <dd><a href="javascript:;" data-id="21">微信会员</a></dd>
-                        <dd><a href="javascript:;" data-id="22">微信商城</a></dd>
-                        <dd><a href="javascript:;" data-id="23">营销活动</a></dd>
-                        <dd><a href="javascript:;" data-id="24">优惠券</a></dd>
+                        <dd><a href="javascript:;" data-url="/gzl.do" data-id="20">营销短信</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-file-text-o" style="color: #00ee00"></i>营销订单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="25">线上订单</a></dd>
-                        <dd><a href="javascript:;" data-id="26">线下订单</a></dd>
+                        <dd><a href="javascript:;" data-url="/gzl.do" data-id="25">线上订单</a></dd>
+                        <dd><a href="javascript:;" data-url="/gzl.do" data-id="26">线下订单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-group " style="color: #f4e039"></i>咨询客服</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#" data-id="27">渣渣辉</a></dd>
-                        <dd><a href="javascript:;" data-id="28">古扎乐</a></dd>
+                        <dd><a href="javascript:;" data-url="/zzh.do" data-id="27">渣渣辉</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
