@@ -5,6 +5,7 @@ import cn.wolfcode.crm.domain.ProductStock;
 import cn.wolfcode.crm.query.ProductStockQueryObject;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductStockMapper {
@@ -26,4 +27,5 @@ public interface ProductStockMapper {
     List<ProductStock> selectProductStockByDepotId(ProductStockQueryObject qo);
     Integer selectProductStockByDepotId4Count(ProductStockQueryObject qo);
 
+    void updateNumber(@Param("number") BigDecimal number,@Param("amount") BigDecimal amount,@Param("productId") Long id);
 }

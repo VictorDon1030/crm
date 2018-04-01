@@ -6,15 +6,15 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         ">
 
-	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
-	</bean>
+	<!--<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">-->
+		<!--<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>-->
+	<!--</bean>-->
 	<bean id="myFormAuthenticationFilter" class="cn.wolfcode.crm.web.filter.MyFormAuthenticationFilter"/>
 	<bean id="myRealm" class="cn.wolfcode.crm.realm.MyRealm"/>
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myRealm"/>
-		<property name="cacheManager" ref="cacheManager"/>
+		<!--<property name="cacheManager" ref="cacheManager"/>-->
 	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.crm.mapper.ClassAnalysisMapper">
+
+  <sql id="select">
+    select st.id,st.name,sum(s.number) totalNumber,
+   sum(s.saleAmount) totalAmount,
+    concat(TRUNCATE((sum(s.saleAmount))/(COUNT(s.saleAmount)*10000),2),'%') accountFor
+
+  </sql>
+
+  <sql id="from">
+    from stair st left JOIN secondary se on st.id=se.stair_id left JOIN
+    product p on se.product_id=p.id
+    left JOIN saleascount s on p.id=s.product_id
+  </sql>
+
+
+  <!--查询所有-->
+  <select id="selectAll" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+  </select>
+
+  <!--高级查询-->
+  <select id="queryByDate" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+    <include refid="where"/>
+    group by st.name
+    order by totalAmount desc
+    limit #{start},#{rows}
+  </select>
+
+
+  <sql id="where">
+    <where>
+      <if test="today!=null">
+        and DateDiff(s.vdate,now())=0
+      </if>
+      <if test="week!=null">
+        and TO_DAYS( NOW( ) ) - TO_DAYS( s.vdate) = 1
+
+      </if>
+      <if test="month!=null">
+        and DATE_FORMAT(s.vdate,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+      </if>
+      <if test="beginDate!=null">
+        and s.vdate >=#{beginDate}
+      </if>
+      <if test="endDate!=null">
+        and s.vdate &lt;=#{endDate}
+      </if>
+    </where>
+  </sql>
+
+  <!--高级查询，排序-->
+  <select id="selectAndOrder" resultType="map">
+    <include refid="select"/>
+    <include refid="from"/>
+    <include refid="where"/>
+    group by p.name
+    order by totalNumber desc
+  </select>
+</mapper>

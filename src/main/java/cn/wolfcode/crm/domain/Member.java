@@ -43,6 +43,8 @@ public class Member extends BaseDomain {
     private Date birthday;
     //维护与会员积分变化的关系
     private  List<BonusPointRecord> bonusPointRecord = new ArrayList<>(5);
+    //会员已经消费的积分
+    private Integer consumePoints;
 
-
+    private List<MemberTopUp> memberTopUps = new ArrayList<>();
 }
