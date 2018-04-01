@@ -56,8 +56,18 @@
 
                     <td>
                         <div class="easyui-panel" style="width:320px;height:170px; background-color: #dff0d8;">
-                            <p style="color: #000000"><span style="font-size: 18px;">&emsp;库存低于10件的 二类 商品有:</span></p>
+                            <p style="color: #000000"><span style="font-size: 18px;">&emsp;库存低于10件的  商品有:</span></p>
                             <p style="color: darkorange;font-size:30px" align="center"><i><span id="someProduct">0</span>件</i></p>
+                            <p style="color: #0000ff"><span style="font-size: 18px;">&emsp;共有 二类 商品</span><span style="font-size: 18px;" id="piece" > 0 </span><span style="font-size: 18px;" >样</span></p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div id="p" class="easyui-panel" style="width:320px;height:170px; background-color: #99cdff;">
+                            <span style="font-size: 18px;">&emsp;最近七天热卖商品</span>
+                            <p style="font-size:20px ;"><span style="font-size: 18px;">&emsp;第一名 : </span><i><span id="num1">1</span> 件</i></p>
+                            <p style="font-size:20px ;"><span style="font-size: 18px;">&emsp;第二名 : </span><i><span id="num2">1</span> 件</i></p>
+                            <p style="font-size:20px ;"><span style="font-size: 18px;">&emsp;第三名 : </span><i><span id="num3">1</span> 件</i></p>
                         </div>
                     </td>
 
@@ -69,13 +79,7 @@
                         </div>
                     </td>
 
-                    <td>
-                        <div id="p" class="easyui-panel" style="width:320px;height:170px; background-color: #99cdff;">
-                            <p><span style="font-size: 18px;">&emsp;共有商品</span></p>
-                            <p style="font-size:30px ;" align="center"><span style="color: darkorange"><i
-                                    id="totalProduct"><span id="piece">0</span>种</i></span></p>
-                        </div>
-                    </td>
+
 
 
                 </tr>

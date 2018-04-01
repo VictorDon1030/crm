@@ -5,8 +5,6 @@ import cn.wolfcode.crm.query.QueryObject;
 import cn.wolfcode.crm.service.ISaleasCountService;
 import cn.wolfcode.crm.util.JsonResult;
 import cn.wolfcode.crm.util.PageResult;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
