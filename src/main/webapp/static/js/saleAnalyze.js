@@ -45,12 +45,14 @@ $(function () {
             var endDate=$("#endDate").val();
             saleAanalyze_datagrid.datagrid("load",
                 {"beginDate":startDate,"endDate":endDate});
-            selectCondition={"beginDate":startDate,"endDate":endDate};
         },
         //点击导出
         export:function () {
-            console.log(selectCondition);
             window.open("/saleAnalyze/exportXls.do?selectCondition");
+        },
+        //点击退货
+        reback:function () {
+
         }
     };
 
@@ -69,6 +71,7 @@ $(function () {
         singleSelect: true,
         onLoadSuccess: function (data) {
             if (data.total == 0) {
+
                 //添加一个新数据行，第一列的值为你需要的提示信息，然后将其他列合并到第一列来，注意colspan参数为columns配置的总列数
                 $(this).datagrid('appendRow', { itemid: '<div style="text-align:center;color:red;">没有相关记录！</div>' }).datagrid('mergeCells',
                     { index: 0, field: 'itemid', colspan: 10 });
@@ -79,7 +82,9 @@ $(function () {
             else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
         },
         columns: [[
-            {field: 'name', title: '商品名称', width: 100},
+            {field: 'name', title: '商品名称', width: 100,formatter: function(row,value){
+                    return value.name+"&nbsp;&nbsp;&nbsp;&nbsp;<span><font style='color: #d20000'>多笔</font></span>";
+                }},
             {field: 'sn', title: '单号', width: 100},
            {field: 'member', title: '消费对象', width: 100,formatter: function(row,value){
                    return value?'会员':'散客';

@@ -13,7 +13,7 @@
         <!--中布局-->
         <div data-options="region:'center'">
 
-            <div data-options="region:'north'" style="height:50px">
+            <div data-options="region:'north'" style="height:65px">
                 <!--北布局:查询按钮-->
                 <div  style="margin-top: 10px;margin-left: 10px;">
                     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="export" >导出报表</a>
@@ -44,7 +44,6 @@
 
 
     </div>
-
 
 
 </body>
