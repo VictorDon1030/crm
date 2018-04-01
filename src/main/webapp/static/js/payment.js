@@ -10,7 +10,7 @@ $(function () {
     );
 
     $('#tj').click(function () {
-        $.get('/joinApply/saveOrUpdate.do',function (data) {
+        $.get('/joinApply/saveOrUpdate.do',$('#ff').serialize(),function (data) {
             if (data.success){
                 alert('成功');
             } else {
