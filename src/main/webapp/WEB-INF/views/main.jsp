@@ -57,9 +57,10 @@
                     <a href="javascript:;"><i class="fa fa-home"></i>首页</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="fa fa-cloud" style="color: yellow"></i>天气预报</a>
+                    <a href="javascript:;"><i class="fa fa-cloud" style="color: yellow"></i>相关事宜</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/weather.do" data-id="1">牛犇天气</a></dd>
+                        <dd><a href="javascript:;" data-url="/dictionary/view.do" data-id="35">数据字典</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
