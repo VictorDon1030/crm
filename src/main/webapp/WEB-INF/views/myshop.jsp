@@ -7,12 +7,12 @@
     <style type="text/css">
         .bg{
             margin-left: 20%;
-            font-size: 2.5ch;
+            font-size: 1.5ch;
             font-family: "STSong";
         }
         .ct{
             margin-left: 50px;
-            font-size: 2.5ch;
+            font-size: 1.5ch;
             font-family: "STSong";
         }
         .by{

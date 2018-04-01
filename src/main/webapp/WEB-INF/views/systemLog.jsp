@@ -22,7 +22,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-btn="searchs"></a>
     </div>
     <div align="center" class="bg">
-        <span>每1000次操作记录自动清除</span>
+        <span>每1000次操作记录自动清除,请刷新页面</span>
     </div>
 </div>
 </body>

@@ -190,7 +190,6 @@ $(function () {
         var methodName = $(this).data("cmd");
         console.log(methodName);
         methodobj[methodName]();
-
     });
 
 

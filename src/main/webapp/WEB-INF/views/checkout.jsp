@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>前台收银</title>
     <%--<%@ include file="/static/common/common.jsp"%>--%>
     <link href="/static/plugins/easyuiplus/themes/insdep/easyui.css" rel="stylesheet" type="text/css">
     <link href="/static/plugins/easyuiplus/easyui_full.css" rel="stylesheet" type="text/css">
@@ -32,7 +32,7 @@
 <body onload="showLeftTime();">
 <div id="cc" class="easyui-layout" style="width:750px;" fit="true">
     <div data-options="region:'north'">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-s',plain:true" onclick="fruits();">返回主页面</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-s',plain:true" onclick="window.history.back()">返回主页面</a>
     </div>
     <div data-options="region:'west',title:'收银订单明细',split:true">
         <form id="itemforms" method="post" id="checkoutItem">
@@ -136,10 +136,8 @@
                 <th data-options="field:'goodsMark',width:'50',sortable:true">商品编号</th>
                 <th data-options="field:'unitpPrice',width:'50',sortable:true">商品售价</th>
                 <th data-options="field:'brand',width:'50',sortable:true">商品品牌</th>
-                <th data-options="field:'purchasingPrice',width:'50',sortable:true,hidden:true" hidden="true">商品品牌</th>
-                <th data-options="field:'minPrice',width:'50',sortable:true,hidden:true" hidden="true">商品品牌</th>
-                <th data-options="field:'initialInventory',width:'50',sortable:true,hidden:true" hidden="true">商品品牌</th>
-                <th data-options="field:'integral',width:'50',sortable:true,hidden:true" hidden="true">商品品牌</th>
+                <th data-options="field:'purchasingPrice',width:'50',sortable:true,hidden:true" hidden="true">会员价格</th>
+                <th data-options="field:'minPrice',width:'50',sortable:true,hidden:true" hidden="true">进货价格</th>
                 <th data-options="field:'minDiscount',width:'50',sortable:true" style="color: red">会员折扣</th>
             </tr>
             </thead>
