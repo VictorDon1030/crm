@@ -4,8 +4,6 @@
 <html>
 <head>
     <%@ include file="/static/common/common.jsp" %>
-    <%--   <script type="text/javascript" src="/static/plugins/jiaoben5714/js/ai.js"></script>
-       <link rel="stylesheet" type="text/css" href="/static/plugins/jiaoben5714/css/ai.css">--%>
     <script type="text/css">
         .diamonds {
             width: 150px;
@@ -23,10 +21,6 @@
     <shiro:hasRole name="大队长"> </shiro:hasRole>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-btn="addData">新增</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" data-btn="editData">编辑</a>
-    <%--<a id="changeState" class="easyui-linkbutton"--%>
-    <%--data-options="iconCls:'icon-remove',plain:true" data-btn="changeState">设置挂失</a>--%>
-
-    <%--<a id="changePassword" class="easyui-linkbutton" data-options="iconCls:'icon-bqt',plain:true" data-btn="changePassword">重置密码</a>--%>
     <input class="easyui-textbox" id="keyword" prompt="请输入会员名或电话或卡号"/>
     <input id="gradeId" class="easyui-combobox"
            data-options="prompt:'选择会员等级',valueField:'id',textField:'name',

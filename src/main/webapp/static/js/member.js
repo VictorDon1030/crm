@@ -134,18 +134,8 @@ $(function () {
 
                 }
 
-                // $("emp_form").form("clear");
             });
         }
-        /*,
-        changePassword:function () {
-            var val = member_datagrid.datagrid("getSelected");
-            if (!val) {
-                $.messager.alert("温馨提示", "请选择一条数据", "info");
-                return;
-            }
-            rPassword.dialog("open");
-        }*/
     };
 
     $("a[data-btn]").click(function () {
@@ -175,8 +165,6 @@ $(function () {
             },
             {field: 'points', title: '积分', width: 50},
             {field: 'balance', title: '余额', width: 50},
-            {field: 'shop', title: '所属店铺', width: 50},
-            {field: 'come', title: '注来源', width: 50},
             {
                 field: 'state', title: '状态', width: 50, formatter: function (value, row, index) {
 
@@ -186,7 +174,7 @@ $(function () {
         ]]
         ,
         /*点击弹出菜单,设置挂失和重置密码*/
-        onClickRow: function (index, row) {
+        onDblClickRow: function (index, row) {
             mm.menu('show', {
                 left: 200,
                 top: 100,

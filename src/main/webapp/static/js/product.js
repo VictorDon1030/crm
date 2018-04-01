@@ -119,21 +119,25 @@ $(function () {
         $("#num2").html(a[1]);
         $("#num3").html(a[2]);
 
+        //var c = data;
+
+
         var a = [];
         for(var i = 0; i < data.length; i++){
-            //if(data[i].vdate != null && data[i].vdate != ''){
-            //var c = data[i].vdate;
-            var t = data[i].vdate; // 月、日、时、分、秒如果不满两位数可不带0.
-            var T = new Date(t); // 将指定日期转换为标准日期格式。Fri Dec 08 2017 20:05:30 GMT+0800 (中国标准时间)
-            //console.log(T.getTime())
-               if(create3.getTime() >= T.getTime() && myDate.getTime() >= T.getTime()){
-                   a.push(data[i].number)
-               }
+            if(data[i].vdate != null && data[i].vdate != '') {
+                //console.log(data[i].products[i].id);
+                var t = data[i].vdate; // 月、日、时、分、秒如果不满两位数可不带0.
+                var T = new Date(t); // 将指定日期转换为标准日期格式。Fri Dec 08 2017 20:05:30 GMT+0800 (中国标准时间)
+                //console.log(T.getTime())
+                if (create3.getTime() >= T.getTime() && myDate.getTime() >= T.getTime()) {
+                    a.push(data[i].number)
+                }
+            }
         }
     },"json");
 
 
-    //主页面
+
     product_datagrid.datagrid({
         fit: true,
         fitColumns: true,

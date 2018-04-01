@@ -319,11 +319,11 @@ $(function () {
                             })
                         }
                         // console.log(row.textbox("getText"));
-                        subValue = newValue;
+                        totalValue = newValue;
                         if (data.balance < newValue) {
-                            subValue = data.balance;
+                            totalValue = data.balance;
                         }
-                        totalMoney.html("¥" + (parseFloat(subValue).toFixed(2)))
+                        totalMoney.html("¥" + (parseFloat(totalValue).toFixed(2)))
 
                     }
 
